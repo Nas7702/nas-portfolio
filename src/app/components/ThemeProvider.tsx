@@ -15,7 +15,12 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    // Return a default theme for SSR and initial hydration
+    return {
+      theme: "light" as Theme,
+      toggleTheme: () => {},
+      setTheme: () => {},
+    };
   }
   return context;
 }
@@ -40,8 +45,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   // Apply theme to document
   useEffect(() => {
-    if (!mounted) return;
-
     const root = document.documentElement;
 
     if (theme === "dark") {
@@ -52,7 +55,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       root.style.colorScheme = "light";
     }
 
-    localStorage.setItem("theme", theme);
+    if (mounted) {
+      localStorage.setItem("theme", theme);
+    }
   }, [theme, mounted]);
 
   const toggleTheme = () => {
@@ -63,13 +68,10 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     setThemeState(newTheme);
   };
 
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return <div className="opacity-0">{children}</div>;
-  }
+  const contextValue = { theme, toggleTheme, setTheme };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );
