@@ -24,7 +24,7 @@ export const projects: Project[] = [
     title: "3D Interactive Portfolio",
     description: "A modern portfolio website featuring Three.js animations, scroll-triggered reveals, and smooth page transitions.",
     stack: ["Next.js", "Three.js", "Framer Motion", "TypeScript", "Tailwind CSS"],
-    image: "/projects/portfolio-preview.jpg",
+    image: "/next.svg",
     githubLink: "https://github.com/username/portfolio",
     liveLink: "https://portfolio.dev",
     caseStudy: {
@@ -53,9 +53,9 @@ export const projects: Project[] = [
         "Zero accessibility violations"
       ],
       images: [
-        "/projects/portfolio-hero.jpg",
-        "/projects/portfolio-mobile.jpg",
-        "/projects/portfolio-animations.gif"
+        "/next.svg",
+        "/vercel.svg",
+        "/globe.svg"
       ]
     }
   },
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     title: "Full-Stack E-commerce Platform",
     description: "Complete e-commerce solution with real-time inventory, payment processing, and admin dashboard.",
     stack: ["Next.js", "Node.js", "PostgreSQL", "Stripe", "Redis"],
-    image: "/projects/ecommerce-preview.jpg",
+    image: "/globe.svg",
     githubLink: "https://github.com/username/ecommerce",
     liveLink: "https://shop.example.com",
     caseStudy: {
@@ -93,9 +93,9 @@ export const projects: Project[] = [
         "5-star user satisfaction rating"
       ],
       images: [
-        "/projects/ecommerce-dashboard.jpg",
-        "/projects/ecommerce-checkout.jpg",
-        "/projects/ecommerce-mobile.jpg"
+        "/globe.svg",
+        "/vercel.svg",
+        "/file.svg"
       ]
     }
   },
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     title: "Collaborative Task Manager",
     description: "Real-time task management application with team collaboration features and data visualization.",
     stack: ["React", "Express.js", "Socket.io", "MongoDB", "D3.js"],
-    image: "/projects/taskmanager-preview.jpg",
+    image: "/file.svg",
     githubLink: "https://github.com/username/taskmanager",
     liveLink: "https://tasks.example.com",
     caseStudy: {
@@ -133,9 +133,9 @@ export const projects: Project[] = [
         "Featured in productivity tool roundups"
       ],
       images: [
-        "/projects/taskmanager-dashboard.jpg",
-        "/projects/taskmanager-analytics.jpg",
-        "/projects/taskmanager-mobile.jpg"
+        "/file.svg",
+        "/window.svg",
+        "/next.svg"
       ]
     }
   },
@@ -144,7 +144,7 @@ export const projects: Project[] = [
     title: "AI Content Generation Tool",
     description: "AI-powered content creation platform with multiple output formats and collaboration features.",
     stack: ["Next.js", "OpenAI API", "Prisma", "PostgreSQL", "Vercel"],
-    image: "/projects/ai-tool-preview.jpg",
+    image: "/vercel.svg",
     githubLink: "https://github.com/username/ai-content-tool",
     liveLink: "https://content.ai.example.com",
     caseStudy: {
@@ -173,9 +173,9 @@ export const projects: Project[] = [
         "$10K MRR achieved in 6 months"
       ],
       images: [
-        "/projects/ai-tool-interface.jpg",
-        "/projects/ai-tool-collaboration.jpg",
-        "/projects/ai-tool-analytics.jpg"
+        "/vercel.svg",
+        "/globe.svg",
+        "/window.svg"
       ]
     }
   },
@@ -184,7 +184,7 @@ export const projects: Project[] = [
     title: "Advanced Weather Dashboard",
     description: "Comprehensive weather application with interactive maps, forecasts, and severe weather alerts.",
     stack: ["Vue.js", "Node.js", "Express", "Weather APIs", "Mapbox"],
-    image: "/projects/weather-preview.jpg",
+    image: "/window.svg",
     githubLink: "https://github.com/username/weather-dashboard",
     liveLink: "https://weather.example.com",
     caseStudy: {
@@ -213,9 +213,9 @@ export const projects: Project[] = [
         "Praised for accessibility features"
       ],
       images: [
-        "/projects/weather-maps.jpg",
-        "/projects/weather-forecasts.jpg",
-        "/projects/weather-alerts.jpg"
+        "/window.svg",
+        "/file.svg",
+        "/globe.svg"
       ]
     }
   },
@@ -224,7 +224,7 @@ export const projects: Project[] = [
     title: "Blockchain Transaction Explorer",
     description: "Real-time blockchain explorer with transaction tracking, analytics, and portfolio management.",
     stack: ["React", "Web3.js", "Node.js", "GraphQL", "PostgreSQL"],
-    image: "/projects/blockchain-preview.jpg",
+    image: "/globe.svg",
     githubLink: "https://github.com/username/blockchain-explorer",
     liveLink: "https://explorer.blockchain.example.com",
     caseStudy: {
@@ -253,9 +253,9 @@ export const projects: Project[] = [
         "Recognized by crypto community"
       ],
       images: [
-        "/projects/blockchain-transactions.jpg",
-        "/projects/blockchain-analytics.jpg",
-        "/projects/blockchain-portfolio.jpg"
+        "/globe.svg",
+        "/vercel.svg",
+        "/next.svg"
       ]
     }
   }

@@ -91,7 +91,6 @@ function Scene() {
           color="#ffffff"
           anchorX="center"
           anchorY="middle"
-          font="/fonts/inter.woff"
           maxWidth={10}
           textAlign="center"
         >
