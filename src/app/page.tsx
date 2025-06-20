@@ -1,4 +1,3 @@
-import Image from "next/image";
 import PageTransition from "./components/PageTransition";
 import Hero from "./components/Hero";
 import ScrollReveal from "./components/ScrollReveal";
@@ -23,7 +22,7 @@ export default function Home() {
 
           <ScrollReveal direction="up" delay={0.3}>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 leading-relaxed">
-              I'm a passionate data analyst and visual storyteller who bridges the analytical and creative worlds.
+                              I&apos;m a passionate data analyst and visual storyteller who bridges the analytical and creative worlds.
               By day, I transform complex data into actionable insights. By passion, I capture and craft compelling
               visual stories through videography and photography.
             </p>
@@ -70,7 +69,7 @@ export default function Home() {
               </h3>
 
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                I'm currently putting together my portfolio showcase featuring exciting projects in
+                I&apos;m currently putting together my portfolio showcase featuring exciting projects in
                 <span className="font-semibold text-blue-600 dark:text-blue-400"> Data Science</span>,
                 <span className="font-semibold text-blue-600 dark:text-blue-400"> Software Development</span>,
                 <span className="font-semibold text-green-600 dark:text-green-400"> Videography</span>, and
@@ -187,7 +186,7 @@ export default function Home() {
           <ScrollReveal direction="up" delay={0.3}>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12">
               Whether you need data insights, software solutions, or compelling visual content,
-              I'd love to help bring your vision to life.
+              I&apos;d love to help bring your vision to life.
             </p>
           </ScrollReveal>
 

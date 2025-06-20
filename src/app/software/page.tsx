@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 // import { getTechnicalProjects } from "../../data/projects";
 // import { Project } from "../../data/projects";
 // import ProjectCard from "../components/ProjectCard";
@@ -78,7 +78,7 @@ export default function SoftwarePage() {
                 </h3>
 
                 <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                  I'm currently documenting and preparing detailed case studies for my technical projects, including
+                  I&apos;m currently documenting and preparing detailed case studies for my technical projects, including
                   machine learning models, data analytics dashboards, and full-stack applications.
                 </p>
 
