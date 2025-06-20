@@ -17,12 +17,12 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
   return (
     <motion.div
       className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
-      whileHover={{ y: -8, scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ y: -12, scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
       onClick={() => onOpenModal(project)}
     >
       {/* Project Image */}
-      <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500">
+      <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-blue-500 via-green-500 to-emerald-500">
         {!imageError ? (
           <Image
             src={project.image}
@@ -47,8 +47,8 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 bg-black/70 text-white rounded-full hover:bg-black/90 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.2, rotate: 5 }}
+            whileTap={{ scale: 0.85 }}
             onClick={(e) => e.stopPropagation()}
           >
             <Github size={16} />
@@ -59,8 +59,8 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 bg-black/70 text-white rounded-full hover:bg-black/90 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.2, rotate: -5 }}
+              whileTap={{ scale: 0.85 }}
               onClick={(e) => e.stopPropagation()}
             >
               <ExternalLink size={16} />
@@ -105,7 +105,7 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
       </div>
 
       {/* Hover border effect */}
-      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl" />
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 via-green-500 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl" />
     </motion.div>
   );
 }
