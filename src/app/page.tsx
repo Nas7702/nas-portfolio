@@ -40,12 +40,15 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-blue-900 dark:text-blue-300">Data Science & Software Engineering</h3>
                 <p className="text-gray-600 dark:text-gray-300">Python, Java, NextJS, SQL, Machine Learning, Vercel, Statistical Analysis</p>
+                <h3 className="text-xl font-semibold mb-4 text-blue-900 dark:text-blue-300">Data Science & Software Engineering</h3>
+                <p className="text-gray-600 dark:text-gray-300">Python, Java, NextJS, SQL, Machine Learning, Vercel, Statistical Analysis</p>
               </div>
               <div className="p-6 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
                 <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   🎨
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-green-900 dark:text-green-300">Visual Storytelling</h3>
+                <p className="text-gray-600 dark:text-gray-300">DaVinci Resolve Studio, Lightroom, Photoshop, After Effects, Photography, Colour Grading</p>
                 <p className="text-gray-600 dark:text-gray-300">DaVinci Resolve Studio, Lightroom, Photoshop, After Effects, Photography, Colour Grading</p>
               </div>
             </div>
