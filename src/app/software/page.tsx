@@ -48,16 +48,16 @@ export default function SoftwarePage() {
                   Python & Data Science
                 </span>
                 <span className="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm font-medium">
-                  Machine Learning
+                  Java Development
                 </span>
                 <span className="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 rounded-full text-sm font-medium">
                   React & Next.js
                 </span>
                 <span className="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm font-medium">
-                  Data Visualization
+                  Vercel Deployment
                 </span>
                 <span className="px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-full text-sm font-medium">
-                  Analytics & Insights
+                  Machine Learning
                 </span>
               </div>
             </ScrollReveal>
@@ -167,10 +167,10 @@ export default function SoftwarePage() {
               <ScrollReveal direction="up" delay={0.3}>
                 <div className="text-center">
                   <div className="text-3xl md:text-4xl font-bold text-green-600 dark:text-green-400 mb-2">
-                    ML
+                    Java
                   </div>
                   <div className="text-gray-600 dark:text-gray-300 font-medium">
-                    Machine Learning
+                    Backend Development
                   </div>
                 </div>
               </ScrollReveal>
@@ -178,7 +178,7 @@ export default function SoftwarePage() {
               <ScrollReveal direction="up" delay={0.4}>
                 <div className="text-center">
                   <div className="text-3xl md:text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">
-                    React
+                    NextJS
                   </div>
                   <div className="text-gray-600 dark:text-gray-300 font-medium">
                     Web Development
@@ -189,10 +189,10 @@ export default function SoftwarePage() {
               <ScrollReveal direction="up" delay={0.5}>
                 <div className="text-center">
                   <div className="text-3xl md:text-4xl font-bold text-yellow-600 dark:text-yellow-400 mb-2">
-                    SQL
+                    Vercel
                   </div>
                   <div className="text-gray-600 dark:text-gray-300 font-medium">
-                    Database Analytics
+                    Cloud Deployment
                   </div>
                 </div>
               </ScrollReveal>
