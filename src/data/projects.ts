@@ -153,14 +153,14 @@ export const projects: Project[] = [
     title: "Corporate Brand Video Series",
     description: "A series of corporate brand videos featuring dynamic storytelling and professional colour grading.",
     category: "videography",
-    stack: ["Adobe Premiere Pro", "After Effects", "DaVinci Resolve", "Photoshop"],
+    stack: ["DaVinci Resolve Studio", "Lightroom", "Photoshop", "After Effects"],
     image: "/file.svg",
     videoLink: "https://vimeo.com/nas/brand-video",
     caseStudy: {
       overview: "A comprehensive brand video series that elevated a company's digital presence through compelling visual storytelling.",
       problem: "The client needed engaging brand videos to improve their online presence and communicate their value proposition effectively.",
       solution: "Produced a series of high-quality brand videos with professional cinematography, motion graphics, and colour grading.",
-      technologies: ["Adobe Premiere Pro", "After Effects", "DaVinci Resolve", "Adobe Photoshop", "Cinema 4D"],
+      technologies: ["DaVinci Resolve Studio", "Adobe Lightroom", "Adobe Photoshop", "After Effects", "Cinema 4D"],
       features: [
         "Professional cinematography and lighting",
         "Custom motion graphics and animations",
@@ -235,13 +235,13 @@ export const projects: Project[] = [
     title: "Professional Portrait Series",
     description: "High-end portrait photography with advanced retouching and artistic post-processing.",
     category: "photography",
-    stack: ["Adobe Lightroom", "Photoshop", "Capture One", "Profoto"],
+    stack: ["DaVinci Resolve Studio", "Adobe Lightroom", "Photoshop", "Capture One"],
     image: "/window.svg",
     caseStudy: {
       overview: "A professional portrait photography series showcasing advanced lighting techniques and post-processing skills.",
       problem: "Clients needed high-quality professional headshots and portraits that would stand out in competitive markets.",
       solution: "Developed a signature portrait style combining professional studio lighting with artistic post-processing techniques.",
-      technologies: ["Adobe Lightroom", "Photoshop", "Capture One Pro", "Profoto Studio Lighting", "Phase One"],
+      technologies: ["DaVinci Resolve Studio", "Adobe Lightroom", "Adobe Photoshop", "Capture One Pro", "Profoto Studio Lighting"],
       features: [
         "Professional studio lighting setups",
         "Advanced skin retouching techniques",
