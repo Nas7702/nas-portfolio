@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 // import { getCreativeProjects } from "../../data/projects";
 // import { Project } from "../../data/projects";
 // import ProjectCard from "../components/ProjectCard";
@@ -177,7 +177,7 @@ export default function GalleryPage() {
                 </h3>
 
                 <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                  I'm currently curating and preparing a showcase of my creative work, including
+                  I&apos;m currently curating and preparing a showcase of my creative work, including
                   cinematic films, professional photography, and brand content for the
                   <span className="font-semibold text-green-600 dark:text-green-400"> Nas.Create</span> portfolio.
                 </p>
@@ -371,8 +371,8 @@ export default function GalleryPage() {
 
             <ScrollReveal direction="up" delay={0.3}>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 transition-colors duration-300">
-                Whether it's capturing your special moments or creating compelling brand content,
-                I'm here to help tell your story through stunning visuals.
+                                  Whether it&apos;s capturing your special moments or creating compelling brand content,
+                I&apos;m here to help tell your story through stunning visuals.
               </p>
             </ScrollReveal>
 

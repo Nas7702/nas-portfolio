@@ -16,7 +16,7 @@ export default function AboutPage() {
             <ScrollReveal direction="up" delay={0.3}>
               <div className="text-center mb-16">
                 <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                  I'm Naseem Hoque, a passionate data analyst and visual storyteller who bridges the gap between
+                  I&apos;m Naseem Hoque, a passionate data analyst and visual storyteller who bridges the gap between
                   analytical insights and creative expression. By day, I transform complex data into actionable
                   insights, and by passion, I capture and edit compelling visual stories through videography and photography.
                 </p>
@@ -89,9 +89,9 @@ export default function AboutPage() {
                   My Philosophy
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl mx-auto">
-                  "Both data analysis and visual storytelling share a common thread – they're about finding the
-                  story within. Whether it's discovering insights in datasets or crafting emotional narratives
-                  through video, I believe in the power of compelling storytelling to make an impact."
+                  &quot;Both data analysis and visual storytelling share a common thread – they&apos;re about finding the
+                  story within. Whether it&apos;s discovering insights in datasets or crafting emotional narratives
+                  through video, I believe in the power of compelling storytelling to make an impact.&quot;
                 </p>
               </div>
             </ScrollReveal>
@@ -100,11 +100,11 @@ export default function AboutPage() {
             <ScrollReveal direction="up" delay={0.8}>
               <div className="text-center mt-16">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                  When I'm Not Working
+                  When I&apos;m Not Working
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                  You'll find me exploring new locations for photography, experimenting with new editing techniques,
-                  or diving deep into the latest data science trends. I'm always looking for ways to merge my
+                  You&apos;ll find me exploring new locations for photography, experimenting with new editing techniques,
+                  or diving deep into the latest data science trends. I&apos;m always looking for ways to merge my
                   analytical mindset with creative expression.
                 </p>
               </div>
