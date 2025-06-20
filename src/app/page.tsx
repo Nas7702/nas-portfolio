@@ -1,6 +1,7 @@
 import PageTransition from "./components/PageTransition";
 import Hero from "./components/Hero";
 import ScrollReveal from "./components/ScrollReveal";
+import StackIcon, { IconName } from "tech-stack-icons";
 // import { getTechnicalProjects, getCreativeProjects } from "../data/projects";
 
 export default function Home() {
@@ -34,15 +35,15 @@ export default function Home() {
                 <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   📊
                 </div>
-                <h3 className="text-xl font-semibold mb-4 text-blue-900 dark:text-blue-300">Data Science</h3>
-                <p className="text-gray-600 dark:text-gray-300">Python, SQL, Machine Learning, Tableau, Statistical Analysis</p>
+                <h3 className="text-xl font-semibold mb-4 text-blue-900 dark:text-blue-300">Data Science & Software Engineering</h3>
+                <p className="text-gray-600 dark:text-gray-300">Python, Java, NextJS, SQL, Machine Learning, Vercel, Statistical Analysis</p>
               </div>
               <div className="p-6 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
                 <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
                   🎨
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-green-900 dark:text-green-300">Visual Storytelling</h3>
-                <p className="text-gray-600 dark:text-gray-300">Premiere Pro, After Effects, Photography, Colour Grading</p>
+                <p className="text-gray-600 dark:text-gray-300">DaVinci Resolve Studio, Lightroom, Photoshop, After Effects, Photography, Colour Grading</p>
               </div>
             </div>
           </ScrollReveal>
@@ -120,17 +121,17 @@ export default function Home() {
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { name: "Python", level: 95 },
-                    { name: "SQL", level: 90 },
-                    { name: "Machine Learning", level: 85 },
-                    { name: "Tableau", level: 88 },
-                    { name: "React", level: 82 },
-                    { name: "Statistics", level: 90 },
+                    { name: "Python", icon: "python" as IconName },
+                    { name: "Java", icon: "java" as IconName },
+                    { name: "SQL", icon: "postgresql" as IconName },
+                    { name: "NextJS", icon: "nextjs" as IconName },
+                    { name: "Machine Learning", icon: "python" as IconName },
+                    { name: "Statistics", icon: "python" as IconName },
                   ].map((skill, index) => (
                     <ScrollReveal key={skill.name} direction="up" delay={0.3 + index * 0.05}>
                       <div className="text-center">
-                        <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-blue-200 dark:bg-blue-800 flex items-center justify-center text-blue-800 dark:text-blue-200 font-bold text-xs">
-                          {skill.level}%
+                        <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-blue-200 dark:bg-blue-800 flex items-center justify-center">
+                          <StackIcon name={skill.icon} className="w-8 h-8" />
                         </div>
                         <h4 className="font-medium text-sm text-blue-900 dark:text-blue-300">{skill.name}</h4>
                       </div>
@@ -151,17 +152,21 @@ export default function Home() {
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { name: "Premiere Pro", level: 92 },
-                    { name: "After Effects", level: 85 },
-                    { name: "Photography", level: 90 },
-                    { name: "Colour Grading", level: 88 },
-                    { name: "Lightroom", level: 95 },
-                    { name: "Storytelling", level: 93 },
+                    { name: "DaVinci Resolve", icon: null, fallback: "🎬" },
+                    { name: "Lightroom", icon: "lightroom" as IconName, fallback: null },
+                    { name: "Photoshop", icon: "ps" as IconName, fallback: null },
+                    { name: "After Effects", icon: "ae" as IconName, fallback: null },
+                    { name: "Photography", icon: null, fallback: "📸" },
+                    { name: "Storytelling", icon: null, fallback: "📖" },
                   ].map((skill, index) => (
                     <ScrollReveal key={skill.name} direction="up" delay={0.3 + index * 0.05}>
                       <div className="text-center">
-                        <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-green-200 dark:bg-green-800 flex items-center justify-center text-green-800 dark:text-green-200 font-bold text-xs">
-                          {skill.level}%
+                        <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-green-200 dark:bg-green-800 flex items-center justify-center">
+                          {skill.fallback ? (
+                            <span className="text-green-800 dark:text-green-200 text-lg">{skill.fallback}</span>
+                          ) : skill.icon ? (
+                            <StackIcon name={skill.icon} className="w-8 h-8" />
+                          ) : null}
                         </div>
                         <h4 className="font-medium text-sm text-green-900 dark:text-green-300">{skill.name}</h4>
                       </div>
