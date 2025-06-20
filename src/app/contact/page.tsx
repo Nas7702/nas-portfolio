@@ -11,11 +11,11 @@ export default function ContactPage() {
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-16">
                 <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-                  Let's Work Together
+                  Let&apos;s Work Together
                 </h1>
                 <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
                   Whether you need data insights, software solutions, or compelling visual content,
-                  I'd love to help bring your vision to life. Let's discuss your project!
+                  I&apos;d love to help bring your vision to life. Let&apos;s discuss your project!
                 </p>
               </div>
             </ScrollReveal>
@@ -29,8 +29,8 @@ export default function ContactPage() {
                       Get In Touch
                     </h2>
                     <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                      I'm always excited to work on new projects and collaborate with interesting people.
-                      Drop me a line and let's create something amazing together.
+                      I&apos;m always excited to work on new projects and collaborate with interesting people.
+                      Drop me a line and let&apos;s create something amazing together.
                     </p>
                   </div>
 
@@ -151,8 +151,8 @@ export default function ContactPage() {
                     Ready to Start Your Project?
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed max-w-2xl mx-auto">
-                    Whether you're looking to unlock insights from your data or capture your story through visuals,
-                    I'm here to help. Let's discuss how we can work together to achieve your goals.
+                    Whether you&apos;re looking to unlock insights from your data or capture your story through visuals,
+                    I&apos;m here to help. Let&apos;s discuss how we can work together to achieve your goals.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <a
