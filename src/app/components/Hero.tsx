@@ -108,10 +108,10 @@ function Scene() {
   const codeSnippets = [
     { code: "def analyze():", language: "Python", position: [-6, 4, -2] as [number, number, number], color: "#3b82f6" },
     { code: "SELECT *", language: "SQL", position: [6, 2, -3] as [number, number, number], color: "#1d4ed8" },
-    { code: "const api", language: "JS", position: [-5, -2, 1] as [number, number, number], color: "#60a5fa" },
+    { code: "const app", language: "NextJS", position: [-5, -2, 1] as [number, number, number], color: "#60a5fa" },
     { code: "import pd", language: "Python", position: [5, -3, -1] as [number, number, number], color: "#2563eb" },
-    { code: "docker run", language: "Docker", position: [-7, 0, 2] as [number, number, number], color: "#1e40af" },
-    { code: "git commit", language: "Git", position: [7, 3, 0] as [number, number, number], color: "#3730a3" },
+    { code: "public class", language: "Java", position: [-7, 0, 2] as [number, number, number], color: "#1e40af" },
+    { code: "vercel deploy", language: "Vercel", position: [7, 3, 0] as [number, number, number], color: "#3730a3" },
     { code: "npm install", language: "Node", position: [0, 4, -2] as [number, number, number], color: "#4338ca" },
     { code: "from sklearn", language: "ML", position: [0, -4, 1] as [number, number, number], color: "#6366f1" },
   ];

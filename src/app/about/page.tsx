@@ -35,7 +35,7 @@ export default function AboutPage() {
                     Data Analyst
                   </h2>
                   <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                    Working in data science, I specialize in extracting meaningful insights from complex datasets.
+                    Working in data science, I specialise in extracting meaningful insights from complex datasets.
                     I transform raw data into compelling narratives that drive business decisions and uncover
                     hidden patterns.
                   </p>
@@ -43,11 +43,11 @@ export default function AboutPage() {
                     <h3 className="font-semibold text-gray-900 dark:text-white">Skills & Tools:</h3>
                     <div className="flex flex-wrap gap-2">
                       <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm">Python</span>
+                      <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">Java</span>
+                      <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">NextJS</span>
                       <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">SQL</span>
-                      <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">Tableau</span>
-                      <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-full text-sm">R</span>
-                      <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-full text-sm">Excel</span>
-                      <span className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 rounded-full text-sm">Machine Learning</span>
+                      <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-full text-sm">Vercel</span>
+                      <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-full text-sm">Machine Learning</span>
                     </div>
                   </div>
                 </div>
@@ -70,10 +70,10 @@ export default function AboutPage() {
                   <div className="space-y-3">
                     <h3 className="font-semibold text-gray-900 dark:text-white">Creative Tools:</h3>
                     <div className="flex flex-wrap gap-2">
-                      <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-full text-sm">Adobe Premiere</span>
-                      <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm">After Effects</span>
-                      <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">Photoshop</span>
+                      <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-full text-sm">DaVinci Resolve Studio</span>
                       <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">Lightroom</span>
+                      <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">Photoshop</span>
+                      <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm">After Effects</span>
                       <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300 rounded-full text-sm">Final Cut Pro</span>
                       <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm">Colour Grading</span>
                     </div>
@@ -102,10 +102,12 @@ export default function AboutPage() {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   When I&apos;m Not Working
                 </h2>
-                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto">
+                                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto">
                   You&apos;ll find me exploring new locations for photography, experimenting with new editing techniques,
-                  or diving deep into the latest data science trends. I&apos;m always looking for ways to merge my
-                  analytical mindset with creative expression.
+                  diving deep into the latest data science trends, or training as a competitive powerlifter. My analytical
+                  approach extends to strength training, where I track performance metrics, analyse movement patterns,
+                  and optimise training programs using data-driven insights. I&apos;m always looking for ways to merge my
+                  analytical mindset with both creative expression and athletic performance.
                 </p>
               </div>
             </ScrollReveal>
