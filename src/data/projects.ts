@@ -2,10 +2,12 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  category: 'software' | 'data-science' | 'videography' | 'photography';
   stack: string[];
   image: string;
-  githubLink: string;
+  githubLink?: string;
   liveLink?: string;
+  videoLink?: string;
   caseStudy: {
     overview: string;
     problem: string;
@@ -19,38 +21,40 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  // Data Science Projects
   {
-    id: "portfolio-website",
-    title: "3D Interactive Portfolio",
-    description: "A modern portfolio website featuring Three.js animations, scroll-triggered reveals, and smooth page transitions.",
-    stack: ["Next.js", "Three.js", "Framer Motion", "TypeScript", "Tailwind CSS"],
+    id: "sales-analytics-dashboard",
+    title: "Sales Analytics Dashboard",
+    description: "Interactive dashboard for sales performance analysis with real-time data visualization and predictive modeling.",
+    category: "data-science",
+    stack: ["Python", "Pandas", "Plotly", "Streamlit", "SQL", "Machine Learning"],
     image: "/next.svg",
-    githubLink: "https://github.com/username/portfolio",
-    liveLink: "https://portfolio.dev",
+    githubLink: "https://github.com/nas/sales-analytics",
+    liveLink: "https://sales-dashboard.nas.dev",
     caseStudy: {
-      overview: "A cutting-edge portfolio website that showcases modern web technologies with immersive 3D experiences and smooth animations.",
-      problem: "Traditional portfolios often fail to engage visitors and showcase technical skills effectively. Static designs don't demonstrate proficiency with modern web technologies.",
-      solution: "Created an interactive experience using Three.js for 3D graphics, Framer Motion for smooth transitions, and scroll-triggered animations to create an engaging user journey.",
-      technologies: ["Next.js 14", "React Three Fiber", "Framer Motion", "TypeScript", "Tailwind CSS", "Three.js"],
+      overview: "A comprehensive sales analytics dashboard that transforms raw sales data into actionable insights for business decision-making.",
+      problem: "Sales teams lacked real-time visibility into performance metrics and struggled to identify trends and opportunities for optimization.",
+      solution: "Developed an interactive dashboard using Python and Streamlit that provides real-time analytics, trend analysis, and predictive modeling for sales forecasting.",
+      technologies: ["Python", "Pandas", "NumPy", "Plotly", "Streamlit", "SQL", "Scikit-learn", "PostgreSQL"],
       features: [
-        "Interactive 3D geometric shapes with physics",
-        "Scroll-triggered reveal animations",
-        "Smooth page transitions",
-        "Responsive design across all devices",
-        "Dark/light mode support",
-        "Performance optimized with lazy loading"
+        "Real-time sales performance tracking",
+        "Interactive data visualizations",
+        "Predictive sales forecasting",
+        "Customer segmentation analysis",
+        "Automated reporting generation",
+        "Export capabilities for presentations"
       ],
       challenges: [
-        "Optimizing Three.js performance on mobile devices",
-        "Implementing smooth scroll animations without jank",
-        "Balancing visual appeal with accessibility",
-        "Managing complex state across animated components"
+        "Handling large datasets with millions of records",
+        "Implementing real-time data updates",
+        "Creating intuitive visualizations for non-technical users",
+        "Optimizing query performance for dashboard responsiveness"
       ],
       results: [
-        "95+ Lighthouse performance score",
-        "40% increase in user engagement time",
-        "Featured on design showcases",
-        "Zero accessibility violations"
+        "25% improvement in sales forecasting accuracy",
+        "60% reduction in report generation time",
+        "Enhanced data-driven decision making across teams",
+        "Identified $500K in previously missed opportunities"
       ],
       images: [
         "/next.svg",
@@ -60,37 +64,37 @@ export const projects: Project[] = [
     }
   },
   {
-    id: "ecommerce-platform",
-    title: "Full-Stack E-commerce Platform",
-    description: "Complete e-commerce solution with real-time inventory, payment processing, and admin dashboard.",
-    stack: ["Next.js", "Node.js", "PostgreSQL", "Stripe", "Redis"],
+    id: "customer-churn-prediction",
+    title: "Customer Churn Prediction Model",
+    description: "Machine learning model to predict customer churn with 95% accuracy, enabling proactive retention strategies.",
+    category: "data-science",
+    stack: ["Python", "Scikit-learn", "XGBoost", "Tableau", "SQL"],
     image: "/globe.svg",
-    githubLink: "https://github.com/username/ecommerce",
-    liveLink: "https://shop.example.com",
+    githubLink: "https://github.com/nas/churn-prediction",
     caseStudy: {
-      overview: "A comprehensive e-commerce platform built for scalability, featuring real-time inventory management and seamless payment processing.",
-      problem: "Small businesses need affordable, feature-rich e-commerce solutions without the complexity and cost of enterprise platforms.",
-      solution: "Developed a full-stack platform with modern technologies, focusing on performance, user experience, and powerful admin tools.",
-      technologies: ["Next.js", "Node.js", "PostgreSQL", "Stripe API", "Redis", "Docker", "AWS"],
+      overview: "A machine learning solution that predicts customer churn with high accuracy, enabling businesses to implement proactive retention strategies.",
+      problem: "High customer churn rates were impacting revenue, but the company had no systematic way to identify at-risk customers before they left.",
+      solution: "Built a comprehensive churn prediction model using multiple algorithms and feature engineering to identify customers likely to churn within the next 30 days.",
+      technologies: ["Python", "Scikit-learn", "XGBoost", "Pandas", "NumPy", "Tableau", "SQL", "Docker"],
       features: [
-        "Real-time inventory management",
-        "Secure payment processing with Stripe",
-        "Advanced product filtering and search",
-        "Order tracking and notifications",
-        "Comprehensive admin dashboard",
-        "Mobile-first responsive design"
+        "95% prediction accuracy",
+        "Real-time scoring of customer risk",
+        "Feature importance analysis",
+        "Automated model retraining pipeline",
+        "Integration with CRM systems",
+        "Executive dashboard for insights"
       ],
       challenges: [
-        "Implementing real-time inventory updates",
-        "Handling concurrent payment processing",
-        "Optimizing database queries for large catalogs",
-        "Ensuring PCI compliance for payments"
+        "Dealing with imbalanced dataset",
+        "Feature engineering from diverse data sources",
+        "Model interpretability for business stakeholders",
+        "Implementing real-time prediction scoring"
       ],
       results: [
-        "Processed $100K+ in transactions",
-        "99.9% uptime in production",
-        "Sub-2 second page load times",
-        "5-star user satisfaction rating"
+        "30% reduction in customer churn rate",
+        "95% model accuracy on test data",
+        "$2M annual revenue retention",
+        "Automated early warning system for at-risk customers"
       ],
       images: [
         "/globe.svg",
@@ -99,38 +103,83 @@ export const projects: Project[] = [
       ]
     }
   },
+
+  // Software Development Projects
   {
-    id: "task-management-app",
-    title: "Collaborative Task Manager",
-    description: "Real-time task management application with team collaboration features and data visualization.",
-    stack: ["React", "Express.js", "Socket.io", "MongoDB", "D3.js"],
-    image: "/file.svg",
-    githubLink: "https://github.com/username/taskmanager",
-    liveLink: "https://tasks.example.com",
+    id: "portfolio-website",
+    title: "Interactive Portfolio Website",
+    description: "A modern, responsive portfolio website featuring Three.js animations and smooth transitions.",
+    category: "software",
+    stack: ["Next.js", "Three.js", "Framer Motion", "TypeScript", "Tailwind CSS"],
+    image: "/next.svg",
+    githubLink: "https://github.com/nas/portfolio",
+    liveLink: "https://nas-portfolio.dev",
     caseStudy: {
-      overview: "A collaborative task management platform designed to improve team productivity with real-time updates and insightful analytics.",
-      problem: "Teams struggle with coordination and visibility into project progress, especially in remote work environments.",
-      solution: "Built a real-time collaborative platform with live updates, progress tracking, and data visualization to enhance team coordination.",
-      technologies: ["React", "Express.js", "Socket.io", "MongoDB", "D3.js", "JWT Authentication"],
+      overview: "A cutting-edge portfolio website that showcases both technical skills and creative work with immersive 3D experiences.",
+      problem: "Needed a platform to showcase both data science projects and creative videography/photography work in an engaging way.",
+      solution: "Created an interactive hybrid portfolio using modern web technologies with 3D graphics and smooth animations.",
+      technologies: ["Next.js 14", "React Three Fiber", "Framer Motion", "TypeScript", "Tailwind CSS", "Three.js"],
       features: [
-        "Real-time collaborative editing",
-        "Interactive project timelines",
-        "Team performance analytics",
-        "Custom notification system",
-        "Drag-and-drop task organization",
-        "Integration with popular tools"
+        "Interactive 3D geometric shapes",
+        "Smooth page transitions",
+        "Responsive design across all devices",
+        "Dark/light mode support",
+        "Dual portfolio sections (data/creative)",
+        "Performance optimised with lazy loading"
       ],
       challenges: [
-        "Implementing conflict resolution for real-time editing",
-        "Scaling WebSocket connections",
-        "Creating intuitive data visualizations",
-        "Maintaining performance with large datasets"
+        "Optimising Three.js performance on mobile devices",
+        "Balancing technical and creative content presentation",
+        "Maintaining fast load times with rich media",
+        "Creating cohesive design for dual purposes"
       ],
       results: [
-        "50+ teams using the platform",
-        "30% improvement in project completion rates",
-        "99% real-time sync accuracy",
-        "Featured in productivity tool roundups"
+        "95+ Lighthouse performance score",
+        "Increased client inquiries by 150%",
+        "Featured in design showcases",
+        "Zero accessibility violations"
+      ],
+      images: [
+        "/next.svg",
+        "/vercel.svg",
+        "/globe.svg"
+      ]
+    }
+  },
+
+  // Videography Projects
+  {
+    id: "corporate-brand-video",
+    title: "Corporate Brand Video Series",
+    description: "A series of corporate brand videos featuring dynamic storytelling and professional colour grading.",
+    category: "videography",
+    stack: ["Adobe Premiere Pro", "After Effects", "DaVinci Resolve", "Photoshop"],
+    image: "/file.svg",
+    videoLink: "https://vimeo.com/nas/brand-video",
+    caseStudy: {
+      overview: "A comprehensive brand video series that elevated a company's digital presence through compelling visual storytelling.",
+      problem: "The client needed engaging brand videos to improve their online presence and communicate their value proposition effectively.",
+      solution: "Produced a series of high-quality brand videos with professional cinematography, motion graphics, and colour grading.",
+      technologies: ["Adobe Premiere Pro", "After Effects", "DaVinci Resolve", "Adobe Photoshop", "Cinema 4D"],
+      features: [
+        "Professional cinematography and lighting",
+        "Custom motion graphics and animations",
+        "Advanced colour grading and correction",
+        "Multi-format delivery for various platforms",
+        "Integrated brand elements and messaging",
+        "Optimised for social media distribution"
+      ],
+      challenges: [
+        "Coordinating complex shooting schedules",
+        "Matching brand aesthetics across multiple videos",
+        "Delivering high-quality content within tight deadlines",
+        "Optimising videos for different social platforms"
+      ],
+      results: [
+        "300% increase in social media engagement",
+        "50% boost in website conversion rates",
+        "Featured on company's main marketing channels",
+        "Won local business video award"
       ],
       images: [
         "/file.svg",
@@ -140,37 +189,37 @@ export const projects: Project[] = [
     }
   },
   {
-    id: "ai-content-generator",
-    title: "AI Content Generation Tool",
-    description: "AI-powered content creation platform with multiple output formats and collaboration features.",
-    stack: ["Next.js", "OpenAI API", "Prisma", "PostgreSQL", "Vercel"],
+    id: "wedding-highlight-reel",
+    title: "Cinematic Wedding Films",
+    description: "Cinematic wedding highlight reels with emotional storytelling and professional audio design.",
+    category: "videography",
+    stack: ["Final Cut Pro", "Motion", "Logic Pro", "Color Finale"],
     image: "/vercel.svg",
-    githubLink: "https://github.com/username/ai-content-tool",
-    liveLink: "https://content.ai.example.com",
+    videoLink: "https://vimeo.com/nas/wedding-films",
     caseStudy: {
-      overview: "An intelligent content generation platform that leverages AI to help content creators produce high-quality material efficiently.",
-      problem: "Content creators spend excessive time on ideation and initial drafts, limiting their ability to focus on refinement and strategy.",
-      solution: "Developed an AI-powered tool that generates various content types while maintaining brand voice and allowing for collaborative editing.",
-      technologies: ["Next.js", "OpenAI GPT-4", "Prisma ORM", "PostgreSQL", "Vercel", "Stripe"],
+      overview: "Cinematic wedding films that capture the emotion and beauty of couples' special days through artistic videography.",
+      problem: "Couples wanted more than traditional wedding videos - they desired cinematic films that told their unique love story.",
+      solution: "Developed a signature cinematic style combining documentary-style shooting with artistic post-production techniques.",
+      technologies: ["Final Cut Pro", "Motion 5", "Logic Pro", "Color Finale", "Adobe Audition"],
       features: [
-        "Multiple content format generation",
-        "Brand voice customization",
-        "Collaborative editing and review",
-        "Content optimization suggestions",
-        "Usage analytics and insights",
-        "API integration for third-party tools"
+        "Cinematic 4K footage with professional cameras",
+        "Emotional storytelling through careful editing",
+        "Professional audio mixing and design",
+        "Custom colour grading for mood enhancement",
+        "Same-day highlights for social sharing",
+        "Multiple delivery formats for clients"
       ],
       challenges: [
-        "Managing API rate limits and costs",
-        "Ensuring content quality and relevance",
-        "Implementing real-time collaboration",
-        "Balancing AI assistance with human creativity"
+        "Capturing key moments without being intrusive",
+        "Working in various lighting conditions",
+        "Coordinating with multiple wedding vendors",
+        "Delivering emotional impact through editing choices"
       ],
       results: [
-        "1000+ active users within 3 months",
-        "70% reduction in content creation time",
-        "95% user satisfaction rate",
-        "$10K MRR achieved in 6 months"
+        "100% client satisfaction rate",
+        "Featured in multiple wedding blogs",
+        "Referral rate of 80% from previous clients",
+        "Expanded to destination wedding bookings"
       ],
       images: [
         "/vercel.svg",
@@ -179,84 +228,53 @@ export const projects: Project[] = [
       ]
     }
   },
+
+  // Photography Projects
   {
-    id: "weather-dashboard",
-    title: "Advanced Weather Dashboard",
-    description: "Comprehensive weather application with interactive maps, forecasts, and severe weather alerts.",
-    stack: ["Vue.js", "Node.js", "Express", "Weather APIs", "Mapbox"],
+    id: "portrait-photography-series",
+    title: "Professional Portrait Series",
+    description: "High-end portrait photography with advanced retouching and artistic post-processing.",
+    category: "photography",
+    stack: ["Adobe Lightroom", "Photoshop", "Capture One", "Profoto"],
     image: "/window.svg",
-    githubLink: "https://github.com/username/weather-dashboard",
-    liveLink: "https://weather.example.com",
     caseStudy: {
-      overview: "A sophisticated weather dashboard providing detailed meteorological data with interactive visualizations and real-time alerts.",
-      problem: "Existing weather apps lack comprehensive data visualization and fail to present complex meteorological information in an accessible way.",
-      solution: "Created an advanced dashboard with interactive maps, detailed forecasts, and customizable alerts for weather enthusiasts and professionals.",
-      technologies: ["Vue.js", "Node.js", "Express", "OpenWeatherMap API", "Mapbox GL JS", "Chart.js"],
+      overview: "A professional portrait photography series showcasing advanced lighting techniques and post-processing skills.",
+      problem: "Clients needed high-quality professional headshots and portraits that would stand out in competitive markets.",
+      solution: "Developed a signature portrait style combining professional studio lighting with artistic post-processing techniques.",
+      technologies: ["Adobe Lightroom", "Photoshop", "Capture One Pro", "Profoto Studio Lighting", "Phase One"],
       features: [
-        "Interactive weather maps with layers",
-        "Detailed 14-day forecasts",
-        "Severe weather alert system",
-        "Historical weather data analysis",
-        "Customizable dashboard widgets",
-        "Location-based recommendations"
+        "Professional studio lighting setups",
+        "Advanced skin retouching techniques",
+        "Colour grading for mood and atmosphere",
+        "Multiple style variations per session",
+        "High-resolution delivery for print and digital",
+        "Quick turnaround for client needs"
       ],
       challenges: [
-        "Processing large meteorological datasets",
-        "Creating smooth map interactions",
-        "Implementing accurate alert systems",
-        "Optimizing for mobile performance"
+        "Achieving consistent lighting across different sessions",
+        "Balancing natural look with professional polish",
+        "Managing client expectations and comfort",
+        "Maintaining efficiency while ensuring quality"
       ],
       results: [
-        "Featured by local meteorologists",
-        "50K+ monthly active users",
-        "99.5% forecast accuracy rating",
-        "Praised for accessibility features"
+        "Featured in photography publications",
+        "95% client retention rate",
+        "Expanded to corporate headshot packages",
+        "Recognised by local business community"
       ],
       images: [
         "/window.svg",
         "/file.svg",
-        "/globe.svg"
-      ]
-    }
-  },
-  {
-    id: "blockchain-explorer",
-    title: "Blockchain Transaction Explorer",
-    description: "Real-time blockchain explorer with transaction tracking, analytics, and portfolio management.",
-    stack: ["React", "Web3.js", "Node.js", "GraphQL", "PostgreSQL"],
-    image: "/globe.svg",
-    githubLink: "https://github.com/username/blockchain-explorer",
-    liveLink: "https://explorer.blockchain.example.com",
-    caseStudy: {
-      overview: "A comprehensive blockchain explorer that provides real-time transaction monitoring and portfolio analytics for cryptocurrency users.",
-      problem: "Existing blockchain explorers are often complex and don't provide user-friendly interfaces for tracking transactions and portfolio performance.",
-      solution: "Developed an intuitive explorer with real-time updates, advanced search capabilities, and integrated portfolio management features.",
-      technologies: ["React", "Web3.js", "Node.js", "GraphQL", "PostgreSQL", "WebSocket", "Chart.js"],
-      features: [
-        "Real-time transaction monitoring",
-        "Advanced blockchain analytics",
-        "Portfolio tracking and insights",
-        "Multi-chain support",
-        "Transaction history visualization",
-        "Custom alert notifications"
-      ],
-      challenges: [
-        "Handling high-frequency blockchain data",
-        "Implementing multi-chain compatibility",
-        "Creating responsive data visualizations",
-        "Ensuring data accuracy and security"
-      ],
-      results: [
-        "10K+ daily active users",
-        "Support for 5+ blockchain networks",
-        "Sub-second transaction updates",
-        "Recognized by crypto community"
-      ],
-      images: [
-        "/globe.svg",
-        "/vercel.svg",
         "/next.svg"
       ]
     }
   }
 ];
+
+// Helper functions to filter projects by category
+export const getSoftwareProjects = () => projects.filter(p => p.category === 'software');
+export const getDataScienceProjects = () => projects.filter(p => p.category === 'data-science');
+export const getVideographyProjects = () => projects.filter(p => p.category === 'videography');
+export const getPhotographyProjects = () => projects.filter(p => p.category === 'photography');
+export const getCreativeProjects = () => projects.filter(p => p.category === 'videography' || p.category === 'photography');
+export const getTechnicalProjects = () => projects.filter(p => p.category === 'software' || p.category === 'data-science');

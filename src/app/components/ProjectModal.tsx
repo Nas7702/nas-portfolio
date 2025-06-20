@@ -75,8 +75,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.15, rotate: 5 }}
+                      whileTap={{ scale: 0.85 }}
                     >
                       <Github size={20} />
                     </motion.a>
@@ -87,8 +87,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
+                        whileHover={{ scale: 1.15, rotate: -5 }}
+                        whileTap={{ scale: 0.85 }}
                       >
                         <ExternalLink size={20} />
                       </motion.a>
@@ -97,8 +97,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     <motion.button
                       onClick={onClose}
                       className="p-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.15, rotate: 180 }}
+                      whileTap={{ scale: 0.85 }}
                     >
                       <X size={20} />
                     </motion.button>
