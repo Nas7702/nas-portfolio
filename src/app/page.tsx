@@ -215,7 +215,7 @@ export default function Home() {
               </a>
               <a
                 className="rounded-full border border-solid border-gray-300 dark:border-gray-600 transition-colors flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base h-12 px-8"
-                href="/software"
+                href="/tech"
               >
                 View All Work
               </a>
