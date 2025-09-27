@@ -28,13 +28,65 @@ export interface MediaItem {
   description?: string;
 }
 
-interface LightboxGalleryProps {
+// Helpers: detect/embed external video platforms and choose safe thumbnails
+function isYouTubeUrl(url: string): boolean {
+  return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//i.test(url);
+}
+
+function isVimeoUrl(url: string): boolean {
+  return /^(https?:\/\/)?(www\.)?vimeo\.com\//i.test(url);
+}
+
+function isEmbedUrl(url: string): boolean {
+  return isYouTubeUrl(url) || isVimeoUrl(url);
+}
+
+function getYouTubeId(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("youtu.be")) {
+      return u.pathname.slice(1) || null;
+    }
+    if (u.searchParams.get("v")) return u.searchParams.get("v");
+    const parts = u.pathname.split("/");
+    const embedIndex = parts.indexOf("embed");
+    if (embedIndex >= 0 && parts[embedIndex + 1]) return parts[embedIndex + 1];
+  } catch {}
+  return null;
+}
+
+function getVimeoId(url: string): string | null {
+  const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+  return match ? match[1] : null;
+}
+
+function getEmbedUrl(url: string): string | null {
+  if (isYouTubeUrl(url)) {
+    const id = getYouTubeId(url);
+    return id ? `https://www.youtube.com/embed/${id}` : null;
+  }
+  if (isVimeoUrl(url)) {
+    const id = getVimeoId(url);
+    return id ? `https://player.vimeo.com/video/${id}` : null;
+  }
+  return null;
+}
+
+function getThumbnailSrc(item: MediaItem): string {
+  if (item.thumbnail) return item.thumbnail;
+  // Avoid Next/Image remote domain issues: fall back to local placeholder for videos
+  if (item.type === "video") return "/window.svg";
+  return item.src;
+}
+
+  interface LightboxGalleryProps {
   items: MediaItem[];
   columns?: number;
   className?: string;
   showTitles?: boolean;
   enableZoom?: boolean;
   enableDownload?: boolean;
+  inlinePlayback?: boolean; // if true, embeds can play directly in grid
 }
 
 export default function LightboxGallery({
@@ -44,6 +96,7 @@ export default function LightboxGallery({
   showTitles = true,
   enableZoom = true,
   enableDownload = true,
+  inlinePlayback = false,
 }: LightboxGalleryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -72,7 +125,7 @@ export default function LightboxGallery({
           break;
         case " ":
           e.preventDefault();
-          if (currentItem.type === "video") {
+          if (currentItem.type === "video" && !isEmbedUrl(currentItem.src)) {
             togglePlayPause();
           }
           break;
@@ -167,6 +220,7 @@ export default function LightboxGallery({
             index={index}
             onClick={() => openLightbox(index)}
             showTitle={showTitles}
+            inlinePlayback={inlinePlayback}
           />
         ))}
       </div>
@@ -229,7 +283,7 @@ export default function LightboxGallery({
                       </>
                     )}
 
-                    {currentItem.type === "video" && (
+                    {currentItem.type === "video" && !isEmbedUrl(currentItem.src) && (
                       <>
                         <button
                           onClick={togglePlayPause}
@@ -246,7 +300,7 @@ export default function LightboxGallery({
                       </>
                     )}
 
-                    {enableDownload && (
+                    {enableDownload && !isEmbedUrl(currentItem.src) && (
                       <button
                         onClick={handleDownload}
                         className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
@@ -283,6 +337,20 @@ export default function LightboxGallery({
                         priority
                       />
                     </motion.div>
+                  ) : isEmbedUrl(currentItem.src) ? (
+                    <div className="relative w-full max-w-[min(100%,1280px)] aspect-video">
+                      {(() => {
+                        const embedUrl = getEmbedUrl(currentItem.src);
+                        return embedUrl ? (
+                          <iframe
+                            src={embedUrl}
+                            className="absolute inset-0 w-full h-full rounded-lg"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                          />
+                        ) : null;
+                      })()}
+                    </div>
                   ) : (
                     <video
                       ref={videoRef}
@@ -356,11 +424,13 @@ function ThumbnailCard({
   index,
   onClick,
   showTitle,
+  inlinePlayback,
 }: {
   item: MediaItem;
   index: number;
   onClick: () => void;
   showTitle: boolean;
+  inlinePlayback: boolean;
 }) {
   const [isInView, setIsInView] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -384,27 +454,54 @@ function ThumbnailCard({
     return () => observer.disconnect();
   }, []);
 
+  const thumbSrc = getThumbnailSrc(item);
+  const isLocalThumb = thumbSrc.startsWith("/");
+  const isEmbed = item.type === "video" && isEmbedUrl(item.src);
+
   return (
     <motion.div
-      className="group cursor-pointer"
+      className={`group ${inlinePlayback && isEmbed ? '' : 'cursor-pointer'}`}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      onClick={onClick}
+      onClick={inlinePlayback && isEmbed ? undefined : onClick}
     >
       <div
         ref={imgRef}
-        className="relative aspect-square bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden"
+        className={`relative ${inlinePlayback && isEmbed ? 'aspect-video' : 'aspect-square'} bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden`}
       >
         {isInView && (
           <>
-            {!imageError ? (
-              <Image
-                src={item.thumbnail || item.src}
-                alt={item.alt || item.title || `Media ${index + 1}`}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
-                onError={() => setImageError(true)}
-              />
+            {inlinePlayback && isEmbed ? (
+              (() => {
+                const embedUrl = getEmbedUrl(item.src);
+                return embedUrl ? (
+                  <iframe
+                    src={embedUrl}
+                    className="absolute inset-0 w-full h-full"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                ) : null;
+              })()
+            ) : !imageError ? (
+              isLocalThumb ? (
+                <Image
+                  src={thumbSrc}
+                  alt={item.alt || item.title || `Media ${index + 1}`}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <img
+                  src={thumbSrc}
+                  alt={item.alt || item.title || `Media ${index + 1}`}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                  onError={() => setImageError(true)}
+                />
+              )
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400">
                 <Maximize2 size={24} />
@@ -412,7 +509,7 @@ function ThumbnailCard({
             )}
 
             {/* Media Type Indicator */}
-            {item.type === "video" && (
+            {!inlinePlayback && item.type === "video" && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="p-3 bg-black/70 text-white rounded-full">
                   <Play size={20} />
@@ -421,7 +518,9 @@ function ThumbnailCard({
             )}
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+            {!inlinePlayback && (
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+            )}
           </>
         )}
       </div>
@@ -440,12 +539,17 @@ function ThumbnailCard({
 function ThumbnailPreview({ item }: { item: MediaItem }) {
   return (
     <div className="relative w-full h-full bg-gray-200 dark:bg-gray-800">
-      <Image
-        src={item.thumbnail || item.src}
-        alt={item.alt || item.title || "Thumbnail"}
-        fill
-        className="object-cover"
-      />
+      {(() => {
+        const thumb = getThumbnailSrc(item);
+        if (thumb.startsWith("/")) {
+          return (
+            <Image src={thumb} alt={item.alt || item.title || "Thumbnail"} fill className="object-cover" />
+          );
+        }
+        return (
+          <img src={thumb} alt={item.alt || item.title || "Thumbnail"} className="absolute inset-0 w-full h-full object-cover" />
+        );
+      })()}
       {item.type === "video" && (
         <div className="absolute inset-0 flex items-center justify-center">
           <Play size={12} className="text-white" />
