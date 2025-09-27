@@ -11,6 +11,8 @@ import ScrollReveal from "../components/ScrollReveal";
 import { Instagram, ExternalLink } from "lucide-react";
 import Image from "next/image";
 
+const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
+
 // Commented out sample media until real content is ready
 // const sampleMedia: MediaItem[] = [
 //   {
@@ -55,17 +57,28 @@ export default function GalleryPage() {
 
       <div className="nas-create-page min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         {/* Nas.Create Branded Header */}
-        <section className="py-20 px-8 relative overflow-hidden" style={{
-          background: 'linear-gradient(135deg, #1F1F1F 0%, #2a2a2a 50%, #1F1F1F 100%)'
-        }}>
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
+        <section className="py-20 px-6 sm:px-8 relative overflow-hidden bg-[#1F1F1F]">
+          <Image
+            src={HERO_BACKGROUND}
+            alt="Warm bokeh lights out of focus"
+            fill
+            priority
+            sizes="100vw"
+            className="absolute inset-0 object-cover object-center scale-105 blur-[18px] brightness-[0.45]"
+          />
+
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(1,255,112,0.16)_0%,rgba(31,31,31,0.92)_58%,rgba(3,7,18,0.95)_100%)]"
+          />
+
+          <div className="absolute inset-0 opacity-[0.09]">
             <div className="absolute inset-0" style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2301FF70' fill-opacity='0.1'%3E%3Ccircle cx='7' cy='7' r='7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2301FF70' fill-opacity='0.2'%3E%3Ccircle cx='7' cy='7' r='7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
             }} />
           </div>
 
-          <div className="max-w-6xl mx-auto text-center relative z-10">
+          <div className="max-w-6xl mx-auto text-center relative z-10 px-2 sm:px-0">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="flex flex-col items-center mb-8">
                 {/* Nas.Create Logo */}

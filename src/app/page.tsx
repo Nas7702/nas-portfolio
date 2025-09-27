@@ -3,235 +3,85 @@
 import PageTransition from "./components/PageTransition";
 import Hero from "./components/Hero";
 import ScrollReveal from "./components/ScrollReveal";
-import StackIcon from "tech-stack-icons";
-
-// import { getTechnicalProjects, getCreativeProjects } from "../data/projects";
 
 export default function Home() {
-  // const technicalProjects = getTechnicalProjects().slice(0, 2);
-  // const creativeProjects = getCreativeProjects().slice(0, 2);
-
   return (
     <PageTransition>
       <Hero />
 
-      {/* About Section */}
-      <section className="min-h-screen flex items-center justify-center p-8 sm:p-20">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative py-16 md:py-24">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(17,24,39,0.9)_0%,_rgba(17,24,39,0.75)_100%)]" />
+
+        <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6">
           <ScrollReveal direction="up" delay={0.1}>
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900 dark:text-white">
-              About Nas
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal direction="up" delay={0.3}>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 leading-relaxed">
-                              I&apos;m a passionate data analyst and visual storyteller who bridges the analytical and creative worlds.
-              By day, I transform complex data into actionable insights. By passion, I capture and craft compelling
-              visual stories through videography and photography.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal direction="up" delay={0.5}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="p-6 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                  📊
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-blue-900 dark:text-blue-300">Data Science & Software Engineering</h3>
-                <p className="text-gray-600 dark:text-gray-300">Python, Java, NextJS, SQL, Machine Learning, Vercel, Statistical Analysis</p>
-                <h3 className="text-xl font-semibold mb-4 text-blue-900 dark:text-blue-300">Data Science & Software Engineering</h3>
-                <p className="text-gray-600 dark:text-gray-300">Python, Java, NextJS, SQL, Machine Learning, Vercel, Statistical Analysis</p>
-              </div>
-              <div className="p-6 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
-                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                  🎨
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-green-900 dark:text-green-300">Visual Storytelling</h3>
-                <p className="text-gray-600 dark:text-gray-300">DaVinci Resolve Studio, Lightroom, Photoshop, After Effects, Photography, Colour Grading</p>
-                <p className="text-gray-600 dark:text-gray-300">DaVinci Resolve Studio, Lightroom, Photoshop, After Effects, Photography, Colour Grading</p>
-              </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-8 text-center text-sm font-medium uppercase tracking-[0.4em] text-white/50 backdrop-blur">
+              Trusted by Stance Fitness + partners
             </div>
           </ScrollReveal>
-        </div>
-      </section>
 
-      {/* Featured Work - Coming Soon */}
-      <section className="min-h-screen flex items-center justify-center p-8 sm:p-20 bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <ScrollReveal direction="up" delay={0.1}>
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900 dark:text-white">
-              Featured Work
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal direction="up" delay={0.3}>
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-12 shadow-xl border border-gray-200 dark:border-gray-700">
-              <div className="w-24 h-24 bg-gradient-to-br from-blue-500 via-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8">
-                <span className="text-white text-4xl">🚀</span>
-              </div>
-
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Coming Soon
-              </h3>
-
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                I&apos;m currently putting together my portfolio showcase featuring exciting projects in
-                <span className="font-semibold text-blue-600 dark:text-blue-400"> Data Science</span>,
-                <span className="font-semibold text-blue-600 dark:text-blue-400"> Software Development</span>,
-                <span className="font-semibold text-green-600 dark:text-green-400"> Videography</span>, and
-                <span className="font-semibold text-green-600 dark:text-green-400"> Photography</span>.
-              </p>
-
-              <div className="flex flex-wrap justify-center gap-3 mb-8">
-                <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium">
-                  📊 Data Analytics
-                </span>
-                <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium">
-                  💻 Web Development
-                </span>
-                <span className="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm font-medium">
-                  🎬 Videography
-                </span>
-                <span className="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm font-medium">
-                  📸 Photography
-                </span>
-              </div>
-
-              <p className="text-gray-500 dark:text-gray-400">
-                Check back soon for detailed case studies and project showcases!
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section className="min-h-screen flex items-center justify-center p-8 sm:p-20">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal direction="up" delay={0.1}>
-            <h2 className="text-4xl md:text-6xl font-bold mb-16 text-center text-gray-900 dark:text-white">
-              Hybrid Skill Set
-            </h2>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Technical Skills */}
-            <ScrollReveal direction="left" delay={0.2}>
-              <div className="bg-blue-50 dark:bg-blue-900/10 rounded-2xl p-8">
-                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                  📊
+          <div className="grid gap-6 md:grid-cols-2">
+            <ScrollReveal direction="up" delay={0.15}>
+              <a
+                href="/tech"
+                className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:border-[#9A5BFF] hover:shadow-lg/10"
+              >
+                <div className="flex flex-col gap-6">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/40">
+                      Data & Development
+                    </p>
+                    <h3 className="mt-3 text-2xl font-semibold text-white">
+                      Data & Development
+                    </h3>
+                  </div>
+                  <ul className="flex flex-col gap-2 text-sm text-white/70">
+                    <li>Analytics dashboards</li>
+                    <li>Algorithm R&amp;D</li>
+                    <li>Python pipelines</li>
+                  </ul>
                 </div>
-                <h3 className="text-2xl font-bold text-center mb-8 text-blue-900 dark:text-blue-300">
-                  Data & Development
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { name: "Python", icon: "python" },
-                    { name: "Java", icon: "java" },
-                    { name: "SQL", icon: "postgresql" },
-                    { name: "NextJS", icon: "nextjs" },
-                    { name: "Machine Learning", icon: "python" },
-                    { name: "Statistics", icon: "python" },
-                  ].map((skill, index) => (
-                    <ScrollReveal key={skill.name} direction="up" delay={0.3 + index * 0.05}>
-                      <div className="text-center p-4 rounded-xl bg-white/5 dark:bg-white/5 border border-blue-200/20 dark:border-blue-400/20 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300">
-                        <div className="w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                          <StackIcon
-                            name={skill.icon}
-                            variant={skill.name === "NextJS" ? "light" : "dark"}
-                            className="w-12 h-12"
-                          />
-                        </div>
-                        <h4 className="font-medium text-sm text-blue-900 dark:text-blue-300">{skill.name}</h4>
-                      </div>
-                    </ScrollReveal>
-                  ))}
-                </div>
-              </div>
+                <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#9A5BFF] transition group-hover:translate-x-1">
+                  See projects →
+                </span>
+              </a>
             </ScrollReveal>
 
-            {/* Creative Skills */}
-            <ScrollReveal direction="right" delay={0.2}>
-              <div className="bg-green-50 dark:bg-green-900/10 rounded-2xl p-8">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                  🎨
+            <ScrollReveal direction="up" delay={0.2}>
+              <a
+                href="/creative"
+                className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:border-[#9A5BFF] hover:shadow-lg/10"
+              >
+                <div className="flex flex-col gap-6">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/40">
+                      Content & Visuals
+                    </p>
+                    <h3 className="mt-3 text-2xl font-semibold text-white">
+                      Content & Visuals
+                    </h3>
+                  </div>
+                  <ul className="flex flex-col gap-2 text-sm text-white/70">
+                    <li>Brand films</li>
+                    <li>Product reels</li>
+                    <li>Photo sets</li>
+                  </ul>
                 </div>
-                <h3 className="text-2xl font-bold text-center mb-8 text-green-900 dark:text-green-300">
-                  Creative & Visual
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { name: "DaVinci Resolve", icon: null, fallback: "🎬" },
-                    { name: "Lightroom", icon: "lightroom" },
-                    { name: "Photoshop", icon: "ps" },
-                    { name: "After Effects", icon: "ae" },
-                    { name: "Videography", icon: null, fallback: "🎥" },
-                    { name: "Storytelling", icon: null, fallback: "📖" },
-                  ].map((skill, index) => (
-                    <ScrollReveal key={skill.name} direction="up" delay={0.3 + index * 0.05}>
-                      <div className="text-center p-4 rounded-xl bg-white/5 dark:bg-white/5 border border-green-200/20 dark:border-green-400/20 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300">
-                        <div className="w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-                          {skill.fallback ? (
-                            <span className="text-2xl">{skill.fallback}</span>
-                          ) : skill.icon ? (
-                            <StackIcon name={skill.icon} variant="light" className="w-12 h-12" />
-                          ) : null}
-                        </div>
-                        <h4 className="font-medium text-sm text-green-900 dark:text-green-300">{skill.name}</h4>
-                      </div>
-                    </ScrollReveal>
-                  ))}
-                </div>
-              </div>
+                <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#9A5BFF] transition group-hover:translate-x-1">
+                  See projects →
+                </span>
+              </a>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="min-h-screen flex items-center justify-center p-8 sm:p-20 bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <ScrollReveal direction="up" delay={0.1}>
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900 dark:text-white">
-              Let&apos;s Create Together
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal direction="up" delay={0.3}>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12">
-              Whether you need data insights, software solutions, or compelling visual content,
-              I&apos;d love to help bring your vision to life.
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal direction="up" delay={0.5}>
-            <div className="flex gap-4 items-center justify-center flex-col sm:flex-row">
-              <a
-                className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white gap-2 font-medium text-sm sm:text-base h-12 px-8"
-                href="mailto:nas@example.com"
-              >
-                Get In Touch
-              </a>
-              <a
-                className="rounded-full border border-solid border-gray-300 dark:border-gray-600 transition-colors flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium text-sm sm:text-base h-12 px-8"
-                href="/tech"
-              >
-                View All Work
-              </a>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Footer */}
       <ScrollReveal direction="up" delay={0.1}>
-        <footer className="py-12 flex gap-[24px] flex-wrap items-center justify-center border-t border-gray-200 dark:border-gray-800">
+        <footer className="py-12 flex gap-6 flex-wrap items-center justify-center border-t border-white/10 bg-black/30 backdrop-blur">
           <div className="text-center">
-            <p className="text-gray-600 dark:text-gray-300 mb-2">
-              <strong>Naseem Hoque</strong> - Data Analyst & Visual Storyteller
+            <p className="text-white/80 mb-2">
+              <strong className="font-semibold text-white">Naseem Hoque</strong> - Data Analyst & Visual Storyteller
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-white/60">
               Transforming Data & Capturing Stories
             </p>
           </div>
