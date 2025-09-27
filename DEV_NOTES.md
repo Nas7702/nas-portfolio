@@ -30,8 +30,8 @@ This document contains important preferences and conventions for the Nas Portfol
 - `/src/data/projects.ts` - Project descriptions and content
 - `/src/app/about/page.tsx` - About page content
 - `/src/app/contact/page.tsx` - Contact page content
-- `/src/app/software/page.tsx` - Software page content
-- `/src/app/gallery/page.tsx` - Gallery page content
+- `/src/app/tech/page.tsx` - Technical page content
+- `/src/app/create/page.tsx` - Creative page content
 - `/src/app/page.tsx` - Homepage content
 - All component files with user-facing text
 
