@@ -157,13 +157,13 @@ export default function ContactPage() {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <a
-                      href="mailto:nas@example.com?subject=Project Inquiry"
+                      href="mailto:nascreate0@gmail.com?subject=Project Inquiry"
                       className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors"
                     >
                       Send Email
                     </a>
                     <a
-                      href="tel:+1234567890"
+                      href="tel:+44747547833"
                       className="px-8 py-4 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-medium rounded-xl transition-colors"
                     >
                       Call Now
