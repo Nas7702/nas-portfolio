@@ -7,24 +7,25 @@
 // import ProjectModal from "../components/ProjectModal";
 import PageTransition from "../components/PageTransition";
 import ScrollReveal from "../components/ScrollReveal";
-// import LightboxGallery, { MediaItem } from "../components/LightboxGallery";
+import LightboxGallery, { MediaItem } from "../components/LightboxGallery";
 import { Instagram, ExternalLink } from "lucide-react";
 import Image from "next/image";
 
 const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
 
-// Commented out sample media until real content is ready
-// const sampleMedia: MediaItem[] = [
-//   {
-//     id: "1",
-//     type: "video",
-//     src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-//     thumbnail: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=400&fit=crop",
-//     title: "Corporate Brand Video",
-//     alt: "Corporate brand video showcase",
-//     description: "Professional brand video with dynamic storytelling and motion graphics."
-//   }
-// ];
+// Starter media: replace the src with your YouTube/Vimeo link
+const featuredMedia: MediaItem[] = [
+  {
+    id: "featured-1",
+    type: "video",
+    // Replace with your video link (YouTube/Vimeo/native mp4)
+    src: "https://youtu.be/lQ5mOoEOoqo",
+    // Local placeholder thumbnail is auto-applied if not provided
+    title: "Featured: Brand Film",
+    alt: "Featured brand film video",
+    description: "A cinematic brand piece demonstrating storytelling, pacing, and colour grading."
+  }
+];
 
 export default function GalleryPage() {
   // const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -172,6 +173,30 @@ export default function GalleryPage() {
                 Specialising in cinematic storytelling, brand content, and professional photography.
                 Every frame crafted with precision and creativity to capture your unique vision.
               </p>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* Featured Work */}
+        <section className="py-20 px-8 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal direction="up" delay={0.1}>
+              <div className="text-center mb-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">Featured Work</h2>
+                <p className="text-gray-600 dark:text-gray-300">A quick look at recent creative work.</p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal direction="up" delay={0.2}>
+              <LightboxGallery
+                items={featuredMedia}
+                columns={1}
+                className="grid-cols-1"
+                showTitles={true}
+                enableZoom={false}
+                enableDownload={false}
+                inlinePlayback={true}
+              />
             </ScrollReveal>
           </div>
         </section>

@@ -23,7 +23,7 @@ export default function Home() {
             <ScrollReveal direction="up" delay={0.15}>
               <a
                 href="/tech"
-                className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:border-[#9A5BFF] hover:shadow-lg/10"
+                className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:border-blue-500 hover:shadow-lg/10"
               >
                 <div className="flex flex-col gap-6">
                   <div>
@@ -40,7 +40,7 @@ export default function Home() {
                     <li>Python pipelines</li>
                   </ul>
                 </div>
-                <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#9A5BFF] transition group-hover:translate-x-1">
+                <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-blue-500 transition group-hover:translate-x-1">
                   See projects →
                 </span>
               </a>
@@ -49,7 +49,7 @@ export default function Home() {
             <ScrollReveal direction="up" delay={0.2}>
               <a
                 href="/creative"
-                className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:border-[#9A5BFF] hover:shadow-lg/10"
+                className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:border-blue-500 hover:shadow-lg/10"
               >
                 <div className="flex flex-col gap-6">
                   <div>
@@ -66,7 +66,7 @@ export default function Home() {
                     <li>Photo sets</li>
                   </ul>
                 </div>
-                <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#9A5BFF] transition group-hover:translate-x-1">
+                <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-blue-500 transition group-hover:translate-x-1">
                   See projects →
                 </span>
               </a>
