@@ -132,7 +132,7 @@ export default function SoftwarePage() {
                     Get Notified When Live
                   </a>
                   <a
-                    href="/gallery"
+                    href="/create"
                     className="px-6 py-3 border border-green-300 dark:border-green-600 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-800/20 font-medium rounded-lg transition-colors"
                   >
                     View Creative Work
@@ -225,7 +225,7 @@ export default function SoftwarePage() {
                   Start a Project
                 </a>
                 <a
-                  href="/gallery"
+                  href="/create"
                   className="px-8 py-4 border border-green-300 dark:border-green-600 text-green-700 dark:text-green-300 hover:bg-green-50 dark:hover:bg-green-800/20 font-medium rounded-xl transition-colors"
                 >
                   View Creative Work

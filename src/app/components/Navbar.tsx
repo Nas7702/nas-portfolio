@@ -8,8 +8,8 @@ import { Menu, X, Home, Code, Camera, User, Mail } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/software", label: "Technical", icon: Code },
-  { href: "/gallery", label: "Creative", icon: Camera },
+  { href: "/tech", label: "Technical", icon: Code },
+  { href: "/create", label: "Creative", icon: Camera },
   { href: "/about", label: "About", icon: User },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
@@ -73,7 +73,7 @@ export default function Navbar() {
                 const active = isActive(item.href);
 
                 // Use brand colors for Creative item
-                const isCreative = item.href === "/gallery";
+                const isCreative = item.href === "/create";
                 const activeColor = isCreative
                   ? "text-green-500 dark:text-green-400"
                   : "text-blue-600 dark:text-blue-400";
@@ -166,7 +166,7 @@ export default function Navbar() {
                   const active = isActive(item.href);
 
                   // Use brand colors for Creative item
-                  const isCreative = item.href === "/gallery";
+                  const isCreative = item.href === "/create";
                   const activeStyles = isCreative
                     ? "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400"
                     : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400";
