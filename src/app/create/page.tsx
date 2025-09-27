@@ -142,17 +142,17 @@ export default function GalleryPage() {
                 </span>
                 <span className="px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm border"
                   style={{
-                    backgroundColor: 'rgba(61, 106, 75, 0.15)',
-                    borderColor: 'rgba(61, 106, 75, 0.3)',
-                    color: '#3D6A4B'
+                    backgroundColor: 'rgba(1, 255, 112, 0.15)',
+                    borderColor: 'rgba(1, 255, 112, 0.3)',
+                    color: '#01FF70'
                   }}>
                   📸 Photography
                 </span>
                 <span className="px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm border"
                   style={{
-                    backgroundColor: 'rgba(25, 96, 80, 0.15)',
-                    borderColor: 'rgba(25, 96, 80, 0.3)',
-                    color: '#196050'
+                    backgroundColor: 'rgba(1, 255, 112, 0.15)',
+                    borderColor: 'rgba(1, 255, 112, 0.3)',
+                    color: '#01FF70'
                   }}>
                   🎨 Color Grading
                 </span>
