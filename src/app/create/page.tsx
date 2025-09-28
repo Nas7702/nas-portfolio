@@ -41,31 +41,15 @@ const featuredMedia: MediaItem[] = [
   {
     id: "featured-1",
     type: "video",
-    // Replace with your video link (YouTube/Vimeo/native mp4)
     src: "https://youtu.be/lQ5mOoEOoqo",
-    // Local placeholder thumbnail is auto-applied if not provided
+    thumbnail: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
     title: "Featured: Brand Film",
     alt: "Featured brand film video",
-    description: "A cinematic brand piece demonstrating storytelling, pacing, and colour grading."
+    description: "A brand film highlighting craft and attention to detail."
   }
 ];
 
 const portfolioItems: PortfolioItem[] = [
-  {
-    id: "Stance Fitness Promo",
-    type: "video",
-    kind: "video",
-    src: "https://youtu.be/lQ5mOoEOoqo",
-    thumbnail: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
-    title: "Stance Fitness Promo",
-    alt: "Stance Fitness Promo thumbnail",
-    tags: ["Brand Film", "Cinematic", "Color Grading"],
-    client: "Nas.Create",
-    role: "Director & Editor",
-    date: "2024",
-    cover: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
-    description: "A storytelling-first brand film highlighting craft and attention to detail."
-  },
   {
     id: "Sheffield Varsity Basketball",
     type: "video",
@@ -95,6 +79,21 @@ const portfolioItems: PortfolioItem[] = [
     date: "2025",
     cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
     description: "A highlight reel for an athlete at a powerlifting competition."
+  },
+  {
+    id: "Stance Fitness Promo",
+    type: "video",
+    kind: "video",
+    src: "https://youtu.be/lQ5mOoEOoqo",
+    thumbnail: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
+    title: "Stance Fitness Promo",
+    alt: "Stance Fitness Promo thumbnail",
+    tags: ["Brand Film", "Cinematic", "Color Grading"],
+    client: "Nas.Create",
+    role: "Director & Editor",
+    date: "2024",
+    cover: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
+    description: "A brand film highlighting craft and attention to detail."
   },
   {
     id: "Vizual Mods Promo",
@@ -305,21 +304,9 @@ export default function GalleryPage() {
 
   return (
     <PageTransition>
-      {/* Custom styles for Nas.Create brand colors */}
-      <style jsx global>{`
-        .nas-create-page {
-          --nas-primary: #01FF70;
-          --nas-secondary: #3D6A4B;
-          --nas-accent: #196050;
-          --nas-background: #1F1F1F;
-          --nas-text-light: #FFFFFF;
-          --nas-text-muted: #B0B0B0;
-        }
-      `}</style>
-
-      <div className="nas-create-page min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <div className="theme-creative min-h-screen bg-bg text-text transition-colors duration-300">
         {/* Nas.Create Branded Header */}
-        <section className="py-20 px-6 sm:px-8 relative overflow-hidden bg-[#1F1F1F]">
+        <section className="relative overflow-hidden py-20 px-6 sm:px-8 bg-bg">
           <Image
             src={HERO_BACKGROUND}
             alt="Warm bokeh lights out of focus"
@@ -329,15 +316,25 @@ export default function GalleryPage() {
             className="absolute inset-0 object-cover object-center scale-105 blur-[18px] brightness-[0.45]"
           />
 
+          {/* Overlay 1: subtle vignette */}
+          <div aria-hidden className="absolute inset-0 gradient-vignette" />
+
+          {/* Overlay 2: neutral dotted grid */}
           <div
-            aria-hidden
-            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(1,255,112,0.16)_0%,rgba(31,31,31,0.92)_58%,rgba(3,7,18,0.95)_100%)]"
+            className="absolute inset-0 opacity-[0.09] bg-grid"
+            style={{ WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.9), transparent 70%)', maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.9), transparent 70%)' }}
           />
 
-          <div className="absolute inset-0 opacity-[0.09]">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2301FF70' fill-opacity='0.2'%3E%3Ccircle cx='7' cy='7' r='7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }} />
+          {/* Overlay 3: faint green sprinkles */}
+          <div aria-hidden className="pointer-events-none absolute inset-0">
+            <div
+              className="absolute -top-20 -left-20 w-[60vw] h-[40vh]"
+              style={{ background: 'radial-gradient(600px 300px at 10% 20%, rgba(57,255,136,0.05), transparent 60%)' }}
+            />
+            <div
+              className="absolute -bottom-24 -right-24 w-[70vw] h-[50vh]"
+              style={{ background: 'radial-gradient(800px 400px at 85% 80%, rgba(57,255,136,0.04), transparent 65%)' }}
+            />
           </div>
 
           <div className="max-w-6xl mx-auto text-center relative z-10 px-2 sm:px-0">
@@ -359,10 +356,10 @@ export default function GalleryPage() {
                   </div>
                 </div>
 
-                <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+                <h1 className="text-4xl md:text-6xl font-bold text-text mb-4">
                   Visual Storytelling
                 </h1>
-                <p className="text-xl md:text-2xl text-gray-300 mb-6">
+                <p className="text-xl md:text-2xl text-dim mb-6">
                   Bringing ideas to life through the lens
                 </p>
               </div>
@@ -376,8 +373,8 @@ export default function GalleryPage() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 px-6 py-3 font-medium rounded-xl transition-all duration-200 transform hover:scale-105 group"
                   style={{
-                    background: 'linear-gradient(135deg, #01FF70 0%, #3D6A4B 100%)',
-                    color: '#1F1F1F'
+                    background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%)',
+                    color: '#0B0C0E'
                   }}
                 >
                   <Instagram size={20} />
@@ -385,9 +382,9 @@ export default function GalleryPage() {
                   <ExternalLink size={16} className="opacity-70 group-hover:opacity-100" />
                 </a>
 
-                <div className="flex items-center gap-2" style={{ color: '#01FF70' }}>
-                  <div className="w-2 h-2 rounded-full animate-pulse bg-green-400"></div>
-                  <span className="text-sm font-medium">Available for Projects</span>
+                <div className="flex items-center gap-2 text-accent">
+                  <div className="w-2 h-2 rounded-full animate-pulse bg-accent"></div>
+                  <span className="text-sm font-medium text-accent">Available for Projects</span>
                 </div>
               </div>
             </ScrollReveal>
@@ -397,12 +394,12 @@ export default function GalleryPage() {
                 {skillHighlights.map(({ label, icon: Icon }) => (
                   <div
                     key={label}
-                    className="flex items-center gap-2 text-sm font-medium text-emerald-200/90 tracking-wide"
+                    className="flex items-center gap-2 text-sm font-medium text-accent tracking-wide"
                   >
-                    <span className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-300">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-md bg-accent-ghost text-accent">
                       <Icon size={16} strokeWidth={2} />
                     </span>
-                    <span className="uppercase text-[0.75rem] tracking-[0.24em] text-emerald-100/80">
+                    <span className="uppercase text-[0.75rem] tracking-[0.24em] text-accent opacity-80">
                       {label}
                     </span>
                   </div>
@@ -411,7 +408,7 @@ export default function GalleryPage() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.7}>
-              <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-dim max-w-3xl mx-auto leading-relaxed">
                 Specialising in cinematic storytelling, brand content, and professional photography.
                 Every frame crafted with precision and creativity to capture your unique vision.
               </p>
@@ -420,12 +417,12 @@ export default function GalleryPage() {
         </section>
 
         {/* Featured Work */}
-        <section className="py-20 px-8 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+        <section className="py-20 px-8 bg-panel transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">Featured Work</h2>
-                <p className="text-gray-600 dark:text-gray-300">A quick look at recent creative work.</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-text mb-3">Featured Work</h2>
+                <p className="text-dim">A quick look at recent creative work.</p>
               </div>
             </ScrollReveal>
 
@@ -444,14 +441,14 @@ export default function GalleryPage() {
         </section>
 
         {/* Portfolio Section */}
-        <section className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+        <section className="py-20 px-6 sm:px-8 bg-bg transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                <h2 className="text-3xl md:text-4xl font-bold text-text mb-3">
                   Creative Portfolio
                 </h2>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-dim">
                   Selected videography, photography, and case-led projects.
                 </p>
               </div>
@@ -468,10 +465,10 @@ export default function GalleryPage() {
                       key={filter.value}
                       type="button"
                       onClick={() => handleFilterClick(filter.value)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500/70 focus:ring-offset-gray-900 ${
+                      className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-bg ${
                         isActive
-                          ? "bg-emerald-500/90 text-gray-900 border-emerald-400"
-                          : "bg-gray-900/40 text-emerald-300 border-emerald-500/40 hover:bg-gray-900/60"
+                          ? "bg-accent text-[#0B0C0E] border-transparent"
+                          : "bg-muted text-accent border-subtle hover:bg-subtle"
                       }`}
                       aria-pressed={isActive}
                     >
@@ -502,7 +499,7 @@ export default function GalleryPage() {
                       <button
                         key={item.id}
                         onClick={() => handleCaseStudyOpen(item)}
-                        className="relative w-full text-left rounded-2xl border border-emerald-500/20 bg-gray-900/40 hover:bg-gray-900/60 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-900 overflow-hidden group"
+                        className="relative w-full text-left rounded-2xl border border-subtle bg-muted hover:bg-subtle transition-colors duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-bg overflow-hidden group"
                         aria-label={`Open case study ${item.title}`}
                       >
                         {item.cover && (
@@ -521,22 +518,22 @@ export default function GalleryPage() {
 
                         <div className="p-6 space-y-4">
                           <div className="flex items-center justify-between">
-                            <span className="px-3 py-1 text-xs font-semibold rounded-full border border-emerald-500/40 text-emerald-300 bg-emerald-500/10">
+                            <span className="px-3 py-1 text-xs font-semibold rounded-full border bg-accent-ghost text-accent" style={{ borderColor: 'var(--ring)' }}>
                               Case Study
                             </span>
                             {item.date && (
-                              <span className="text-xs text-emerald-200/70 uppercase tracking-wide">
+                              <span className="text-xs text-accent/70 uppercase tracking-wide">
                                 {item.date}
                               </span>
                             )}
                           </div>
 
                           <div>
-                            <h3 className="text-lg font-semibold text-white mb-2">
+                            <h3 className="text-lg font-semibold text-text mb-2">
                               {item.title}
                             </h3>
                             {item.caseSummary && (
-                              <p className="text-sm text-gray-300 line-clamp-3">
+                              <p className="text-sm text-dim line-clamp-3">
                                 {item.caseSummary}
                               </p>
                             )}
@@ -547,7 +544,7 @@ export default function GalleryPage() {
                               {item.tags.slice(0, 5).map((tag) => (
                                 <span
                                   key={`${item.id}-${tag}`}
-                                  className="px-2.5 py-1 rounded-full text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                                  className="px-2.5 py-1 rounded-full text-xs font-medium border bg-accent-ghost text-accent" style={{ borderColor: 'var(--ring)' }}
                                 >
                                   {tag}
                                 </span>
@@ -555,7 +552,7 @@ export default function GalleryPage() {
                             </div>
                           )}
 
-                          <div className="flex items-center gap-2 text-emerald-300 text-sm font-medium">
+                          <div className="flex items-center gap-2 text-accent text-sm font-medium">
                             <span>View Case Study</span>
                             <ExternalLink size={16} />
                           </div>
@@ -591,11 +588,11 @@ export default function GalleryPage() {
                   role="dialog"
                   aria-modal="true"
                   aria-label={`${activeCaseStudy.title} case study`}
-                  className="relative w-full max-w-3xl rounded-3xl border border-emerald-500/20 bg-gray-900/90 backdrop-blur-md text-white shadow-2xl overflow-hidden"
+                  className="relative w-full max-w-3xl rounded-3xl border border-subtle bg-panel backdrop-blur-md text-text shadow-2xl overflow-hidden"
                 >
                   <button
                     onClick={handleCaseStudyClose}
-                    className="absolute top-4 right-4 p-2 rounded-full bg-gray-900/70 text-emerald-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                    className="absolute top-4 right-4 p-2 rounded-full bg-muted text-text hover:text-text focus:outline-none focus:ring-2 ring-accent ring-offset-bg"
                     aria-label="Close case study modal"
                   >
                     <X size={20} />
@@ -618,10 +615,10 @@ export default function GalleryPage() {
                   <div className="p-8 space-y-6">
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
+                        <h3 className="text-2xl font-bold text-text mb-2">
                           {activeCaseStudy.title}
                         </h3>
-                        <div className="flex flex-wrap items-center gap-3 text-sm text-emerald-200/80">
+                        <div className="flex flex-wrap items-center gap-3 text-sm text-accent/80">
                           {activeCaseStudy.client && <span className="font-medium">Client: {activeCaseStudy.client}</span>}
                           {activeCaseStudy.role && <span>Role: {activeCaseStudy.role}</span>}
                           {activeCaseStudy.date && <span>{activeCaseStudy.date}</span>}
@@ -630,7 +627,7 @@ export default function GalleryPage() {
                     </div>
 
                     {activeCaseStudy.caseDescription && (
-                      <p className="text-gray-200 leading-relaxed">
+                      <p className="text-dim leading-relaxed">
                         {activeCaseStudy.caseDescription}
                       </p>
                     )}
@@ -640,7 +637,7 @@ export default function GalleryPage() {
                         {activeCaseStudy.tags.slice(0, 6).map((tag) => (
                           <span
                             key={`${activeCaseStudy.id}-tag-${tag}`}
-                            className="px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+                            className="px-3 py-1 rounded-full text-xs font-medium border bg-accent-ghost text-accent" style={{ borderColor: 'var(--ring)' }}
                           >
                             {tag}
                           </span>
@@ -656,7 +653,7 @@ export default function GalleryPage() {
                     >
                       <a
                         href={activeCaseStudy.slug ? `/creative/${activeCaseStudy.slug}` : "/creative"}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500 text-gray-900 font-semibold hover:bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent text-[#0B0C0E] font-semibold hover:brightness-110 focus:outline-none focus:ring-2 ring-accent ring-offset-bg"
                         target="_self"
                       >
                         View Project
@@ -671,41 +668,41 @@ export default function GalleryPage() {
         </AnimatePresence>
 
         {/* Creative Services */}
-        <section className="py-20 px-8 bg-white dark:bg-gray-900 transition-colors duration-300">
+        <section className="py-20 px-8 bg-bg transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
+                <h2 className="text-3xl md:text-4xl font-bold text-text mb-4 transition-colors duration-300">
                   Creative Services
                 </h2>
                 <div className="w-24 h-1 mx-auto" style={{
-                  background: 'linear-gradient(90deg, #01FF70 0%, #196050 100%)'
+                  background: 'linear-gradient(90deg, var(--accent) 0%, var(--accent-dim) 100%)'
                 }}></div>
               </div>
             </ScrollReveal>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
               <ScrollReveal direction="up" delay={0.2}>
-                <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gray-900/40 p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-[0_18px_35px_-18px_rgba(16,185,129,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400">
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                <div className="group relative overflow-hidden rounded-2xl border border-subtle bg-muted p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 outline-accent">
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-[color:var(--accent)]/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                   <div className="relative flex flex-col items-center">
-                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-emerald-400 group-hover:to-emerald-600">
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-panel text-text shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[color:var(--accent)] group-hover:to-[color:var(--accent-dim)]">
                       🎬
                     </div>
-                    <h3 className="mb-4 text-xl font-bold text-gray-100">
+                    <h3 className="mb-4 text-xl font-bold text-text">
                       Videography
                     </h3>
-                    <p className="mb-6 text-base text-gray-400">
+                    <p className="mb-6 text-base text-dim">
                       Cinematic storytelling for brands, events, and personal projects with professional editing.
                     </p>
                     <div className="flex flex-wrap justify-center gap-2">
-                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                      <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Wedding Films
                       </span>
-                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                      <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Corporate Videos
                       </span>
-                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                      <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Event Coverage
                       </span>
                     </div>
@@ -714,26 +711,26 @@ export default function GalleryPage() {
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={0.3}>
-                <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gray-900/40 p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-[0_18px_35px_-18px_rgba(16,185,129,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400">
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                <div className="group relative overflow-hidden rounded-2xl border border-subtle bg-muted p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 outline-accent">
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-[color:var(--accent)]/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                   <div className="relative flex flex-col items-center">
-                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-emerald-400 group-hover:to-emerald-600">
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-panel text-text shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[color:var(--accent)] group-hover:to-[color:var(--accent-dim)]">
                       📸
                     </div>
-                    <h3 className="mb-4 text-xl font-bold text-gray-100">
+                    <h3 className="mb-4 text-xl font-bold text-text">
                       Photography
                     </h3>
-                    <p className="mb-6 text-base text-gray-400">
+                    <p className="mb-6 text-base text-dim">
                       Professional portraits, headshots, and creative photography with advanced retouching.
                     </p>
                     <div className="flex flex-wrap justify-center gap-2">
-                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                      <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Portraits
                       </span>
-                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                      <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Headshots
                       </span>
-                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                      <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Editorial
                       </span>
                     </div>
@@ -742,26 +739,26 @@ export default function GalleryPage() {
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={0.4}>
-                <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gray-900/40 p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-[0_18px_35px_-18px_rgba(16,185,129,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400">
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                <div className="group relative overflow-hidden rounded-2xl border border-subtle bg-muted p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 outline-accent">
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-[color:var(--accent)]/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                   <div className="relative flex flex-col items-center">
-                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-emerald-400 group-hover:to-emerald-600">
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-panel text-text shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[color:var(--accent)] group-hover:to-[color:var(--accent-dim)]">
                       🎨
                     </div>
-                    <h3 className="mb-4 text-xl font-bold text-gray-100">
+                    <h3 className="mb-4 text-xl font-bold text-text">
                       Post-Production
                     </h3>
-                    <p className="mb-6 text-base text-gray-400">
+                    <p className="mb-6 text-base text-dim">
                       Professional editing, color grading, and post-processing to bring your vision to life.
                     </p>
                     <div className="flex flex-wrap justify-center gap-2">
-                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                      <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Color Grading
                       </span>
-                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                      <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Editing
                       </span>
-                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                      <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Retouching
                       </span>
                     </div>
@@ -773,16 +770,16 @@ export default function GalleryPage() {
         </section>
 
         {/* Contact CTA */}
-        <section className="py-20 px-8 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+        <section className="py-20 px-8 bg-panel transition-colors duration-300">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal direction="up" delay={0.1}>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 transition-colors duration-300">
+              <h2 className="text-3xl md:text-4xl font-bold text-text mb-6 transition-colors duration-300">
                 Ready to Create Something Amazing?
               </h2>
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.3}>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 transition-colors duration-300">
+              <p className="text-lg text-dim mb-8 transition-colors duration-300">
                                   Whether it&apos;s capturing your special moments or creating compelling brand content,
                 I&apos;m here to help tell your story through stunning visuals.
               </p>
@@ -794,8 +791,8 @@ export default function GalleryPage() {
                   href="/contact"
                   className="px-8 py-4 font-medium rounded-xl transition-all duration-200 transform hover:scale-105"
                   style={{
-                    background: 'linear-gradient(135deg, #01FF70 0%, #3D6A4B 100%)',
-                    color: '#1F1F1F'
+                    background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%)',
+                    color: '#0B0C0E'
                   }}
                 >
                   Start Your Project
@@ -804,10 +801,10 @@ export default function GalleryPage() {
                   href="https://www.instagram.com/nas.create/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-8 py-4 border font-medium rounded-xl transition-all duration-200 flex items-center gap-2 justify-center hover:bg-gray-800"
+                  className="px-8 py-4 border font-medium rounded-xl transition-all duration-200 flex items-center gap-2 justify-center hover:bg-muted"
                   style={{
-                    borderColor: '#3D6A4B',
-                    color: '#01FF70'
+                    borderColor: 'var(--ring)',
+                    color: 'var(--accent)'
                   }}
                 >
                   <Instagram size={18} />
