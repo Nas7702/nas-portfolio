@@ -26,6 +26,9 @@ export interface MediaItem {
   alt?: string;
   title?: string;
   description?: string;
+  tags?: string[];
+  kind?: "video" | "photo" | "case";
+  cover?: string;
 }
 
 // Helpers: detect/embed external video platforms and choose safe thumbnails
@@ -37,8 +40,50 @@ function isVimeoUrl(url: string): boolean {
   return /^(https?:\/\/)?(www\.)?vimeo\.com\//i.test(url);
 }
 
+function isInstagramUrl(url: string): boolean {
+  return /^(https?:\/\/)?(www\.)?instagram\.com\/(reel|p)\//i.test(url);
+}
+
+function ensureInstagramEmbedUrl(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (!u.pathname.includes("/embed")) {
+      const parts = u.pathname.replace(/\/$/, "").split("/");
+      if (parts.length >= 3) {
+        // e.g. /reel/{id}
+        return `https://www.instagram.com/${parts[1]}/${parts[2]}/embed`;
+      }
+    }
+    return url.includes("/embed") ? url : `${url.replace(/\/$/, "")}/embed`;
+  } catch {
+    return null;
+  }
+}
+
+function getInstagramPermalink(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.pathname.includes("/embed")) {
+      const parts = u.pathname.replace(/\/$/, "").split("/");
+      if (parts.length >= 3) {
+        return `https://www.instagram.com/${parts[1]}/${parts[2]}/`;
+      }
+    }
+    return isInstagramUrl(url) ? url.split("?", 1)[0] : null;
+  } catch {
+    return null;
+  }
+}
+
+function getInstagramThumbnail(item: MediaItem): string | undefined {
+  const permalink = getInstagramPermalink(item.src);
+  if (!permalink) return undefined;
+  const normalised = permalink.endsWith("/") ? permalink : `${permalink}/`;
+  return `${normalised}media/?size=l`;
+}
+
 function isEmbedUrl(url: string): boolean {
-  return isYouTubeUrl(url) || isVimeoUrl(url);
+  return isYouTubeUrl(url) || isVimeoUrl(url) || isInstagramUrl(url);
 }
 
 function getYouTubeId(url: string): string | null {
@@ -51,6 +96,9 @@ function getYouTubeId(url: string): string | null {
     const parts = u.pathname.split("/");
     const embedIndex = parts.indexOf("embed");
     if (embedIndex >= 0 && parts[embedIndex + 1]) return parts[embedIndex + 1];
+    const shortsIndex = parts.indexOf("shorts");
+    if (shortsIndex >= 0 && parts[shortsIndex + 1]) return parts[shortsIndex + 1];
+    if (parts.length > 1 && parts[1]) return parts[parts.length - 1];
   } catch {}
   return null;
 }
@@ -69,11 +117,19 @@ function getEmbedUrl(url: string): string | null {
     const id = getVimeoId(url);
     return id ? `https://player.vimeo.com/video/${id}` : null;
   }
+  if (isInstagramUrl(url)) {
+    return ensureInstagramEmbedUrl(url);
+  }
   return null;
 }
 
 function getThumbnailSrc(item: MediaItem): string {
   if (item.thumbnail) return item.thumbnail;
+  if (item.cover) return item.cover;
+  if (item.type === "video" && isInstagramUrl(item.src)) {
+    const preview = getInstagramThumbnail(item);
+    if (preview) return preview;
+  }
   // Avoid Next/Image remote domain issues: fall back to local placeholder for videos
   if (item.type === "video") return "/window.svg";
   return item.src;
@@ -87,6 +143,8 @@ function getThumbnailSrc(item: MediaItem): string {
   enableZoom?: boolean;
   enableDownload?: boolean;
   inlinePlayback?: boolean; // if true, embeds can play directly in grid
+  useResponsiveGrid?: boolean;
+  onItemClick?: (item: MediaItem, index: number) => boolean | void;
 }
 
 export default function LightboxGallery({
@@ -97,6 +155,8 @@ export default function LightboxGallery({
   enableZoom = true,
   enableDownload = true,
   inlinePlayback = false,
+  useResponsiveGrid = false,
+  onItemClick,
 }: LightboxGalleryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -146,6 +206,16 @@ export default function LightboxGallery({
     setIsOpen(true);
     setZoom(1);
     setRotation(0);
+  };
+
+  const handleItemSelect = (item: MediaItem, index: number) => {
+    if (onItemClick) {
+      const result = onItemClick(item, index);
+      if (result === false) {
+        return;
+      }
+    }
+    openLightbox(index);
   };
 
   const closeLightbox = () => {
@@ -206,19 +276,90 @@ export default function LightboxGallery({
     document.body.removeChild(link);
   };
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const focusableSelectors = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+    const modalElement = document.querySelector<HTMLDivElement>('[data-lightbox-modal="true"]');
+    const focusable = modalElement?.querySelectorAll<HTMLElement>(focusableSelectors) || [];
+    const firstFocusable = focusable[0];
+    const lastFocusable = focusable[focusable.length - 1];
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Tab" || focusable.length === 0) {
+        return;
+      }
+
+      if (event.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          event.preventDefault();
+          lastFocusable.focus();
+        }
+      } else if (document.activeElement === lastFocusable) {
+        event.preventDefault();
+        firstFocusable.focus();
+      }
+    };
+
+    if (firstFocusable) {
+      firstFocusable.focus();
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const embedUrl = getEmbedUrl(currentItem.src);
+    if (!embedUrl || !isInstagramUrl(embedUrl)) {
+      return;
+    }
+
+    const ensureScript = () => {
+      const existingScript = document.querySelector<HTMLScriptElement>('script[data-instagram-embed-script]');
+      if (existingScript) {
+        if ((window as any).instgrm?.Embeds?.process) {
+          (window as any).instgrm.Embeds.process();
+        }
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = "https://www.instagram.com/embed.js";
+      script.async = true;
+      script.defer = true;
+      script.dataset.instagramEmbedScript = "true";
+      script.onload = () => {
+        if ((window as any).instgrm?.Embeds?.process) {
+          (window as any).instgrm.Embeds.process();
+        }
+      };
+      document.body.appendChild(script);
+    };
+
+    ensureScript();
+  }, [isOpen, currentItem.src]);
+
   return (
     <>
       {/* Thumbnail Grid */}
       <div
         className={`grid gap-4 ${className}`}
-        style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+        style={
+          useResponsiveGrid ? undefined : { gridTemplateColumns: `repeat(${columns}, 1fr)` }
+        }
       >
         {items.map((item, index) => (
           <ThumbnailCard
             key={item.id}
             item={item}
             index={index}
-            onClick={() => openLightbox(index)}
+            onClick={() => handleItemSelect(item, index)}
             showTitle={showTitles}
             inlinePlayback={inlinePlayback}
           />
@@ -240,6 +381,7 @@ export default function LightboxGallery({
 
             {/* Modal Content */}
             <motion.div
+              data-lightbox-modal="true"
               className="fixed inset-0 z-50 flex items-center justify-center p-4"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -341,14 +483,30 @@ export default function LightboxGallery({
                     <div className="relative w-full max-w-[min(100%,1280px)] aspect-video">
                       {(() => {
                         const embedUrl = getEmbedUrl(currentItem.src);
-                        return embedUrl ? (
+                        if (!embedUrl) return null;
+
+                        if (isInstagramUrl(embedUrl)) {
+                          const permalink = getInstagramPermalink(embedUrl) || embedUrl;
+                          return (
+                            <blockquote
+                              className="instagram-media absolute inset-0 w-full h-full rounded-lg overflow-hidden"
+                              data-instgrm-permalink={permalink}
+                              data-instgrm-version="14"
+                              style={{ background: "transparent" }}
+                            >
+                              <a href={permalink} className="sr-only">View on Instagram</a>
+                            </blockquote>
+                          );
+                        }
+
+                        return (
                           <iframe
                             src={embedUrl}
                             className="absolute inset-0 w-full h-full rounded-lg"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
                           />
-                        ) : null;
+                        );
                       })()}
                     </div>
                   ) : (
@@ -526,10 +684,26 @@ function ThumbnailCard({
       </div>
 
       {/* Title */}
-      {showTitle && item.title && (
-        <h4 className="mt-2 text-sm font-medium text-gray-900 dark:text-white truncate">
-          {item.title}
-        </h4>
+      {(showTitle && (item.title || (item.tags && item.tags.length > 0))) && (
+        <div className="mt-3 space-y-2">
+          {item.title && (
+            <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+              {item.title}
+            </h4>
+          )}
+          {item.tags && item.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {item.tags.slice(0, 5).map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-1 rounded-full text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       )}
     </motion.div>
   );
