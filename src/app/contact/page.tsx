@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PageTransition from "../components/PageTransition";
 import ScrollReveal from "../components/ScrollReveal";
@@ -64,7 +64,7 @@ function toTitleCaseFromSlug(value: string): string {
 const SERVICES = ["videography", "photography", "post-production", "color-grading"] as const;
 type Service = typeof SERVICES[number];
 
-export default function ContactPage() {
+function ContactPageInner() {
   const searchParams = useSearchParams();
   const [copied, setCopied] = useState<string | null>(null);
   const [src, setSrc] = useState<string | null>(null);
@@ -281,5 +281,13 @@ export default function ContactPage() {
         </nav>
       </div>
     </PageTransition>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContactPageInner />
+    </Suspense>
   );
 }
