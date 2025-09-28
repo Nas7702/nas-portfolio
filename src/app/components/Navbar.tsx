@@ -56,13 +56,13 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center group">
+            <Link href="/" className="group">
               <motion.div
-                className="w-12 h-8 bg-gradient-to-r from-blue-500 to-green-600 rounded-lg flex items-center justify-center"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
+                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-2 backdrop-blur-sm text-lg font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 group-hover:border-white/20 group-hover:bg-white/10"
+                whileHover={{ scale: 1.05, rotate: 1.5 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <span className="text-white font-bold text-sm">NAS</span>
+                NAS
               </motion.div>
             </Link>
 
