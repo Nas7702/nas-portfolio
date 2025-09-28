@@ -79,7 +79,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "DP & Editor",
     date: "2025",
     cover: "https://i.ytimg.com/vi/ohxsUU4xt2o/hqdefault.jpg",
-    description: "High-energy launch spot capturing the spirit of Pulse Studio's new flagship gym."
+    description: "Event highlight reel for a basketball competition."
   },
   {
     id: "Sheffield Varsity Powerlifting",
