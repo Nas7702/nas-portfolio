@@ -1,12 +1,17 @@
 "use client";
 
-export type AnalyticsPayload = Record<string, unknown> | undefined;
+import { track } from "@vercel/analytics";
+
+type AllowedPropertyValue = string | number | boolean | null;
+export type AnalyticsPayload = Record<string, AllowedPropertyValue> | undefined;
 
 export function trackCta(event: string, payload?: AnalyticsPayload): void {
   try {
-    // Lightweight, safe stub for production
-    // Replace with your analytics provider if available
-    console.info("[cta]", event, payload ?? {});
+    const props: Record<string, AllowedPropertyValue> = payload ?? {};
+    track(event, props);
+    if (process.env.NODE_ENV !== "production") {
+      console.info("[cta]", event, props);
+    }
   } catch {
     // no-op
   }
