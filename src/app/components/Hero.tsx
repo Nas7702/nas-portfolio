@@ -42,9 +42,25 @@ export default function Hero() {
               <p className="text-sm font-medium uppercase tracking-[0.3em] text-white/40">
                 Welcome
               </p>
-              <h1 className="text-white font-semibold">
-                <span className="block text-5xl sm:text-6xl md:text-7xl">Nas</span>
-                <span className="block text-3xl sm:text-3xl md:text-4xl text-white/90">Data Science & Videography</span>
+              <h1 className="space-y-5 font-semibold text-white">
+                <span className="relative inline-block w-fit text-5xl leading-tight sm:text-6xl md:text-7xl">
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 -z-10 rounded-full bg-blue-500/25 blur-[60px]"
+                  />
+                  <span className="bg-gradient-to-r from-blue-100 via-sky-300 to-blue-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(56,189,248,0.45)]">
+                    I'm Nas
+                  </span>
+                </span>
+                <div className="flex flex-wrap items-center gap-3 text-2xl text-white/85 sm:text-3xl md:text-4xl">
+                  <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium uppercase tracking-[0.35em] text-white/70 sm:text-base">
+                    Data Science
+                  </span>
+                  <span className="text-blue-400">×</span>
+                  <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium uppercase tracking-[0.35em] text-white/70 sm:text-base">
+                    Visual Storytelling
+                  </span>
+                </div>
               </h1>
               <p className="text-lg text-white/70 md:text-xl">
                 I turn data into decisions and ideas into cinematic visuals for sports & tech brands.

@@ -18,11 +18,7 @@ export default function Home() {
 
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6">
           <h2 className="sr-only">Work</h2>
-          {/* <ScrollReveal direction="up" delay={0.1}>
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-8 text-center text-sm font-medium uppercase tracking-[0.4em] text-white/50 backdrop-blur">
-              Trusted by Stance Fitness + partners
-            </div>
-          </ScrollReveal> */}
+
 
           <div className="grid gap-6 md:grid-cols-2">
             <ScrollReveal direction="up" delay={0.15}>
