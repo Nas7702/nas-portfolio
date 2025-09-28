@@ -49,7 +49,7 @@ export default function Hero() {
                     className="absolute inset-0 -z-10 rounded-full bg-blue-500/25 blur-[60px]"
                   />
                   <span className="bg-gradient-to-r from-blue-100 via-sky-300 to-blue-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(56,189,248,0.45)]">
-                    I'm Nas
+                    I&apos;m Nas
                   </span>
                 </span>
                 <div className="flex flex-wrap items-center gap-3 text-2xl text-white/85 sm:text-3xl md:text-4xl">
