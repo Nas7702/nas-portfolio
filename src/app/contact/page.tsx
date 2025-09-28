@@ -1,189 +1,182 @@
+'use client';
+import { useEffect, useState } from "react";
 import PageTransition from "../components/PageTransition";
 import ScrollReveal from "../components/ScrollReveal";
-import { Mail, MapPin, Phone, Calendar, Code, Camera } from "lucide-react";
-
+import { Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+const WHATSAPP_URL =
+  "https://wa.me/447475437833?text=Hi%20Nas%2C%20I%E2%80%99m%20interested%20in%20[service].%20Budget%3A%20%5B%5D%20Timeline%3A%20%5B%5D";
+const CALL_URL = "tel:+447475437833";
+const EMAIL_URL =
+  "mailto:nascreate0@gmail.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BTech%2FVideo%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
+const INSTAGRAM_URL = "https://instagram.com/nas.create";
+const quickActions = [
+  { label: "WhatsApp", href: WHATSAPP_URL, icon: MessageCircle, aria: "Start WhatsApp chat" },
+  { label: "Call", href: CALL_URL, icon: Phone, aria: "Call Nas" },
+  { label: "Email", href: EMAIL_URL, icon: Mail, aria: "Email Nas" },
+  { label: "Instagram", href: INSTAGRAM_URL, icon: Instagram, aria: "Open Instagram" },
+];
+const secondaryActions = quickActions.slice(1);
+const gridItems = [
+  {
+    title: "Phone",
+    value: "+44 7475 437833",
+    caption: "Weekdays 10:00–19:00",
+    icon: Phone,
+    href: CALL_URL,
+    copyValue: "+44 7475 437833",
+  },
+  {
+    title: "Email",
+    value: "nascreate0@gmail.com",
+    caption: "Detailed briefs welcome",
+    icon: Mail,
+    href: EMAIL_URL,
+    copyValue: "nascreate0@gmail.com",
+  },
+  {
+    title: "Instagram",
+    value: "@nas.create",
+    caption: "DMs open",
+    icon: Instagram,
+    href: INSTAGRAM_URL,
+    copyValue: "@nas.create",
+  },
+  {
+    title: "Location",
+    value: "UK • Remote/Local",
+    caption: "Typically replies < 24h",
+    icon: MapPin,
+  },
+];
 export default function ContactPage() {
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    if (!copied) return;
+    const timeout = window.setTimeout(() => setCopied(false), 1400);
+    return () => window.clearTimeout(timeout);
+  }, [copied]);
+  const handleCopy = async (value: string) => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText(value);
+        setCopied(true);
+      }
+    } catch (error) {
+      console.error("Clipboard copy failed", error);
+    }
+  };
   return (
     <PageTransition>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
-        <section className="py-20 px-8">
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal direction="up" delay={0.1}>
-              <div className="text-center mb-16">
-                <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-                  Let&apos;s Work Together
-                </h1>
-                <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                  Whether you need data insights, software solutions, or compelling visual content,
-                  I&apos;d love to help bring your vision to life. Let&apos;s discuss your project!
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Contact Information */}
-              <ScrollReveal direction="left" delay={0.3}>
-                <div className="space-y-8">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                      Get In Touch
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                      I&apos;m always excited to work on new projects and collaborate with interesting people.
-                      Drop me a line and let&apos;s create something amazing together.
-                    </p>
-                  </div>
-
-                  {/* Contact Details */}
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center">
-                        <Mail size={20} />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">Email</h3>
-                        <a
-                          href="mailto:nas@example.com"
-                          className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                        >
-                          nhoque7702@gmail.com
-                          nas.create0@gmail.com
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center">
-                        <Phone size={20} />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">Phone</h3>
-                        <a
-                          href="tel:+447475437833"
-                          className="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors"
-                        >
-                          +44 747547833
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center">
-                        <MapPin size={20} />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">Location</h3>
-                        <p className="text-gray-600 dark:text-gray-300">
-                          Available for remote work & local projects
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full flex items-center justify-center">
-                        <Calendar size={20} />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">Availability</h3>
-                        <p className="text-gray-600 dark:text-gray-300">
-                          Currently accepting new projects
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
-
-              {/* Services Overview */}
-              <ScrollReveal direction="right" delay={0.3}>
-                <div className="space-y-8">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    Services Offered
-                  </h2>
-
-                  {/* Technical Services */}
-                  <div className="bg-blue-50 dark:bg-blue-900/10 rounded-2xl p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center">
-                        <Code size={20} />
-                      </div>
-                      <h3 className="text-xl font-bold text-blue-900 dark:text-blue-300">
-                        Technical Services
-                      </h3>
-                    </div>
-                    <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-                      <li>• Data Analysis & Visualization</li>
-                      <li>• Machine Learning Models</li>
-                      <li>• Interactive Dashboards</li>
-                      <li>• Web Application Development</li>
-                      <li>• Database Design & Optimization</li>
-                      <li>• Statistical Analysis & Reporting</li>
-                    </ul>
-                  </div>
-
-                  {/* Creative Services */}
-                  <div className="bg-green-50 dark:bg-green-900/10 rounded-2xl p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center">
-                        <Camera size={20} />
-                      </div>
-                      <h3 className="text-xl font-bold text-green-900 dark:text-green-300">
-                        Creative Services
-                      </h3>
-                    </div>
-                    <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-                      <li>• Corporate Video Production</li>
-                      <li>• Professional Portrait Photography</li>
-                      <li>• Wedding & Event Videography</li>
-                      <li>• Video Editing & Post-Production</li>
-                      <li>• Colour Grading & Correction</li>
-                      <li>• Photo Retouching & Enhancement</li>
-                    </ul>
-                  </div>
-                </div>
-              </ScrollReveal>
+      <div className="relative min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+        <div
+          role="status"
+          aria-live="polite"
+          aria-hidden={!copied}
+          className={`pointer-events-none fixed left-1/2 top-6 z-30 -translate-x-1/2 transform rounded-full bg-gray-900/95 px-4 py-2 text-sm font-semibold text-gray-100 shadow-lg transition-all duration-200 dark:bg-gray-800/90 ${copied ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"}`}
+        >
+          Copied!
+        </div>
+        <div className="mx-auto flex max-w-5xl flex-col gap-16 px-6 pb-28 pt-24 sm:pb-32 md:gap-20 md:px-8 md:pt-32">
+          <ScrollReveal direction="up" delay={0.1}>
+            <div className="space-y-4 text-center">
+              <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">Start a conversation.</h1>
+              <p className="text-base text-gray-600 dark:text-gray-300">Fastest reply via WhatsApp. Email works too.</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Avg reply &lt; 24h • UK (GMT/BST)</p>
             </div>
-
-            {/* CTA Section */}
-            <ScrollReveal direction="up" delay={0.5}>
-              <div className="mt-16 text-center">
-                <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-2xl p-8">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                    Ready to Start Your Project?
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed max-w-2xl mx-auto">
-                    Whether you&apos;re looking to unlock insights from your data or capture your story through visuals,
-                    I&apos;m here to help. Let&apos;s discuss how we can work together to achieve your goals.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.2}>
+            <div className="rounded-3xl border border-gray-200/40 bg-white/80 p-8 shadow-xl backdrop-blur-lg transition-colors dark:border-white/10 dark:bg-gray-900/70 dark:shadow-emerald-500/10">
+              <div className="flex flex-col gap-6">
+                <a
+                  href={WHATSAPP_URL}
+                  aria-label="Start WhatsApp chat"
+                  className="group flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 px-6 py-5 text-lg font-semibold text-white shadow-lg shadow-emerald-500/30 transition-all duration-200 hover:shadow-emerald-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900"
+                >
+                  <MessageCircle className="size-5 transition-transform group-hover:scale-110" aria-hidden="true" />
+                  WhatsApp Chat (fastest)
+                </a>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  {secondaryActions.map(({ label, href, icon: Icon, aria }) => (
                     <a
-                      href="mailto:nascreate0@gmail.com?subject=Project Inquiry"
-                      className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors"
+                      key={label}
+                      href={href}
+                      aria-label={aria}
+                      className="flex items-center justify-center gap-2 rounded-2xl border border-gray-200/50 bg-transparent px-4 py-4 text-sm font-semibold text-gray-700 transition-all duration-200 hover:border-emerald-300 hover:text-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/10 dark:text-gray-200 dark:hover:border-emerald-400/60 dark:hover:text-emerald-300 dark:focus-visible:ring-offset-gray-900"
                     >
-                      Send Email
+                      <Icon className="size-4" aria-hidden="true" />
+                      {label}
                     </a>
-                    <a
-                      href="tel:+44747547833"
-                      className="px-8 py-4 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-medium rounded-xl transition-colors"
-                    >
-                      Call Now
-                    </a>
-                  </div>
+                  ))}
                 </div>
               </div>
-            </ScrollReveal>
-
-            {/* Response Time */}
-            <ScrollReveal direction="up" delay={0.7}>
-              <div className="mt-12 text-center">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  I typically respond to all inquiries within 24 hours.
-                  For urgent projects, feel free to call directly.
-                </p>
-              </div>
-            </ScrollReveal>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.3}>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {gridItems.map(({ title, value, caption, icon: Icon, href, copyValue }) => (
+                <div
+                  key={title}
+                  className="group rounded-2xl border border-gray-200/40 bg-white/70 p-5 shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-gray-900/60 dark:hover:shadow-emerald-500/10"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span className="flex size-10 items-center justify-center rounded-2xl bg-emerald-500/15 text-emerald-500 dark:bg-emerald-400/10 dark:text-emerald-300">
+                        <Icon className="size-5" aria-hidden="true" />
+                      </span>
+                      <div className="space-y-1">
+                        <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">{title}</p>
+                        {href ? (
+                          <a
+                            href={href}
+                            className="text-lg font-semibold text-gray-900 transition-colors hover:text-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-gray-100 dark:hover:text-emerald-300 dark:focus-visible:ring-offset-gray-900"
+                          >
+                            {value}
+                          </a>
+                        ) : (
+                          <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{value}</p>
+                        )}
+                      </div>
+                    </div>
+                    {copyValue && (
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(copyValue)}
+                        aria-label={`Copy ${title}`}
+                        className="rounded-full border border-gray-200/60 px-3 py-1 text-xs font-semibold text-gray-600 transition-colors duration-200 hover:border-emerald-300 hover:text-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/10 dark:text-gray-300 dark:hover:border-emerald-400/60 dark:hover:text-emerald-300 dark:focus-visible:ring-offset-gray-900"
+                      >
+                        Copy
+                      </button>
+                    )}
+                  </div>
+                  <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">{caption}</p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.35}>
+            <p className="text-center text-xs font-medium text-gray-500 dark:text-gray-400">Prefer email? I reply within 24h.</p>
+          </ScrollReveal>
+        </div>
+        <nav className="md:hidden" aria-label="Quick contact actions">
+          <div
+            className="fixed inset-x-4 bottom-4 z-40 rounded-3xl border border-gray-200/60 bg-white/95 shadow-xl backdrop-blur-lg dark:border-white/10 dark:bg-gray-900/95"
+            style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 0.5rem)" }}
+          >
+            <div className="grid grid-cols-4 gap-1">
+              {quickActions.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="flex flex-col items-center gap-1 rounded-2xl px-2 py-3 text-xs font-semibold text-gray-600 transition-colors hover:text-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-gray-200 dark:hover:text-emerald-300 dark:focus-visible:ring-offset-gray-900"
+                >
+                  <Icon className="size-5" aria-hidden="true" />
+                  <span>{label}</span>
+                </a>
+              ))}
+            </div>
           </div>
-        </section>
+        </nav>
       </div>
     </PageTransition>
   );
