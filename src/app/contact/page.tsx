@@ -1,16 +1,17 @@
-'use client';
-import { useEffect, useState } from "react";
+"use client";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import PageTransition from "../components/PageTransition";
 import ScrollReveal from "../components/ScrollReveal";
 import { Check, Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-const WHATSAPP_URL =
-  "https://wa.me/447475437833?text=Hi%20Nas%2C%20I%E2%80%99m%20interested%20in%20[service].%20Budget%3A%20%5B%5D%20Timeline%3A%20%5B%5D";
+import { trackCta } from "../../lib/analytics";
+const WHATSAPP_BASE = "https://wa.me/447475437833";
 const CALL_URL = "tel:+447475437833";
 const EMAIL_URL =
   "mailto:nascreate0@gmail.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BTech%2FVideo%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
 const INSTAGRAM_URL = "https://instagram.com/nas.create";
 const quickActions = [
-  { label: "WhatsApp", href: WHATSAPP_URL, icon: MessageCircle, aria: "Start WhatsApp chat" },
+  { label: "WhatsApp", href: "#whatsapp", icon: MessageCircle, aria: "Start WhatsApp chat" },
   { label: "Call", href: CALL_URL, icon: Phone, aria: "Call Nas" },
   { label: "Email", href: EMAIL_URL, icon: Mail, aria: "Email Nas" },
   { label: "Instagram", href: INSTAGRAM_URL, icon: Instagram, aria: "Open Instagram" },
@@ -52,8 +53,24 @@ const gridItems = [
     id: "location",
   },
 ];
+function toTitleCaseFromSlug(value: string): string {
+  return value
+    .replace(/[-_]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+const SERVICES = ["videography", "photography", "post-production", "color-grading"] as const;
+type Service = typeof SERVICES[number];
+
 export default function ContactPage() {
+  const searchParams = useSearchParams();
   const [copied, setCopied] = useState<string | null>(null);
+  const [src, setSrc] = useState<string | null>(null);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [refNote, setRefNote] = useState<string | null>(null);
+  const whatsappBtnRef = useRef<HTMLAnchorElement>(null);
   useEffect(() => {
     if (!copied) return;
     const timeout = window.setTimeout(() => setCopied(null), 1400);
@@ -80,9 +97,31 @@ export default function ContactPage() {
       setCopied(id);
     }
   };
+  useEffect(() => {
+    const s = searchParams?.get("src");
+    const service = searchParams?.get("service") as Service | null;
+    const r = searchParams?.get("ref");
+    if (s) setSrc(s);
+    if (service && SERVICES.includes(service)) setSelectedService(service);
+    if (r) setRefNote(toTitleCaseFromSlug(r));
+
+    if (typeof window !== "undefined" && window.location.hash === "#whatsapp") {
+      setTimeout(() => {
+        whatsappBtnRef.current?.focus();
+      }, 50);
+    }
+  }, [searchParams]);
+
+  const whatsappHref = useMemo(() => {
+    const serviceText = selectedService ? toTitleCaseFromSlug(selectedService) : "[service]";
+    const text = `Hi Nas, I’m interested in ${serviceText}. Budget: [] Timeline: []`;
+    const q = new URLSearchParams({ text });
+    return `${WHATSAPP_BASE}?${q.toString()}`;
+  }, [selectedService]);
+
   return (
     <PageTransition>
-      <div className="relative min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+      <div className="relative min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100" data-source={src || undefined}>
         <div
           role="status"
           aria-live="polite"
@@ -97,15 +136,51 @@ export default function ContactPage() {
               <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">Start a conversation.</h1>
               <p className="text-base text-gray-600 dark:text-gray-300">Fastest reply via WhatsApp. Email works too.</p>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Avg reply &lt; 24h • UK (GMT/BST)</p>
+              {refNote && (
+                <p className="text-sm text-emerald-400/90">
+                  Re: {refNote}{" "}
+                  <button
+                    type="button"
+                    className="ml-2 underline decoration-dotted text-emerald-300/80 hover:text-emerald-200"
+                    onClick={() => setRefNote(null)}
+                  >
+                    dismiss
+                  </button>
+                </p>
+              )}
+            </div>
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={0.15}>
+            <div className="flex flex-wrap justify-center gap-2">
+              {SERVICES.map((svc) => {
+                const active = selectedService === svc;
+                return (
+                  <button
+                    key={svc}
+                    type="button"
+                    onClick={() => setSelectedService(active ? null : svc)}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors border ${active ? "bg-emerald-500 text-[#0B0C0E] border-transparent" : "bg-transparent text-emerald-300 border-white/10 hover:border-emerald-400/60"}`}
+                    aria-pressed={active}
+                  >
+                    {toTitleCaseFromSlug(svc)}
+                  </button>
+                );
+              })}
             </div>
           </ScrollReveal>
           <ScrollReveal direction="up" delay={0.2}>
-            <div className="rounded-3xl border border-gray-200/40 bg-white/80 p-8 shadow-xl backdrop-blur-lg transition-colors dark:border-white/10 dark:bg-gray-900/70 dark:shadow-emerald-500/10">
+            <div className="rounded-3xl border border-gray-200/40 bg-white/80 p-8 shadow-xl backdrop-blur-lg transition-colors dark:border-white/10 dark:bg-gray-900/70 dark:shadow-emerald-500/10" id="whatsapp">
               <div className="flex flex-col gap-6">
                 <a
-                  href={WHATSAPP_URL}
+                  ref={whatsappBtnRef}
+                  href={whatsappHref}
                   aria-label="Start WhatsApp chat"
                   className="group flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 px-6 py-5 text-lg font-semibold text-white shadow-lg shadow-emerald-500/30 transition-all duration-200 hover:shadow-emerald-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900"
+                  data-cta={`${src ?? "contact"}_whatsapp`}
+                  onClick={(e) => {
+                    const target = e.currentTarget as HTMLAnchorElement;
+                    trackCta(`${src ?? "contact"}_whatsapp`, { href: target.href });
+                  }}
                 >
                   <MessageCircle className="size-5 transition-transform group-hover:scale-110" aria-hidden="true" />
                   WhatsApp Chat (fastest)
@@ -131,6 +206,7 @@ export default function ContactPage() {
               {gridItems.map(({ title, value, caption, icon: Icon, href, copyValue, id }) => (
                 <div
                   key={title}
+                  id={id}
                   className="group rounded-2xl border border-gray-200/40 bg-white/70 p-5 shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-gray-900/60 dark:hover:shadow-emerald-500/10"
                 >
                   <div className="flex items-start justify-between gap-3">

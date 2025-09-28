@@ -12,6 +12,9 @@ import { Instagram, ExternalLink, X, Clapperboard, Camera, Palette, Sparkles } f
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState, useCallback, useEffect, useRef } from "react";
+import Link from "next/link";
+import CreativeCTA from "../components/CreativeCTA";
+import { trackCta } from "../../lib/analytics";
 
 const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
 
@@ -313,27 +316,27 @@ export default function GalleryPage() {
             fill
             priority
             sizes="100vw"
-            className="absolute inset-0 object-cover object-center scale-105 blur-[18px] brightness-[0.45]"
+            className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[14px] sm:blur-[16px] lg:blur-[18px] brightness-[0.45]"
           />
+
+          {/* Overlay 0: green tint */}
+          <div aria-hidden className="absolute inset-0 overlay-tint" />
 
           {/* Overlay 1: subtle vignette */}
           <div aria-hidden className="absolute inset-0 gradient-vignette" />
 
           {/* Overlay 2: neutral dotted grid */}
-          <div
-            className="absolute inset-0 opacity-[0.09] bg-grid"
-            style={{ WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.9), transparent 70%)', maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.9), transparent 70%)' }}
-          />
+          <div className="absolute inset-0 bg-grid hero-grid-mask" />
 
           {/* Overlay 3: faint green sprinkles */}
           <div aria-hidden className="pointer-events-none absolute inset-0">
             <div
               className="absolute -top-20 -left-20 w-[60vw] h-[40vh]"
-              style={{ background: 'radial-gradient(600px 300px at 10% 20%, rgba(57,255,136,0.05), transparent 60%)' }}
+              style={{ background: 'radial-gradient(600px 300px at 10% 20%, rgb(var(--accent-rgb) / var(--sprinkle-1)), transparent 60%)' }}
             />
             <div
               className="absolute -bottom-24 -right-24 w-[70vw] h-[50vh]"
-              style={{ background: 'radial-gradient(800px 400px at 85% 80%, rgba(57,255,136,0.04), transparent 65%)' }}
+              style={{ background: 'radial-gradient(800px 400px at 85% 80%, rgb(var(--accent-rgb) / var(--sprinkle-2)), transparent 65%)' }}
             />
           </div>
 
@@ -412,6 +415,12 @@ export default function GalleryPage() {
                 Specialising in cinematic storytelling, brand content, and professional photography.
                 Every frame crafted with precision and creativity to capture your unique vision.
               </p>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.35}>
+              <div className="max-w-3xl mx-auto text-center mt-6">
+                <p className="text-dim mb-4">Seen something you like? Let’s tailor it to your brand.</p>
+                <CreativeCTA source="creative_portfolio" className="justify-center" size="sm" />
+              </div>
             </ScrollReveal>
           </div>
         </section>
@@ -496,68 +505,69 @@ export default function GalleryPage() {
                 {caseItems.length > 0 && (
                   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {caseItems.map((item) => (
-                      <button
-                        key={item.id}
-                        onClick={() => handleCaseStudyOpen(item)}
-                        className="relative w-full text-left rounded-2xl border border-subtle bg-muted hover:bg-subtle transition-colors duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-bg overflow-hidden group"
-                        aria-label={`Open case study ${item.title}`}
-                      >
-                        {item.cover && (
-                          <div className="relative aspect-video overflow-hidden">
-                            <Image
-                              src={item.cover}
-                              alt={item.alt || item.title || "Case study thumbnail"}
-                              fill
-                              sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
-                              className="object-cover transition-transform duration-300 group-hover:scale-105"
-                              priority={false}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                          </div>
-                        )}
-
-                        <div className="p-6 space-y-4">
-                          <div className="flex items-center justify-between">
-                            <span className="px-3 py-1 text-xs font-semibold rounded-full border bg-accent-ghost text-accent" style={{ borderColor: 'var(--ring)' }}>
-                              Case Study
-                            </span>
-                            {item.date && (
-                              <span className="text-xs text-accent/70 uppercase tracking-wide">
-                                {item.date}
-                              </span>
-                            )}
-                          </div>
-
-                          <div>
-                            <h3 className="text-lg font-semibold text-text mb-2">
-                              {item.title}
-                            </h3>
-                            {item.caseSummary && (
-                              <p className="text-sm text-dim line-clamp-3">
-                                {item.caseSummary}
-                              </p>
-                            )}
-                          </div>
-
-                          {(item.tags && item.tags.length > 0) && (
-                            <div className="flex flex-wrap gap-2">
-                              {item.tags.slice(0, 5).map((tag) => (
-                                <span
-                                  key={`${item.id}-${tag}`}
-                                  className="px-2.5 py-1 rounded-full text-xs font-medium border bg-accent-ghost text-accent" style={{ borderColor: 'var(--ring)' }}
-                                >
-                                  {tag}
-                                </span>
-                              ))}
+                      <div key={item.id} className="relative w-full">
+                        <button
+                          onClick={() => handleCaseStudyOpen(item)}
+                          className="relative w-full text-left rounded-2xl border border-subtle bg-muted hover:bg-subtle transition-colors duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-bg overflow-hidden group"
+                          aria-label={`Open case study ${item.title}`}
+                        >
+                          {item.cover && (
+                            <div className="relative aspect-video overflow-hidden">
+                              <Image
+                                src={item.cover}
+                                alt={item.alt || item.title || "Case study thumbnail"}
+                                fill
+                                sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                priority={false}
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                             </div>
                           )}
 
-                          <div className="flex items-center gap-2 text-accent text-sm font-medium">
-                            <span>View Case Study</span>
-                            <ExternalLink size={16} />
+                          <div className="p-6 space-y-4">
+                            <div className="flex items-center justify-between">
+                              <span className="px-3 py-1 text-xs font-semibold rounded-full border bg-accent-ghost text-accent" style={{ borderColor: 'var(--ring)' }}>
+                                Case Study
+                              </span>
+                              {item.date && (
+                                <span className="text-xs text-accent/70 uppercase tracking-wide">
+                                  {item.date}
+                                </span>
+                              )}
+                            </div>
+
+                            <div>
+                              <h3 className="text-lg font-semibold text-text mb-2">
+                                {item.title}
+                              </h3>
+                              {item.caseSummary && (
+                                <p className="text-sm text-dim line-clamp-3">
+                                  {item.caseSummary}
+                                </p>
+                              )}
+                            </div>
+
+                            {(item.tags && item.tags.length > 0) && (
+                              <div className="flex flex-wrap gap-2">
+                                {item.tags.slice(0, 5).map((tag) => (
+                                  <span
+                                    key={`${item.id}-${tag}`}
+                                    className="px-2.5 py-1 rounded-full text-xs font-medium border bg-accent-ghost text-accent" style={{ borderColor: 'var(--ring)' }}
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+
+                            <div className="flex items-center gap-2 text-accent text-sm font-medium">
+                              <span>View Case Study</span>
+                              <ExternalLink size={16} />
+                            </div>
                           </div>
-                        </div>
-                      </button>
+                        </button>
+                      </div>
                     ))}
                   </div>
                 )}
@@ -780,40 +790,18 @@ export default function GalleryPage() {
 
             <ScrollReveal direction="up" delay={0.3}>
               <p className="text-lg text-dim mb-8 transition-colors duration-300">
-                                  Whether it&apos;s capturing your special moments or creating compelling brand content,
-                I&apos;m here to help tell your story through stunning visuals.
+                Whether it’s a brand film, product promo, or event coverage, I can help plan, shoot, and deliver polished visuals.
               </p>
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.5}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="/contact"
-                  className="px-8 py-4 font-medium rounded-xl transition-all duration-200 transform hover:scale-105"
-                  style={{
-                    background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%)',
-                    color: '#0B0C0E'
-                  }}
-                >
-                  Start Your Project
-                </a>
-                <a
-                  href="https://www.instagram.com/nas.create/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-4 border font-medium rounded-xl transition-all duration-200 flex items-center gap-2 justify-center hover:bg-muted"
-                  style={{
-                    borderColor: 'var(--ring)',
-                    color: 'var(--accent)'
-                  }}
-                >
-                  <Instagram size={18} />
-                  Follow on Instagram
-                </a>
-              </div>
+              <CreativeCTA source="creative_footer" className="justify-center" />
             </ScrollReveal>
           </div>
         </section>
+
+        {/* Optional desktop-only sticky/fab CTAs */}
+        <DesktopCtas />
       </div>
 
       {/* Commented out until real projects are ready */}
@@ -823,5 +811,69 @@ export default function GalleryPage() {
         onClose={handleCloseModal}
       /> */}
     </PageTransition>
+  );
+}
+
+function DesktopCtas() {
+  const [enabled, setEnabled] = useState(false);
+  const [show, setShow] = useState(false);
+  const [showFab, setShowFab] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setEnabled(mq.matches);
+    const onChange = () => setEnabled(mq.matches);
+    mq.addEventListener?.("change", onChange);
+    return () => mq.removeEventListener?.("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const handleScroll = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      const scrollingDown = window.scrollY > lastScrollY.current;
+      lastScrollY.current = window.scrollY;
+      const pastHalf = progress >= 0.5;
+      setShow(pastHalf && !scrollingDown);
+      setShowFab(pastHalf);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [enabled]);
+
+  if (!enabled) return null;
+
+  return (
+    <>
+      <div
+        className={`hidden md:block fixed left-1/2 z-40 -translate-x-1/2 transition-all duration-200 ${show ? "bottom-6 opacity-100" : "bottom-3 opacity-0 pointer-events-none"}`}
+        aria-hidden={!show}
+      >
+        <div className="rounded-3xl border border-gray-200/40 bg-gray-900/80 px-4 py-3 backdrop-blur-md shadow-xl dark:border-white/10">
+          <CreativeCTA source="creative_sticky" className="items-center" size="sm" />
+        </div>
+      </div>
+
+      <div
+        className={`hidden md:block fixed right-6 z-40 transition-all duration-200 ${showFab ? "bottom-24 opacity-100" : "bottom-20 opacity-0 pointer-events-none"}`}
+        aria-hidden={!showFab}
+      >
+        <Link
+          href="/contact?src=creative_fab#whatsapp"
+          aria-label="Open WhatsApp contact"
+          className="rounded-full bg-emerald-500/90 text-white px-5 py-3 font-semibold shadow-lg hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200"
+          data-cta="creative_fab_whatsapp"
+          onClick={(e) => {
+            const target = e.currentTarget as HTMLAnchorElement;
+            trackCta("creative_fab_whatsapp", { href: target.href });
+          }}
+        >
+          WhatsApp Chat
+        </Link>
+      </div>
+    </>
   );
 }
