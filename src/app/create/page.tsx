@@ -94,7 +94,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director, Editor",
     date: "2025",
     cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
-    description: "A spec commercial exploring performance, precision, and light."
+    description: "A highlight reel for an athlete at a powerlifting competition."
   },
   {
     id: "Vizual Mods Promo",
@@ -109,7 +109,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director, Editor",
     date: "2024",
     cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
-    description: "A spec commercial exploring performance, precision, and light."
+    description: "A promotional video for a car modification company."
   },
   // {
   //   id: "portfolio-wedding",
