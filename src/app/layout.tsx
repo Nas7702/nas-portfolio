@@ -4,6 +4,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import Navbar from "./components/Navbar";
 import AnimationWrapper from "./components/AnimationWrapper";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
             {children}
           </AnimationWrapper>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
