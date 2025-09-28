@@ -31,7 +31,7 @@ body {
   --panel-95: rgba(17, 18, 20, 0.95);
   --muted: #15171A;
   --subtle: #1B1E22;
-  --grid: rgba(255, 255, 255, 0.03);
+  --grid: rgba(255, 255, 255, 0.06);
 
   /* Text */
   --text: #ffffff;
@@ -42,6 +42,16 @@ body {
   --accent-dim: #1EEB6E;
   --accent-ghost: rgba(57, 255, 136, 0.10);
   --ring: #39FF88;
+  /* Overlay controls */
+  --accent-rgb: 57 255 136; /* for rgb(var(--accent-rgb) / <alpha>) */
+  --tint-alpha: 0.05;       /* header tint strength */
+  --sprinkle-1: 0.1;       /* top-left sprinkle alpha */
+  --sprinkle-2: 0.1;       /* bottom-right sprinkle alpha */
+  --vignette-opacity: 0.75; /* @deprecated: use edge/bottom opacities */
+  --vignette-color: 17 18 20;
+  --vignette-mid-opacity: 0.25;
+  --vignette-edge-opacity: 0.72;
+  --vignette-bottom-opacity: 0.85;
 }
 
 @layer utilities {
@@ -58,6 +68,9 @@ body {
   .bg-accent { background-color: var(--accent); }
   .bg-accent-ghost { background-color: var(--accent-ghost); }
 
+  /* Header overlays */
+  .overlay-tint { background-color: rgb(var(--accent-rgb) / var(--tint-alpha)); }
+
   /* Ring helpers (hook into Tailwind ring variables) */
   .ring-accent { --tw-ring-color: var(--ring); }
   .ring-offset-bg { --tw-ring-offset-color: var(--bg); }
@@ -70,7 +83,37 @@ body {
 
   /* Vignette helper (lightweight overlay) */
   .gradient-vignette {
-    background: radial-gradient(1200px 60% at 50% -10%, rgba(17,18,20,0.75), transparent 60%);
+    background:
+      radial-gradient(1100px 80% at 50% 45%, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / var(--vignette-mid-opacity)) 55%, rgb(var(--vignette-color) / var(--vignette-edge-opacity)) 100%),
+      linear-gradient(to bottom, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / var(--vignette-bottom-opacity)) 100%);
+  }
+
+  @media (max-width: 768px) {
+    .gradient-vignette {
+      background:
+        radial-gradient(900px 90% at 50% 40%, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / var(--vignette-mid-opacity)) 50%, rgb(var(--vignette-color) / var(--vignette-edge-opacity)) 100%),
+        linear-gradient(to bottom, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / calc(var(--vignette-bottom-opacity) + 0.05)) 100%);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gradient-vignette {
+      background:
+        radial-gradient(700px 95% at 50% 40%, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / var(--vignette-mid-opacity)) 45%, rgb(var(--vignette-color) / var(--vignette-edge-opacity)) 100%),
+        linear-gradient(to bottom, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / calc(var(--vignette-bottom-opacity) + 0.1)) 100%);
+    }
+  }
+
+  .hero-grid-mask {
+    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.86), transparent 70%);
+    mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.86), transparent 70%);
+  }
+
+  @media (max-width: 640px) {
+    .hero-grid-mask {
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9), transparent 80%);
+      mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9), transparent 80%);
+    }
   }
 
   /* Accent glow helpers */

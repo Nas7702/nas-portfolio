@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
-import { trackCta } from "../../lib/analytics";
+// per-card CTA removed
 import {
   X,
   ChevronLeft,
@@ -33,15 +32,7 @@ export interface MediaItem {
   cover?: string;
 }
 
-function toSlug(value?: string): string {
-  if (!value) return "item";
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
-}
+// per-card CTA removed
 
 // Helpers: detect/embed external video platforms and choose safe thumbnails
 function isYouTubeUrl(url: string): boolean {
@@ -173,8 +164,7 @@ function processInstagramEmbeds() {
   inlinePlayback?: boolean; // if true, embeds can play directly in grid
   useResponsiveGrid?: boolean;
   onItemClick?: (item: MediaItem, index: number) => boolean | void;
-  showEnquire?: boolean;
-  enquireSource?: string;
+  // per-card CTA removed
 }
 
 export default function LightboxGallery({
@@ -187,8 +177,7 @@ export default function LightboxGallery({
   inlinePlayback = false,
   useResponsiveGrid = false,
   onItemClick,
-  showEnquire = false,
-  enquireSource = "creative_card",
+  // per-card CTA removed
 }: LightboxGalleryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -390,8 +379,7 @@ export default function LightboxGallery({
             onClick={() => handleItemSelect(item, index)}
             showTitle={showTitles}
             inlinePlayback={inlinePlayback}
-            showEnquire={showEnquire}
-            enquireSource={enquireSource}
+
           />
         ))}
       </div>
@@ -613,16 +601,12 @@ function ThumbnailCard({
   onClick,
   showTitle,
   inlinePlayback,
-  showEnquire,
-  enquireSource,
 }: {
   item: MediaItem;
   index: number;
   onClick: () => void;
   showTitle: boolean;
   inlinePlayback: boolean;
-  showEnquire: boolean;
-  enquireSource: string;
 }) {
   const [isInView, setIsInView] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -738,6 +722,7 @@ function ThumbnailCard({
               ))}
             </div>
           )}
+
         </div>
       )}
     </motion.div>
