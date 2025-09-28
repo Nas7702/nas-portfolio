@@ -47,7 +47,9 @@ export default function Navbar() {
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled || isOpen
-            ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg"
+            ? pathname.startsWith("/create")
+              ? "bg-bg-95 dark:bg-bg-95 backdrop-blur-md shadow-lg"
+              : "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg"
             : "bg-transparent"
         }`}
         initial={{ y: -100 }}
@@ -68,13 +70,13 @@ export default function Navbar() {
                 // Use brand colors for Creative item
                 const isCreative = item.href === "/create";
                 const activeColor = isCreative
-                  ? "text-green-500 dark:text-green-400"
+                  ? "text-[color:var(--accent)]"
                   : "text-blue-600 dark:text-blue-400";
                 const hoverColor = isCreative
-                  ? "text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400"
+                  ? "text-gray-700 dark:text-gray-300 hover:text-[color:var(--accent)]"
                   : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400";
                 const activeBackground = isCreative
-                  ? "bg-green-100 dark:bg-green-900/30"
+                  ? "bg-[color:var(--accent)]/10"
                   : "bg-blue-100 dark:bg-blue-900/30";
 
                 return (
