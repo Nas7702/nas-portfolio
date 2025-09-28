@@ -63,7 +63,7 @@ export default function Hero() {
                 </div>
               </h1>
               <p className="text-lg text-white/70 md:text-xl">
-                I turn data into decisions and ideas into cinematic visuals for sports & tech brands.
+                I turn data into decisions and ideas into cinematic visuals for businesses.
               </p>
               <a
                 href="https://www.stancefitness.co/"
