@@ -18,7 +18,10 @@ import { trackCta } from "../../lib/analytics";
 
 const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
 
-function useHeroParallax(sectionRef: React.RefObject<HTMLElement>, bgRef: React.RefObject<HTMLDivElement>) {
+function useHeroParallax(
+  sectionRef: React.RefObject<HTMLElement | null>,
+  bgRef: React.RefObject<HTMLDivElement | null>
+) {
   const prefersReduced = useReducedMotion();
 
   useEffect(() => {
