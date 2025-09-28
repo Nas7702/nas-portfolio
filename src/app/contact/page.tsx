@@ -130,18 +130,18 @@ function ContactPageInner() {
         >
           Copied!
         </div>
-        <div className="mx-auto flex max-w-5xl flex-col gap-16 px-6 pb-28 pt-24 sm:pb-32 md:gap-20 md:px-8 md:pt-32">
+        <div className="mx-auto flex max-w-5xl flex-col gap-14 px-6 pb-28 pt-24 sm:pb-32 md:gap-18 md:px-8 md:pt-32">
           <ScrollReveal direction="up" delay={0.1}>
             <div className="space-y-4 text-center">
               <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">Start a conversation.</h1>
               <p className="text-base text-gray-600 dark:text-gray-300">Fastest reply via WhatsApp. Email works too.</p>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Avg reply &lt; 24h • UK (GMT/BST)</p>
               {refNote && (
-                <p className="text-sm text-emerald-400/90">
+                <p className="text-sm text-blue-400/90">
                   Re: {refNote}{" "}
                   <button
                     type="button"
-                    className="ml-2 underline decoration-dotted text-emerald-300/80 hover:text-emerald-200"
+                    className="ml-2 underline decoration-dotted text-blue-300/80 hover:text-blue-200"
                     onClick={() => setRefNote(null)}
                   >
                     dismiss
@@ -150,32 +150,15 @@ function ContactPageInner() {
               )}
             </div>
           </ScrollReveal>
-          <ScrollReveal direction="up" delay={0.15}>
-            <div className="flex flex-wrap justify-center gap-2">
-              {SERVICES.map((svc) => {
-                const active = selectedService === svc;
-                return (
-                  <button
-                    key={svc}
-                    type="button"
-                    onClick={() => setSelectedService(active ? null : svc)}
-                    className={`px-3 py-1 rounded-full text-xs font-semibold transition-colors border ${active ? "bg-emerald-500 text-[#0B0C0E] border-transparent" : "bg-transparent text-emerald-300 border-white/10 hover:border-emerald-400/60"}`}
-                    aria-pressed={active}
-                  >
-                    {toTitleCaseFromSlug(svc)}
-                  </button>
-                );
-              })}
-            </div>
-          </ScrollReveal>
+          <div aria-hidden />
           <ScrollReveal direction="up" delay={0.2}>
-            <div className="rounded-3xl border border-gray-200/40 bg-white/80 p-8 shadow-xl backdrop-blur-lg transition-colors dark:border-white/10 dark:bg-gray-900/70 dark:shadow-emerald-500/10" id="whatsapp">
+            <div className="rounded-3xl border border-gray-200/40 bg-white/80 p-8 shadow-xl backdrop-blur-lg transition-colors dark:border-white/10 dark:bg-gray-900/70 dark:shadow-blue-500/10" id="whatsapp">
               <div className="flex flex-col gap-6">
                 <a
                   ref={whatsappBtnRef}
                   href={whatsappHref}
                   aria-label="Start WhatsApp chat"
-                  className="group flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 px-6 py-5 text-lg font-semibold text-white shadow-lg shadow-emerald-500/30 transition-all duration-200 hover:shadow-emerald-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900"
+                  className="group flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 px-6 py-5 text-lg font-semibold text-white shadow-lg shadow-blue-500/30 transition-all duration-200 hover:shadow-blue-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900"
                   data-cta={`${src ?? "contact"}_whatsapp`}
                   onClick={(e) => {
                     const target = e.currentTarget as HTMLAnchorElement;
@@ -191,7 +174,7 @@ function ContactPageInner() {
                       key={label}
                       href={href}
                       aria-label={aria}
-                      className="flex items-center justify-center gap-2 rounded-2xl border border-gray-200/50 bg-transparent px-4 py-4 text-sm font-semibold text-gray-700 transition-all duration-200 hover:border-emerald-300 hover:text-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/10 dark:text-gray-200 dark:hover:border-emerald-400/60 dark:hover:text-emerald-300 dark:focus-visible:ring-offset-gray-900"
+                      className="flex items-center justify-center gap-2 rounded-2xl border border-gray-200/50 bg-transparent px-4 py-4 text-sm font-semibold text-gray-700 transition-all duration-200 hover:border-blue-400 hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/10 dark:text-gray-200 dark:hover:border-blue-400/60 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900"
                     >
                       <Icon className="size-4" aria-hidden="true" />
                       {label}
@@ -207,11 +190,11 @@ function ContactPageInner() {
                 <div
                   key={title}
                   id={id}
-                  className="group rounded-2xl border border-gray-200/40 bg-white/70 p-5 shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-gray-900/60 dark:hover:shadow-emerald-500/10"
+                  className="group rounded-2xl border border-gray-200/40 bg-white/70 p-5 shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-gray-900/60 dark:hover:shadow-blue-500/10"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <span className="flex size-10 items-center justify-center rounded-2xl bg-emerald-500/15 text-emerald-500 dark:bg-emerald-400/10 dark:text-emerald-300">
+                      <span className="flex size-10 items-center justify-center rounded-2xl bg-blue-500/15 text-blue-500 dark:bg-blue-400/10 dark:text-blue-300">
                         <Icon className="size-5" aria-hidden="true" />
                       </span>
                       <div className="space-y-1">
@@ -219,7 +202,7 @@ function ContactPageInner() {
                         {href ? (
                           <a
                             href={href}
-                            className="text-lg font-semibold text-gray-900 transition-colors hover:text-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-gray-100 dark:hover:text-emerald-300 dark:focus-visible:ring-offset-gray-900"
+                            className="text-lg font-semibold text-gray-900 transition-colors hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-gray-100 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900"
                           >
                             {value}
                           </a>
@@ -233,10 +216,10 @@ function ContactPageInner() {
                         type="button"
                         onClick={() => handleCopy(copyValue, id!)}
                         aria-label={`Copy ${title}`}
-                        className={`flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 ${
+                        className={`flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 ${
                           copied === id
-                            ? "border-emerald-400/80 text-emerald-500"
-                            : "border-gray-200/60 text-gray-600 hover:border-emerald-300 hover:text-emerald-500 dark:border-white/10 dark:text-gray-300 dark:hover:border-emerald-400/60 dark:hover:text-emerald-300"
+                            ? "border-blue-400/80 text-blue-500"
+                            : "border-gray-200/60 text-gray-600 hover:border-blue-400 hover:text-blue-500 dark:border-white/10 dark:text-gray-300 dark:hover:border-blue-400/60 dark:hover:text-blue-300"
                         }`}
                       >
                         {copied === id ? (
@@ -270,7 +253,7 @@ function ContactPageInner() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="flex flex-col items-center gap-1 rounded-2xl px-2 py-3 text-xs font-semibold text-gray-600 transition-colors hover:text-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-gray-200 dark:hover:text-emerald-300 dark:focus-visible:ring-offset-gray-900"
+                  className="flex flex-col items-center gap-1 rounded-2xl px-2 py-3 text-xs font-semibold text-gray-600 transition-colors hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-gray-200 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900"
                 >
                   <Icon className="size-5" aria-hidden="true" />
                   <span>{label}</span>
