@@ -8,10 +8,33 @@
 import PageTransition from "../components/PageTransition";
 import ScrollReveal from "../components/ScrollReveal";
 import LightboxGallery, { MediaItem } from "../components/LightboxGallery";
-import { Instagram, ExternalLink } from "lucide-react";
+import { Instagram, ExternalLink, X, Clapperboard, Camera, Palette, Sparkles } from "lucide-react";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { useMemo, useState, useCallback, useEffect, useRef } from "react";
 
 const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
+
+const skillHighlights = [
+  { label: "Videography", icon: Clapperboard },
+  { label: "Photography", icon: Camera },
+  { label: "Color Grading", icon: Palette },
+  { label: "Post-Production", icon: Sparkles }
+];
+
+type PortfolioKind = "video" | "photo" | "case";
+
+interface PortfolioItem extends MediaItem {
+  kind?: PortfolioKind;
+  tags?: string[];
+  client?: string;
+  role?: string;
+  date?: string;
+  slug?: string;
+  cover?: string;
+  caseSummary?: string;
+  caseDescription?: string;
+}
 
 // Starter media: replace the src with your YouTube/Vimeo link
 const featuredMedia: MediaItem[] = [
@@ -27,7 +50,245 @@ const featuredMedia: MediaItem[] = [
   }
 ];
 
+const portfolioItems: PortfolioItem[] = [
+  {
+    id: "Stance Fitness Promo",
+    type: "video",
+    kind: "video",
+    src: "https://youtu.be/lQ5mOoEOoqo",
+    thumbnail: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
+    title: "Stance Fitness Promo",
+    alt: "Stance Fitness Promo thumbnail",
+    tags: ["Brand Film", "Cinematic", "Color Grading"],
+    client: "Nas.Create",
+    role: "Director & Editor",
+    date: "2024",
+    cover: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
+    description: "A storytelling-first brand film highlighting craft and attention to detail."
+  },
+  {
+    id: "Sheffield Varsity Basketball",
+    type: "video",
+    kind: "video",
+    src: "https://youtu.be/y0E6twmL4_I",
+    thumbnail: "https://i.ytimg.com/vi/y0E6twmL4_I/hqdefault.jpg",
+    title: "Sheffield Varsity Basketball",
+    alt: "Sheffield Varsity Basketball thumbnail",
+    tags: ["Sport", "Cinematic", "Highlight"],
+    client: "University of Sheffield",
+    role: "DP & Editor",
+    date: "2025",
+    cover: "https://i.ytimg.com/vi/ohxsUU4xt2o/hqdefault.jpg",
+    description: "High-energy launch spot capturing the spirit of Pulse Studio's new flagship gym."
+  },
+  {
+    id: "Sheffield Varsity Powerlifting",
+    type: "video",
+    kind: "video",
+    src: "https://youtu.be/aKEjwiwOTyg",
+    thumbnail: "https://i.ytimg.com/vi/aKEjwiwOTyg/hqdefault.jpg",
+    title: "Sheffield Varsity Powerlifting",
+    alt: "Sheffield Varsity Powerlifting thumbnail",
+    tags: ["Sport", "Cinematic", "Highlight"],
+    client: "University of Sheffield",
+    role: "Director, Editor",
+    date: "2025",
+    cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
+    description: "A spec commercial exploring performance, precision, and light."
+  },
+  {
+    id: "Vizual Mods Promo",
+    type: "video",
+    kind: "video",
+    src: "https://youtube.com/shorts/rPJDmGHiTL0",
+    thumbnail: "https://i.ytimg.com/vi/rPJDmGHiTL0/hqdefault.jpg",
+    title: "Vizual Mods Promo",
+    alt: "Vizual Mods Promo thumbnail",
+    tags: ["Automotive", "Promo", "Motion"],
+    client: "Vizual Mods",
+    role: "Director, Editor",
+    date: "2024",
+    cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
+    description: "A spec commercial exploring performance, precision, and light."
+  },
+  // {
+  //   id: "portfolio-wedding",
+  //   type: "image",
+  //   kind: "photo",
+  //   src: "https://images.unsplash.com/photo-1520854221050-0f4caff449fb?auto=format&fit=crop&w=1600&q=80",
+  //   thumbnail: "https://images.unsplash.com/photo-1520854221050-0f4caff449fb?auto=format&fit=crop&w=600&q=80",
+  //   title: "Evening Wedding Story",
+  //   alt: "Wedding couple dancing during evening reception",
+  //   tags: ["Wedding", "Storytelling", "Low Light"],
+  //   description: "A single frame capturing the energy and intimacy of a Toronto celebration."
+  // },
+  // {
+  //   id: "portfolio-headshots",
+  //   type: "image",
+  //   kind: "photo",
+  //   src: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80",
+  //   thumbnail: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80",
+  //   title: "Founder Headshots",
+  //   alt: "Collection of modern founder headshots",
+  //   tags: ["Headshots", "Corporate", "Studio"],
+  //   description: "Studio headshot set with refined lighting and retouch for leadership team."
+  // },
+  // {
+  //   id: "portfolio-colorsuite",
+  //   type: "video",
+  //   kind: "video",
+  //   src: "https://youtu.be/rmz75NnAR6Y",
+  //   thumbnail: "https://i.ytimg.com/vi/rmz75NnAR6Y/hqdefault.jpg",
+  //   title: "Color Suite Breakdown",
+  //   alt: "Color grading breakdown thumbnail",
+  //   tags: ["Color Grading", "BTS", "Tutorial"],
+  //   description: "Behind-the-scenes grade showing how we dialed in a moody cinematic palette."
+  // },
+  // {
+  //   id: "portfolio-case-brand-refresh",
+  //   type: "image",
+  //   kind: "case",
+  //   src: "https://images.unsplash.com/photo-1618005198936-0fe5ce59da91?auto=format&fit=crop&w=1600&q=80",
+  //   thumbnail: "https://images.unsplash.com/photo-1618005198936-0fe5ce59da91?auto=format&fit=crop&w=600&q=80",
+  //   title: "Case Study: Brand Refresh",
+  //   alt: "Brand refresh styleframes",
+  //   tags: ["Case Study", "Brand", "Strategy"],
+  //   client: "Solstice Brewing",
+  //   role: "Creative Lead",
+  //   date: "2024",
+  //   caseSummary: "Immersive brand film and photo suite that modernised Solstice's identity.",
+  //   caseDescription: "A full-funnel content refresh delivering launch film, verticals, and photography. From pre-production look development through delivery we positioned Solstice for national expansion.",
+  //   slug: "brand-refresh",
+  //   cover: "/images/portfolio/brand-refresh-thumb.jpg"
+  // },
+  // {
+  //   id: "portfolio-case-fitness-membership",
+  //   type: "image",
+  //   kind: "case",
+  //   src: "https://images.unsplash.com/photo-1574689049865-536c9db0b5fc?auto=format&fit=crop&w=1600&q=80",
+  //   thumbnail: "https://images.unsplash.com/photo-1574689049865-536c9db0b5fc?auto=format&fit=crop&w=600&q=80",
+  //   title: "Case Study: Membership Launch",
+  //   alt: "Fitness membership campaign visuals",
+  //   tags: ["Case Study", "Campaign", "Fitness"],
+  //   client: "Elevate Athletics",
+  //   role: "Director & Editor",
+  //   date: "2023",
+  //   caseSummary: "Campaign that drove a 32% increase in membership signups during launch week.",
+  //   caseDescription: "We delivered hero film, photography, and paid social cutdowns showcasing Elevate's new training program with a bold emerald palette and dynamic motion.",
+  //   slug: "fitness-membership",
+  //   cover: "/images/portfolio/fitness-membership-thumb.jpg"
+  // }
+];
+
 export default function GalleryPage() {
+  const [activeFilter, setActiveFilter] = useState<PortfolioKind | "all">("all");
+  const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
+  const [activeCaseStudy, setActiveCaseStudy] = useState<PortfolioItem | null>(null);
+  const filters: { label: string; value: PortfolioKind | "all" }[] = [
+    { label: "All", value: "all" },
+    { label: "Video", value: "video" },
+    { label: "Photo", value: "photo" },
+    { label: "Case Studies", value: "case" }
+  ];
+
+  const counts = useMemo(() => {
+    const base = portfolioItems.reduce(
+      (acc, item) => {
+        const kind = item.kind || (item.type === "image" ? "photo" : "video");
+        acc[kind] = (acc[kind] || 0) + 1;
+        acc.all += 1;
+        return acc;
+      },
+      { all: 0, video: 0, photo: 0, case: 0 } as Record<PortfolioKind | "all", number>
+    );
+    return base;
+  }, []);
+
+  const filteredItems = useMemo(() => {
+    if (activeFilter === "all") {
+      return portfolioItems;
+    }
+    return portfolioItems.filter((item) => {
+      const kind = item.kind || (item.type === "image" ? "photo" : "video");
+      return kind === activeFilter;
+    });
+  }, [activeFilter]);
+
+  const mediaItems = useMemo(() => {
+    return filteredItems.filter((item) => {
+      const kind = item.kind || (item.type === "image" ? "photo" : "video");
+      return kind !== "case";
+    });
+  }, [filteredItems]);
+
+  const caseItems = useMemo(() => {
+    return filteredItems.filter((item) => {
+      const kind = item.kind || (item.type === "image" ? "photo" : "video");
+      return kind === "case";
+    });
+  }, [filteredItems]);
+
+  const handleFilterClick = useCallback((value: PortfolioKind | "all") => {
+    setActiveFilter(value);
+  }, []);
+
+  const lastFocusedElementRef = useRef<HTMLElement | null>(null);
+
+  const handleCaseStudyOpen = useCallback((item: PortfolioItem) => {
+    lastFocusedElementRef.current = document.activeElement as HTMLElement;
+    setActiveCaseStudy(item);
+    setIsCaseModalOpen(true);
+  }, []);
+
+  const handleCaseStudyClose = useCallback(() => {
+    setIsCaseModalOpen(false);
+    if (lastFocusedElementRef.current) {
+      lastFocusedElementRef.current.focus();
+    }
+  }, []);
+
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isCaseModalOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleCaseStudyClose();
+      }
+    };
+
+    const handleFocusTrap = (event: FocusEvent) => {
+      if (!modalRef.current) return;
+      if (modalRef.current.contains(event.target as Node)) return;
+      const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length > 0) {
+        focusable[0].focus();
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("focus", handleFocusTrap, true);
+    document.body.style.overflow = "hidden";
+
+    if (modalRef.current) {
+      const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      }
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("focus", handleFocusTrap, true);
+      document.body.style.overflow = "auto";
+    };
+  }, [handleCaseStudyClose, isCaseModalOpen]);
   // const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const creativeProjects = getCreativeProjects();
@@ -132,39 +393,20 @@ export default function GalleryPage() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.5}>
-              <div className="flex flex-wrap justify-center gap-3 mb-8">
-                <span className="px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm border"
-                  style={{
-                    backgroundColor: 'rgba(1, 255, 112, 0.15)',
-                    borderColor: 'rgba(1, 255, 112, 0.3)',
-                    color: '#01FF70'
-                  }}>
-                  🎬 Videography
-                </span>
-                <span className="px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm border"
-                  style={{
-                    backgroundColor: 'rgba(1, 255, 112, 0.15)',
-                    borderColor: 'rgba(1, 255, 112, 0.3)',
-                    color: '#01FF70'
-                  }}>
-                  📸 Photography
-                </span>
-                <span className="px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm border"
-                  style={{
-                    backgroundColor: 'rgba(1, 255, 112, 0.15)',
-                    borderColor: 'rgba(1, 255, 112, 0.3)',
-                    color: '#01FF70'
-                  }}>
-                  🎨 Color Grading
-                </span>
-                <span className="px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm border"
-                  style={{
-                    backgroundColor: 'rgba(1, 255, 112, 0.15)',
-                    borderColor: 'rgba(1, 255, 112, 0.3)',
-                    color: '#01FF70'
-                  }}>
-                  ✨ Post-Production
-                </span>
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                {skillHighlights.map(({ label, icon: Icon }) => (
+                  <div
+                    key={label}
+                    className="flex items-center gap-2 text-sm font-medium text-emerald-200/90 tracking-wide"
+                  >
+                    <span className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-300">
+                      <Icon size={16} strokeWidth={2} />
+                    </span>
+                    <span className="uppercase text-[0.75rem] tracking-[0.24em] text-emerald-100/80">
+                      {label}
+                    </span>
+                  </div>
+                ))}
               </div>
             </ScrollReveal>
 
@@ -201,97 +443,227 @@ export default function GalleryPage() {
           </div>
         </section>
 
-        {/* Coming Soon Section */}
-        <section className="py-20 px-8 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
-          <div className="max-w-4xl mx-auto">
+        {/* Portfolio Section */}
+        <section className="py-20 px-6 sm:px-8 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal direction="up" delay={0.1}>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                  Creative Portfolio
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Selected videography, photography, and case-led projects.
+                </p>
+              </div>
+            </ScrollReveal>
+
             <ScrollReveal direction="up" delay={0.2}>
-              <div className="bg-white dark:bg-gray-700 rounded-2xl p-12 shadow-xl border border-gray-200 dark:border-gray-600 text-center">
-                <div className="w-24 h-24 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-8">
-                  <span className="text-white text-4xl">🎥</span>
-                </div>
+              <div className="flex flex-wrap justify-center gap-3 mb-12">
+                {filters.map((filter) => {
+                  const isActive = activeFilter === filter.value;
+                  const count = counts[filter.value];
 
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                  Portfolio Coming Soon
-                </h3>
+                  return (
+                    <button
+                      key={filter.value}
+                      type="button"
+                      onClick={() => handleFilterClick(filter.value)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500/70 focus:ring-offset-gray-900 ${
+                        isActive
+                          ? "bg-emerald-500/90 text-gray-900 border-emerald-400"
+                          : "bg-gray-900/40 text-emerald-300 border-emerald-500/40 hover:bg-gray-900/60"
+                      }`}
+                      aria-pressed={isActive}
+                    >
+                      {`${filter.label} (${count})`}
+                    </button>
+                  );
+                })}
+              </div>
+            </ScrollReveal>
 
-                <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                  I&apos;m currently curating and preparing a showcase of my creative work, including
-                  cinematic films, professional photography, and brand content for the
-                  <span className="font-semibold text-green-600 dark:text-green-400"> Nas.Create</span> portfolio.
-                </p>
+            <ScrollReveal direction="up" delay={0.3}>
+              <div className="space-y-12">
+                {mediaItems.length > 0 && (
+                  <LightboxGallery
+                    items={mediaItems}
+                    columns={3}
+                    className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                    showTitles={true}
+                    enableDownload={false}
+                    enableZoom={false}
+                    useResponsiveGrid
+                  />
+                )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                  <div className="text-left">
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Videography</h4>
-                    <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-                      <li className="flex items-center gap-2">
-                        <span className="text-green-500">•</span>
-                        Cinematic Wedding Films
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="text-green-500">•</span>
-                        Corporate Brand Videos
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="text-green-500">•</span>
-                        Event Highlight Reels
-                      </li>
-                    </ul>
+                {caseItems.length > 0 && (
+                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {caseItems.map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => handleCaseStudyOpen(item)}
+                        className="relative w-full text-left rounded-2xl border border-emerald-500/20 bg-gray-900/40 hover:bg-gray-900/60 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-900 overflow-hidden group"
+                        aria-label={`Open case study ${item.title}`}
+                      >
+                        {item.cover && (
+                          <div className="relative aspect-video overflow-hidden">
+                            <img
+                              src={item.cover}
+                              alt={item.alt || item.title || "Case study thumbnail"}
+                              className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                          </div>
+                        )}
+
+                        <div className="p-6 space-y-4">
+                          <div className="flex items-center justify-between">
+                            <span className="px-3 py-1 text-xs font-semibold rounded-full border border-emerald-500/40 text-emerald-300 bg-emerald-500/10">
+                              Case Study
+                            </span>
+                            {item.date && (
+                              <span className="text-xs text-emerald-200/70 uppercase tracking-wide">
+                                {item.date}
+                              </span>
+                            )}
+                          </div>
+
+                          <div>
+                            <h3 className="text-lg font-semibold text-white mb-2">
+                              {item.title}
+                            </h3>
+                            {item.caseSummary && (
+                              <p className="text-sm text-gray-300 line-clamp-3">
+                                {item.caseSummary}
+                              </p>
+                            )}
+                          </div>
+
+                          {(item.tags && item.tags.length > 0) && (
+                            <div className="flex flex-wrap gap-2">
+                              {item.tags.slice(0, 5).map((tag) => (
+                                <span
+                                  key={`${item.id}-${tag}`}
+                                  className="px-2.5 py-1 rounded-full text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+
+                          <div className="flex items-center gap-2 text-emerald-300 text-sm font-medium">
+                            <span>View Case Study</span>
+                            <ExternalLink size={16} />
+                          </div>
+                        </div>
+                      </button>
+                    ))}
                   </div>
-
-                  <div className="text-left">
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Photography</h4>
-                    <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-                      <li className="flex items-center gap-2">
-                        <span className="text-emerald-500">•</span>
-                        Professional Portraits
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="text-emerald-500">•</span>
-                        Corporate Headshots
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="text-emerald-500">•</span>
-                        Creative Editorial Shoots
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <p className="text-gray-500 dark:text-gray-400 mb-6">
-                  Each project will include behind-the-scenes insights, technical details, and client testimonials.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="https://www.instagram.com/nas.create/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 font-medium rounded-lg transition-all duration-200 flex items-center gap-2 justify-center hover:scale-105"
-                    style={{
-                      background: 'linear-gradient(135deg, #01FF70 0%, #3D6A4B 100%)',
-                      color: '#1F1F1F'
-                    }}
-                  >
-                    <Instagram size={18} />
-                    Follow @nas.create
-                  </a>
-                  <a
-                    href="/contact"
-                    className="px-6 py-3 border font-medium rounded-lg transition-all duration-200 flex items-center gap-2 justify-center hover:bg-gray-800"
-                    style={{
-                      borderColor: '#3D6A4B',
-                      color: '#01FF70'
-                    }}
-                  >
-                    <ExternalLink size={18} />
-                    Get In Touch
-                  </a>
-                </div>
+                )}
               </div>
             </ScrollReveal>
           </div>
         </section>
+
+        <AnimatePresence>
+          {isCaseModalOpen && activeCaseStudy && (
+            <>
+              <motion.div
+                className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={handleCaseStudyClose}
+              />
+              <motion.div
+                className="fixed inset-0 z-40 flex items-center justify-center px-4 py-10"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.25, 0.25, 0.75] }}
+              >
+                <div
+                  ref={modalRef}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={`${activeCaseStudy.title} case study`}
+                  className="relative w-full max-w-3xl rounded-3xl border border-emerald-500/20 bg-gray-900/90 backdrop-blur-md text-white shadow-2xl overflow-hidden"
+                >
+                  <button
+                    onClick={handleCaseStudyClose}
+                    className="absolute top-4 right-4 p-2 rounded-full bg-gray-900/70 text-emerald-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                    aria-label="Close case study modal"
+                  >
+                    <X size={20} />
+                  </button>
+
+                  {activeCaseStudy.src && (
+                    <div className="relative aspect-video w-full overflow-hidden">
+                      <img
+                        src={activeCaseStudy.src}
+                        alt={activeCaseStudy.alt || `${activeCaseStudy.title} cover image`}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/10" />
+                    </div>
+                  )}
+
+                  <div className="p-8 space-y-6">
+                    <div className="flex flex-wrap items-start justify-between gap-4">
+                      <div>
+                        <h3 className="text-2xl font-bold text-white mb-2">
+                          {activeCaseStudy.title}
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-3 text-sm text-emerald-200/80">
+                          {activeCaseStudy.client && <span className="font-medium">Client: {activeCaseStudy.client}</span>}
+                          {activeCaseStudy.role && <span>Role: {activeCaseStudy.role}</span>}
+                          {activeCaseStudy.date && <span>{activeCaseStudy.date}</span>}
+                        </div>
+                      </div>
+                    </div>
+
+                    {activeCaseStudy.caseDescription && (
+                      <p className="text-gray-200 leading-relaxed">
+                        {activeCaseStudy.caseDescription}
+                      </p>
+                    )}
+
+                    {activeCaseStudy.tags && activeCaseStudy.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {activeCaseStudy.tags.slice(0, 6).map((tag) => (
+                          <span
+                            key={`${activeCaseStudy.id}-tag-${tag}`}
+                            className="px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, delay: 0.05 }}
+                      className="flex justify-end"
+                    >
+                      <a
+                        href={activeCaseStudy.slug ? `/creative/${activeCaseStudy.slug}` : "/creative"}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500 text-gray-900 font-semibold hover:bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                        target="_self"
+                      >
+                        View Project
+                        <ExternalLink size={16} />
+                      </a>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
 
         {/* Creative Services */}
         <section className="py-20 px-8 bg-white dark:bg-gray-900 transition-colors duration-300">
@@ -307,90 +679,87 @@ export default function GalleryPage() {
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
               <ScrollReveal direction="up" delay={0.2}>
-                <div className="rounded-2xl p-8 text-center border hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(1, 255, 112, 0.05) 0%, rgba(1, 255, 112, 0.1) 100%)',
-                  }}>
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg text-white"
-                    style={{ background: 'linear-gradient(135deg, #01FF70 0%, #3D6A4B 100%)' }}>
-                    🎬
-                  </div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white transition-colors duration-300">
-                    Videography
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 transition-colors duration-300">
-                    Cinematic storytelling for brands, events, and personal projects with professional editing.
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-xs">
-                      Wedding Films
-                    </span>
-                    <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-xs">
-                      Corporate Videos
-                    </span>
-                    <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-xs">
-                      Event Coverage
-                    </span>
+                <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gray-900/40 p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-[0_18px_35px_-18px_rgba(16,185,129,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400">
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                  <div className="relative flex flex-col items-center">
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-emerald-400 group-hover:to-emerald-600">
+                      🎬
+                    </div>
+                    <h3 className="mb-4 text-xl font-bold text-gray-100">
+                      Videography
+                    </h3>
+                    <p className="mb-6 text-base text-gray-400">
+                      Cinematic storytelling for brands, events, and personal projects with professional editing.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                        Wedding Films
+                      </span>
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                        Corporate Videos
+                      </span>
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                        Event Coverage
+                      </span>
+                    </div>
                   </div>
                 </div>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={0.3}>
-                <div className="rounded-2xl p-8 text-center border hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(61, 106, 75, 0.05) 0%, rgba(61, 106, 75, 0.1) 100%)',
-                  }}>
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg text-white"
-                    style={{ background: 'linear-gradient(135deg, #3D6A4B 0%, #196050 100%)' }}>
-                    📸
-                  </div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white transition-colors duration-300">
-                    Photography
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 transition-colors duration-300">
-                    Professional portraits, headshots, and creative photography with advanced retouching.
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    <span className="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 rounded-full text-xs">
-                      Portraits
-                    </span>
-                    <span className="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 rounded-full text-xs">
-                      Headshots
-                    </span>
-                    <span className="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300 rounded-full text-xs">
-                      Editorial
-                    </span>
+                <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gray-900/40 p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-[0_18px_35px_-18px_rgba(16,185,129,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400">
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-400/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                  <div className="relative flex flex-col items-center">
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-emerald-400 group-hover:to-emerald-600">
+                      📸
+                    </div>
+                    <h3 className="mb-4 text-xl font-bold text-gray-100">
+                      Photography
+                    </h3>
+                    <p className="mb-6 text-base text-gray-400">
+                      Professional portraits, headshots, and creative photography with advanced retouching.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                        Portraits
+                      </span>
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                        Headshots
+                      </span>
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                        Editorial
+                      </span>
+                    </div>
                   </div>
                 </div>
               </ScrollReveal>
 
               <ScrollReveal direction="up" delay={0.4}>
-                <div className="rounded-2xl p-8 text-center border hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(25, 96, 80, 0.05) 0%, rgba(25, 96, 80, 0.1) 100%)',
-                  }}>
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg text-white"
-                    style={{ background: 'linear-gradient(135deg, #196050 0%, #01FF70 100%)' }}>
-                    🎨
-                  </div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white transition-colors duration-300">
-                    Post-Production
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 transition-colors duration-300">
-                    Professional editing, color grading, and post-processing to bring your vision to life.
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 rounded-full text-xs">
-                      Color Grading
-                    </span>
-                    <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 rounded-full text-xs">
-                      Editing
-                    </span>
-                    <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 rounded-full text-xs">
-                      Retouching
-                    </span>
+                <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gray-900/40 p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-emerald-400/60 hover:shadow-[0_18px_35px_-18px_rgba(16,185,129,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-400">
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                  <div className="relative flex flex-col items-center">
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gray-900 text-white shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-emerald-400 group-hover:to-emerald-600">
+                      🎨
+                    </div>
+                    <h3 className="mb-4 text-xl font-bold text-gray-100">
+                      Post-Production
+                    </h3>
+                    <p className="mb-6 text-base text-gray-400">
+                      Professional editing, color grading, and post-processing to bring your vision to life.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                        Color Grading
+                      </span>
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                        Editing
+                      </span>
+                      <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
+                        Retouching
+                      </span>
+                    </div>
                   </div>
                 </div>
               </ScrollReveal>
