@@ -6,7 +6,10 @@ import ScrollReveal from "../components/ScrollReveal";
 import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 
-function useHeroParallax(sectionRef: React.RefObject<HTMLElement>, bgRef: React.RefObject<HTMLDivElement>) {
+function useHeroParallax(
+  sectionRef: React.RefObject<HTMLElement | null>,
+  bgRef: React.RefObject<HTMLDivElement | null>
+) {
   const prefersReduced = useReducedMotion();
 
   useEffect(() => {
