@@ -48,7 +48,7 @@ export default function Home() {
 
             <ScrollReveal direction="up" delay={0.2}>
               <a
-                href="/creative"
+                href="/create"
                 className="group flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-200 hover:border-blue-500 hover:shadow-lg/10"
               >
                 <div className="flex flex-col gap-6">
