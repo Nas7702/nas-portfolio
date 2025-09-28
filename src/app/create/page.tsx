@@ -10,13 +10,92 @@ import ScrollReveal from "../components/ScrollReveal";
 import LightboxGallery, { MediaItem } from "../components/LightboxGallery";
 import { Instagram, ExternalLink, X, Clapperboard, Camera, Palette, Sparkles } from "lucide-react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import CreativeCTA from "../components/CreativeCTA";
 import { trackCta } from "../../lib/analytics";
 
 const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
+
+function useHeroParallax(sectionRef: React.RefObject<HTMLElement>, bgRef: React.RefObject<HTMLDivElement>) {
+  const prefersReduced = useReducedMotion();
+
+  useEffect(() => {
+    if (prefersReduced) return;
+
+    const BG_SCROLL = 120;
+    const BG_TILT = 60;
+    const BG_MAX_X = 140;
+    const BG_MAX_Y = 210;
+    const BG_MAX_ROTATE = 3;
+    const BG_SCALE = 1.25;
+    const bgTarget = { x: 0, y: 0, rotate: 0 };
+    const bgCurrent = { x: 0, y: 0, rotate: 0 };
+    let rafId: number | null = null;
+    let lastPointer = { x: 0, y: 0, has: false };
+
+    const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
+
+    const computeTargets = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const scrollProgress = clamp(-rect.top / rect.height, -1.2, 1.2);
+
+      let pointerXNorm = 0;
+      let pointerYNorm = 0;
+      if (lastPointer.has) {
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        pointerXNorm = clamp((lastPointer.x - cx) / (rect.width / 2), -1, 1);
+        pointerYNorm = clamp((lastPointer.y - cy) / (rect.height / 2), -1, 1);
+      }
+
+      bgTarget.x = clamp(pointerXNorm * BG_TILT, -BG_MAX_X, BG_MAX_X);
+      bgTarget.y = clamp((pointerYNorm * BG_TILT) + (scrollProgress * BG_SCROLL), -BG_MAX_Y, BG_MAX_Y);
+      bgTarget.rotate = clamp(pointerXNorm * -4, -BG_MAX_ROTATE, BG_MAX_ROTATE);
+    };
+
+    const tick = () => {
+      const bgEl = bgRef.current;
+      if (!bgEl) return;
+
+      bgCurrent.x += (bgTarget.x - bgCurrent.x) * 0.2;
+      bgCurrent.y += (bgTarget.y - bgCurrent.y) * 0.2;
+      bgCurrent.rotate += (bgTarget.rotate - bgCurrent.rotate) * 0.12;
+
+      const clampedX = clamp(bgCurrent.x, -BG_MAX_X, BG_MAX_X);
+      const clampedY = clamp(bgCurrent.y, -BG_MAX_Y, BG_MAX_Y);
+      const clampedRotate = clamp(bgCurrent.rotate, -BG_MAX_ROTATE, BG_MAX_ROTATE);
+      bgEl.style.transform = `translate3d(${clampedX}px, ${clampedY}px, 0) rotate(${clampedRotate}deg) scale(${BG_SCALE})`;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      lastPointer = { x: e.clientX, y: e.clientY, has: true };
+      computeTargets();
+    };
+
+    const onScrollOrResize = () => {
+      computeTargets();
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
+
+    computeTargets();
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+    };
+  }, [prefersReduced, sectionRef, bgRef]);
+}
 
 const skillHighlights = [
   { label: "Videography", icon: Clapperboard },
@@ -186,6 +265,9 @@ export default function GalleryPage() {
   const [activeFilter, setActiveFilter] = useState<PortfolioKind | "all">("all");
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
   const [activeCaseStudy, setActiveCaseStudy] = useState<PortfolioItem | null>(null);
+  const heroSectionRef = useRef<HTMLElement | null>(null);
+  const heroBgRef = useRef<HTMLDivElement | null>(null);
+  useHeroParallax(heroSectionRef, heroBgRef);
   const filters: { label: string; value: PortfolioKind | "all" }[] = [
     { label: "All", value: "all" },
     { label: "Video", value: "video" },
@@ -309,35 +391,46 @@ export default function GalleryPage() {
     <PageTransition>
       <div className="theme-creative min-h-screen bg-bg text-text transition-colors duration-300">
         {/* Nas.Create Branded Header */}
-        <section className="relative overflow-hidden py-20 px-6 sm:px-8 bg-bg">
-          <Image
-            src={HERO_BACKGROUND}
-            alt="Warm bokeh lights out of focus"
-            fill
-            priority
-            sizes="100vw"
-            className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[14px] sm:blur-[16px] lg:blur-[18px] brightness-[0.45]"
+        <section ref={heroSectionRef} className="relative overflow-hidden py-20 px-6 sm:px-8 bg-bg">
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(11,15,10,0.82)_0%,rgba(6,10,8,0.94)_65%,rgba(0,0,0,1)_100%)]"
           />
-
-          {/* Overlay 0: green tint */}
-          <div aria-hidden className="absolute inset-0 overlay-tint" />
-
-          {/* Overlay 1: subtle vignette */}
-          <div aria-hidden className="absolute inset-0 gradient-vignette" />
-
-          {/* Overlay 2: neutral dotted grid */}
-          <div className="absolute inset-0 bg-grid hero-grid-mask" />
-
-          {/* Overlay 3: faint green sprinkles */}
-          <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div
-              className="absolute -top-20 -left-20 w-[60vw] h-[40vh]"
-              style={{ background: 'radial-gradient(600px 300px at 10% 20%, rgb(var(--accent-rgb) / var(--sprinkle-1)), transparent 60%)' }}
+          <div
+            ref={heroBgRef}
+            className="absolute inset-0 pointer-events-none will-change-transform"
+            aria-hidden
+            style={{ transform: "scale(1.24)" }}
+          >
+            <Image
+              src={HERO_BACKGROUND}
+              alt="Warm bokeh lights out of focus"
+              fill
+              priority
+              sizes="100vw"
+              className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[14px] sm:blur-[16px] lg:blur-[18px] brightness-[0.45]"
             />
-            <div
-              className="absolute -bottom-24 -right-24 w-[70vw] h-[50vh]"
-              style={{ background: 'radial-gradient(800px 400px at 85% 80%, rgb(var(--accent-rgb) / var(--sprinkle-2)), transparent 65%)' }}
-            />
+
+            {/* Overlay 0: green tint */}
+            <div aria-hidden className="absolute inset-0 overlay-tint" />
+
+            {/* Overlay 1: subtle vignette */}
+            <div aria-hidden className="absolute inset-0 gradient-vignette" />
+
+            {/* Overlay 2: neutral dotted grid */}
+            <div className="absolute inset-0 bg-grid hero-grid-mask" />
+
+            {/* Overlay 3: faint green sprinkles */}
+            <div aria-hidden className="pointer-events-none absolute inset-0">
+              <div
+                className="absolute -top-20 -left-20 w-[60vw] h-[40vh]"
+                style={{ background: 'radial-gradient(600px 300px at 10% 20%, rgb(var(--accent-rgb) / var(--sprinkle-1)), transparent 60%)' }}
+              />
+              <div
+                className="absolute -bottom-24 -right-24 w-[70vw] h-[50vh]"
+                style={{ background: 'radial-gradient(800px 400px at 85% 80%, rgb(var(--accent-rgb) / var(--sprinkle-2)), transparent 65%)' }}
+              />
+            </div>
           </div>
 
           <div className="max-w-6xl mx-auto text-center relative z-10 px-2 sm:px-0">
