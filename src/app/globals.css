@@ -11,6 +11,60 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
+/* Creative (Create page) scoped theme variables */
+.theme-creative,
+[data-theme="creative"] {
+  /* Neutral charcoal stack */
+  --bg: #0B0C0E;
+  --panel: #111214;
+  --muted: #15171A;
+  --subtle: #1B1E22;
+  --grid: rgba(255, 255, 255, 0.03);
+
+  /* Text */
+  --text: #E6E6E6;
+  --text-dim: #A8ADB3;
+
+  /* Accent (brand green) */
+  --accent: #39FF88;
+  --accent-dim: #1EEB6E;
+  --accent-ghost: rgba(57, 255, 136, 0.10);
+  --ring: #39FF88;
+}
+
+@layer utilities {
+  /* Color utilities backed by Creative CSS vars */
+  .bg-bg { background-color: var(--bg); }
+  .bg-panel { background-color: var(--panel); }
+  .bg-muted { background-color: var(--muted); }
+  .border-subtle { border-color: var(--subtle); }
+  .text-text { color: var(--text); }
+  .text-dim { color: var(--text-dim); }
+  .text-accent { color: var(--accent); }
+  .bg-accent { background-color: var(--accent); }
+  .bg-accent-ghost { background-color: var(--accent-ghost); }
+
+  /* Ring helpers (hook into Tailwind ring variables) */
+  .ring-accent { --tw-ring-color: var(--ring); }
+  .ring-offset-bg { --tw-ring-offset-color: var(--bg); }
+
+  /* Subtle dotted grid */
+  .bg-grid {
+    background-image: radial-gradient(var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Vignette helper (lightweight overlay) */
+  .gradient-vignette {
+    background: radial-gradient(1200px 60% at 50% -10%, rgba(17,18,20,0.75), transparent 60%);
+  }
+
+  /* Accent glow helpers */
+  .shadow-accent-soft { box-shadow: 0 0 40px rgba(57,255,136,0.15); }
+  .focus-ring-accent:focus { box-shadow: 0 0 0 2px rgba(57,255,136,0.45); }
+  .outline-accent { outline-color: var(--ring); }
+}
+
 @keyframes logo-dot-glow {
   0%,
   100% {
