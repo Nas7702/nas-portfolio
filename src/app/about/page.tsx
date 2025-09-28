@@ -249,10 +249,6 @@ export default function AboutPage() {
                 </div>
               </div>
             </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.3}>
-              <p className="mt-6 text-sm text-gray-300">Powerlifting discipline shapes how I build and shoot.</p>
-            </ScrollReveal>
           </div>
         </section>
 

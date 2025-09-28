@@ -1,34 +1,131 @@
 "use client";
 
-
-// import { getTechnicalProjects } from "../../data/projects";
-// import { Project } from "../../data/projects";
-// import ProjectCard from "../components/ProjectCard";
-// import ProjectModal from "../components/ProjectModal";
+import { useEffect, useRef } from "react";
 import PageTransition from "../components/PageTransition";
 import ScrollReveal from "../components/ScrollReveal";
+import Image from "next/image";
+import { useReducedMotion } from "framer-motion";
+
+function useHeroParallax(sectionRef: React.RefObject<HTMLElement>, bgRef: React.RefObject<HTMLDivElement>) {
+  const prefersReduced = useReducedMotion();
+
+  useEffect(() => {
+    if (prefersReduced) return;
+
+    const BG_SCROLL = 90;
+    const BG_TILT = 42;
+    const BG_MAX_X = 120;
+    const BG_MAX_Y = 170;
+    const BG_MAX_ROTATE = 2.5;
+    const BG_SCALE = 1.2;
+    const bgTarget = { x: 0, y: 0, rotate: 0 };
+    const bgCurrent = { x: 0, y: 0, rotate: 0 };
+    let rafId: number | null = null;
+    let lastPointer = { x: 0, y: 0, has: false };
+
+    const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
+
+    const computeTargets = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const scrollProgress = clamp(-rect.top / rect.height, -1.2, 1.2);
+
+      let pointerXNorm = 0;
+      let pointerYNorm = 0;
+      if (lastPointer.has) {
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        pointerXNorm = clamp((lastPointer.x - cx) / (rect.width / 2), -1, 1);
+        pointerYNorm = clamp((lastPointer.y - cy) / (rect.height / 2), -1, 1);
+      }
+
+      bgTarget.x = clamp(pointerXNorm * BG_TILT, -BG_MAX_X, BG_MAX_X);
+      bgTarget.y = clamp((pointerYNorm * BG_TILT) + (scrollProgress * BG_SCROLL), -BG_MAX_Y, BG_MAX_Y);
+      bgTarget.rotate = clamp(pointerXNorm * -2.6, -BG_MAX_ROTATE, BG_MAX_ROTATE);
+    };
+
+    const tick = () => {
+      const bgEl = bgRef.current;
+      if (!bgEl) return;
+
+      bgCurrent.x += (bgTarget.x - bgCurrent.x) * 0.15;
+      bgCurrent.y += (bgTarget.y - bgCurrent.y) * 0.15;
+      bgCurrent.rotate += (bgTarget.rotate - bgCurrent.rotate) * 0.1;
+
+      const clampedX = clamp(bgCurrent.x, -BG_MAX_X, BG_MAX_X);
+      const clampedY = clamp(bgCurrent.y, -BG_MAX_Y, BG_MAX_Y);
+      const clampedRotate = clamp(bgCurrent.rotate, -BG_MAX_ROTATE, BG_MAX_ROTATE);
+      bgEl.style.transform = `translate3d(${clampedX}px, ${clampedY}px, 0) rotate(${clampedRotate}deg) scale(${BG_SCALE})`;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      lastPointer = { x: e.clientX, y: e.clientY, has: true };
+      computeTargets();
+    };
+
+    const onScrollOrResize = () => {
+      computeTargets();
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
+
+    computeTargets();
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+    };
+  }, [prefersReduced, sectionRef, bgRef]);
+}
 
 export default function SoftwarePage() {
-  // const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const technicalProjects = getTechnicalProjects();
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const bgRef = useRef<HTMLDivElement | null>(null);
 
-  // const handleOpenModal = (project: Project) => {
-  //   setSelectedProject(project);
-  //   setIsModalOpen(true);
-  // };
-
-  // const handleCloseModal = () => {
-  //   setIsModalOpen(false);
-  //   setTimeout(() => setSelectedProject(null), 300); // Delay to allow exit animation
-  // };
+  useHeroParallax(sectionRef, bgRef);
 
   return (
     <PageTransition>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         {/* Header Section */}
-        <section className="py-20 px-8">
-          <div className="max-w-6xl mx-auto text-center">
+        <section ref={sectionRef} className="relative overflow-hidden py-20 px-8">
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(17,24,39,0.8)_0%,rgba(2,6,23,0.96)_70%,rgba(0,0,0,1)_100%)]"
+          />
+          <div
+            ref={bgRef}
+            className="pointer-events-none absolute inset-0 will-change-transform"
+            aria-hidden
+            style={{ transform: "scale(1.18)" }}
+          >
+            <div className="absolute inset-0">
+              <Image
+                src="/images/bokeh-lights-dark-background.jpg"
+                alt="Abstract tech bokeh backdrop"
+                fill
+                priority
+                sizes="100vw"
+                className="absolute inset-0 object-cover object-center blur-[12px] brightness-[0.65]"
+              />
+            </div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.25)_0%,rgba(17,24,39,0.88)_60%,rgba(2,6,23,0.94)_100%)]" />
+            <div
+              className="absolute inset-0 opacity-[0.1]"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.16'%3E%3Ccircle cx='7' cy='7' r='7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+              }}
+            />
+          </div>
+          <div className="relative max-w-6xl mx-auto text-center">
             <ScrollReveal direction="up" delay={0.1}>
               <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
                 Technical Projects

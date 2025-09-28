@@ -80,8 +80,8 @@ function SpotlightOverlay() {
       window.addEventListener("pointerover", handlePointerOver, { passive: true });
       window.addEventListener("pointerout", handlePointerOut, { passive: true });
       window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
-      window.addEventListener("focusin", handleFocusIn, { passive: true } as any);
-      window.addEventListener("focusout", handleFocusOut, { passive: true } as any);
+      document.addEventListener("focusin", handleFocusIn, { passive: true });
+      document.addEventListener("focusout", handleFocusOut, { passive: true });
     }
 
     const EASE = 0.18;
@@ -127,12 +127,12 @@ function SpotlightOverlay() {
         animFrameRef.current = null;
       }
       if (!prefersReduced) {
-        window.removeEventListener("pointermove", handlePointerMove as any);
-        window.removeEventListener("pointerover", handlePointerOver as any);
-        window.removeEventListener("pointerout", handlePointerOut as any);
-        window.removeEventListener("mouseleave", handleMouseLeave as any);
-        window.removeEventListener("focusin", handleFocusIn as any);
-        window.removeEventListener("focusout", handleFocusOut as any);
+        window.removeEventListener("pointermove", handlePointerMove);
+        window.removeEventListener("pointerover", handlePointerOver);
+        window.removeEventListener("pointerout", handlePointerOut);
+        window.removeEventListener("mouseleave", handleMouseLeave);
+        document.removeEventListener("focusin", handleFocusIn);
+        document.removeEventListener("focusout", handleFocusOut);
       }
     };
   }, [mounted, overlayRoot, prefersReduced]);
