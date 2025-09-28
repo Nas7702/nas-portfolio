@@ -12,7 +12,10 @@ export default function Hero() {
   const prefersReduced = useReducedMotion();
 
   const sectionRef = useRef<HTMLElement | null>(null);
+<<<<<<< HEAD
   const bgRef = useRef<HTMLDivElement | null>(null);
+=======
+>>>>>>> f89736f1d2d3a9b96230e9d4a8c159dcef2651c3
   const layer1Ref = useRef<HTMLDivElement | null>(null);
   const layer2Ref = useRef<HTMLDivElement | null>(null);
   const layer3Ref = useRef<HTMLDivElement | null>(null);
@@ -20,6 +23,7 @@ export default function Hero() {
   useEffect(() => {
     if (prefersReduced) return; // Disable for reduced motion
 
+<<<<<<< HEAD
     const PX_SCROLL = 72;
     const PX_TILT = 34;
     const BG_SCROLL = 110;
@@ -28,13 +32,20 @@ export default function Hero() {
     const BG_MAX_Y = 150;
     const BG_MAX_ROTATE = 2.4;
     const BG_SCALE = 1.24;
+=======
+    const PX_SCROLL = 80; // much stronger scroll parallax
+    const PX_TILT = 40;   // much stronger pointer tilt
+>>>>>>> f89736f1d2d3a9b96230e9d4a8c159dcef2651c3
     const MULTS = [0.6, 1.2, 1.8];
     const layers = [layer1Ref, layer2Ref, layer3Ref];
 
     const targets = layers.map(() => ({ x: 0, y: 0 }));
     const currents = layers.map(() => ({ x: 0, y: 0 }));
+<<<<<<< HEAD
     const bgTarget = { x: 0, y: 0, rotate: 0 };
     const bgCurrent = { x: 0, y: 0, rotate: 0 };
+=======
+>>>>>>> f89736f1d2d3a9b96230e9d4a8c159dcef2651c3
 
     let rafId: number | null = null;
     let lastPointer = { x: 0, y: 0, has: false };
@@ -46,9 +57,16 @@ export default function Hero() {
       if (!section) return;
       const rect = section.getBoundingClientRect();
 
+<<<<<<< HEAD
       // Scroll progress relative to hero height (positive when scrolling down)
       const scrollProgress = clamp(-rect.top / rect.height, -1.2, 1.2);
       const scrollY = scrollProgress * PX_SCROLL;
+=======
+      // Scroll normalization based on section center vs viewport center
+      const centerDelta = (rect.top + rect.height / 2) - (window.innerHeight / 2);
+      const scrollNorm = clamp(centerDelta / (window.innerHeight / 2), -1, 1);
+      const scrollY = scrollNorm * PX_SCROLL;
+>>>>>>> f89736f1d2d3a9b96230e9d4a8c159dcef2651c3
 
       // Pointer normalization relative to section center
       let pointerXNorm = 0;
@@ -67,10 +85,13 @@ export default function Hero() {
         targets[i].x = pointerX * mult;
         targets[i].y = (pointerY + scrollY) * mult;
       });
+<<<<<<< HEAD
 
       bgTarget.x = clamp(pointerXNorm * BG_TILT, -BG_MAX_X, BG_MAX_X);
       bgTarget.y = clamp((pointerYNorm * BG_TILT) + (scrollProgress * BG_SCROLL), -BG_MAX_Y, BG_MAX_Y);
       bgTarget.rotate = clamp(pointerXNorm * -3.5, -BG_MAX_ROTATE, BG_MAX_ROTATE);
+=======
+>>>>>>> f89736f1d2d3a9b96230e9d4a8c159dcef2651c3
     };
 
     const tick = () => {
@@ -84,6 +105,7 @@ export default function Hero() {
         el.style.transform = `translate3d(-50%, -50%, 0) translate3d(${currents[i].x}px, ${currents[i].y}px, 0)`;
         needsNext = true;
       });
+<<<<<<< HEAD
       const bgEl = bgRef.current;
       if (bgEl) {
         bgCurrent.x += (bgTarget.x - bgCurrent.x) * 0.18;
@@ -97,6 +119,8 @@ export default function Hero() {
         bgEl.style.transform = `translate3d(${clampedX}px, ${clampedY}px, 0) rotate(${clampedRotate}deg) scale(${BG_SCALE})`;
         needsNext = true;
       }
+=======
+>>>>>>> f89736f1d2d3a9b96230e9d4a8c159dcef2651c3
       if (needsNext) rafId = requestAnimationFrame(tick);
     };
 
@@ -130,7 +154,19 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden -mt-16 pt-24 pb-16 md:pt-32 md:pb-24">
+<<<<<<< HEAD
       {/* Static base gradient to prevent edge exposure */}
+=======
+      {/* Bokeh background (blue theme) */}
+      <Image
+        src="/images/bokeh-lights-dark-background.jpg"
+        alt="Abstract bokeh lights background"
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 object-cover object-center scale-105 blur-[18px] brightness-[0.45]"
+      />
+>>>>>>> f89736f1d2d3a9b96230e9d4a8c159dcef2651c3
       <div
         aria-hidden
         className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(15,23,42,0.75)_0%,rgba(2,6,23,0.95)_70%,rgba(0,0,0,1)_100%)]"
