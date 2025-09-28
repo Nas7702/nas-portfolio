@@ -9,15 +9,20 @@ export default function Home() {
     <PageTransition>
       <Hero />
 
-      <section className="relative py-16 md:py-24">
+      <section
+        id="work"
+        tabIndex={-1}
+        className="relative py-16 md:py-24 scroll-mt-24 md:scroll-mt-32"
+      >
         <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(17,24,39,0.9)_0%,_rgba(17,24,39,0.75)_100%)]" />
 
         <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-12 px-6">
-          <ScrollReveal direction="up" delay={0.1}>
+          <h2 className="sr-only">Work</h2>
+          {/* <ScrollReveal direction="up" delay={0.1}>
             <div className="rounded-2xl border border-white/10 bg-white/5 px-6 py-8 text-center text-sm font-medium uppercase tracking-[0.4em] text-white/50 backdrop-blur">
               Trusted by Stance Fitness + partners
             </div>
-          </ScrollReveal>
+          </ScrollReveal> */}
 
           <div className="grid gap-6 md:grid-cols-2">
             <ScrollReveal direction="up" delay={0.15}>
