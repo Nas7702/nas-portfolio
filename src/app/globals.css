@@ -5,10 +5,20 @@
   --foreground: #ededed;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* Creative (Create page) scoped theme variables */
@@ -17,13 +27,15 @@ body {
   /* Neutral charcoal stack */
   --bg: #0B0C0E;
   --panel: #111214;
+  --bg-95: rgba(11, 12, 14, 0.95);
+  --panel-95: rgba(17, 18, 20, 0.95);
   --muted: #15171A;
   --subtle: #1B1E22;
   --grid: rgba(255, 255, 255, 0.03);
 
   /* Text */
-  --text: #E6E6E6;
-  --text-dim: #A8ADB3;
+  --text: #ffffff;
+  --text-dim: #d1d1d1;
 
   /* Accent (brand green) */
   --accent: #39FF88;
@@ -36,7 +48,9 @@ body {
   /* Color utilities backed by Creative CSS vars */
   .bg-bg { background-color: var(--bg); }
   .bg-panel { background-color: var(--panel); }
+  .bg-panel-95 { background-color: var(--panel-95); }
   .bg-muted { background-color: var(--muted); }
+  .bg-bg-95 { background-color: var(--bg-95); }
   .border-subtle { border-color: var(--subtle); }
   .text-text { color: var(--text); }
   .text-dim { color: var(--text-dim); }

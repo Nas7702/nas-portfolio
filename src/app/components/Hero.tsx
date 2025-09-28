@@ -44,7 +44,7 @@ export default function Hero() {
               </p>
               <h1 className="text-white font-semibold">
                 <span className="block text-5xl sm:text-6xl md:text-7xl">Nas</span>
-                <span className="block text-3xl sm:text-4xl md:text-5xl text-white/90">Data Science & Videography</span>
+                <span className="block text-3xl sm:text-3xl md:text-4xl text-white/90">Data Science & Videography</span>
               </h1>
               <p className="text-lg text-white/70 md:text-xl">
                 I turn data into decisions and ideas into cinematic visuals for sports & tech brands.
@@ -61,7 +61,9 @@ export default function Hero() {
 
             <div className="flex flex-col gap-4 sm:flex-row">
               <Link
-                href="/tech"
+                href="#work"
+                aria-label="Skip to Work hub"
+                title="View my work"
                 className="inline-flex h-12 items-center justify-center rounded-full bg-blue-600 px-8 text-sm font-semibold text-white transition-colors duration-200 hover:bg-blue-700"
               >
                 View my work
