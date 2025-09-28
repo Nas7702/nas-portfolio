@@ -3,6 +3,9 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
+  /* Spotlight defaults */
+  --spotlight-size: clamp(420px, 50vw, 900px);
+  --spotlight-color-rgb: 255 255 255; /* default white glow on dark */
 }
 
 html {
@@ -44,6 +47,7 @@ body {
   --ring: #39FF88;
   /* Overlay controls */
   --accent-rgb: 57 255 136; /* for rgb(var(--accent-rgb) / <alpha>) */
+  --spotlight-color-rgb: var(--accent-rgb); /* use accent tint for creative */
   --tint-alpha: 0.05;       /* header tint strength */
   --sprinkle-1: 0.1;       /* top-left sprinkle alpha */
   --sprinkle-2: 0.1;       /* bottom-right sprinkle alpha */
@@ -120,6 +124,38 @@ body {
   .shadow-accent-soft { box-shadow: 0 0 40px rgba(57,255,136,0.15); }
   .focus-ring-accent:focus { box-shadow: 0 0 0 2px rgba(57,255,136,0.45); }
   .outline-accent { outline-color: var(--ring); }
+
+  /* Spotlight utilities */
+  .spotlight-size-sm { --spotlight-size: 360px; }
+  .spotlight-size-md { --spotlight-size: clamp(420px, 45vw, 860px); }
+  .spotlight-size-lg { --spotlight-size: clamp(520px, 60vw, 1100px); }
+  .spotlight-color-accent { --spotlight-color-rgb: var(--accent-rgb); }
+}
+
+/* Spotlight overlay (fixed, pointer-events: none) */
+.spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30; /* below Navbar (z-40) and modals */
+  pointer-events: none;
+  contain: layout style paint;
+}
+
+.spotlight-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: 9999px;
+  will-change: transform, opacity;
+  /* Soft radial falloff; no filters, only gradient + opacity */
+  background: radial-gradient(
+    circle,
+    rgb(var(--spotlight-color-rgb) / 0.35) 0%,
+    rgb(var(--spotlight-color-rgb) / 0.18) 35%,
+    rgb(var(--spotlight-color-rgb) / 0.08) 60%,
+    rgb(var(--spotlight-color-rgb) / 0) 75%
+  );
 }
 
 @keyframes logo-dot-glow {
