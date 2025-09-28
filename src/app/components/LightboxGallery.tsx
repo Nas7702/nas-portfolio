@@ -135,6 +135,22 @@ function getThumbnailSrc(item: MediaItem): string {
   return item.src;
 }
 
+type InstagramEmbedApi = {
+  Embeds?: {
+    process?: () => void;
+  };
+};
+
+type InstagramEmbedWindow = Window & {
+  instgrm?: InstagramEmbedApi;
+};
+
+function processInstagramEmbeds() {
+  if (typeof window === "undefined") return;
+  const instgrm = (window as InstagramEmbedWindow).instgrm;
+  instgrm?.Embeds?.process?.();
+}
+
   interface LightboxGalleryProps {
   items: MediaItem[];
   columns?: number;
@@ -323,9 +339,7 @@ export default function LightboxGallery({
     const ensureScript = () => {
       const existingScript = document.querySelector<HTMLScriptElement>('script[data-instagram-embed-script]');
       if (existingScript) {
-        if ((window as any).instgrm?.Embeds?.process) {
-          (window as any).instgrm.Embeds.process();
-        }
+        processInstagramEmbeds();
         return;
       }
 
@@ -335,9 +349,7 @@ export default function LightboxGallery({
       script.defer = true;
       script.dataset.instagramEmbedScript = "true";
       script.onload = () => {
-        if ((window as any).instgrm?.Embeds?.process) {
-          (window as any).instgrm.Embeds.process();
-        }
+        processInstagramEmbeds();
       };
       document.body.appendChild(script);
     };
@@ -618,7 +630,7 @@ function ThumbnailCard({
 
   return (
     <motion.div
-      className={`group ${inlinePlayback && isEmbed ? '' : 'cursor-pointer'}`}
+      className={`group ${inlinePlayback && isEmbed ? "" : "cursor-pointer"}`}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={inlinePlayback && isEmbed ? undefined : onClick}
@@ -631,7 +643,7 @@ function ThumbnailCard({
           <>
             {inlinePlayback && isEmbed ? (
               (() => {
-                const embedUrl = getEmbedUrl(item.src);
+        const embedUrl = getEmbedUrl(item.src);
                 return embedUrl ? (
                   <iframe
                     src={embedUrl}
@@ -652,11 +664,12 @@ function ThumbnailCard({
                   onError={() => setImageError(true)}
                 />
               ) : (
-                <img
+                <Image
                   src={thumbSrc}
                   alt={item.alt || item.title || `Media ${index + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
                   onError={() => setImageError(true)}
                 />
               )
@@ -721,7 +734,13 @@ function ThumbnailPreview({ item }: { item: MediaItem }) {
           );
         }
         return (
-          <img src={thumb} alt={item.alt || item.title || "Thumbnail"} className="absolute inset-0 w-full h-full object-cover" />
+          <Image
+            src={thumb}
+            alt={item.alt || item.title || "Thumbnail"}
+            fill
+            sizes="(min-width: 1024px) 120px, (min-width: 640px) 96px, 72px"
+            className="object-cover"
+          />
         );
       })()}
       {item.type === "video" && (

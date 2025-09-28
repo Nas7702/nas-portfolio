@@ -507,11 +507,13 @@ export default function GalleryPage() {
                       >
                         {item.cover && (
                           <div className="relative aspect-video overflow-hidden">
-                            <img
+                            <Image
                               src={item.cover}
                               alt={item.alt || item.title || "Case study thumbnail"}
-                              className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                              loading="lazy"
+                              fill
+                              sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                              className="object-cover transition-transform duration-300 group-hover:scale-105"
+                              priority={false}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                           </div>
@@ -601,10 +603,13 @@ export default function GalleryPage() {
 
                   {activeCaseStudy.src && (
                     <div className="relative aspect-video w-full overflow-hidden">
-                      <img
+                      <Image
                         src={activeCaseStudy.src}
                         alt={activeCaseStudy.alt || `${activeCaseStudy.title} cover image`}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        fill
+                        sizes="(min-width: 1280px) 1024px, (min-width: 768px) 768px, 100vw"
+                        className="object-cover"
+                        priority={false}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/10" />
                     </div>
