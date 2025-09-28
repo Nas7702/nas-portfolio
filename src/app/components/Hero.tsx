@@ -1,17 +1,110 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "./ThemeProvider";
 import ScrollReveal from "./ScrollReveal";
+import { useEffect, useRef } from "react";
+import { useReducedMotion } from "framer-motion";
 
 export default function Hero() {
   const { mounted } = useTheme();
+  const prefersReduced = useReducedMotion();
+
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const layer1Ref = useRef<HTMLDivElement | null>(null);
+  const layer2Ref = useRef<HTMLDivElement | null>(null);
+  const layer3Ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (prefersReduced) return; // Disable for reduced motion
+
+    const PX_SCROLL = 80; // much stronger scroll parallax
+    const PX_TILT = 40;   // much stronger pointer tilt
+    const MULTS = [0.6, 1.2, 1.8];
+    const layers = [layer1Ref, layer2Ref, layer3Ref];
+
+    const targets = layers.map(() => ({ x: 0, y: 0 }));
+    const currents = layers.map(() => ({ x: 0, y: 0 }));
+
+    let rafId: number | null = null;
+    let lastPointer = { x: 0, y: 0, has: false };
+
+    const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
+
+    const computeTargets = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+
+      // Scroll normalization based on section center vs viewport center
+      const centerDelta = (rect.top + rect.height / 2) - (window.innerHeight / 2);
+      const scrollNorm = clamp(centerDelta / (window.innerHeight / 2), -1, 1);
+      const scrollY = scrollNorm * PX_SCROLL;
+
+      // Pointer normalization relative to section center
+      let pointerXNorm = 0;
+      let pointerYNorm = 0;
+      if (lastPointer.has) {
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        pointerXNorm = clamp((lastPointer.x - cx) / (rect.width / 2), -1, 1);
+        pointerYNorm = clamp((lastPointer.y - cy) / (rect.height / 2), -1, 1);
+      }
+      const pointerX = pointerXNorm * PX_TILT;
+      const pointerY = pointerYNorm * PX_TILT;
+
+      layers.forEach((ref, i) => {
+        const mult = MULTS[i] ?? 1;
+        targets[i].x = pointerX * mult;
+        targets[i].y = (pointerY + scrollY) * mult;
+      });
+    };
+
+    const tick = () => {
+      const EASE = 0.28; // snappier response
+      let needsNext = false;
+      layers.forEach((ref, i) => {
+        const el = ref.current;
+        if (!el) return;
+        currents[i].x += (targets[i].x - currents[i].x) * EASE;
+        currents[i].y += (targets[i].y - currents[i].y) * EASE;
+        el.style.transform = `translate3d(-50%, -50%, 0) translate3d(${currents[i].x}px, ${currents[i].y}px, 0)`;
+        needsNext = true;
+      });
+      if (needsNext) rafId = requestAnimationFrame(tick);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      lastPointer = { x: e.clientX, y: e.clientY, has: true };
+      computeTargets();
+    };
+
+    const onScrollOrResize = () => {
+      computeTargets();
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
+
+    computeTargets();
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+    };
+  }, [prefersReduced]);
 
   if (!mounted) {
     return null;
   }
 
   return (
-    <section className="relative overflow-hidden -mt-16 pt-24 pb-16 md:pt-32 md:pb-24">
+    <section ref={sectionRef} className="relative overflow-hidden -mt-16 pt-24 pb-16 md:pt-32 md:pb-24">
       {/* Bokeh background (blue theme) */}
       <Image
         src="/images/bokeh-lights-dark-background.jpg"
@@ -34,6 +127,36 @@ export default function Hero() {
           }}
         />
       </div>
+
+      {/* Parallax layers */}
+      {!prefersReduced && (
+        <div className="absolute inset-0 pointer-events-none" aria-hidden>
+          <div
+            ref={layer1Ref}
+            className="absolute top-1/2 left-1/2 w-[140%] h-[140%] opacity-[0.24] will-change-transform mix-blend-screen"
+            style={{
+              background:
+                "radial-gradient(60% 60% at 30% 30%, rgba(59,130,246,0.34) 0%, rgba(59,130,246,0.16) 40%, rgba(59,130,246,0) 70%)",
+            }}
+          />
+          <div
+            ref={layer2Ref}
+            className="absolute top-1/2 left-1/2 w-[130%] h-[130%] opacity-[0.22] will-change-transform mix-blend-screen"
+            style={{
+              background:
+                "radial-gradient(55% 55% at 70% 60%, rgba(59,130,246,0.30) 0%, rgba(59,130,246,0.14) 42%, rgba(59,130,246,0) 72%)",
+            }}
+          />
+          <div
+            ref={layer3Ref}
+            className="absolute top-1/2 left-1/2 w-[150%] h-[150%] opacity-[0.18] will-change-transform mix-blend-screen"
+            style={{
+              background:
+                "radial-gradient(50% 50% at 50% 80%, rgba(125,211,252,0.26) 0%, rgba(125,211,252,0.12) 38%, rgba(125,211,252,0) 70%)",
+            }}
+          />
+        </div>
+      )}
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 md:flex-row md:items-center md:gap-16">
         <ScrollReveal direction="up" delay={0.1}>
