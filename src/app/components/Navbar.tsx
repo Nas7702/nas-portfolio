@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Home, Code, Camera, User, Mail } from "lucide-react";
+import Logo from "./Logo";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -56,15 +57,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="group">
-              <motion.div
-                className="rounded-2xl border border-white/10 bg-white/5 px-5 py-2 backdrop-blur-sm text-lg font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 group-hover:border-white/20 group-hover:bg-white/10"
-                whileHover={{ scale: 1.05, rotate: 1.5 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                NAS
-              </motion.div>
-            </Link>
+            <Logo variant={pathname === "/create" ? "record" : "default"} />
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import PageTransition from "../components/PageTransition";
 import ScrollReveal from "../components/ScrollReveal";
-import { Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Check, Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 const WHATSAPP_URL =
   "https://wa.me/447475437833?text=Hi%20Nas%2C%20I%E2%80%99m%20interested%20in%20[service].%20Budget%3A%20%5B%5D%20Timeline%3A%20%5B%5D";
 const CALL_URL = "tel:+447475437833";
@@ -24,6 +24,7 @@ const gridItems = [
     icon: Phone,
     href: CALL_URL,
     copyValue: "+44 7475 437833",
+    id: "phone",
   },
   {
     title: "Email",
@@ -32,6 +33,7 @@ const gridItems = [
     icon: Mail,
     href: EMAIL_URL,
     copyValue: "nascreate0@gmail.com",
+    id: "email",
   },
   {
     title: "Instagram",
@@ -40,29 +42,42 @@ const gridItems = [
     icon: Instagram,
     href: INSTAGRAM_URL,
     copyValue: "@nas.create",
+    id: "instagram",
   },
   {
     title: "Location",
     value: "UK • Remote/Local",
     caption: "Typically replies < 24h",
     icon: MapPin,
+    id: "location",
   },
 ];
 export default function ContactPage() {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<string | null>(null);
   useEffect(() => {
     if (!copied) return;
-    const timeout = window.setTimeout(() => setCopied(false), 1400);
+    const timeout = window.setTimeout(() => setCopied(null), 1400);
     return () => window.clearTimeout(timeout);
   }, [copied]);
-  const handleCopy = async (value: string) => {
+  const handleCopy = async (value: string, id: string) => {
     try {
       if (typeof navigator !== "undefined" && navigator.clipboard) {
         await navigator.clipboard.writeText(value);
-        setCopied(true);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = value;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
       }
     } catch (error) {
       console.error("Clipboard copy failed", error);
+    } finally {
+      setCopied(id);
     }
   };
   return (
@@ -72,7 +87,7 @@ export default function ContactPage() {
           role="status"
           aria-live="polite"
           aria-hidden={!copied}
-          className={`pointer-events-none fixed left-1/2 top-6 z-30 -translate-x-1/2 transform rounded-full bg-gray-900/95 px-4 py-2 text-sm font-semibold text-gray-100 shadow-lg transition-all duration-200 dark:bg-gray-800/90 ${copied ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"}`}
+          className={`pointer-events-none fixed left-1/2 top-4 z-30 -translate-x-1/2 transform rounded-full bg-gray-900/95 px-4 py-2 text-sm font-semibold text-gray-100 shadow-lg transition-all duration-200 sm:top-6 dark:bg-gray-800/90 ${copied ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"}`}
         >
           Copied!
         </div>
@@ -113,7 +128,7 @@ export default function ContactPage() {
           </ScrollReveal>
           <ScrollReveal direction="up" delay={0.3}>
             <div className="grid gap-4 sm:grid-cols-2">
-              {gridItems.map(({ title, value, caption, icon: Icon, href, copyValue }) => (
+              {gridItems.map(({ title, value, caption, icon: Icon, href, copyValue, id }) => (
                 <div
                   key={title}
                   className="group rounded-2xl border border-gray-200/40 bg-white/70 p-5 shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-gray-900/60 dark:hover:shadow-emerald-500/10"
@@ -140,11 +155,22 @@ export default function ContactPage() {
                     {copyValue && (
                       <button
                         type="button"
-                        onClick={() => handleCopy(copyValue)}
+                        onClick={() => handleCopy(copyValue, id!)}
                         aria-label={`Copy ${title}`}
-                        className="rounded-full border border-gray-200/60 px-3 py-1 text-xs font-semibold text-gray-600 transition-colors duration-200 hover:border-emerald-300 hover:text-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/10 dark:text-gray-300 dark:hover:border-emerald-400/60 dark:hover:text-emerald-300 dark:focus-visible:ring-offset-gray-900"
+                        className={`flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 ${
+                          copied === id
+                            ? "border-emerald-400/80 text-emerald-500"
+                            : "border-gray-200/60 text-gray-600 hover:border-emerald-300 hover:text-emerald-500 dark:border-white/10 dark:text-gray-300 dark:hover:border-emerald-400/60 dark:hover:text-emerald-300"
+                        }`}
                       >
-                        Copy
+                        {copied === id ? (
+                          <>
+                            <Check className="size-3.5" aria-hidden="true" />
+                            Copied
+                          </>
+                        ) : (
+                          "Copy"
+                        )}
                       </button>
                     )}
                   </div>
