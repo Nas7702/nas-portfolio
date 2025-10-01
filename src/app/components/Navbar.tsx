@@ -26,13 +26,32 @@ export default function Navbar() {
       setScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
+    setScrolled(false);
+
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+
+    const updateScrollState = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    const rafId = window.requestAnimationFrame(updateScrollState);
+    const timeoutId = window.setTimeout(updateScrollState, 120);
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+    };
   }, [pathname]);
 
   const isActive = (href: string) => {
