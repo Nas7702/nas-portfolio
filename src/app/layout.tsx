@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nas - Software Engineer, Data Scientist & Creative",
-  description: "Portfolio of Nas - Software Engineer, Data Scientist & Creative Professional specialising in full-stack development, machine learning, and visual storytelling.",
+  title: "Nas - Data Scientist & Creative",
+  description: "Portfolio of Nas - Developer, Data Scientist & Creative Professional.",
 };
 
 export default function RootLayout({

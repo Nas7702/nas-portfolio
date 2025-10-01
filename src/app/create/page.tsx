@@ -107,7 +107,7 @@ const skillHighlights = [
   { label: "Post-Production", icon: Sparkles }
 ];
 
-type PortfolioKind = "video" | "photo" | "case";
+type PortfolioKind = "video" | "photo" | "case" | "album";
 
 interface PortfolioItem extends MediaItem {
   kind?: PortfolioKind;
@@ -119,6 +119,8 @@ interface PortfolioItem extends MediaItem {
   cover?: string;
   caseSummary?: string;
   caseDescription?: string;
+  // For photo albums - array of images in the album
+  albumImages?: MediaItem[];
 }
 
 // Starter media: replace the src with your YouTube/Vimeo link
@@ -195,27 +197,176 @@ const portfolioItems: PortfolioItem[] = [
     cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
     description: "A promotional video for a car modification company."
   },
+  // PHOTO ALBUM - Automotive Photography
+  {
+    id: "automotive-photography",
+    type: "image",
+    kind: "album",
+    cover: "/images/Automotive/DSC07610-Enhanced-NR.jpg",
+    src: "/images/Automotive/DSC07915-Enhanced-NR-Edit.jpg",
+    title: "Automotive",
+    alt: "Automotive photography collection",
+    tags: ["Automotive", "Cars", "Photography"],
+    client: "Nas.Create",
+    role: "Photographer",
+    date: "2024",
+    description: "Automotive photography showcasing vehicles with creative lighting and composition.",
+    albumImages: [
+      {
+        id: "automotive-1",
+        type: "image",
+        src: "/images/Automotive/DSC07563.jpg",
+        alt: "Automotive photography",
+      },
+      {
+        id: "automotive-2",
+        type: "image",
+        src: "/images/Automotive/DSC07610-Enhanced-NR.jpg",
+        alt: "Automotive photography",
+      },
+      {
+        id: "automotive-3",
+        type: "image",
+        src: "/images/Automotive/DSC07646-Enhanced-NR.jpg",
+        alt: "Automotive photography",
+      },
+      {
+        id: "automotive-4",
+        type: "image",
+        src: "/images/Automotive/DSC07747-Enhanced-NR.jpg",
+        alt: "Automotive photography",
+      },
+      {
+        id: "automotive-5",
+        type: "image",
+        src: "/images/Automotive/DSC09689-Enhanced-NR-Edit.png",
+        alt: "Automotive photography",
+      },
+      {
+        id: "automotive-6",
+        type: "image",
+        src: "/images/Automotive/carousel_07.jpg",
+        alt: "Automotive photography",
+      },
+    ]
+  },
+  // PHOTO ALBUM - Sheffield Powerlifting Varsity 2025
+  {
+    id: "sheffield-powerlifting-varsity-2025",
+    type: "image",
+    kind: "album",
+    // Cover image shown on main portfolio page
+    cover: "/images/portfolio/sheffield-powerlifting/DSC05443-NAS.CREATE©-.jpg",
+    src: "/images/portfolio/sheffield-powerlifting/DSC05662-NAS.CREATE©-.jpg",
+    title: "Sheffield Powerlifting Varsity 2025",
+    alt: "Sheffield Powerlifting Varsity 2025 photography",
+    tags: ["Sport", "Event", "Powerlifting"],
+    client: "University of Sheffield",
+    role: "Director & Photographer",
+    date: "2025",
+    description: "Event photography coverage of Sheffield Varsity Powerlifting competition.",
+    // All 13 images in the album
+    albumImages: [
+      {
+        id: "sheffield-powerlifting-1",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC04648-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-2",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC05031-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-3",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC05342-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-4",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC05374-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-5",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC05443-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-6",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC05662-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-7",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC06993-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-8",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC07068-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-9",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC07689-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-10",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC07987-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-11",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC08037-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-12",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC08132-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+      {
+        id: "sheffield-powerlifting-13",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/DSC08283-NAS.CREATE©-.jpg",
+        alt: "Sheffield Varsity Powerlifting 2025",
+      },
+    ]
+  },
+  //
+  // TEMPLATE: Add more photo albums like this:
   // {
-  //   id: "portfolio-wedding",
+  //   id: "your-album-name",
   //   type: "image",
-  //   kind: "photo",
-  //   src: "https://images.unsplash.com/photo-1520854221050-0f4caff449fb?auto=format&fit=crop&w=1600&q=80",
-  //   thumbnail: "https://images.unsplash.com/photo-1520854221050-0f4caff449fb?auto=format&fit=crop&w=600&q=80",
-  //   title: "Evening Wedding Story",
-  //   alt: "Wedding couple dancing during evening reception",
-  //   tags: ["Wedding", "Storytelling", "Low Light"],
-  //   description: "A single frame capturing the energy and intimacy of a Toronto celebration."
-  // },
-  // {
-  //   id: "portfolio-headshots",
-  //   type: "image",
-  //   kind: "photo",
-  //   src: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1600&q=80",
-  //   thumbnail: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80",
-  //   title: "Founder Headshots",
-  //   alt: "Collection of modern founder headshots",
-  //   tags: ["Headshots", "Corporate", "Studio"],
-  //   description: "Studio headshot set with refined lighting and retouch for leadership team."
+  //   kind: "album",
+  //   cover: "YOUR_COVER_IMAGE_URL",
+  //   src: "YOUR_COVER_IMAGE_URL",
+  //   title: "Your Album Title",
+  //   alt: "Album description",
+  //   tags: ["Tag1", "Tag2"],
+  //   client: "Client Name",
+  //   role: "Photographer",
+  //   date: "2025",
+  //   description: "Album description",
+  //   albumImages: [
+  //     { id: "img-1", type: "image", src: "URL1", title: "Photo 1", alt: "Description 1" },
+  //     { id: "img-2", type: "image", src: "URL2", title: "Photo 2", alt: "Description 2" },
+  //     // ... add as many photos as you want
+  //   ]
   // },
   // {
   //   id: "portfolio-colorsuite",
@@ -268,6 +419,8 @@ export default function GalleryPage() {
   const [activeFilter, setActiveFilter] = useState<PortfolioKind | "all">("all");
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
   const [activeCaseStudy, setActiveCaseStudy] = useState<PortfolioItem | null>(null);
+  const [isAlbumModalOpen, setIsAlbumModalOpen] = useState(false);
+  const [activeAlbum, setActiveAlbum] = useState<PortfolioItem | null>(null);
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const heroBgRef = useRef<HTMLDivElement | null>(null);
   useHeroParallax(heroSectionRef, heroBgRef);
@@ -282,7 +435,12 @@ export default function GalleryPage() {
     const base = portfolioItems.reduce(
       (acc, item) => {
         const kind = item.kind || (item.type === "image" ? "photo" : "video");
-        acc[kind] = (acc[kind] || 0) + 1;
+        // Count albums as photos
+        if (kind === "album") {
+          acc.photo = (acc.photo || 0) + 1;
+        } else {
+          acc[kind] = (acc[kind] || 0) + 1;
+        }
         acc.all += 1;
         return acc;
       },
@@ -297,6 +455,10 @@ export default function GalleryPage() {
     }
     return portfolioItems.filter((item) => {
       const kind = item.kind || (item.type === "image" ? "photo" : "video");
+      // Include albums when filtering by "photo"
+      if (activeFilter === "photo" && kind === "album") {
+        return true;
+      }
       return kind === activeFilter;
     });
   }, [activeFilter]);
@@ -304,8 +466,13 @@ export default function GalleryPage() {
   const mediaItems = useMemo(() => {
     return filteredItems.filter((item) => {
       const kind = item.kind || (item.type === "image" ? "photo" : "video");
-      return kind !== "case";
+      // Exclude case studies and albums from regular media (albums handled separately)
+      return kind !== "case" && kind !== "album";
     });
+  }, [filteredItems]);
+
+  const albumItems = useMemo(() => {
+    return filteredItems.filter((item) => item.kind === "album");
   }, [filteredItems]);
 
   const caseItems = useMemo(() => {
@@ -334,7 +501,21 @@ export default function GalleryPage() {
     }
   }, []);
 
+  const handleAlbumOpen = useCallback((item: PortfolioItem) => {
+    lastFocusedElementRef.current = document.activeElement as HTMLElement;
+    setActiveAlbum(item);
+    setIsAlbumModalOpen(true);
+  }, []);
+
+  const handleAlbumClose = useCallback(() => {
+    setIsAlbumModalOpen(false);
+    if (lastFocusedElementRef.current) {
+      lastFocusedElementRef.current.focus();
+    }
+  }, []);
+
   const modalRef = useRef<HTMLDivElement>(null);
+  const albumModalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isCaseModalOpen) return;
@@ -593,17 +774,88 @@ export default function GalleryPage() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.3}>
-              <div className="space-y-12">
-                {mediaItems.length > 0 && (
-                  <LightboxGallery
-                    items={mediaItems}
-                    columns={3}
-                    className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                    showTitles={true}
-                    enableDownload={false}
-                    enableZoom={false}
-                    useResponsiveGrid
-                  />
+              <div>
+                {/* Unified grid for videos and photo albums */}
+                {(mediaItems.length > 0 || albumItems.length > 0) && (
+                  <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    {/* Render video items */}
+                    {mediaItems.map((item, index) => (
+                      <LightboxGallery
+                        key={item.id}
+                        items={[item]}
+                        columns={1}
+                        className=""
+                        showTitles={true}
+                        enableDownload={false}
+                        enableZoom={false}
+                        useResponsiveGrid={false}
+                      />
+                    ))}
+
+                    {/* Render album items */}
+                    {albumItems.map((item) => (
+                      <motion.div
+                        key={item.id}
+                        className="group cursor-pointer relative overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                        whileHover={{ scale: 1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleAlbumOpen(item)}
+                      >
+                        {/* Gradient overlay on hover */}
+                        <div className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-br from-[color:var(--accent)]/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 -z-0" />
+
+                        <div className="relative aspect-square bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden border border-subtle hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)] transition-all duration-300">
+                          {item.cover && (
+                            <>
+                              <Image
+                                src={item.cover}
+                                alt={item.alt || item.title || "Album cover"}
+                                fill
+                                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                                className="object-cover"
+                              />
+                              {/* Corner badge */}
+                              <div className="absolute top-2 left-2 z-10">
+                                <div className="px-2 py-1 rounded-md bg-gradient-to-r from-emerald-400 to-green-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg animate-pulse">
+                                  Photos
+                                </div>
+                              </div>
+                              {/* Photo count indicator */}
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="p-4 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full shadow-2xl group-hover:scale-110 transition-transform duration-300 flex items-center gap-2">
+                                  <Camera size={24} />
+                                  <span className="text-lg font-bold">{item.albumImages?.length || 0}</span>
+                                </div>
+                              </div>
+                              {/* Hover overlay */}
+                              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                            </>
+                          )}
+                        </div>
+
+                        {/* Title and Tags */}
+                        <div className="mt-3 space-y-2">
+                          {item.title && (
+                            <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                              {item.title}
+                            </h4>
+                          )}
+                          {item.tags && item.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                              {item.tags.slice(0, 5).map((tag) => (
+                                <span
+                                  key={`${item.id}-${tag}`}
+                                  className="px-2.5 py-1 rounded-full text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 )}
 
                 {caseItems.length > 0 && (
@@ -781,6 +1033,91 @@ export default function GalleryPage() {
           )}
         </AnimatePresence>
 
+        {/* Album Modal */}
+        <AnimatePresence>
+          {isAlbumModalOpen && activeAlbum && activeAlbum.albumImages && (
+            <>
+              <motion.div
+                className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={handleAlbumClose}
+              />
+              <motion.div
+                className="fixed inset-0 z-40 flex items-center justify-center px-4 py-10"
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.25, 0.25, 0.75] }}
+              >
+                <div
+                  ref={albumModalRef}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label={`${activeAlbum.title} photo album`}
+                  className="relative w-full max-w-7xl max-h-[90vh] rounded-3xl border border-subtle bg-panel backdrop-blur-md text-text shadow-2xl overflow-auto"
+                >
+                  <button
+                    onClick={handleAlbumClose}
+                    className="sticky top-4 right-4 float-right z-10 p-2 rounded-full bg-muted text-text hover:text-text focus:outline-none focus:ring-2 ring-accent ring-offset-bg"
+                    aria-label="Close album"
+                  >
+                    <X size={20} />
+                  </button>
+
+                  <div className="p-8 space-y-6">
+                    <div className="mb-6">
+                      <h2 className="text-3xl font-bold text-text mb-2">
+                        {activeAlbum.title}
+                      </h2>
+                      <div className="flex flex-wrap items-center gap-3 text-sm text-accent/80 mb-4">
+                        {activeAlbum.client && <span className="font-medium">Client: {activeAlbum.client}</span>}
+                        {activeAlbum.role && <span>Role: {activeAlbum.role}</span>}
+                        {activeAlbum.date && <span>{activeAlbum.date}</span>}
+                        <span className="flex items-center gap-1">
+                          <Camera size={16} />
+                          {activeAlbum.albumImages.length} photos
+                        </span>
+                      </div>
+                      {activeAlbum.description && (
+                        <p className="text-dim leading-relaxed">
+                          {activeAlbum.description}
+                        </p>
+                      )}
+                      {activeAlbum.tags && activeAlbum.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {activeAlbum.tags.map((tag) => (
+                            <span
+                              key={`${activeAlbum.id}-tag-${tag}`}
+                              className="px-3 py-1 rounded-full text-xs font-medium border bg-accent-ghost text-accent"
+                              style={{ borderColor: 'var(--ring)' }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Gallery of all album images - Masonry Layout */}
+                    <LightboxGallery
+                      items={activeAlbum.albumImages}
+                      columns={3}
+                      className="columns-1 sm:columns-2 lg:columns-3 gap-4"
+                      showTitles={false}
+                      enableZoom={true}
+                      enableDownload={false}
+                      useResponsiveGrid={false}
+                      adaptiveAspectRatio={true}
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
         {/* Creative Services */}
         <section className="py-20 px-8 bg-bg transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
@@ -800,8 +1137,8 @@ export default function GalleryPage() {
                 <div className="group relative overflow-hidden rounded-2xl border border-subtle bg-muted p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 outline-accent">
                   <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-[color:var(--accent)]/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                   <div className="relative flex flex-col items-center">
-                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-panel text-text shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[color:var(--accent)] group-hover:to-[color:var(--accent-dim)]">
-                      🎬
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-panel text-accent shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[color:var(--accent)] group-hover:to-[color:var(--accent-dim)]">
+                      <Clapperboard className="h-7 w-7" strokeWidth={2.2} />
                     </div>
                     <h3 className="mb-4 text-xl font-bold text-text">
                       Videography
@@ -811,7 +1148,7 @@ export default function GalleryPage() {
                     </p>
                     <div className="flex flex-wrap justify-center gap-2">
                       <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
-                        Wedding Films
+                        Business Promos
                       </span>
                       <span className="rounded-full border bg-accent-ghost px-3 py-1 text-xs font-medium text-accent" style={{ borderColor: 'var(--ring)' }}>
                         Corporate Videos
@@ -828,8 +1165,8 @@ export default function GalleryPage() {
                 <div className="group relative overflow-hidden rounded-2xl border border-subtle bg-muted p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 outline-accent">
                   <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-[color:var(--accent)]/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                   <div className="relative flex flex-col items-center">
-                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-panel text-text shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[color:var(--accent)] group-hover:to-[color:var(--accent-dim)]">
-                      📸
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-panel text-accent shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[color:var(--accent)] group-hover:to-[color:var(--accent-dim)]">
+                      <Camera className="h-7 w-7" strokeWidth={2.2} />
                     </div>
                     <h3 className="mb-4 text-xl font-bold text-text">
                       Photography
@@ -856,8 +1193,8 @@ export default function GalleryPage() {
                 <div className="group relative overflow-hidden rounded-2xl border border-subtle bg-muted p-6 text-center transition-all duration-300 sm:p-8 hover:-translate-y-1 hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 outline-accent">
                   <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-[color:var(--accent)]/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                   <div className="relative flex flex-col items-center">
-                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-panel text-text shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[color:var(--accent)] group-hover:to-[color:var(--accent-dim)]">
-                      🎨
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-panel text-accent shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:scale-105 group-hover:bg-gradient-to-br group-hover:from-[color:var(--accent)] group-hover:to-[color:var(--accent-dim)]">
+                      <Palette className="h-7 w-7" strokeWidth={2.2} />
                     </div>
                     <h3 className="mb-4 text-xl font-bold text-text">
                       Post-Production

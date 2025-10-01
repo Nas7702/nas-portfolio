@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-// per-card CTA removed
 import {
   X,
   ChevronLeft,
@@ -28,7 +27,7 @@ export interface MediaItem {
   title?: string;
   description?: string;
   tags?: string[];
-  kind?: "video" | "photo" | "case";
+  kind?: "video" | "photo" | "case" | "album";
   cover?: string;
 }
 
@@ -163,6 +162,7 @@ function processInstagramEmbeds() {
   enableDownload?: boolean;
   inlinePlayback?: boolean; // if true, embeds can play directly in grid
   useResponsiveGrid?: boolean;
+  adaptiveAspectRatio?: boolean; // if true, images keep their natural aspect ratio
   onItemClick?: (item: MediaItem, index: number) => boolean | void;
   // per-card CTA removed
 }
@@ -176,6 +176,7 @@ export default function LightboxGallery({
   enableDownload = true,
   inlinePlayback = false,
   useResponsiveGrid = false,
+  adaptiveAspectRatio = false,
   onItemClick,
   // per-card CTA removed
 }: LightboxGalleryProps) {
@@ -366,9 +367,9 @@ export default function LightboxGallery({
     <>
       {/* Thumbnail Grid */}
       <div
-        className={`grid gap-4 ${className}`}
+        className={adaptiveAspectRatio ? className : `grid gap-4 ${className}`}
         style={
-          useResponsiveGrid ? undefined : { gridTemplateColumns: `repeat(${columns}, 1fr)` }
+          adaptiveAspectRatio || useResponsiveGrid ? undefined : { gridTemplateColumns: `repeat(${columns}, 1fr)` }
         }
       >
         {items.map((item, index) => (
@@ -379,7 +380,7 @@ export default function LightboxGallery({
             onClick={() => handleItemSelect(item, index)}
             showTitle={showTitles}
             inlinePlayback={inlinePlayback}
-
+            adaptiveAspectRatio={adaptiveAspectRatio}
           />
         ))}
       </div>
@@ -479,22 +480,22 @@ export default function LightboxGallery({
                 </div>
 
                 {/* Media Display */}
-                <div className="flex-1 flex items-center justify-center relative overflow-hidden">
+                <div className="flex-1 flex items-center justify-center relative overflow-hidden p-4">
                   {currentItem.type === "image" ? (
                     <motion.div
-                      className="relative max-w-full max-h-full"
+                      className="relative flex items-center justify-center"
                       style={{
                         transform: `scale(${zoom}) rotate(${rotation}deg)`,
+                        maxWidth: "100%",
+                        maxHeight: "100%",
                       }}
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     >
-                      <Image
+                      <img
                         src={currentItem.src}
                         alt={currentItem.alt || currentItem.title || "Gallery image"}
-                        width={1200}
-                        height={800}
-                        className="max-w-full max-h-full object-contain"
-                        priority
+                        className="max-w-full max-h-[80vh] w-auto h-auto object-contain"
+                        style={{ display: "block" }}
                       />
                     </motion.div>
                   ) : isEmbedUrl(currentItem.src) ? (
@@ -601,12 +602,14 @@ function ThumbnailCard({
   onClick,
   showTitle,
   inlinePlayback,
+  adaptiveAspectRatio = false,
 }: {
   item: MediaItem;
   index: number;
   onClick: () => void;
   showTitle: boolean;
   inlinePlayback: boolean;
+  adaptiveAspectRatio?: boolean;
 }) {
   const [isInView, setIsInView] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -636,14 +639,33 @@ function ThumbnailCard({
 
   return (
     <motion.div
-      className={`group ${inlinePlayback && isEmbed ? "" : "cursor-pointer"}`}
-      whileHover={{ scale: 1.05 }}
+      className={`group ${inlinePlayback && isEmbed ? "" : "cursor-pointer"} ${adaptiveAspectRatio ? "break-inside-avoid mb-4" : ""} relative overflow-hidden ${
+        !inlinePlayback && !adaptiveAspectRatio
+          ? "transition-all duration-300 hover:-translate-y-1"
+          : ""
+      }`}
+      whileHover={{ scale: adaptiveAspectRatio ? 1.02 : 1 }}
       whileTap={{ scale: 0.95 }}
       onClick={inlinePlayback && isEmbed ? undefined : onClick}
     >
+      {/* Gradient overlay on hover */}
+      {!inlinePlayback && !adaptiveAspectRatio && (
+        <div className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-br from-[color:var(--accent)]/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 -z-0" />
+      )}
+
       <div
         ref={imgRef}
-        className={`relative ${inlinePlayback && isEmbed ? 'aspect-video' : 'aspect-square'} bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden`}
+        className={`relative ${
+          inlinePlayback && isEmbed
+            ? 'aspect-video'
+            : adaptiveAspectRatio
+              ? 'w-full'
+              : 'aspect-square'
+        } bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden ${
+          !inlinePlayback && !adaptiveAspectRatio
+            ? "border border-subtle hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)]"
+            : ""
+        } transition-all duration-300`}
       >
         {isInView && (
           <>
@@ -661,7 +683,17 @@ function ThumbnailCard({
                 ) : null;
               })()
             ) : !imageError ? (
-              isLocalThumb ? (
+              adaptiveAspectRatio ? (
+                <Image
+                  src={thumbSrc}
+                  alt={item.alt || item.title || `Media ${index + 1}`}
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto rounded-lg"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  onError={() => setImageError(true)}
+                />
+              ) : isLocalThumb ? (
                 <Image
                   src={thumbSrc}
                   alt={item.alt || item.title || `Media ${index + 1}`}
@@ -687,11 +719,20 @@ function ThumbnailCard({
 
             {/* Media Type Indicator */}
             {!inlinePlayback && item.type === "video" && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="p-3 bg-black/70 text-white rounded-full">
-                  <Play size={20} />
+              <>
+                {/* Corner badge */}
+                <div className="absolute top-2 left-2 z-10">
+                  <div className="px-2 py-1 rounded-md bg-gradient-to-r from-emerald-400 to-green-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg animate-pulse">
+                    Video
+                  </div>
                 </div>
-              </div>
+                {/* Play button */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="p-4 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                    <Play size={24} fill="white" />
+                  </div>
+                </div>
+              </>
             )}
 
             {/* Overlay */}
