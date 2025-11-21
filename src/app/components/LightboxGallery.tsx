@@ -491,9 +491,11 @@ export default function LightboxGallery({
                       }}
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     >
-                      <img
+                      <Image
                         src={currentItem.src}
                         alt={currentItem.alt || currentItem.title || "Gallery image"}
+                        width={1920}
+                        height={1080}
                         className="max-w-full max-h-[80vh] w-auto h-auto object-contain"
                         style={{ display: "block" }}
                       />
