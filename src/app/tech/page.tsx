@@ -101,11 +101,18 @@ export default function SoftwarePage() {
         <section ref={sectionRef} className="relative overflow-hidden py-20 px-8">
           <div
             aria-hidden
-            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(17,24,39,0.8)_0%,rgba(2,6,23,0.96)_70%,rgba(0,0,0,1)_100%)]"
+            className="absolute inset-0 hidden dark:block bg-[radial-gradient(circle_at_center,rgba(17,24,39,0.8)_0%,rgba(2,6,23,0.96)_70%,rgba(0,0,0,1)_100%)]"
           />
+
+          {/* Light Mode Gradient */}
+          <div
+            aria-hidden
+            className="absolute inset-0 dark:hidden bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08)_0%,rgba(255,255,255,0)_70%)]"
+          />
+
           <div
             ref={bgRef}
-            className="pointer-events-none absolute inset-0 will-change-transform"
+            className="pointer-events-none absolute inset-0 will-change-transform hidden dark:block"
             aria-hidden
             style={{ transform: "scale(1.18)" }}
           >
