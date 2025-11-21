@@ -779,7 +779,7 @@ export default function GalleryPage() {
                 {(mediaItems.length > 0 || albumItems.length > 0) && (
                   <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     {/* Render video items */}
-                    {mediaItems.map((item, index) => (
+                    {mediaItems.map((item) => (
                       <LightboxGallery
                         key={item.id}
                         items={[item]}
