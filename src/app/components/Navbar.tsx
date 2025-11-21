@@ -169,7 +169,11 @@ export default function Navbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md"
+              className={`md:hidden border-t backdrop-blur-md ${
+                pathname.startsWith("/create")
+                  ? "border-white/10 bg-bg-95 dark:bg-bg-95"
+                  : "border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95"
+              }`}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -182,9 +186,15 @@ export default function Navbar() {
 
                   // Use brand colors for Creative item
                   const isCreative = item.href === "/create";
+                  const onCreativePage = pathname.startsWith("/create");
+
                   const activeStyles = isCreative
                     ? "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400"
                     : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400";
+
+                  const inactiveStyles = onCreativePage
+                    ? "text-gray-300 hover:bg-white/10"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800";
 
                   return (
                     <motion.div
@@ -198,7 +208,7 @@ export default function Navbar() {
                           className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                             active
                               ? activeStyles
-                              : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                              : inactiveStyles
                           }`}
                         >
                           <Icon size={18} />

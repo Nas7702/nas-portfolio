@@ -47,24 +47,30 @@ const containerBaseClasses = [
   "select-none",
 ];
 
-const textBaseClasses = [
-  "font-extrabold",
-  "uppercase",
-  "tracking-[0.12em]",
-  "transition-colors",
-  "duration-200",
-  "ease-out",
-  "text-slate-900",
-  "dark:text-slate-200",
-  "group-hover:text-slate-700",
-  "dark:group-hover:text-white",
-  "group-focus-visible:text-slate-700",
-  "dark:group-focus-visible:text-white",
-  "motion-reduce:group-hover:text-slate-900",
-  "motion-reduce:dark:group-hover:text-slate-200",
-  "motion-reduce:group-focus-visible:text-slate-900",
-  "motion-reduce:dark:group-focus-visible:text-slate-200",
-];
+  const textBaseClasses = [
+    "font-extrabold",
+    "uppercase",
+    "tracking-[0.12em]",
+    "transition-colors",
+    "duration-200",
+    "ease-out",
+  ];
+
+  const textColors = {
+    default: [
+      "text-slate-900",
+      "dark:text-slate-200",
+      "group-hover:text-slate-700",
+      "dark:group-hover:text-white",
+      "group-focus-visible:text-slate-700",
+      "dark:group-focus-visible:text-white",
+    ],
+    record: [
+      "text-white", // Always white for record/creative
+      "group-hover:text-gray-200",
+      "group-focus-visible:text-gray-200",
+    ],
+  };
 const dotBaseClasses = ["relative", "flex", "items-center", "justify-center", "rounded-full", "transition", "duration-200", "ease-out"];
 
 const DOT_VARIANTS: Record<LogoVariant, string[]> = {
@@ -208,7 +214,8 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
     .concat(className ? [className] : [])
     .join(" ");
 
-  const textClassName = [sizeStyles.text, ...textBaseClasses].join(" ");
+  const variantTextColors = textColors[variant] ?? textColors.default;
+  const textClassName = [sizeStyles.text, ...textBaseClasses, ...variantTextColors].join(" ");
 
   const dotVariantClasses = DOT_VARIANTS[variant] ?? DOT_VARIANTS.default;
   const dotClassName = [sizeStyles.dot, ...dotBaseClasses, ...dotVariantClasses].join(" ");

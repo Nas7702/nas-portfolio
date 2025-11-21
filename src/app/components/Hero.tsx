@@ -129,17 +129,23 @@ export default function Hero() {
   }
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden -mt-16 pt-24 pb-16 md:pt-32 md:pb-24">
-      {/* Static base gradient to prevent edge exposure */}
+    <section ref={sectionRef} className="relative overflow-hidden -mt-16 pt-24 pb-16 md:pt-32 md:pb-24 bg-gray-50 dark:bg-transparent transition-colors duration-300">
+      {/* Static base gradient to prevent edge exposure - Dark Mode Only */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(15,23,42,0.75)_0%,rgba(2,6,23,0.95)_70%,rgba(0,0,0,1)_100%)]"
+        className="absolute inset-0 hidden dark:block bg-[radial-gradient(circle_at_center,rgba(15,23,42,0.75)_0%,rgba(2,6,23,0.95)_70%,rgba(0,0,0,1)_100%)]"
       />
 
-      {/* Bokeh background cluster */}
+      {/* Light Mode Background Gradient */}
+      <div
+        aria-hidden
+        className="absolute inset-0 dark:hidden bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08)_0%,rgba(255,255,255,0)_70%)]"
+      />
+
+      {/* Bokeh background cluster - Dark Mode Only */}
       <div
         ref={bgRef}
-        className="absolute inset-0 will-change-transform pointer-events-none"
+        className="absolute inset-0 will-change-transform pointer-events-none hidden dark:block"
         aria-hidden
         style={{ transform: "scale(1.2)" }}
       >
@@ -197,37 +203,37 @@ export default function Hero() {
         <ScrollReveal direction="up" delay={0.1}>
           <div className="flex max-w-2xl flex-col gap-8">
             <div className="flex flex-col gap-4 text-left">
-              <p className="text-sm font-medium uppercase tracking-[0.3em] text-white/40">
+              <p className="text-sm font-medium uppercase tracking-[0.3em] text-gray-500 dark:text-white/40">
                 Welcome
               </p>
-              <h1 className="space-y-5 font-semibold text-white">
+              <h1 className="space-y-5 font-semibold text-gray-900 dark:text-white">
                 <span className="relative inline-block w-fit text-5xl leading-tight sm:text-6xl md:text-7xl">
                   <span
                     aria-hidden
-                    className="absolute inset-0 -z-10 rounded-full bg-blue-500/25 blur-[60px]"
+                    className="absolute inset-0 -z-10 rounded-full bg-blue-500/25 blur-[60px] dark:bg-blue-500/25 opacity-0 dark:opacity-100"
                   />
-                  <span className="bg-gradient-to-r from-blue-100 via-sky-300 to-blue-400 text-transparent bg-clip-text drop-shadow-[0_0_30px_rgba(56,189,248,0.45)]">
+                  <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-blue-600 dark:from-blue-100 dark:via-sky-300 dark:to-blue-400 text-transparent bg-clip-text drop-shadow-sm dark:drop-shadow-[0_0_30px_rgba(56,189,248,0.45)]">
                     I&apos;m Nas
                   </span>
                 </span>
-                <div className="flex flex-wrap items-center gap-3 text-2xl text-white/85 sm:text-3xl md:text-4xl">
-                  <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium uppercase tracking-[0.35em] text-white/70 sm:text-base">
+                <div className="flex flex-wrap items-center gap-3 text-2xl text-gray-700 dark:text-white/85 sm:text-3xl md:text-4xl">
+                  <span className="inline-flex items-center rounded-full border border-gray-200 dark:border-white/15 bg-white/60 dark:bg-white/5 px-5 py-2 text-sm font-medium uppercase tracking-[0.35em] text-gray-600 dark:text-white/70 sm:text-base backdrop-blur-sm shadow-sm dark:shadow-none">
                     Data Science
                   </span>
-                  <span className="text-blue-400">×</span>
-                  <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-medium uppercase tracking-[0.35em] text-white/70 sm:text-base">
+                  <span className="text-blue-500 dark:text-blue-400">×</span>
+                  <span className="inline-flex items-center rounded-full border border-gray-200 dark:border-white/15 bg-white/60 dark:bg-white/5 px-5 py-2 text-sm font-medium uppercase tracking-[0.35em] text-gray-600 dark:text-white/70 sm:text-base backdrop-blur-sm shadow-sm dark:shadow-none">
                     Visual Storytelling
                   </span>
                 </div>
               </h1>
-              <p className="text-lg text-white/70 md:text-xl">
+              <p className="text-lg text-gray-600 dark:text-white/70 md:text-xl">
                 I turn data into decisions and ideas into cinematic visuals for businesses.
               </p>
               <a
                 href="https://www.stancefitness.co/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-fit text-sm font-medium text-blue-500 transition-colors duration-200 hover:text-blue-400 hover:underline"
+                className="w-fit text-sm font-medium text-blue-600 dark:text-blue-500 transition-colors duration-200 hover:text-blue-500 dark:hover:text-blue-400 hover:underline"
               >
                 Currently at Stance Fitness
               </a>
@@ -238,13 +244,13 @@ export default function Hero() {
                 href="#work"
                 aria-label="Skip to Work hub"
                 title="View my work"
-                className="inline-flex h-12 items-center justify-center rounded-full bg-blue-600 px-8 text-sm font-semibold text-white transition-colors duration-200 hover:bg-blue-700"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-blue-600 px-8 text-sm font-semibold text-white transition-colors duration-200 hover:bg-blue-700 shadow-lg shadow-blue-600/20"
               >
                 View my work
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-8 text-sm font-semibold text-white transition-all duration-200 hover:border-blue-500 hover:text-blue-500"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-gray-300 dark:border-white/20 px-8 text-sm font-semibold text-gray-700 dark:text-white transition-all duration-200 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-500 bg-white/50 dark:bg-transparent"
               >
                 Hire me
               </Link>
