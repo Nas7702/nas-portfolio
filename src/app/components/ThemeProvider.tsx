@@ -31,7 +31,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   useEffect(() => {
     const root = document.documentElement;
-
+    
     // Function to strictly enforce the theme based on inputs
     const updateTheme = (isSystemDark: boolean) => {
       // Force dark mode on creative pages regardless of system preference
@@ -40,7 +40,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
       const newTheme = shouldBeDark ? "dark" : "light";
       setTheme(newTheme);
-
+      
       // Manually manage the classList to ensure Tailwind picks it up
       if (shouldBeDark) {
         root.classList.add("dark");
@@ -66,8 +66,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener("change", handleChange);
     } else {
-      // @ts-expect-error - Fallback for older browsers that use addListener instead of addEventListener
-      mediaQuery.addListener(handleChange);
+      // Fallback for older browsers
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (mediaQuery as any).addListener(handleChange);
     }
 
     setMounted(true);
@@ -77,8 +78,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       if (mediaQuery.removeEventListener) {
         mediaQuery.removeEventListener("change", handleChange);
       } else {
-         // @ts-expect-error - Fallback for older browsers that use removeListener instead of removeEventListener
-        mediaQuery.removeListener(handleChange);
+        // Fallback for older browsers
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (mediaQuery as any).removeListener(handleChange);
       }
     };
   }, [pathname]); // Re-run logic if user navigates to/from /create
