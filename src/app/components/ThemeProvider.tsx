@@ -66,7 +66,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener("change", handleChange);
     } else {
-      // @ts-expect-error - Fallback for older browsers
+      // @ts-expect-error - Fallback for older browsers that use addListener instead of addEventListener
       mediaQuery.addListener(handleChange);
     }
 
@@ -77,7 +77,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       if (mediaQuery.removeEventListener) {
         mediaQuery.removeEventListener("change", handleChange);
       } else {
-         // @ts-expect-error
+         // @ts-expect-error - Fallback for older browsers that use removeListener instead of removeEventListener
         mediaQuery.removeListener(handleChange);
       }
     };
