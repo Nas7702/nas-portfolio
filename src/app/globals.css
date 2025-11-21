@@ -1,11 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #ffffff;
+  --foreground: #171717;
   /* Spotlight defaults */
   --spotlight-size: clamp(420px, 50vw, 900px);
-  --spotlight-color-rgb: 255 255 255; /* default white glow on dark */
+  --spotlight-color-rgb: 0 0 0; /* default black glow on light */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --spotlight-color-rgb: 255 255 255;
+  }
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --spotlight-color-rgb: 255 255 255;
 }
 
 html {

@@ -1,8 +1,9 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
-type Theme = "dark";
+type Theme = "dark" | "light";
 
 interface ThemeContextType {
   theme: Theme;
@@ -25,29 +26,64 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme>("dark");
+  const pathname = usePathname();
 
-  // Initialize dark theme
   useEffect(() => {
     const root = document.documentElement;
 
-    // Always set dark theme
-    root.classList.remove("light");
-    root.classList.add("dark");
-    root.style.colorScheme = "dark";
+    // Function to strictly enforce the theme based on inputs
+    const updateTheme = (isSystemDark: boolean) => {
+      // Force dark mode on creative pages regardless of system preference
+      const isCreative = pathname?.startsWith("/create");
+      const shouldBeDark = isCreative || isSystemDark;
+
+      const newTheme = shouldBeDark ? "dark" : "light";
+      setTheme(newTheme);
+
+      // Manually manage the classList to ensure Tailwind picks it up
+      if (shouldBeDark) {
+        root.classList.add("dark");
+        root.classList.remove("light");
+        root.style.colorScheme = "dark";
+      } else {
+        root.classList.remove("dark");
+        root.classList.add("light");
+        root.style.colorScheme = "light";
+      }
+    };
+
+    // 1. Initial Check on Mount
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    updateTheme(mediaQuery.matches);
+
+    // 2. Robust Event Listener
+    const handleChange = (e: MediaQueryListEvent) => {
+      updateTheme(e.matches);
+    };
+
+    // Safari/Legacy support: some older browsers use addListener
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", handleChange);
+    } else {
+      // @ts-ignore - Fallback for older browsers
+      mediaQuery.addListener(handleChange);
+    }
 
     setMounted(true);
-  }, []);
 
-  // Don't render children until mounted to avoid hydration mismatch
-  if (!mounted) {
-    return (
-      <ThemeContext.Provider value={{ theme: "dark", mounted: false }}>
-        {children}
-      </ThemeContext.Provider>
-    );
-  }
+    // Cleanup
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener("change", handleChange);
+      } else {
+         // @ts-ignore
+        mediaQuery.removeListener(handleChange);
+      }
+    };
+  }, [pathname]); // Re-run logic if user navigates to/from /create
 
-  const contextValue = { theme: "dark" as Theme, mounted };
+  const contextValue = { theme, mounted };
 
   return (
     <ThemeContext.Provider value={contextValue}>
