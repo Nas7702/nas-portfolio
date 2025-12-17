@@ -111,7 +111,7 @@ export const projects: Project[] = [
     description: "A modern, responsive portfolio website featuring Three.js animations and smooth transitions.",
     category: "software",
     stack: ["Next.js", "Three.js", "Framer Motion", "TypeScript", "Tailwind CSS"],
-    image: "/next.svg",
+    image: "/images/bokeh-lights-dark-background.jpg",
     githubLink: "https://github.com/nas/portfolio",
     liveLink: "https://nas-portfolio.dev",
     caseStudy: {
@@ -150,11 +150,11 @@ export const projects: Project[] = [
   // Videography Projects
   {
     id: "corporate-brand-video",
-    title: "Corporate Brand Video Series",
-    description: "A series of corporate brand videos featuring dynamic storytelling and professional colour grading.",
+    title: "Automotive & Brand Cinematography",
+    description: "Dynamic automotive and brand cinematography featuring professional colour grading and storytelling.",
     category: "videography",
     stack: ["DaVinci Resolve Studio", "Lightroom", "Photoshop", "After Effects"],
-    image: "/file.svg",
+    image: "/images/Automotive/DSC09689-Enhanced-NR-Edit.png",
     videoLink: "https://vimeo.com/nas/brand-video",
     caseStudy: {
       overview: "A comprehensive brand video series that elevated a company's digital presence through compelling visual storytelling.",
@@ -182,9 +182,9 @@ export const projects: Project[] = [
         "Won local business video award"
       ],
       images: [
-        "/file.svg",
-        "/window.svg",
-        "/next.svg"
+        "/images/Automotive/carousel_07.jpg",
+        "/images/Automotive/DSC07646-Enhanced-NR.jpg",
+        "/images/Automotive/DSC07747-Enhanced-NR.jpg"
       ]
     }
   },
@@ -232,28 +232,28 @@ export const projects: Project[] = [
   // Photography Projects
   {
     id: "portrait-photography-series",
-    title: "Professional Portrait Series",
-    description: "High-end portrait photography with advanced retouching and artistic post-processing.",
+    title: "Sports & Portrait Photography",
+    description: "High-impact sports photography and portraits capturing peak performance and raw emotion.",
     category: "photography",
     stack: ["DaVinci Resolve Studio", "Adobe Lightroom", "Photoshop", "Capture One"],
-    image: "/window.svg",
+    image: "/images/portfolio/sheffield-powerlifting/DSC05342.jpg",
     caseStudy: {
-      overview: "A professional portrait photography series showcasing advanced lighting techniques and post-processing skills.",
-      problem: "Clients needed high-quality professional headshots and portraits that would stand out in competitive markets.",
-      solution: "Developed a signature portrait style combining professional studio lighting with artistic post-processing techniques.",
+      overview: "A professional sports and portrait photography series showcasing advanced lighting techniques and timing.",
+      problem: "Clients needed high-quality imagery that captured the intensity of the sport while maintaining professional aesthetics.",
+      solution: "Developed a signature style combining fast shutter techniques with artistic post-processing to freeze action and highlight emotion.",
       technologies: ["DaVinci Resolve Studio", "Adobe Lightroom", "Adobe Photoshop", "Capture One Pro", "Profoto Studio Lighting"],
       features: [
-        "Professional studio lighting setups",
-        "Advanced skin retouching techniques",
+        "Professional studio and location lighting",
+        "High-speed action capture",
         "Colour grading for mood and atmosphere",
         "Multiple style variations per session",
         "High-resolution delivery for print and digital",
         "Quick turnaround for client needs"
       ],
       challenges: [
-        "Achieving consistent lighting across different sessions",
+        "Achieving consistent lighting in variable environments",
         "Balancing natural look with professional polish",
-        "Managing client expectations and comfort",
+        "Capturing split-second moments of action",
         "Maintaining efficiency while ensuring quality"
       ],
       results: [
@@ -263,9 +263,9 @@ export const projects: Project[] = [
         "Recognised by local business community"
       ],
       images: [
-        "/window.svg",
-        "/file.svg",
-        "/next.svg"
+        "/images/portfolio/sheffield-powerlifting/DSC04648.jpg",
+        "/images/portfolio/sheffield-powerlifting/DSC08037.jpg",
+        "/images/portfolio/sheffield-powerlifting/DSC08283.jpg"
       ]
     }
   }
