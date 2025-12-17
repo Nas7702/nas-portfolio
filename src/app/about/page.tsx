@@ -81,7 +81,7 @@ export default function AboutPage() {
       category: "Creative",
       description: (
         <span className="text-neutral-200">
-          Bridging <span className="font-semibold">software development</span>, <span className="font-semibold">analytical precision</span>, and <span className="font-semibold">creative storytelling</span>. Open to new roles across tech and media.
+          Sharpening <span className="font-semibold">software</span> and <span className="font-semibold">data science</span> skills at Stance Fitness and on side builds to ship smarter products and tools while growing a <span className="font-semibold">media business</span> through client storytelling.
         </span>
       ),
       Icon: Sparkles,
@@ -109,7 +109,7 @@ export default function AboutPage() {
           <div className="space-y-24">
             {timelineEvents.map((event, index) => (
               <ScrollReveal key={index} direction="up" delay={0.05 * index} threshold={0.2}>
-                <TimelineItem event={event} index={index} />
+                <TimelineItem event={event} />
               </ScrollReveal>
             ))}
           </div>
@@ -157,8 +157,8 @@ interface TimelineEvent {
   Icon: LucideIcon;
 }
 
-function TimelineItem({ event, index }: { event: TimelineEvent; index: number }) {
-  const isEven = index % 2 === 0;
+function TimelineItem({ event }: { event: TimelineEvent }) {
+  const isCreative = event.category === "Creative";
   const Icon = event.Icon;
 
   return (
@@ -168,7 +168,7 @@ function TimelineItem({ event, index }: { event: TimelineEvent; index: number })
       viewport={{ once: true, margin: "-120px" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={`relative flex flex-col md:flex-row items-center gap-8 ${
-        isEven ? "md:flex-row" : "md:flex-row-reverse"
+        isCreative ? "md:flex-row" : "md:flex-row-reverse"
       }`}
     >
       {/* Icon Point */}
@@ -177,19 +177,21 @@ function TimelineItem({ event, index }: { event: TimelineEvent; index: number })
       </div>
 
       {/* Content Card */}
-      <div className={`w-full md:w-1/2 pl-20 md:pl-0 ${isEven ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"}`}>
+      <div className={`w-full md:w-1/2 pl-20 md:pl-0 ${isCreative ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"}`}>
         <div className="bg-card border border-border p-6 rounded-2xl hover:border-primary/50 transition-colors group relative overflow-hidden shadow-lg shadow-primary/5">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-mono text-primary">{event.year}</span>
-            <span
-              className={`text-[11px] px-2 py-1 rounded-full border ${
-                event.category === "Technical"
-                  ? "bg-blue-500/10 border-blue-400/40 text-blue-200"
-                  : "bg-accent/10 border-accent/40 text-accent"
-              }`}
-            >
-              {event.category}
-            </span>
+            {event.title !== "Building & Creating" && (
+              <span
+                className={`text-[11px] px-2 py-1 rounded-full border ${
+                  event.category === "Technical"
+                    ? "bg-blue-500/10 border-blue-400/40 text-blue-200"
+                    : "bg-accent/10 border-accent/40 text-accent"
+                }`}
+              >
+                {event.category}
+              </span>
+            )}
           </div>
           <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">{event.title}</h3>
           <p className="text-muted-foreground relative z-10">{event.description}</p>

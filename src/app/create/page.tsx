@@ -207,6 +207,47 @@ const portfolioItems: PortfolioItem[] = [
     cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
     description: "A promotional video for a car modification company."
   },
+  // PHOTO ALBUM - Fitness
+  {
+    id: "fitness-portfolio",
+    type: "image",
+    kind: "album",
+    cover: "/images/portfolio/sheffield-powerlifting/fitness/DSC00947.jpg",
+    src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00947.jpg",
+    title: "Fitness & Physiques",
+    alt: "Fitness photography collection",
+    tags: ["Fitness", "Gym", "Physique", "Photography"],
+    client: "Various",
+    role: "Photographer",
+    date: "2025",
+    description: "High-impact fitness and physique photography capturing strength and dedication.",
+    albumImages: [
+      {
+        id: "fitness-1",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00947.jpg",
+        alt: "Fitness photography",
+      },
+      {
+        id: "fitness-2",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00944.jpg",
+        alt: "Fitness photography",
+      },
+      {
+        id: "fitness-3",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00917.jpg",
+        alt: "Fitness photography",
+      },
+      {
+        id: "fitness-4",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00881.jpg",
+        alt: "Fitness photography",
+      },
+    ]
+  },
   // PHOTO ALBUM - Automotive Photography
   {
     id: "automotive-photography",
@@ -416,7 +457,16 @@ export default function CreativePage() {
   }, [filteredItems]);
 
   const albumItems = useMemo(() => {
-    return filteredItems.filter((item) => item.kind === "album");
+    const albums = filteredItems.filter((item) => item.kind === "album");
+    const priorityAlbumIds = ["fitness-portfolio"];
+
+    const prioritized = priorityAlbumIds
+      .map((id) => albums.find((item) => item.id === id))
+      .filter((item): item is PortfolioItem => Boolean(item));
+
+    const remaining = albums.filter((item) => !priorityAlbumIds.includes(item.id ?? ""));
+
+    return [...prioritized, ...remaining];
   }, [filteredItems]);
 
   const caseItems = useMemo(() => {

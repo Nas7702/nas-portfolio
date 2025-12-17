@@ -3,7 +3,6 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import { useState, useRef, Suspense } from "react";
-// @ts-expect-error maath/random does not have types
 import * as random from "maath/random/dist/maath-random.esm";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -38,7 +37,7 @@ function ParticleCloud(props: any) {
 
 function Scene() {
   return (
-    <div className="absolute inset-0 z-0">
+    <div className="absolute inset-0 z-0" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
           <ParticleCloud />
