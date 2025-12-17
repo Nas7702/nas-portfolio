@@ -1,235 +1,64 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  /* Spotlight defaults */
-  --spotlight-size: clamp(420px, 50vw, 900px);
-  --spotlight-color-rgb: 0 0 0; /* default black glow on light */
+@theme {
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+
+  --color-card: #111111;
+  --color-card-foreground: #ededed;
+
+  --color-popover: #111111;
+  --color-popover-foreground: #ededed;
+
+  --color-primary: #ededed;
+  --color-primary-foreground: #0a0a0a;
+
+  --color-secondary: #222222;
+  --color-secondary-foreground: #ededed;
+
+  --color-muted: #222222;
+  --color-muted-foreground: #a1a1a1;
+
+  --color-accent: #39FF88;
+  --color-accent-foreground: #0a0a0a;
+
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ededed;
+
+  --color-border: #333333;
+  --color-input: #222222;
+  --color-ring: #39FF88;
+
+  --radius: 0.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --spotlight-color-rgb: 255 255 255;
+@layer base {
+  * {
+    @apply border-border;
   }
-}
-
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --spotlight-color-rgb: 255 255 255;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-accent/30 selection:text-accent-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
-}
 
-/* Creative (Create page) scoped theme variables */
-.theme-creative,
-[data-theme="creative"] {
-  /* Neutral charcoal stack */
-  --bg: #0B0C0E;
-  --panel: #111214;
-  --bg-95: rgba(11, 12, 14, 0.95);
-  --panel-95: rgba(17, 18, 20, 0.95);
-  --muted: #15171A;
-  --subtle: #1B1E22;
-  --grid: rgba(255, 255, 255, 0.06);
-
-  /* Text */
-  --text: #ffffff;
-  --text-dim: #d1d1d1;
-
-  /* Accent (brand green) */
-  --accent: #39FF88;
-  --accent-dim: #1EEB6E;
-  --accent-ghost: rgba(57, 255, 136, 0.10);
-  --ring: #39FF88;
-  /* Overlay controls */
-  --accent-rgb: 57 255 136; /* for rgb(var(--accent-rgb) / <alpha>) */
-  --spotlight-color-rgb: var(--accent-rgb); /* use accent tint for creative */
-  --tint-alpha: 0.05;       /* header tint strength */
-  --sprinkle-1: 0.1;       /* top-left sprinkle alpha */
-  --sprinkle-2: 0.1;       /* bottom-right sprinkle alpha */
-  --vignette-opacity: 0.75; /* @deprecated: use edge/bottom opacities */
-  --vignette-color: 17 18 20;
-  --vignette-mid-opacity: 0.25;
-  --vignette-edge-opacity: 0.72;
-  --vignette-bottom-opacity: 0.85;
+  /* Grainy Noise Overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
 }
 
 @layer utilities {
-  /* Color utilities backed by Creative CSS vars */
-  .bg-bg { background-color: var(--bg); }
-  .bg-panel { background-color: var(--panel); }
-  .bg-panel-95 { background-color: var(--panel-95); }
-  .bg-muted { background-color: var(--muted); }
-  .bg-bg-95 { background-color: var(--bg-95); }
-  .border-subtle { border-color: var(--subtle); }
-  .text-text { color: var(--text); }
-  .text-dim { color: var(--text-dim); }
-  .text-accent { color: var(--accent); }
-  .bg-accent { background-color: var(--accent); }
-  .bg-accent-ghost { background-color: var(--accent-ghost); }
-
-  /* Header overlays */
-  .overlay-tint { background-color: rgb(var(--accent-rgb) / var(--tint-alpha)); }
-
-  /* Ring helpers (hook into Tailwind ring variables) */
-  .ring-accent { --tw-ring-color: var(--ring); }
-  .ring-offset-bg { --tw-ring-offset-color: var(--bg); }
-
-  /* Subtle dotted grid */
-  .bg-grid {
-    background-image: radial-gradient(var(--grid) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  /* Vignette helper (lightweight overlay) */
-  .gradient-vignette {
-    background:
-      radial-gradient(1100px 80% at 50% 45%, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / var(--vignette-mid-opacity)) 55%, rgb(var(--vignette-color) / var(--vignette-edge-opacity)) 100%),
-      linear-gradient(to bottom, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / var(--vignette-bottom-opacity)) 100%);
-  }
-
-  @media (max-width: 768px) {
-    .gradient-vignette {
-      background:
-        radial-gradient(900px 90% at 50% 40%, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / var(--vignette-mid-opacity)) 50%, rgb(var(--vignette-color) / var(--vignette-edge-opacity)) 100%),
-        linear-gradient(to bottom, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / calc(var(--vignette-bottom-opacity) + 0.05)) 100%);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .gradient-vignette {
-      background:
-        radial-gradient(700px 95% at 50% 40%, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / var(--vignette-mid-opacity)) 45%, rgb(var(--vignette-color) / var(--vignette-edge-opacity)) 100%),
-        linear-gradient(to bottom, rgb(var(--vignette-color) / 0) 0%, rgb(var(--vignette-color) / calc(var(--vignette-bottom-opacity) + 0.1)) 100%);
-    }
-  }
-
-  .hero-grid-mask {
-    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.86), transparent 70%);
-    mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.86), transparent 70%);
-  }
-
-  @media (max-width: 640px) {
-    .hero-grid-mask {
-      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9), transparent 80%);
-      mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9), transparent 80%);
-    }
-  }
-
-  /* Accent glow helpers */
-  .shadow-accent-soft { box-shadow: 0 0 40px rgba(57,255,136,0.15); }
-  .focus-ring-accent:focus { box-shadow: 0 0 0 2px rgba(57,255,136,0.45); }
-  .outline-accent { outline-color: var(--ring); }
-
-  /* Spotlight utilities */
-  .spotlight-size-sm { --spotlight-size: 360px; }
-  .spotlight-size-md { --spotlight-size: clamp(420px, 45vw, 860px); }
-  .spotlight-size-lg { --spotlight-size: clamp(520px, 60vw, 1100px); }
-  .spotlight-color-accent { --spotlight-color-rgb: var(--accent-rgb); }
-}
-
-/* Spotlight overlay (fixed, pointer-events: none) */
-.spotlight-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 30; /* below Navbar (z-40) and modals */
-  pointer-events: none;
-  contain: layout style paint;
-}
-
-.spotlight-dot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate3d(-50%, -50%, 0);
-  border-radius: 9999px;
-  will-change: transform, opacity;
-  /* Soft radial falloff; no filters, only gradient + opacity */
-  background: radial-gradient(
-    circle,
-    rgb(var(--spotlight-color-rgb) / 0.35) 0%,
-    rgb(var(--spotlight-color-rgb) / 0.18) 35%,
-    rgb(var(--spotlight-color-rgb) / 0.08) 60%,
-    rgb(var(--spotlight-color-rgb) / 0) 75%
-  );
-}
-
-@keyframes logo-dot-glow {
-  0%,
-  100% {
-    opacity: 0.68;
-    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.28));
-  }
-  45% {
-    opacity: 0.82;
-    filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.36));
-  }
-  70% {
-    opacity: 0.75;
-    filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.32));
-  }
-}
-
-@keyframes logo-dot-hover {
-  0% {
-    transform: translate3d(0, 0, 0) scale(0.98);
-    opacity: 0.76;
-  }
-  50% {
-    transform: translate3d(0.3px, -0.4px, 0) scale(1.04);
-    opacity: 0.92;
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale(1.02);
-    opacity: 0.8;
-  }
-}
-
-@keyframes logo-dot-glow-record {
-  0%,
-  100% {
-    opacity: 0.7;
-    filter: drop-shadow(0 0 9px rgba(248, 113, 113, 0.32));
-  }
-  45% {
-    opacity: 0.88;
-    filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.4));
-  }
-  72% {
-    opacity: 0.78;
-    filter: drop-shadow(0 0 11px rgba(249, 115, 22, 0.38));
-  }
-}
-
-@keyframes logo-dot-record-hover {
-  0% {
-    transform: translate3d(0, 0, 0) scale(0.98);
-    opacity: 0.78;
-  }
-  50% {
-    transform: translate3d(0.32px, -0.34px, 0) scale(1.06);
-    opacity: 0.96;
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale(1.03);
-    opacity: 0.82;
+  .text-balance {
+    text-wrap: balance;
   }
 }
