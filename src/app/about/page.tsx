@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useRef, ReactNode } from "react";
 import ScrollReveal from "../components/ScrollReveal";
 import PageTransition from "../components/PageTransition";
-import { GraduationCap, Dumbbell, Briefcase, Sparkles, Camera, LucideIcon } from "lucide-react";
+import { GraduationCap, Dumbbell, Sparkles, Camera, LucideIcon } from "lucide-react";
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
