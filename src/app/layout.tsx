@@ -21,6 +21,28 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Nas - Data Scientist & Creative",
   description: "Portfolio of Nas - Developer, Data Scientist & Creative Professional.",
+  openGraph: {
+    title: "Nas - Data Scientist & Creative",
+    description: "Bridging the gap between analytical precision and creative storytelling.",
+    url: "https://nas-portfolio.dev",
+    siteName: "Nas Portfolio",
+    images: [
+      {
+        url: "/images/bokeh-lights-dark-background.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Nas Portfolio",
+      },
+    ],
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nas - Data Scientist & Creative",
+    description: "Bridging the gap between analytical precision and creative storytelling.",
+    images: ["/images/bokeh-lights-dark-background.jpg"],
+  },
 };
 
 export default function RootLayout({

@@ -25,15 +25,17 @@ function ContactPageInner() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Simulate form submission
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Handle form submission via mailto
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    const subject = `Portfolio Enquiry: ${formData.name}`;
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+
+    window.location.href = `mailto:nascreate0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
     setIsSubmitting(false);
-    // Show success state (could be a toast)
-    alert("Message sent! (Simulated)");
     setFormData({ name: "", email: "", message: "" });
   };
 
