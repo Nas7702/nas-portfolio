@@ -1,14 +1,12 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PageTransition from "../components/PageTransition";
 import { motion } from "framer-motion";
-import { Check, Instagram, Mail, MapPin, MessageCircle, Phone, ArrowRight } from "lucide-react";
-import { trackCta } from "../../lib/analytics";
+import { Check, Instagram, Mail, MapPin, MessageCircle, ArrowRight } from "lucide-react";
 
 const WHATSAPP_BASE = "https://wa.me/447475437833";
-const CALL_URL = "tel:+447475437833";
 const EMAIL_URL =
   "mailto:nascreate0@gmail.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BTech%2FVideo%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
 const INSTAGRAM_URL = "https://instagram.com/nas.create";
@@ -105,11 +103,11 @@ function ContactPageInner() {
             className="text-center mb-20"
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-              Let's Talk
+              Let&apos;s Talk
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Got a project in mind? Whether it's data science or visual storytelling,
-              I'm ready to help you build it.
+              Got a project in mind? Whether it&apos;s data science or visual storytelling,
+              I&apos;m ready to help you build it.
             </p>
           </motion.div>
 

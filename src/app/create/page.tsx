@@ -346,8 +346,8 @@ const portfolioItems: PortfolioItem[] = [
 
 export default function CreativePage() {
   const [activeFilter, setActiveFilter] = useState<PortfolioKind | "all">("all");
-  const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
-  const [activeCaseStudy, setActiveCaseStudy] = useState<PortfolioItem | null>(null);
+  // const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
+  // const [activeCaseStudy, setActiveCaseStudy] = useState<PortfolioItem | null>(null);
   const [isAlbumModalOpen, setIsAlbumModalOpen] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState<PortfolioItem | null>(null);
   const heroSectionRef = useRef<HTMLElement | null>(null);
@@ -412,14 +412,14 @@ export default function CreativePage() {
     setActiveFilter(value);
   }, []);
 
-  const handleCaseStudyOpen = useCallback((item: PortfolioItem) => {
-    setActiveCaseStudy(item);
-    setIsCaseModalOpen(true);
-  }, []);
+  // const handleCaseStudyOpen = useCallback((item: PortfolioItem) => {
+  //   setActiveCaseStudy(item);
+  //   setIsCaseModalOpen(true);
+  // }, []);
 
-  const handleCaseStudyClose = useCallback(() => {
-    setIsCaseModalOpen(false);
-  }, []);
+  // const handleCaseStudyClose = useCallback(() => {
+  //   setIsCaseModalOpen(false);
+  // }, []);
 
   const handleAlbumOpen = useCallback((item: PortfolioItem) => {
     setActiveAlbum(item);
@@ -431,7 +431,7 @@ export default function CreativePage() {
   }, []);
 
   // Modal focus trap refs
-  const modalRef = useRef<HTMLDivElement>(null);
+  // const modalRef = useRef<HTMLDivElement>(null);
   const albumModalRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -647,7 +647,7 @@ export default function CreativePage() {
                 {caseItems.map((item) => (
                   <div key={item.id} className="relative w-full">
                     <button
-                      onClick={() => handleCaseStudyOpen(item)}
+                      // onClick={() => handleCaseStudyOpen(item)}
                       className="relative w-full text-left rounded-2xl border border-subtle bg-muted hover:bg-subtle transition-colors duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-bg overflow-hidden group"
                     >
                       {item.cover && (

@@ -3,7 +3,7 @@
 import { motion, MotionValue, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
-import { Home, Code, Camera, User, Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { Home, Code, Camera, User, Mail } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 

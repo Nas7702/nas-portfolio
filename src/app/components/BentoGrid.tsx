@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ArrowRight, Code, Camera, User, Mail, Github, Linkedin } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function BentoGrid() {
   return (
@@ -91,7 +90,7 @@ export default function BentoGrid() {
                 <Mail size={24} />
               </div>
               <h3 className="text-xl font-bold text-neutral-100 mb-2">Get in Touch</h3>
-              <p className="text-neutral-400 text-sm">Let's collaborate on something amazing.</p>
+              <p className="text-neutral-400 text-sm">Let&apos;s collaborate on something amazing.</p>
             </div>
              <ArrowRight className="text-neutral-500 group-hover:text-orange-400 transition-colors self-end" />
           </div>
