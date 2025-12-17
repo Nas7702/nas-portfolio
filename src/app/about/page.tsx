@@ -1,16 +1,12 @@
 "use client";
 
-import { motion, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import PageTransition from "../components/PageTransition";
-import { GraduationCap, Dumbbell, Briefcase, Sparkles } from "lucide-react";
+import { GraduationCap, Dumbbell, Briefcase, Sparkles, LucideIcon } from "lucide-react";
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
 
   const timelineEvents = [
     {
@@ -57,7 +53,7 @@ export default function AboutPage() {
             transition={{ delay: 0.1 }}
             className="text-xl text-muted-foreground max-w-2xl mx-auto"
           >
-            I sit at the intersection of logic and creativity. I don't just analyze data; I tell stories with it. I don't just film video; I engineer narratives.
+            I sit at the intersection of logic and creativity. I don&apos;t just analyze data; I tell stories with it. I don&apos;t just film video; I engineer narratives.
           </motion.p>
         </div>
 
@@ -99,7 +95,14 @@ export default function AboutPage() {
   );
 }
 
-function TimelineItem({ event, index }: { event: any; index: number }) {
+interface TimelineEvent {
+  year: string;
+  title: string;
+  description: string;
+  Icon: LucideIcon;
+}
+
+function TimelineItem({ event, index }: { event: TimelineEvent; index: number }) {
   const isEven = index % 2 === 0;
   const Icon = event.Icon;
 
