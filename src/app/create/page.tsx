@@ -133,6 +133,21 @@ const featuredMedia: MediaItem[] = [
 
 const portfolioItems: PortfolioItem[] = [
   {
+    id: "Kyle Allen Physique Coaching",
+    type: "video",
+    kind: "video",
+    src: "https://www.youtube.com/shorts/LaoAVooLROU",
+    thumbnail: "https://i.ytimg.com/vi/LaoAVooLROU/hqdefault.jpg",
+    title: "Kyle Allen Physique Coaching Reel",
+    alt: "Kyle Allen coaching promo reel thumbnail",
+    tags: ["Fitness", "Promo", "Story Reel"],
+    client: "Kyle Allen Coaching",
+    role: "Director, DP & Editor",
+    date: "2025",
+    cover: "https://i.ytimg.com/vi/LaoAVooLROU/hqdefault.jpg",
+    description: "Story-led Instagram reel mixing Kyle Allen's transformation narrative with cinematic gym B-roll, closing with a DM call-to-action for online coaching."
+  },
+  {
     id: "Sheffield Varsity Basketball",
     type: "video",
     kind: "video",
@@ -452,7 +467,8 @@ export default function CreativePage() {
               fill
               priority
               sizes="100vw"
-              className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[14px] sm:blur-[16px] lg:blur-[18px] brightness-[0.45]"
+              className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[18px] sm:blur-[20px] lg:blur-[22px] brightness-[0.45]"
+              style={{ filter: "grayscale(100%) blur(6px)" }}
             />
             <div aria-hidden className="absolute inset-0 overlay-tint" />
             <div aria-hidden className="absolute inset-0 gradient-vignette" />
@@ -492,8 +508,8 @@ export default function CreativePage() {
                   href="https://www.instagram.com/nas.create/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-6 py-3 font-medium rounded-xl transition-all duration-200 transform hover:scale-105 group"
-                  style={{ background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%)', color: '#0B0C0E' }}
+                  className="flex items-center gap-3 px-6 py-3 font-medium rounded-xl transition-all duration-200 transform hover:scale-105 group text-accent"
+                  style={{ background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%)" }}
                 >
                   <Instagram size={20} />
                   <span>@nas.create</span>
