@@ -231,8 +231,8 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
   return (
     <Link
       href="/"
-      aria-label="Nas — Home"
-      title="Nas — Home"
+      aria-label="Nas - Home"
+      title="Nas - Home"
       className={composedContainerClassName}
       data-testid={dataTestId}
     >

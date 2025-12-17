@@ -50,7 +50,7 @@ function Scene() {
 
 export default function Hero() {
   return (
-    <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-start md:justify-center pt-6 sm:pt-10 md:pt-0 pb-20 overflow-hidden bg-background">
       {/* 3D Background */}
       <Scene />
 
@@ -75,7 +75,7 @@ export default function Hero() {
         >
           Nas
           <span className="block text-2xl md:text-3xl font-normal mt-2 text-muted-foreground">
-            Data Scientist & Creative Professional
+            Developer & Creative Professional
           </span>
         </motion.h1>
 
