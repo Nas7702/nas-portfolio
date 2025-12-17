@@ -41,8 +41,8 @@ export default function BentoGrid() {
           className="group relative col-span-1 row-span-1 md:row-span-2 overflow-hidden rounded-3xl bg-neutral-900 border border-neutral-800 p-8 transition-all hover:border-neutral-700"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          {/* Background Image Placeholder - Replace with actual creative work */}
-           <div className="absolute inset-0 bg-[url('/images/bokeh-lights-dark-background.jpg')] bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-700" />
+          {/* Monochrome blurred creative backdrop to match Creative page */}
+          <div className="absolute inset-0 bg-[url('/images/bokeh-lights-dark-background.jpg')] bg-cover bg-center filter grayscale blur-sm brightness-50 opacity-70 group-hover:scale-105 transition-transform duration-700" />
 
           <div className="relative z-10 flex flex-col justify-between h-full">
             <div>
@@ -98,10 +98,10 @@ export default function BentoGrid() {
 
          {/* Socials - Small Strip (Optional) */}
          <div className="col-span-1 md:col-span-2 row-span-1 md:h-[100px] grid grid-cols-3 gap-4">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center rounded-3xl bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 transition-colors group">
+            <a href="https://github.com/Nas7702" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center rounded-3xl bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 transition-colors group">
                 <Github className="text-neutral-400 group-hover:text-white transition-colors" />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center rounded-3xl bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 transition-colors group">
+            <a href="https://www.linkedin.com/in/nas-hoque/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center rounded-3xl bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 transition-colors group">
                 <Linkedin className="text-neutral-400 group-hover:text-blue-400 transition-colors" />
             </a>
             <div className="flex flex-col items-center justify-center rounded-3xl bg-neutral-900 border border-neutral-800 p-4 text-center">
