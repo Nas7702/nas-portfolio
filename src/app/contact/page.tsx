@@ -1,65 +1,17 @@
 "use client";
+
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PageTransition from "../components/PageTransition";
-import ScrollReveal from "../components/ScrollReveal";
-import { Check, Instagram, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { motion } from "framer-motion";
+import { Check, Instagram, Mail, MapPin, MessageCircle, Phone, ArrowRight } from "lucide-react";
 import { trackCta } from "../../lib/analytics";
+
 const WHATSAPP_BASE = "https://wa.me/447475437833";
 const CALL_URL = "tel:+447475437833";
 const EMAIL_URL =
   "mailto:nascreate0@gmail.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BTech%2FVideo%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
 const INSTAGRAM_URL = "https://instagram.com/nas.create";
-const quickActions = [
-  { label: "WhatsApp", href: "#whatsapp", icon: MessageCircle, aria: "Start WhatsApp chat" },
-  { label: "Call", href: CALL_URL, icon: Phone, aria: "Call Nas" },
-  { label: "Email", href: EMAIL_URL, icon: Mail, aria: "Email Nas" },
-  { label: "Instagram", href: INSTAGRAM_URL, icon: Instagram, aria: "Open Instagram" },
-];
-const secondaryActions = quickActions.slice(1);
-const gridItems = [
-  {
-    title: "Phone",
-    value: "+44 7475 437833",
-    caption: "Weekdays 10:00–19:00",
-    icon: Phone,
-    href: CALL_URL,
-    copyValue: "+44 7475 437833",
-    id: "phone",
-  },
-  {
-    title: "Email",
-    value: "nascreate0@gmail.com",
-    caption: "Detailed briefs welcome",
-    icon: Mail,
-    href: EMAIL_URL,
-    copyValue: "nascreate0@gmail.com",
-    id: "email",
-  },
-  {
-    title: "Instagram",
-    value: "@nas.create",
-    caption: "DMs open",
-    icon: Instagram,
-    href: INSTAGRAM_URL,
-    copyValue: "@nas.create",
-    id: "instagram",
-  },
-  {
-    title: "Location",
-    value: "UK • Remote/Local",
-    caption: "Typically replies < 24h",
-    icon: MapPin,
-    id: "location",
-  },
-];
-function toTitleCaseFromSlug(value: string): string {
-  return value
-    .replace(/[-_]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
 
 const SERVICES = ["videography", "photography", "post-production", "color-grading"] as const;
 type Service = typeof SERVICES[number];
@@ -67,201 +19,234 @@ type Service = typeof SERVICES[number];
 function ContactPageInner() {
   const searchParams = useSearchParams();
   const [copied, setCopied] = useState<string | null>(null);
-  const [src, setSrc] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [refNote, setRefNote] = useState<string | null>(null);
-  const whatsappBtnRef = useRef<HTMLAnchorElement>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Simulate form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
+    // Show success state (could be a toast)
+    alert("Message sent! (Simulated)");
+    setFormData({ name: "", email: "", message: "" });
+  };
+
   useEffect(() => {
     if (!copied) return;
     const timeout = window.setTimeout(() => setCopied(null), 1400);
     return () => window.clearTimeout(timeout);
   }, [copied]);
+
   const handleCopy = async (value: string, id: string) => {
     try {
-      if (typeof navigator !== "undefined" && navigator.clipboard) {
         await navigator.clipboard.writeText(value);
-      } else {
-        const textarea = document.createElement("textarea");
-        textarea.value = value;
-        textarea.setAttribute("readonly", "");
-        textarea.style.position = "absolute";
-        textarea.style.left = "-9999px";
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textarea);
-      }
     } catch (error) {
       console.error("Clipboard copy failed", error);
     } finally {
       setCopied(id);
     }
   };
-  useEffect(() => {
-    const s = searchParams?.get("src");
-    const service = searchParams?.get("service") as Service | null;
-    const r = searchParams?.get("ref");
-    if (s) setSrc(s);
-    if (service && SERVICES.includes(service)) setSelectedService(service);
-    if (r) setRefNote(toTitleCaseFromSlug(r));
 
-    if (typeof window !== "undefined" && window.location.hash === "#whatsapp") {
-      setTimeout(() => {
-        whatsappBtnRef.current?.focus();
-      }, 50);
-    }
+  useEffect(() => {
+    const service = searchParams?.get("service") as Service | null;
+    if (service && SERVICES.includes(service)) setSelectedService(service);
   }, [searchParams]);
 
   const whatsappHref = useMemo(() => {
-    const serviceText = selectedService ? toTitleCaseFromSlug(selectedService) : "[service]";
+    const serviceText = selectedService ? selectedService.replace("-", " ") : "[service]";
     const text = `Hi Nas, I’m interested in ${serviceText}. Budget: [] Timeline: []`;
     const q = new URLSearchParams({ text });
     return `${WHATSAPP_BASE}?${q.toString()}`;
   }, [selectedService]);
 
+  const contactMethods = [
+    {
+      icon: <MessageCircle className="w-6 h-6" />,
+      label: "WhatsApp",
+      value: "+44 7475 437833",
+      href: whatsappHref,
+      action: "Chat",
+      primary: true,
+    },
+    {
+      icon: <Mail className="w-6 h-6" />,
+      label: "Email",
+      value: "nascreate0@gmail.com",
+      href: EMAIL_URL,
+      action: "Write",
+      copyId: "email",
+    },
+    {
+      icon: <Instagram className="w-6 h-6" />,
+      label: "Instagram",
+      value: "@nas.create",
+      href: INSTAGRAM_URL,
+      action: "Follow",
+    },
+  ];
+
   return (
     <PageTransition>
-      <div className="relative min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100" data-source={src || undefined}>
-        <div
-          role="status"
-          aria-live="polite"
-          aria-hidden={!copied}
-          className={`pointer-events-none fixed left-1/2 top-4 z-30 -translate-x-1/2 transform rounded-full bg-gray-900/95 px-4 py-2 text-sm font-semibold text-gray-100 shadow-lg transition-all duration-200 sm:top-6 dark:bg-gray-800/90 ${copied ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"}`}
-        >
-          Copied!
-        </div>
-        <div className="mx-auto flex max-w-5xl flex-col gap-14 px-6 pb-28 pt-24 sm:pb-32 md:gap-18 md:px-8 md:pt-32">
-          <ScrollReveal direction="up" delay={0.1}>
-            <div className="space-y-4 text-center">
-              <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">Start a conversation.</h1>
-              <p className="text-base text-gray-600 dark:text-gray-300">Fastest reply via WhatsApp. Email works too.</p>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Avg reply &lt; 24h • UK (GMT/BST)</p>
-              {refNote && (
-                <p className="text-sm text-blue-400/90">
-                  Re: {refNote}{" "}
-                  <button
-                    type="button"
-                    className="ml-2 underline decoration-dotted text-blue-300/80 hover:text-blue-200"
-                    onClick={() => setRefNote(null)}
+      <div className="min-h-screen bg-background pb-32 pt-24 px-6">
+        <div className="max-w-5xl mx-auto">
+
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-20"
+          >
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+              Let's Talk
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Got a project in mind? Whether it's data science or visual storytelling,
+              I'm ready to help you build it.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+
+            {/* Contact Methods Column */}
+            <div className="space-y-8">
+              <h2 className="text-2xl font-bold mb-8">Direct Channels</h2>
+
+              <div className="grid gap-4">
+                {contactMethods.map((method, index) => (
+                  <motion.div
+                    key={method.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className={`group relative flex items-center p-6 rounded-3xl border transition-all duration-300 ${
+                      method.primary
+                        ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700"
+                        : "bg-card border-border hover:border-primary/50"
+                    }`}
                   >
-                    dismiss
-                  </button>
-                </p>
-              )}
-            </div>
-          </ScrollReveal>
-          <div aria-hidden />
-          <ScrollReveal direction="up" delay={0.2}>
-            <div className="rounded-3xl border border-gray-200/40 bg-white/80 p-8 shadow-xl backdrop-blur-lg transition-colors dark:border-white/10 dark:bg-gray-900/70 dark:shadow-blue-500/10" id="whatsapp">
-              <div className="flex flex-col gap-6">
-                <a
-                  ref={whatsappBtnRef}
-                  href={whatsappHref}
-                  aria-label="Start WhatsApp chat"
-                  className="group flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 px-6 py-5 text-lg font-semibold text-white shadow-lg shadow-blue-500/30 transition-all duration-200 hover:shadow-blue-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900"
-                  data-cta={`${src ?? "contact"}_whatsapp`}
-                  onClick={(e) => {
-                    const target = e.currentTarget as HTMLAnchorElement;
-                    trackCta(`${src ?? "contact"}_whatsapp`, { href: target.href });
-                  }}
-                >
-                  <MessageCircle className="size-5 transition-transform group-hover:scale-110" aria-hidden="true" />
-                  WhatsApp Chat (fastest)
-                </a>
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {secondaryActions.map(({ label, href, icon: Icon, aria }) => (
                     <a
-                      key={label}
-                      href={href}
-                      aria-label={aria}
-                      className="flex items-center justify-center gap-2 rounded-2xl border border-gray-200/50 bg-transparent px-4 py-4 text-sm font-semibold text-gray-700 transition-all duration-200 hover:border-blue-400 hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/10 dark:text-gray-200 dark:hover:border-blue-400/60 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900"
-                    >
-                      <Icon className="size-4" aria-hidden="true" />
-                      {label}
-                    </a>
-                  ))}
+                      href={method.href}
+                      className="absolute inset-0 z-10"
+                      target={method.href.startsWith("http") ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                    />
+
+                    <div className={`p-3 rounded-2xl mr-4 ${
+                      method.primary ? "bg-white/10" : "bg-secondary"
+                    }`}>
+                      {method.icon}
+                    </div>
+
+                    <div className="flex-grow">
+                      <div className={`text-sm font-medium mb-0.5 ${
+                        method.primary ? "text-blue-100" : "text-muted-foreground"
+                      }`}>
+                        {method.label}
+                      </div>
+                      <div className="font-semibold text-lg">{method.value}</div>
+                    </div>
+
+                    {method.copyId && (
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleCopy(method.value, method.copyId!);
+                        }}
+                        className="relative z-20 p-2 hover:bg-secondary rounded-full transition-colors"
+                      >
+                         {copied === method.copyId ? <Check size={18} /> : <span className="text-xs font-medium px-2">Copy</span>}
+                      </button>
+                    )}
+
+                    <ArrowRight className={`transform transition-transform group-hover:translate-x-1 ${
+                      method.primary ? "text-white" : "text-muted-foreground group-hover:text-primary"
+                    }`} />
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="bg-secondary/30 p-6 rounded-3xl border border-border/50">
+                <div className="flex items-start gap-4">
+                  <MapPin className="w-6 h-6 text-muted-foreground mt-1" />
+                  <div>
+                    <h3 className="font-semibold mb-1">Based in the UK</h3>
+                    <p className="text-muted-foreground text-sm">
+                      Available for remote work worldwide and local shoots across the UK.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </ScrollReveal>
-          <ScrollReveal direction="up" delay={0.3}>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {gridItems.map(({ title, value, caption, icon: Icon, href, copyValue, id }) => (
-                <div
-                  key={title}
-                  id={id}
-                  className="group rounded-2xl border border-gray-200/40 bg-white/70 p-5 shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-gray-900/60 dark:hover:shadow-blue-500/10"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <span className="flex size-10 items-center justify-center rounded-2xl bg-blue-500/15 text-blue-500 dark:bg-blue-400/10 dark:text-blue-300">
-                        <Icon className="size-5" aria-hidden="true" />
-                      </span>
-                      <div className="space-y-1">
-                        <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">{title}</p>
-                        {href ? (
-                          <a
-                            href={href}
-                            className="text-lg font-semibold text-gray-900 transition-colors hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-gray-100 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900"
-                          >
-                            {value}
-                          </a>
-                        ) : (
-                          <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">{value}</p>
-                        )}
-                      </div>
-                    </div>
-                    {copyValue && (
-                      <button
-                        type="button"
-                        onClick={() => handleCopy(copyValue, id!)}
-                        aria-label={`Copy ${title}`}
-                        className={`flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900 ${
-                          copied === id
-                            ? "border-blue-400/80 text-blue-500"
-                            : "border-gray-200/60 text-gray-600 hover:border-blue-400 hover:text-blue-500 dark:border-white/10 dark:text-gray-300 dark:hover:border-blue-400/60 dark:hover:text-blue-300"
-                        }`}
-                      >
-                        {copied === id ? (
-                          <>
-                            <Check className="size-3.5" aria-hidden="true" />
-                            Copied
-                          </>
-                        ) : (
-                          "Copy"
-                        )}
-                      </button>
-                    )}
-                  </div>
-                  <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">{caption}</p>
+
+            {/* Simple Form Column */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-card border border-border p-8 rounded-[2rem] shadow-sm"
+            >
+              <h2 className="text-2xl font-bold mb-6">Send a Message</h2>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium text-muted-foreground ml-1">Name</label>
+                  <input
+                    id="name"
+                    type="text"
+                    required
+                    className="w-full bg-secondary/50 border border-transparent focus:border-primary focus:bg-background rounded-xl px-4 py-3 transition-all outline-none"
+                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  />
                 </div>
-              ))}
-            </div>
-          </ScrollReveal>
-          <ScrollReveal direction="up" delay={0.35}>
-            <p className="text-center text-xs font-medium text-gray-500 dark:text-gray-400">Prefer email? I reply within 24h.</p>
-          </ScrollReveal>
-        </div>
-        <nav className="md:hidden" aria-label="Quick contact actions">
-          <div
-            className="fixed inset-x-4 bottom-4 z-40 rounded-3xl border border-gray-200/60 bg-white/95 shadow-xl backdrop-blur-lg dark:border-white/10 dark:bg-gray-900/95"
-            style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 0.5rem)" }}
-          >
-            <div className="grid grid-cols-4 gap-1">
-              {quickActions.map(({ label, href, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  className="flex flex-col items-center gap-1 rounded-2xl px-2 py-3 text-xs font-semibold text-gray-600 transition-colors hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-gray-200 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900"
+
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium text-muted-foreground ml-1">Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    required
+                    className="w-full bg-secondary/50 border border-transparent focus:border-primary focus:bg-background rounded-xl px-4 py-3 transition-all outline-none"
+                    placeholder="your@email.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium text-muted-foreground ml-1">Message</label>
+                  <textarea
+                    id="message"
+                    required
+                    rows={4}
+                    className="w-full bg-secondary/50 border border-transparent focus:border-primary focus:bg-background rounded-xl px-4 py-3 transition-all outline-none resize-none"
+                    placeholder="Tell me about your project..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-primary text-primary-foreground font-semibold rounded-xl py-4 hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
-                  <Icon className="size-5" aria-hidden="true" />
-                  <span>{label}</span>
-                </a>
-              ))}
-            </div>
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </button>
+              </form>
+            </motion.div>
+
           </div>
-        </nav>
+        </div>
       </div>
     </PageTransition>
   );

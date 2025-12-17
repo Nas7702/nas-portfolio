@@ -1,295 +1,148 @@
-import type { Metadata } from "next";
-import Image from "next/image";
-import PageTransition from "../components/PageTransition";
-import ScrollReveal from "../components/ScrollReveal";
-import AnalyticsLink from "../components/AnalyticsLink";
+"use client";
 
-export const metadata: Metadata = {
-  title: "About — Nas | Data & Visuals for Sports & Tech",
-  description:
-    "I blend data analysis with cinematic storytelling to turn training data and product insight into content that moves people.",
-};
+import { motion, useScroll } from "framer-motion";
+import { useRef } from "react";
+import PageTransition from "../components/PageTransition";
+import { GraduationCap, Dumbbell, Briefcase, Sparkles } from "lucide-react";
 
 export default function AboutPage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const timelineEvents = [
+    {
+      year: "2020",
+      title: "University",
+      description: "Started my journey in Data Science and Computer Science. Built my first Python tools and started filming student sports events.",
+      Icon: GraduationCap,
+    },
+    {
+      year: "2022",
+      title: "Stance Fitness",
+      description: "Deployed production training dashboards and filmed brand content. Learned the nuances of velocity-based training data.",
+      Icon: Dumbbell,
+    },
+    {
+      year: "2023",
+      title: "Freelance",
+      description: "Expanded into full-stack development and commercial videography. Delivered projects for diverse clients across sport and tech.",
+      Icon: Briefcase,
+    },
+    {
+      year: "Present",
+      title: "Building & Creating",
+      description: "Bridging the gap between analytical precision and creative storytelling. Open for new opportunities.",
+      Icon: Sparkles,
+    },
+  ];
+
   return (
     <PageTransition>
-      <main className="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-white">
+      <div ref={containerRef} className="min-h-screen bg-background pb-32 pt-24">
         {/* Hero */}
-        <section aria-labelledby="about-hero-title" className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24">
+        <div className="max-w-4xl mx-auto px-6 mb-24 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500"
+          >
+            About Me
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+          >
+            I sit at the intersection of logic and creativity. I don't just analyze data; I tell stories with it. I don't just film video; I engineer narratives.
+          </motion.p>
+        </div>
 
-          {/* Dark Mode Background */}
-          <Image
-            src="/images/bokeh-lights-dark-background.jpg"
-            alt="Abstract bokeh lights background"
-            fill
-            sizes="100vw"
-            className="absolute inset-0 object-cover object-center scale-105 blur-[18px] brightness-[0.45] hidden dark:block"
-            priority={false}
-          />
-          <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/60 to-transparent hidden dark:block" />
+        {/* Scrollytelling Timeline */}
+        <div className="max-w-5xl mx-auto px-6 relative">
+          {/* Vertical Line */}
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 opacity-20 md:-translate-x-1/2" />
 
-          {/* Light Mode Background */}
-          <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-blue-50 via-white to-white dark:hidden" />
-
-          <div aria-hidden className="pointer-events-none absolute inset-0 hidden dark:block">
-            <div className="absolute -top-20 -left-20 w-[60vw] h-[40vh]" style={{ background: "radial-gradient(600px 300px at 10% 20%, rgba(57,255,136,0.05), transparent 60%)" }} />
-            <div className="absolute -bottom-24 -right-24 w-[70vw] h-[50vh]" style={{ background: "radial-gradient(800px 400px at 85% 80%, rgba(57,255,136,0.04), transparent 65%)" }} />
+          <div className="space-y-24">
+            {timelineEvents.map((event, index) => (
+              <TimelineItem key={index} event={event} index={index} />
+            ))}
           </div>
+        </div>
 
-          <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
-            <ScrollReveal direction="up" delay={0.1}>
-              <header className="max-w-3xl">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500 dark:text-white/40">About</p>
-                <h1 id="about-hero-title" className="mt-3 text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white">
-                  Data & Visuals
-              </h1>
-                <p className="mt-4 text-lg md:text-xl text-gray-600 dark:text-gray-300">
-                  I blend data analysis with cinematic storytelling to turn training data and product insight into content that moves people.
-                </p>
-              </header>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.25}>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <AnalyticsLink
-                  href="/tech"
-                  event="about_cta_view_work"
-                  ariaLabel="View work (Technical)"
-                  title="View Work"
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-blue-600 px-8 text-sm font-semibold text-white transition-transform duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                >
-                  View Work
-                </AnalyticsLink>
-                <AnalyticsLink
-                  href="/contact"
-                  event="about_cta_contact"
-                  ariaLabel="Start a project"
-                  title="Start a Project"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/10 px-8 text-sm font-semibold text-blue-500 transition-colors duration-200 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                >
-                  Start a Project
-                </AnalyticsLink>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.35}>
-              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Micro proof">
-                {[
-                  "5+ years active"
-                ].map((chip) => (
-                  <li key={chip} className="list-none">
-                    <span className="inline-flex items-center rounded-full border border-blue-200 dark:border-white/10 bg-blue-50 dark:bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-400">
-                      {chip}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </ScrollReveal>
-                  </div>
-        </section>
-
-        {/* What I do */}
-        <section aria-labelledby="about-what-title" className="py-16 md:py-20 px-6">
-          <div className="mx-auto w-full max-w-6xl">
-            <ScrollReveal direction="up" delay={0.1}>
-              <h2 id="about-what-title" className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">What I do</h2>
-              <p className="mt-3 max-w-3xl text-gray-600 dark:text-gray-300">
-                I work across two tracks that reinforce each other. The data work sharpens the story; the visuals make the insight land.
-              </p>
-            </ScrollReveal>
-
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <ScrollReveal direction="up" delay={0.2}>
-                <article className="h-full rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 backdrop-blur shadow-sm dark:shadow-none">
-                  <header className="mb-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500 dark:text-white/40">Data & Development</p>
-                    <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">Data & Development</h3>
-                  </header>
-                  <ul className="mb-4 list-disc space-y-2 pl-5 text-sm text-gray-600 dark:text-white">
-                    <li>Analytics dashboards that inform product decisions</li>
-                    <li>Algorithm R&D for velocity/IMU datasets</li>
-                    <li>Python pipelines that make messy data usable</li>
-                  </ul>
-                  <AnalyticsLink
-                    href="/tech"
-                    event="about_link_tech"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                    ariaLabel="See Technical"
-                    title="See Technical"
-                  >
-                    See Technical →
-                  </AnalyticsLink>
-                </article>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={0.25}>
-                <article className="h-full rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 backdrop-blur shadow-sm dark:shadow-none">
-                  <header className="mb-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500 dark:text-white/40">Content & Visuals</p>
-                    <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">Content & Visuals</h3>
-                  </header>
-                  <ul className="mb-4 list-disc space-y-2 pl-5 text-sm text-gray-600 dark:text-white">
-                    <li>Brand films for launches and features</li>
-                    <li>Product reels that highlight benefits fast</li>
-                    <li>Event/photo sets with clean, premium grading</li>
-                  </ul>
-                  <AnalyticsLink
-                    href="/create"
-                    event="about_link_creative"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                    ariaLabel="See Creative"
-                    title="See Creative"
-                  >
-                    See Creative →
-                  </AnalyticsLink>
-                </article>
-              </ScrollReveal>
-            </div>
-
-            <ScrollReveal direction="up" delay={0.35}>
-              <p className="mt-6 text-sm text-gray-600 dark:text-gray-300">
-                <span className="font-medium text-gray-900 dark:text-white/70">Tooling:</span> Python, Next.js, SQL · DaVinci, Lightroom, Photoshop
-              </p>
-            </ScrollReveal>
+        {/* Principles Grid */}
+        <div className="max-w-6xl mx-auto px-6 mt-32">
+          <h2 className="text-3xl font-bold text-center mb-16">Core Principles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <PrincipleCard
+              title="Clarity over Noise"
+              description="Whether it's a dataset or a video edit, I strip away the non-essential to let the core message shine."
+              delay={0}
+            />
+            <PrincipleCard
+              title="Speed with Taste"
+              description="Rapid iteration doesn't mean cutting corners. I build fast, but I build with craftsmanship."
+              delay={0.1}
+            />
+            <PrincipleCard
+              title="Athlete's Mindset"
+              description="Consistency, discipline, and continuous improvement. The work is never done; it just gets better."
+              delay={0.2}
+            />
           </div>
-        </section>
-
-        {/* Proof */}
-        {/* <section aria-labelledby="about-proof-title" className="py-16 md:py-20 px-6 bg-panel">
-          <div className="mx-auto w-full max-w-6xl">
-            <ScrollReveal direction="up" delay={0.1}>
-              <h2 id="about-proof-title" className="text-2xl md:text-3xl font-semibold">Proof</h2>
-            </ScrollReveal>
-
-            <div className="mt-6 grid gap-6 md:grid-cols-[2fr_1fr]">
-              <ScrollReveal direction="up" delay={0.2}>
-                <blockquote className="rounded-2xl border border-subtle bg-muted p-6 text-dim backdrop-blur">
-                  <p className="text-base leading-relaxed text-text">
-                    “Nas turned noisy training telemetry into a clear narrative. The dashboard shipped on time and the launch film drove real engagement.”
-                  </p>
-                  <footer className="mt-4 text-sm text-white/70">
-                    <span className="font-semibold text-text">A. Patel</span>, Product Lead, Fitness Tech
-                  </footer>
-                </blockquote>
-              </ScrollReveal>
-
-              <ScrollReveal direction="up" delay={0.25}>
-                <ul className="rounded-2xl border border-subtle bg-muted p-6 text-sm leading-6 text-text">
-                  <li>Improved barbell event detection accuracy by X%</li>
-                  <li>Cut edit turnaround from X→Y for a client</li>
-                  <li>Grew IG reach by X% for a product launch</li>
-                </ul>
-              </ScrollReveal>
-            </div>
-
-            <ScrollReveal direction="up" delay={0.35}>
-              <div className="mt-6">
-                <AnalyticsLink
-                  href="/contact"
-                  event="about_cta_contact"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-accent focus:outline-none focus:ring-2 ring-accent ring-offset-bg"
-                  ariaLabel="Contact after proof"
-                  title="Start a Project"
-                >
-                  Start a Project →
-                </AnalyticsLink>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section> */}
-
-        {/* Timeline */}
-        <section aria-labelledby="about-timeline-title" className="py-16 md:py-20 px-6">
-          <div className="mx-auto w-full max-w-6xl">
-            <ScrollReveal direction="up" delay={0.1}>
-              <h2 id="about-timeline-title" className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">Timeline</h2>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.2}>
-              <ol className="mt-6 grid gap-4 md:grid-cols-4">
-                <li className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 shadow-sm dark:shadow-none">
-                  <h3 className="text-base font-semibold text-gray-900 dark:text-white">Uni</h3>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">Data + CS modules. Built first Python data tools.</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Shot student sport events.</p>
-                </li>
-                <li className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 shadow-sm dark:shadow-none">
-                  <h3 className="text-base font-semibold text-gray-900 dark:text-white">Stance</h3>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">Deployed training dashboards. Filmed brand content.</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Learned velocity/IMU nuances.</p>
-                </li>
-                <li className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 shadow-sm dark:shadow-none">
-                  <h3 className="text-base font-semibold text-gray-900 dark:text-white">Freelance</h3>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">Highlights across sport + tech. Faster edit pipelines.</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Case-led reels and photo sets.</p>
-                </li>
-                <li className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 shadow-sm dark:shadow-none">
-                  <h3 className="text-base font-semibold text-gray-900 dark:text-white">Now</h3>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">Open to build or film. Sharpening algorithms + cinema.</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Hands-on, outcome-first.</p>
-                </li>
-              </ol>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Principles */}
-        <section aria-labelledby="about-principles-title" className="py-16 md:py-20 px-6">
-          <div className="mx-auto w-full max-w-6xl">
-            <ScrollReveal direction="up" delay={0.1}>
-              <h2 id="about-principles-title" className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white">Principles</h2>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.2}>
-              <div className="mt-6 grid gap-6 md:grid-cols-3">
-                <div className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm dark:shadow-none">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Clarity over noise</h3>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Every chart/cut serves one message.</p>
-                </div>
-                <div className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm dark:shadow-none">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Speed with taste</h3>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Move fast, protect quality.</p>
-                </div>
-                <div className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm dark:shadow-none">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Athlete’s mindset</h3>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Reps, review, refine.</p>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Final CTA */}
-        <section aria-labelledby="about-final-cta-title" className="py-16 md:py-24 px-6">
-          <div className="mx-auto w-full max-w-4xl text-center">
-            <ScrollReveal direction="up" delay={0.1}>
-              <h2 id="about-final-cta-title" className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Got something to build or film?</h2>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.25}>
-              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <AnalyticsLink
-                  href="/contact"
-                  event="about_cta_contact"
-                  ariaLabel="Start a Project"
-                  title="Start a Project"
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-blue-600 px-8 text-sm font-semibold text-white transition-transform duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                >
-                  Start a Project
-                </AnalyticsLink>
-                <AnalyticsLink
-                  href="/tech"
-                  event="about_cta_view_work"
-                  ariaLabel="See Work"
-                  title="See Work"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-gray-200 dark:border-white/10 px-8 text-sm font-semibold text-blue-600 dark:text-blue-500 transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-                >
-                  See Work
-                </AnalyticsLink>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-      </main>
+        </div>
+      </div>
     </PageTransition>
+  );
+}
+
+function TimelineItem({ event, index }: { event: any; index: number }) {
+  const isEven = index % 2 === 0;
+  const Icon = event.Icon;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className={`relative flex flex-col md:flex-row items-center gap-8 ${
+        isEven ? "md:flex-row" : "md:flex-row-reverse"
+      }`}
+    >
+      {/* Icon Point */}
+      <div className="absolute left-6 md:left-1/2 w-12 h-12 -translate-x-1/2 bg-background border-2 border-primary rounded-full flex items-center justify-center z-10 shadow-lg shadow-primary/20 text-primary">
+        <Icon size={20} />
+      </div>
+
+      {/* Content Card */}
+      <div className={`w-full md:w-1/2 pl-20 md:pl-0 ${isEven ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"}`}>
+        <div className="bg-card border border-border p-6 rounded-2xl hover:border-primary/50 transition-colors group">
+          <span className="text-sm font-mono text-primary mb-2 block">{event.year}</span>
+          <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">{event.title}</h3>
+          <p className="text-muted-foreground">{event.description}</p>
+        </div>
+      </div>
+
+      {/* Empty half for layout balance */}
+      <div className="hidden md:block w-1/2" />
+    </motion.div>
+  );
+}
+
+function PrincipleCard({ title, description, delay }: { title: string; description: string; delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay }}
+      className="bg-card border border-border p-8 rounded-2xl text-center hover:bg-accent/5 transition-colors hover:scale-105 duration-300"
+    >
+      <h3 className="text-xl font-bold mb-4">{title}</h3>
+      <p className="text-muted-foreground">{description}</p>
+    </motion.div>
   );
 }
