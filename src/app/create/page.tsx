@@ -10,6 +10,7 @@ import LightboxGallery, { MediaItem } from "../components/LightboxGallery";
 import ScrollReveal from "../components/ScrollReveal";
 import Link from "next/link";
 import { trackCta } from "../../lib/analytics";
+import Testimonials from "../components/Testimonials";
 
 const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
 
@@ -610,6 +611,11 @@ export default function CreativePage() {
           </div>
         </section>
 
+        {/* Testimonials */}
+        <section className="py-10 px-6 sm:px-8 bg-panel transition-colors duration-300">
+          <Testimonials />
+        </section>
+
         {/* Portfolio Section */}
         <section className="py-20 px-6 sm:px-8 bg-bg transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
@@ -738,7 +744,6 @@ export default function CreativePage() {
             </ScrollReveal>
           </div>
         </section>
-
         {/* Album Modal */}
         <AnimatePresence>
           {isAlbumModalOpen && activeAlbum && activeAlbum.albumImages && (
