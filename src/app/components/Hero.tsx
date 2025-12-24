@@ -55,15 +55,18 @@ export default function Hero() {
 
       {/* Content Overlay */}
       <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto">
-         <motion.div
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-6"
         >
-          <span className="inline-block px-3 py-1 text-sm font-mono rounded-full bg-accent/10 text-accent mb-4 border border-accent/20">
+          <Link
+            href="/contact"
+            className="inline-block px-3 py-1 text-sm font-mono rounded-full bg-accent/10 text-accent mb-4 border border-accent/20 hover:bg-accent/15 transition-colors"
+          >
             Available for new projects
-          </span>
+          </Link>
         </motion.div>
 
         <motion.h1
