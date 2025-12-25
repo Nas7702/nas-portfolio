@@ -11,15 +11,15 @@ export const monthlyContentCopy = {
   // ─────────────────────────────────────────────────────────────
   heroHeadline: "Content that keeps showing up.",
   heroSubheadline:
-    "Monthly video and photo packages for coaches and food businesses who are done chasing one-off shoots.",
+    "Monthly video and photo packages for service businesses who are done chasing one-off shoots.",
 
   // ─────────────────────────────────────────────────────────────
   // TRUST ROW
   // ─────────────────────────────────────────────────────────────
   trustBullets: [
-    "50–80 miles from Sheffield covered",
-    "Same week turnaround on edits",
-    "No contracts. Month-to-month",
+    "Fast delivery — no chasing required",
+    "No contracts — month-to-month",
+    "Full usage rights included",
   ],
 
   // ─────────────────────────────────────────────────────────────
@@ -27,7 +27,7 @@ export const monthlyContentCopy = {
   // ─────────────────────────────────────────────────────────────
   proofHeadline: "Already working with",
   proofSubheadline:
-    "Coaches, gyms, and food spots building their brand on repeat content.",
+    "Service businesses building their brand on repeat content.",
 
   // ─────────────────────────────────────────────────────────────
   // DELIVERABLES
@@ -65,17 +65,17 @@ export const monthlyContentCopy = {
   // ─────────────────────────────────────────────────────────────
   audienceCards: [
     {
-      title: "Coaches & PTs",
+      title: "Online Coaches",
       bullets: [
-        "Transformation reels that sell coaching packages",
+        "Transformation reels that sell your programmes",
         "Talking head clips for trust and authority",
       ],
     },
     {
-      title: "Food & Hospitality",
+      title: "Service Providers",
       bullets: [
-        "Menu launches, venue vibes, and chef spotlights",
-        "UGC-style content your audience actually watches",
+        "Behind-the-scenes content that builds connection",
+        "UGC-style videos your audience actually watches",
       ],
     },
     {
@@ -116,14 +116,14 @@ export const monthlyContentCopy = {
   // ─────────────────────────────────────────────────────────────
   faqItems: [
     {
-      question: "How far do you travel?",
+      question: "Do you travel for shoots?",
       answer:
-        "I'm based in Sheffield and cover roughly 50–80 miles for shoot days. That includes most of South Yorkshire, Nottingham, Derby, Leeds, and Manchester. Farther afield is possible. Just means a travel fee.",
+        "Yes. I travel to you for shoot days. Location details and any travel arrangements get sorted on the intro call.",
     },
     {
       question: "What's the turnaround time?",
       answer:
-        "Most edits land in your inbox within 5–7 days. If you need something faster for a launch or campaign, let me know upfront and we'll sort it.",
+        "It depends on the project, but I work to your deadlines. If you've got a launch or campaign coming up, let me know upfront and we'll plan around it.",
     },
     {
       question: "Do you film talking head videos?",
@@ -176,13 +176,12 @@ export const monthlyContentCopy = {
       name: "Starter",
       price: "£350",
       period: "/month",
-      description: "Perfect for coaches just getting started with video content",
+      description: "Perfect for businesses just getting started with video content",
       features: [
         "2 short-form videos (Reels/TikToks)",
         "Basic colour grading",
         "Captions & text overlays",
         "2 revision rounds",
-        "Delivered within 7 days",
       ],
       cta: "Get Started",
       popular: false,
@@ -192,7 +191,7 @@ export const monthlyContentCopy = {
       name: "Growth",
       price: "£600",
       period: "/month",
-      description: "Ideal for established coaches ready to scale their presence",
+      description: "Ideal for established businesses ready to scale their presence",
       features: [
         "4 short-form videos",
         "1 long-form video (up to 3 min)",
@@ -200,7 +199,7 @@ export const monthlyContentCopy = {
         "Motion graphics & transitions",
         "Captions & branded elements",
         "3 revision rounds",
-        "Priority turnaround (5 days)",
+        "Faster turnaround",
       ],
       cta: "Start Growing",
       popular: true,
@@ -210,7 +209,7 @@ export const monthlyContentCopy = {
       name: "Pro",
       price: "£950",
       period: "/month",
-      description: "For serious coaches who want premium, consistent content",
+      description: "For serious businesses who want premium, consistent content",
       features: [
         "8 short-form videos",
         "2 long-form videos (up to 5 min)",
@@ -219,7 +218,7 @@ export const monthlyContentCopy = {
         "Thumbnail design",
         "Content strategy call",
         "Unlimited revisions",
-        "48-hour turnaround",
+        "Priority turnaround",
       ],
       cta: "Go Pro",
       popular: false,
