@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "./components/ThemeProvider";
-import Navbar from "./components/Navbar";
-import FloatingDock from "./components/FloatingDock";
+import ConditionalChrome from "./components/ConditionalChrome";
 import AnimationWrapper from "./components/AnimationWrapper";
-import CustomCursor from "./components/CustomCursor";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -57,9 +55,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider>
-          <Navbar /> {/* Keeping existing navbar for mobile fallback for now */}
-          <FloatingDock />
-          <CustomCursor />
+          <ConditionalChrome />
           <AnimationWrapper>
             {children}
           </AnimationWrapper>

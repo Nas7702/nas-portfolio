@@ -31,7 +31,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   useEffect(() => {
     const root = document.documentElement;
-    
+
     // Function to strictly enforce the theme based on inputs
     const updateTheme = (isSystemDark: boolean) => {
       // Force dark mode on creative pages regardless of system preference
@@ -40,7 +40,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
       const newTheme = shouldBeDark ? "dark" : "light";
       setTheme(newTheme);
-      
+
       // Manually manage the classList to ensure Tailwind picks it up
       if (shouldBeDark) {
         root.classList.add("dark");

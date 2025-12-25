@@ -501,7 +501,7 @@ export default function CreativePage() {
 
   return (
     <PageTransition>
-      <div className="theme-creative min-h-screen bg-bg text-text transition-colors duration-300">
+      <div className="theme-creative min-h-screen transition-colors duration-300">
         {/* Nas.Create Branded Header */}
         <section ref={heroSectionRef} className="relative overflow-hidden py-20 px-6 sm:px-8 bg-bg">
           <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(11,15,10,0.82)_0%,rgba(6,10,8,0.94)_65%,rgba(0,0,0,1)_100%)]" />

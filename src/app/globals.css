@@ -62,3 +62,91 @@
     text-wrap: balance;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   LANDING PAGE LIGHT THEME
+   Scoped light theme for landing pages like /monthly-content
+   This overrides the dark theme only within this scope
+═══════════════════════════════════════════════════════════════════ */
+.theme-landing-light {
+  /* Premium warm ivory base */
+  --color-background: #f8f6f3;
+  --color-foreground: #1a1a1a;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #1a1a1a;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #1a1a1a;
+
+  --color-primary: #1a1a1a;
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #f0ede8;
+  --color-secondary-foreground: #1a1a1a;
+
+  --color-muted: #f0ede8;
+  --color-muted-foreground: #5c5c5c;
+
+  /* Refined emerald accent */
+  --color-accent: #10b981;
+  --color-accent-foreground: #ffffff;
+
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e5e2dc;
+  --color-input: #f0ede8;
+  --color-ring: #10b981;
+
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* Override noise texture for light theme */
+.theme-landing-light::before {
+  opacity: 0.15 !important;
+  mix-blend-mode: multiply !important;
+}
+
+/* Premium shadows for light theme cards */
+.theme-landing-light .shadow-card {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 4px 8px rgba(0, 0, 0, 0.03),
+    0 8px 16px rgba(0, 0, 0, 0.03);
+}
+
+.theme-landing-light .shadow-card-hover:hover {
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.04),
+    0 8px 16px rgba(0, 0, 0, 0.04),
+    0 16px 32px rgba(0, 0, 0, 0.04);
+}
+
+/* Accent text with proper contrast for light backgrounds */
+.theme-landing-light .text-accent {
+  color: #059669;
+}
+
+/* Better CTA styling for light theme */
+.theme-landing-light .cta-primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+
+.theme-landing-light .cta-primary:hover {
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+}
+
+.theme-landing-light .cta-secondary {
+  background: transparent;
+  color: #1a1a1a;
+  border-color: #d4d0c8;
+}
+
+.theme-landing-light .cta-secondary:hover {
+  border-color: #10b981;
+  color: #059669;
+}
