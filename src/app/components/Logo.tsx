@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
 type LogoSize = "sm" | "md";
@@ -227,6 +228,40 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
         whileFocus: "hover" as const,
         whileTap: "press" as const,
       };
+
+  // Use PNG logos for the record/creative variant
+  if (variant === "record") {
+    return (
+      <Link
+        href="/"
+        aria-label="Nas - Home"
+        title="Nas - Home"
+        className="inline-flex items-center relative group select-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-300 dark:focus-visible:outline-emerald-400 rounded-lg px-2 py-1 transition-colors duration-200"
+        data-testid={dataTestId}
+      >
+        <motion.div
+          initial="rest"
+          animate="rest"
+          variants={{
+            rest: { scale: 1 },
+            hover: { scale: 1.05, transition: { duration: 0.18, ease: [0.4, 0, 0.2, 1] } },
+            press: { scale: 0.95, transition: { duration: 0.1, ease: [0.4, 0, 0.2, 1] } },
+          }}
+          className="relative"
+          {...interactiveProps}
+        >
+          <Image
+            src="/logos/dark-transparent-inline.png"
+            alt="Nas.Create"
+            width={size === "sm" ? 80 : 100}
+            height={size === "sm" ? 32 : 40}
+            className="object-contain drop-shadow-[0_0_10px_rgba(57,255,136,0.3)] transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(57,255,136,0.5)]"
+            priority
+          />
+        </motion.div>
+      </Link>
+    );
+  }
 
   return (
     <Link
