@@ -1,66 +1,79 @@
-# Overview
+# Nas Portfolio
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Personal portfolio website showcasing my work across software engineering, data science, and creative production.
 
-## Getting Started
+**Live:** [nascreate.com](https://nascreate.com)
 
-First, run the development server:
+---
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router, Turbopack)
+- **Language:** TypeScript
+- **UI:** React 19, Tailwind CSS 4
+- **Animation:** Framer Motion
+- **3D:** Three.js, React Three Fiber, Drei
+- **Deployment:** Vercel
+
+---
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── components/       # Reusable UI components
+│   ├── about/            # About page
+│   ├── contact/          # Contact page
+│   ├── create/           # Creative portfolio (photography/video)
+│   ├── tech/             # Technical portfolio (software/data)
+│   └── layout.tsx        # Root layout
+├── data/
+│   └── projects.ts       # Project content
+└── lib/
+    └── utils.ts          # Helper functions
+```
+
+---
+
+## Running Locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Opens at [localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server (Turbopack) |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint |
+| `npm run type-check` | TypeScript check |
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Scoped theming** — The creative section uses its own colour scheme via CSS custom properties, keeping it isolated from the main site styles.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Image protection** — Portfolio images have basic protections (disabled right-click, drag prevention) to deter casual downloading.
 
-## Deploy on Vercel
+**Git LFS** — Large image files are stored with Git LFS to keep the repo size manageable.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Licence
 
-## Creative page theme (scoped)
+Open source for reference. Feel free to learn from the code, but please don't copy the design wholesale for your own portfolio.
 
-The Create/Creative section uses a page-scoped dark-grey + neon-green theme. It is applied by wrapping the page root with the `theme-creative` class or `[data-theme="creative"]` attribute. The theme is implemented with CSS variables defined in `src/app/globals.css` so the rest of the site remains unchanged.
+---
 
-- Scope wrapper: add `className="theme-creative"` on the page root container
-- Variables available under the scope:
-  - `--bg`, `--panel`, `--muted`, `--subtle`, `--grid`, `--text`, `--text-dim`, `--accent`, `--accent-dim`, `--accent-ghost`, `--ring`
-- Utility classes (from `@layer utilities` in `globals.css`):
-  - Backgrounds: `bg-bg`, `bg-panel`, `bg-muted`, `bg-grid`
-  - Text: `text-text`, `text-dim`, `text-accent`
-  - Borders/Rings: `border-subtle`, `ring-accent`, `ring-offset-bg`
-  - Accent fills/glow: `bg-accent`, `bg-accent-ghost`, `shadow-accent-soft`
+## Contact
 
-Example:
-
-```tsx
-<div className="theme-creative bg-bg text-text">
-  <button className="rounded-lg px-4 py-2 bg-accent text-[#0B0C0E] focus:outline-none focus:ring-2 ring-accent ring-offset-bg">
-    CTA
-  </button>
-  <section className="bg-panel border border-subtle" />
-  <p className="text-dim">Secondary copy</p>
-  <div className="bg-grid" />
-</div>
-```
-
-Only apply this scope to the Creative route; Technical, About, and Contact keep their existing styles.
+- Site: [nascreate.com](https://nascreate.com)
+- Email: nascreate0@gmail.com
+- Instagram: [@nas.create](https://instagram.com/nas.create)
