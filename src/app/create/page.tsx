@@ -13,6 +13,7 @@ import { trackCta } from "../../lib/analytics";
 import Testimonials from "../components/Testimonials";
 
 const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
+// Force rebuild for logo update
 
 // Extended type for Portfolio items
 type PortfolioKind = "video" | "photo" | "case" | "album";
