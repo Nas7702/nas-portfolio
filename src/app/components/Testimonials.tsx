@@ -164,7 +164,7 @@ export default function Testimonials() {
                 <div className="relative">
                   <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-primary via-primary/50 to-transparent rounded-full" />
                   <p className="pl-6 text-lg md:text-xl leading-relaxed text-foreground/95 font-light">
-                    "{testimonial.quote}"
+                    &ldquo;{testimonial.quote}&rdquo;
                   </p>
                 </div>
 
