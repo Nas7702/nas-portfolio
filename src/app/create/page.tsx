@@ -536,12 +536,12 @@ export default function CreativePage() {
                       className="absolute -inset-8 -z-20 rounded-[40px] opacity-70 blur-3xl transition-transform duration-500 ease-out group-hover:opacity-100 group-hover:scale-110"
                       style={{ background: "radial-gradient(60% 60% at 50% 50%, rgb(var(--accent-rgb) / 0.6) 0%, rgb(var(--accent-rgb) / 0.18) 45%, rgb(var(--accent-rgb) / 0) 80%)" }}
                     />
-                    <div className="relative flex items-center justify-center w-32 h-20 md:w-48 md:h-32 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
+                    <div className="relative flex items-center justify-center w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
                       <Image
-                        src="/logos/nas.create-logo.svg"
+                        src="/logos/dark-trans-stacked.png"
                         alt="Nas.Create Logo"
-                        width={192}
-                        height={128}
+                        width={320}
+                        height={320}
                         className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(57,255,136,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(57,255,136,0.6)]"
                         priority
                       />
