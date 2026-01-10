@@ -195,6 +195,12 @@ export default function LightboxGallery({
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Block save shortcuts to prevent downloading images
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        return false;
+      }
+
       switch (e.key) {
         case "Escape":
           setIsOpen(false);
@@ -296,6 +302,17 @@ export default function LightboxGallery({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  // Image protection handlers
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    return false;
+  };
+
+  const handleDragStart = (e: React.DragEvent) => {
+    e.preventDefault();
+    return false;
   };
 
   useEffect(() => {
@@ -490,14 +507,19 @@ export default function LightboxGallery({
                         maxHeight: "100%",
                       }}
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      onContextMenu={handleContextMenu}
+                      onDragStart={handleDragStart}
                     >
                       <Image
                         src={currentItem.src}
                         alt={currentItem.alt || currentItem.title || "Gallery image"}
                         width={1920}
                         height={1080}
-                        className="max-w-full max-h-[80vh] w-auto h-auto object-contain"
+                        className="max-w-full max-h-[80vh] w-auto h-auto object-contain pointer-events-none select-none"
                         style={{ display: "block" }}
+                        draggable={false}
+                        onContextMenu={handleContextMenu}
+                        onDragStart={handleDragStart}
                       />
                     </motion.div>
                   ) : isEmbedUrl(currentItem.src) ? (
@@ -691,17 +713,21 @@ function ThumbnailCard({
                   alt={item.alt || item.title || `Media ${index + 1}`}
                   width={1200}
                   height={800}
-                  className="w-full h-auto rounded-lg"
+                  className="w-full h-auto rounded-lg select-none"
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   onError={() => setImageError(true)}
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
                 />
               ) : isLocalThumb ? (
                 <Image
                   src={thumbSrc}
                   alt={item.alt || item.title || `Media ${index + 1}`}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  className="object-cover transition-transform duration-300 group-hover:scale-110 select-none"
                   onError={() => setImageError(true)}
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
                 />
               ) : (
                 <Image
@@ -709,8 +735,10 @@ function ThumbnailCard({
                   alt={item.alt || item.title || `Media ${index + 1}`}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover"
+                  className="object-cover select-none"
                   onError={() => setImageError(true)}
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
                 />
               )
             ) : (
@@ -780,7 +808,14 @@ function ThumbnailPreview({ item }: { item: MediaItem }) {
         const thumb = getThumbnailSrc(item);
         if (thumb.startsWith("/")) {
           return (
-            <Image src={thumb} alt={item.alt || item.title || "Thumbnail"} fill className="object-cover" />
+            <Image
+              src={thumb}
+              alt={item.alt || item.title || "Thumbnail"}
+              fill
+              className="object-cover select-none"
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
+            />
           );
         }
         return (
@@ -789,7 +824,9 @@ function ThumbnailPreview({ item }: { item: MediaItem }) {
             alt={item.alt || item.title || "Thumbnail"}
             fill
             sizes="(min-width: 1024px) 120px, (min-width: 640px) 96px, 72px"
-            className="object-cover"
+            className="object-cover select-none"
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
           />
         );
       })()}

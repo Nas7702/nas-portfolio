@@ -62,3 +62,38 @@
     text-wrap: balance;
   }
 }
+
+/* Image Protection for Portfolio/Creative Content */
+@layer components {
+  /* Prevent right-click, dragging, and selection on portfolio images */
+  [data-lightbox-modal="true"] img,
+  .theme-creative img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: auto;
+  }
+
+  /* Prevent text selection and dragging in lightbox */
+  [data-lightbox-modal="true"] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Allow buttons and interactive elements to remain clickable */
+  [data-lightbox-modal="true"] button,
+  [data-lightbox-modal="true"] a {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    pointer-events: auto;
+  }
+}
