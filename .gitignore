@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI coding assistant documentation
+DEV_NOTES.md
+.cursorrules
+.ai/
+AI_INSTRUCTIONS.md
