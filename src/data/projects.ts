@@ -5,7 +5,6 @@ export interface Project {
   category: 'software' | 'data-science' | 'videography' | 'photography';
   stack: string[];
   image: string;
-  githubLink?: string;
   liveLink?: string;
   videoLink?: string;
   caseStudy: {
@@ -29,7 +28,6 @@ export const projects: Project[] = [
     category: "data-science",
     stack: ["Python", "Pandas", "Plotly", "Streamlit", "SQL", "Machine Learning"],
     image: "/next.svg",
-    githubLink: "https://github.com/nas/sales-analytics",
     liveLink: "https://sales-dashboard.nas.dev",
     caseStudy: {
       overview: "A comprehensive sales analytics dashboard that transforms raw sales data into actionable insights for business decision-making.",
@@ -70,7 +68,6 @@ export const projects: Project[] = [
     category: "data-science",
     stack: ["Python", "Scikit-learn", "XGBoost", "Tableau", "SQL"],
     image: "/globe.svg",
-    githubLink: "https://github.com/nas/churn-prediction",
     caseStudy: {
       overview: "A machine learning solution that predicts customer churn with high accuracy, enabling businesses to implement proactive retention strategies.",
       problem: "High customer churn rates were impacting revenue, but the company had no systematic way to identify at-risk customers before they left.",
@@ -112,7 +109,6 @@ export const projects: Project[] = [
     category: "software",
     stack: ["Next.js", "Three.js", "Framer Motion", "TypeScript", "Tailwind CSS"],
     image: "/images/bokeh-lights-dark-background.jpg",
-    githubLink: "https://github.com/nas/portfolio",
     liveLink: "https://nas-portfolio.dev",
     caseStudy: {
       overview: "A cutting-edge portfolio website that showcases both technical skills and creative work with immersive 3D experiences.",

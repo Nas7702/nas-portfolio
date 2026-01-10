@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Project } from "../../data/projects";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 interface ProjectCardProps {
   project: Project;
@@ -41,19 +41,8 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Action buttons */}
-        <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <motion.a
-            href={project.githubLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 bg-black/70 text-white rounded-full hover:bg-black/90 transition-colors"
-            whileHover={{ scale: 1.2, rotate: 5 }}
-            whileTap={{ scale: 0.85 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Github size={16} />
-          </motion.a>
-          {project.liveLink && (
+        {project.liveLink && (
+          <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <motion.a
               href={project.liveLink}
               target="_blank"
@@ -65,8 +54,8 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
             >
               <ExternalLink size={16} />
             </motion.a>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Content */}
