@@ -508,7 +508,6 @@ export default function LightboxGallery({
                       }}
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       onContextMenu={handleContextMenu}
-                      onDragStart={handleDragStart}
                     >
                       <Image
                         src={currentItem.src}
