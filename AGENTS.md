@@ -99,15 +99,40 @@ This document contains important preferences and conventions for the Nas Portfol
 ## 🚀 Deployment
 
 ### Git LFS and Image Storage
-⚠️ **CRITICAL**: Do NOT use Git LFS for images in this project!
+✅ **Git LFS is ENABLED and configured for this project**
 
-- Vercel does not automatically fetch Git LFS files during deployment
-- Images tracked with Git LFS will appear broken on the live site (404 errors)
-- All images (`.jpg`, `.jpeg`, `.png`) should be committed directly to git
-- If you accidentally enable Git LFS for images:
-  1. Run `git lfs untrack "*.jpg" "*.jpeg" "*.png"`
-  2. Run `git lfs migrate export --include="*.jpg,*.jpeg,*.png" --everything`
-  3. Force push the changes with `git push --force`
+- Vercel now supports Git LFS file fetching during deployment
+- All large image files (`.jpg`, `.jpeg`, `.png`) are tracked by Git LFS
+- This keeps the repository size manageable and improves push/pull performance
+- Images are stored in GitHub's LFS storage and fetched on demand
+
+**Current LFS Setup:**
+- All image files are automatically tracked via `.gitattributes`
+- Large portfolio images (10MB+) are stored as LFS pointers in git
+- Actual image data is uploaded to GitHub LFS storage separately
+- Vercel pulls LFS files during build process
+
+**If you need to add new large files:**
+1. Ensure Git LFS is installed: `git lfs install`
+2. Files matching `*.jpg`, `*.jpeg`, `*.png` are auto-tracked
+3. Commit and push normally - LFS handles the rest
+
+### Image Protection
+🔒 **Multi-layer protection is implemented for portfolio images:**
+
+- Download buttons disabled in all gallery components
+- Right-click context menu blocked on portfolio images
+- Drag-and-drop prevention on all images
+- Keyboard shortcuts (Ctrl+S, Cmd+S) blocked in lightbox
+- CSS-based selection and drag prevention
+- Protection scoped to creative content only (doesn't affect general UX)
+
+**Protected Components:**
+- `LightboxGallery.tsx` - Full image protection in lightbox modal
+- Creative page albums - All photo galleries
+- Project galleries - Technical project screenshots
+
+**Note:** While these protections deter casual theft, determined users can still screenshot or use DevTools. For maximum protection of high-value work, consider visible watermarks.
 
 ### Pre-deployment Checklist
 - [ ] Spell check all content (British English)
@@ -116,7 +141,8 @@ This document contains important preferences and conventions for the Nas Portfol
 - [ ] Check accessibility compliance
 - [ ] Run Lighthouse audit
 - [ ] Test dark/light mode functionality
-- [ ] Verify no images are tracked by Git LFS (`git lfs ls-files` should be empty)
+- [ ] Verify Git LFS files are tracked correctly (`git lfs ls-files`)
+- [ ] Test image protection features in lightbox and galleries
 
 ## 📋 Content Updates
 
@@ -145,7 +171,7 @@ When adding new projects or content:
 
 ---
 
-**Last Updated**: [Current Date]
-**Version**: 1.0
+**Last Updated**: January 10, 2026
+**Version**: 2.0
 
 > 💡 **Tip**: Before making any content changes, review this document to ensure consistency with project standards and preferences.
