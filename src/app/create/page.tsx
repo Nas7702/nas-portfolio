@@ -778,6 +778,7 @@ export default function CreativePage() {
                       className="columns-1 sm:columns-2 lg:columns-3 gap-4"
                       showTitles={false}
                       enableZoom={true}
+                      enableDownload={false}
                       useResponsiveGrid={false}
                       adaptiveAspectRatio={true}
                     />
