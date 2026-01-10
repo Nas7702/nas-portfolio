@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Github, ExternalLink, CheckCircle, Zap, Target, Trophy } from "lucide-react";
+import { X, ExternalLink, CheckCircle, Zap, Target, Trophy } from "lucide-react";
 import { Project } from "../../data/projects";
 import LightboxGallery, { MediaItem } from "./LightboxGallery";
 
@@ -70,17 +70,6 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <motion.a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                      whileHover={{ scale: 1.15, rotate: 5 }}
-                      whileTap={{ scale: 0.85 }}
-                    >
-                      <Github size={20} />
-                    </motion.a>
-
                     {project.liveLink && (
                       <motion.a
                         href={project.liveLink}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Code, Camera, User, Mail, Github, Linkedin } from "lucide-react";
+import { ArrowRight, Code, Camera, User, Mail, Linkedin } from "lucide-react";
 
 export default function BentoGrid() {
   return (
@@ -97,10 +97,7 @@ export default function BentoGrid() {
         </Link>
 
          {/* Socials - Small Strip (Optional) */}
-         <div className="col-span-1 md:col-span-2 row-span-1 md:h-[100px] grid grid-cols-3 gap-4">
-            <a href="https://github.com/Nas7702" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center rounded-3xl bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 transition-colors group">
-                <Github className="text-neutral-400 group-hover:text-white transition-colors" />
-            </a>
+         <div className="col-span-1 md:col-span-2 row-span-1 md:h-[100px] grid grid-cols-2 gap-4">
             <a href="https://www.linkedin.com/in/nas-hoque/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center rounded-3xl bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 transition-colors group">
                 <Linkedin className="text-neutral-400 group-hover:text-blue-400 transition-colors" />
             </a>
