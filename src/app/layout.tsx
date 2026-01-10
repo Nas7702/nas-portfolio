@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "./components/ThemeProvider";
 import ConditionalChrome from "./components/ConditionalChrome";
 import AnimationWrapper from "./components/AnimationWrapper";
+import MetaPixel from "./components/MetaPixel";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
           </AnimationWrapper>
         </ThemeProvider>
         <Analytics />
+        <MetaPixel />
       </body>
     </html>
   );

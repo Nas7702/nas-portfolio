@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { MessageCircle } from "lucide-react";
-import { trackCta } from "../../../lib/analytics";
+import { trackLeadConversion } from "../../../lib/analytics";
 import AnalyticsLink from "../../components/AnalyticsLink";
 
 const WHATSAPP_BASE = "https://wa.me/447475437833";
@@ -87,11 +87,13 @@ export default function LeadCapture() {
     const text = lines.join("\n");
     const whatsappUrl = `${WHATSAPP_BASE}?text=${encodeURIComponent(text)}`;
 
-    // Track the intent
-    trackCta("monthly_content_lead_intent", {
+    // Track the lead conversion (fires to both Vercel Analytics and Meta Pixel)
+    trackLeadConversion("monthly_content_lead_intent", {
       channel: "whatsapp",
       has_email: formData.email ? true : false,
       has_message: formData.message ? true : false,
+      content_name: "Monthly Content Package",
+      content_category: "content_service",
       ...utms,
     });
 
@@ -227,4 +229,6 @@ export default function LeadCapture() {
     </div>
   );
 }
+
+
 
