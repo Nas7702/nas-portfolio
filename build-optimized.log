@@ -1,0 +1,22 @@
+
+> nas-portfolio@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.6
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 6.0s
+   Linting and checking validity of types ...
+Failed to compile.
+
+./src/app/components/Hero.tsx:54:7
+Type error: This comparison appears to be unintentional because the types '"low" | "medium" | "high"' and '"minimal"' have no overlap.
+
+[0m [90m 52 |[39m     [36mif[39m (prefersReduced [33m||[39m performanceMode [33m===[39m [32m'minimal'[39m) [36mreturn[39m [35m0[39m[33m;[39m[0m
+[0m [90m 53 |[39m     [36mreturn[39m getRecommendedParticleCount([0m
+[0m[31m[1m>[22m[39m[90m 54 |[39m       performanceMode [33m===[39m [32m'minimal'[39m [33m?[39m [32m'low'[39m [33m:[39m performanceMode[0m
+[0m [90m    |[39m       [31m[1m^[22m[39m[0m
+[0m [90m 55 |[39m     )[33m;[39m[0m
+[0m [90m 56 |[39m   }[33m,[39m [performanceMode[33m,[39m prefersReduced])[33m;[39m[0m
+[0m [90m 57 |[39m[0m
+Next.js build worker exited with code: 1 and signal: null
