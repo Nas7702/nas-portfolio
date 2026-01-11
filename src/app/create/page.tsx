@@ -1,16 +1,26 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import dynamic from "next/dynamic";
 import PageTransition from "../components/PageTransition";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Clapperboard, Camera, Palette, Sparkles, Instagram, ExternalLink, X } from "lucide-react";
 import CreativeCTA from "../components/CreativeCTA";
-import LightboxGallery, { MediaItem } from "../components/LightboxGallery";
+import type { MediaItem } from "../components/LightboxGallery";
 import ScrollReveal from "../components/ScrollReveal";
 import Link from "next/link";
 import { trackCta } from "../../lib/analytics";
-import Testimonials from "../components/Testimonials";
+import LoadingSkeleton from "../components/LoadingSkeleton";
+
+// Dynamic imports for heavy components
+const LightboxGallery = dynamic(() => import("../components/LightboxGallery"), {
+  loading: () => <LoadingSkeleton variant="gallery" count={3} />,
+});
+
+const Testimonials = dynamic(() => import("../components/Testimonials"), {
+  loading: () => <LoadingSkeleton variant="card" count={2} />,
+});
 
 const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
 // Force rebuild for logo update
