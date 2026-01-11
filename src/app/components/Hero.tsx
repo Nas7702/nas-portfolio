@@ -127,13 +127,13 @@ export default function Hero() {
         >
           <Link
             href="/tech"
-            className="px-8 py-3 rounded-full bg-foreground text-background font-medium hover:bg-foreground/90 transition-colors"
+            className="px-8 py-3 rounded-full bg-blue-500 text-white font-medium hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
           >
             View Technical Work
           </Link>
           <Link
             href="/create"
-            className="px-8 py-3 rounded-full border border-foreground/20 hover:bg-foreground/5 transition-colors"
+            className="px-8 py-3 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50"
           >
             View Creative Work
           </Link>
