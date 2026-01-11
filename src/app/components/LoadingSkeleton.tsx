@@ -8,10 +8,10 @@ interface LoadingSkeletonProps {
   count?: number;
 }
 
-export default function LoadingSkeleton({ 
-  variant = 'card', 
+export default function LoadingSkeleton({
+  variant = 'card',
   className = '',
-  count = 1 
+  count = 1
 }: LoadingSkeletonProps) {
   const renderSkeleton = () => {
     switch (variant) {
