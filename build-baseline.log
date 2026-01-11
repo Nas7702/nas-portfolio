@@ -1,0 +1,35 @@
+
+> nas-portfolio@0.1.0 build
+> next build
+
+   ▲ Next.js 15.3.6
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 23.0s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/10) ...
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+   Generating static pages (2/10) 
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                     233 kB         376 kB
+├ ○ /_not-found                            978 B         102 kB
+├ ○ /about                               3.97 kB         143 kB
+├ ○ /contact                             3.17 kB         143 kB
+├ ○ /create                              14.7 kB         165 kB
+├ ○ /icon.svg                                0 B            0 B
+└ ○ /tech                                2.38 kB         145 kB
++ First Load JS shared by all             101 kB
+  ├ chunks/4bd1b696-dbf7b861b2999291.js  53.2 kB
+  ├ chunks/684-1bd1b6bb42576faf.js       46.1 kB
+  └ other shared chunks (total)          1.92 kB
+
+
+○  (Static)  prerendered as static content
+

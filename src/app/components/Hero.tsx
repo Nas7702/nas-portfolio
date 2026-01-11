@@ -2,19 +2,28 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
-import { useState, useRef, Suspense } from "react";
+import { useState, useRef, Suspense, useMemo } from "react";
 import * as random from "maath/random/dist/maath-random.esm";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import * as THREE from "three";
+import { usePerformanceMode } from "@/hooks/usePerformanceMode";
+import { getRecommendedParticleCount } from "@/lib/performance";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ParticleCloud(props: any) {
+interface ParticleCloudProps {
+  particleCount?: number;
+}
+
+function ParticleCloud({ particleCount = 3500 }: ParticleCloudProps) {
   const ref = useRef<THREE.Points>(null);
-  const [sphere] = useState(() => random.inSphere(new Float32Array(5000), { radius: 1.5 }) as Float32Array);
+  const [sphere] = useState(() =>
+    random.inSphere(new Float32Array(particleCount), { radius: 1.5 }) as Float32Array
+  );
+
+  const prefersReduced = useReducedMotion();
 
   useFrame((state, delta) => {
-    if (ref.current) {
+    if (ref.current && !prefersReduced) {
       ref.current.rotation.x -= delta / 10;
       ref.current.rotation.y -= delta / 15;
     }
@@ -22,10 +31,10 @@ function ParticleCloud(props: any) {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#3b82f6" // Blue color
+          color="#3b82f6" // Blue colour
           size={0.002}
           sizeAttenuation={true}
           depthWrite={false}
@@ -36,11 +45,30 @@ function ParticleCloud(props: any) {
 }
 
 function Scene() {
+  const performanceMode = usePerformanceMode();
+  const prefersReduced = useReducedMotion();
+
+  const particleCount = useMemo(() => {
+    if (prefersReduced || performanceMode === 'minimal') return 0;
+
+    // Map performance mode to particle count
+    const tier: 'low' | 'medium' | 'high' =
+      (performanceMode === 'low' || performanceMode === 'medium' || performanceMode === 'high')
+        ? performanceMode
+        : 'low';
+    return getRecommendedParticleCount(tier);
+  }, [performanceMode, prefersReduced]);
+
+  // Don't render particles if reduced motion is preferred or count is 0
+  if (prefersReduced || particleCount === 0) {
+    return null;
+  }
+
   return (
     <div className="absolute inset-0 z-0" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
-          <ParticleCloud />
+          <ParticleCloud particleCount={particleCount} />
         </Suspense>
       </Canvas>
     </div>
