@@ -68,8 +68,12 @@ export default function Navbar() {
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled || isOpen
             ? pathname.startsWith("/create")
-              ? "bg-bg-95 dark:bg-bg-95 backdrop-blur-md shadow-lg"
-              : "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg"
+              ? "bg-black/85 backdrop-blur-md shadow-lg"
+              : pathname.startsWith("/tech")
+              ? "bg-blue-950/85 backdrop-blur-md shadow-lg border-b border-blue-900/30"
+              : pathname.startsWith("/about")
+              ? "bg-gray-900/85 backdrop-blur-md shadow-lg border-b border-gray-800/30"
+              : "bg-gray-900/85 backdrop-blur-md shadow-lg"
             : "bg-transparent"
         }`}
         initial={{ y: -100 }}
@@ -171,8 +175,12 @@ export default function Navbar() {
             <motion.div
               className={`md:hidden border-t backdrop-blur-md ${
                 pathname.startsWith("/create")
-                  ? "border-white/10 bg-bg-95 dark:bg-bg-95"
-                  : "border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95"
+                  ? "border-white/10 bg-black/85"
+                  : pathname.startsWith("/tech")
+                  ? "border-blue-900/30 bg-blue-950/85"
+                  : pathname.startsWith("/about")
+                  ? "border-gray-800/30 bg-gray-900/85"
+                  : "border-gray-700 bg-gray-900/85"
               }`}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
