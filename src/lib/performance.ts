@@ -96,7 +96,7 @@ export class FPSMonitor {
  */
 export function getRecommendedParticleCount(tier?: 'low' | 'medium' | 'high'): number {
   const deviceTier = tier || getDevicePerformanceTier();
-  
+
   switch (deviceTier) {
     case 'low':
       return 2000;
@@ -122,10 +122,10 @@ export function prefersReducedMotion(): boolean {
  */
 export function prefersReducedData(): boolean {
   if (typeof window === 'undefined') return false;
-  const connection = (navigator as Navigator & { 
-    connection?: { saveData?: boolean; effectiveType?: string } 
+  const connection = (navigator as Navigator & {
+    connection?: { saveData?: boolean; effectiveType?: string }
   }).connection;
-  
+
   return connection?.saveData === true || connection?.effectiveType === 'slow-2g' || connection?.effectiveType === '2g';
 }
 
@@ -137,13 +137,13 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
   wait: number
 ): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout | null = null;
-  
+
   return function executedFunction(...args: Parameters<T>) {
     const later = () => {
       timeout = null;
       func(...args);
     };
-    
+
     if (timeout) {
       clearTimeout(timeout);
     }
@@ -159,7 +159,7 @@ export function throttle<T extends (...args: unknown[]) => unknown>(
   limit: number
 ): (...args: Parameters<T>) => void {
   let inThrottle: boolean;
-  
+
   return function executedFunction(...args: Parameters<T>) {
     if (!inThrottle) {
       func(...args);
