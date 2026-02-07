@@ -83,36 +83,27 @@ export default function Hero() {
 
       {/* Content Overlay */}
       <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-6"
-        >
-          <Link
-            href="/contact"
-            className="inline-block px-3 py-1 text-sm font-mono rounded-full bg-accent/10 text-accent mb-4 border border-accent/20 hover:bg-accent/15 transition-colors"
-          >
-            Available for new projects
-          </Link>
-        </motion.div>
-
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50"
         >
           Nas
           <span className="block text-2xl md:text-3xl font-normal mt-2 text-muted-foreground">
             Developer & Creative Professional
+            <span className="mx-3 text-foreground/40">•</span>
+            <span className="relative text-foreground/90 hover:text-foreground transition-colors cursor-default group">
+              Currently available
+              <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent group-hover:via-blue-400 transition-all duration-300" />
+            </span>
           </span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10"
         >
           Bridging the gap between analytical precision and creative storytelling.
@@ -122,7 +113,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row gap-4"
         >
           <Link
@@ -144,7 +135,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
+        transition={{ delay: 1.3, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
         <div className="w-[1px] h-24 bg-gradient-to-b from-transparent via-foreground/50 to-transparent" />
