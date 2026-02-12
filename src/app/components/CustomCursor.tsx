@@ -59,22 +59,21 @@ export default function CustomCursor() {
           scale: { type: "spring", stiffness: 150, damping: 15 }
         }}
       />
-      {/* Trail Cursor - Can keep slight delay for effect, or remove if user wants pure raw input */}
+      {/* Trail Cursor - Direct position tracking, no acceleration */}
       <motion.div
         className="fixed top-0 left-0 w-8 h-8 border border-primary rounded-full pointer-events-none z-[100] hidden md:block"
-        animate={{
+        style={{
           x: mousePosition.x - 16,
           y: mousePosition.y - 16,
+        }}
+        animate={{
           scale: isHovering ? 1.5 : 1,
           opacity: isHovering ? 0 : 0.5
         }}
         transition={{
-          // Snappier spring for the ring too
-          type: "spring",
-          stiffness: 100,
-          damping: 15,
-          mass: 0.1,
-          delay: 0 // Removed delay to remove "lag/acceleration" feel
+          // Only transition scale and opacity, not position
+          scale: { type: "spring", stiffness: 150, damping: 15 },
+          opacity: { duration: 0.2 }
         }}
       />
     </>

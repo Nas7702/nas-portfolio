@@ -94,7 +94,7 @@ export default function Hero() {
             Developer & Creative Professional
             <span className="mx-3 text-foreground/40">•</span>
             <span className="relative text-foreground/90 hover:text-foreground transition-colors cursor-default group">
-              Currently available
+              Accepting new projects
               <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent group-hover:via-blue-400 transition-all duration-300" />
             </span>
           </span>
