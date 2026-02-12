@@ -529,8 +529,7 @@ export default function CreativePage() {
               fill
               priority
               sizes="100vw"
-              className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[18px] sm:blur-[20px] lg:blur-[22px] brightness-[0.45]"
-              style={{ filter: "grayscale(100%) blur(6px)" }}
+              className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[6px] brightness-[0.45] grayscale"
             />
             <div aria-hidden className="absolute inset-0 overlay-tint" />
             <div aria-hidden className="absolute inset-0 gradient-vignette" />
@@ -628,7 +627,7 @@ export default function CreativePage() {
         </section>
 
         {/* Portfolio Section */}
-        <section className="py-20 px-6 sm:px-8 bg-bg transition-colors duration-300">
+        <section id="creative-portfolio" className="py-20 px-6 sm:px-8 bg-bg transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-12">

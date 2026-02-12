@@ -1,8 +1,14 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { MessageSquareQuote, Sparkles, Quote, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { MessageSquareQuote, Sparkles, Quote, ChevronLeft, ChevronRight, ExternalLink, Play, Camera } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+
+type RelatedWork = {
+  label: string;
+  href?: string;
+  scrollTo?: string;
+};
 
 type Testimonial = {
   name: string;
@@ -11,6 +17,7 @@ type Testimonial = {
   quote: string;
   praise: string;
   link?: string;
+  relatedWork?: RelatedWork[];
 };
 
 const testimonials: Testimonial[] = [
@@ -32,6 +39,19 @@ const testimonials: Testimonial[] = [
       "The video Nas delivered was phenomenal and we're overjoyed with how it turned out. We've had compliments in person and online from guests impressed by it.",
     praise:
       "Nas was a delight to work with and we recommend Nas Create to any business looking to stand out on social because the work is exceptional.",
+  },
+  {
+    name: "Kyle",
+    role: "Kyle Allen Coaching",
+    headline: "Became my most viewed post",
+    quote:
+      "I went with Nas for professional photos and a promo video for my online coaching business. Absolutely loved the video — his skills are amazing with a super fast turnaround and great service.",
+    praise:
+      "I used the video to promote my page and it became my most viewed post. Couldn't recommend him enough, will definitely be using him again!",
+    relatedWork: [
+      { label: "Watch the Reel", href: "https://www.youtube.com/shorts/LaoAVooLROU" },
+      { label: "View Photos", scrollTo: "creative-portfolio" },
+    ],
   },
 ];
 
@@ -171,6 +191,38 @@ export default function Testimonials() {
                 <div className="relative pt-4 border-t border-white/10">
                   <p className="text-base md:text-lg text-muted-foreground leading-relaxed">{testimonial.praise}</p>
                 </div>
+
+                {testimonial.relatedWork && testimonial.relatedWork.length > 0 && (
+                  <div className="flex flex-wrap gap-3 pt-4">
+                    {testimonial.relatedWork.map((work) =>
+                      work.href ? (
+                        <a
+                          key={work.label}
+                          href={work.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 hover:border-primary/50 transition-all duration-200"
+                        >
+                          <Play size={14} />
+                          {work.label}
+                        </a>
+                      ) : work.scrollTo ? (
+                        <button
+                          key={work.label}
+                          type="button"
+                          onClick={() => {
+                            const el = document.getElementById(work.scrollTo!);
+                            if (el) el.scrollIntoView({ behavior: "smooth" });
+                          }}
+                          className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 hover:border-primary/50 transition-all duration-200"
+                        >
+                          <Camera size={14} />
+                          {work.label}
+                        </button>
+                      ) : null
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </article>
