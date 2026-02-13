@@ -61,6 +61,31 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Restored Creative Page Utilities */
+  .overlay-tint {
+    background-color: var(--color-background);
+    opacity: 0.5;
+    mix-blend-mode: color-dodge;
+  }
+
+  .gradient-vignette {
+    background: radial-gradient(circle at center, transparent 40%, var(--color-background) 100%);
+    pointer-events: none;
+  }
+
+  .bg-grid {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    opacity: 0.2;
+  }
+
+  .hero-grid-mask {
+    -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+  }
 }
 
 /* Image Protection for Portfolio/Creative Content */

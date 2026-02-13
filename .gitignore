@@ -44,6 +44,15 @@ next-env.d.ts
 DEV_NOTES.md
 .cursorrules
 .ai/
+.claude/
+CLAUDE.md
 AI_INSTRUCTIONS.md
 AGENTS.md
 ENHANCEMENT_LOG.md
+REPOSITORY_OVERVIEW.md
+
+# IDE workspace files
+nas-portfolio.code-workspace
+
+# npm cache
+npm-cache/

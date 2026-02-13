@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nas-portfolio.dev"),
   title: "Nas - Data Scientist & Creative",
   description: "Portfolio of Nas - Developer, Data Scientist & Creative Professional.",
   openGraph: {
