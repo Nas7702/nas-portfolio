@@ -92,11 +92,11 @@ export default function Hero() {
           Nas
           <span className="block text-2xl md:text-3xl font-normal mt-2 text-muted-foreground">
             Developer & Creative Professional
-            <span className="mx-3 text-foreground/40">•</span>
-            <span className="relative text-foreground/90 hover:text-foreground transition-colors cursor-default group">
-              Accepting new projects
-              <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent group-hover:via-blue-400 transition-all duration-300" />
-            </span>
+          </span>
+          <span className="relative mt-3 inline-flex items-center gap-2 text-lg md:text-xl text-foreground/80 hover:text-foreground transition-colors cursor-default group">
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
+            Accepting new projects
+            <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-400/60 to-transparent group-hover:via-green-400 transition-all duration-300" />
           </span>
         </motion.h1>
 
