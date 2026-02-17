@@ -9,12 +9,14 @@ import Link from "next/link";
 import * as THREE from "three";
 import { usePerformanceMode } from "@/hooks/usePerformanceMode";
 import { getRecommendedParticleCount } from "@/lib/performance";
+import { useTheme } from "./ThemeProvider";
 
 interface ParticleCloudProps {
   particleCount?: number;
+  color?: string;
 }
 
-function ParticleCloud({ particleCount = 3500 }: ParticleCloudProps) {
+function ParticleCloud({ particleCount = 3500, color = "#3b82f6" }: ParticleCloudProps) {
   const ref = useRef<THREE.Points>(null);
   const [sphere] = useState(() =>
     random.inSphere(new Float32Array(particleCount), { radius: 1.5 }) as Float32Array
@@ -34,7 +36,7 @@ function ParticleCloud({ particleCount = 3500 }: ParticleCloudProps) {
       <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#3b82f6" // Blue colour
+          color={color}
           size={0.002}
           sizeAttenuation={true}
           depthWrite={false}
@@ -47,6 +49,7 @@ function ParticleCloud({ particleCount = 3500 }: ParticleCloudProps) {
 function Scene() {
   const performanceMode = usePerformanceMode();
   const prefersReduced = useReducedMotion();
+  const { theme } = useTheme();
 
   const particleCount = useMemo(() => {
     if (prefersReduced || performanceMode === 'minimal') return 0;
@@ -59,6 +62,9 @@ function Scene() {
     return getRecommendedParticleCount(tier);
   }, [performanceMode, prefersReduced]);
 
+  // Darker blue for light mode so particles are visible on light backgrounds
+  const particleColor = theme === "dark" ? "#3b82f6" : "#2563eb";
+
   // Don't render particles if reduced motion is preferred or count is 0
   if (prefersReduced || particleCount === 0) {
     return null;
@@ -68,7 +74,7 @@ function Scene() {
     <div className="absolute inset-0 z-0" aria-hidden="true">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
-          <ParticleCloud particleCount={particleCount} />
+          <ParticleCloud particleCount={particleCount} color={particleColor} />
         </Suspense>
       </Canvas>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, useState, useEffect } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -10,6 +10,19 @@ interface ScrollRevealProps {
   duration?: number;
   threshold?: number;
   className?: string;
+}
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint);
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, [breakpoint]);
+
+  return isMobile;
 }
 
 export default function ScrollReveal({
@@ -21,17 +34,21 @@ export default function ScrollReveal({
   className = "",
 }: ScrollRevealProps) {
   const ref = useRef(null);
+  const isMobile = useIsMobile();
+
   const isInView = useInView(ref, {
     once: true,
-    margin: "-100px 0px",
-    amount: threshold
+    margin: isMobile ? "-30px 0px" : "-100px 0px",
+    amount: isMobile ? Math.min(threshold, 0.05) : threshold,
   });
 
+  const offset = isMobile ? 20 : 60;
+
   const directionOffset = {
-    up: { y: 60, x: 0 },
-    down: { y: -60, x: 0 },
-    left: { y: 0, x: 60 },
-    right: { y: 0, x: -60 },
+    up: { y: offset, x: 0 },
+    down: { y: -offset, x: 0 },
+    left: { y: 0, x: offset },
+    right: { y: 0, x: -offset },
   };
 
   const variants = {
@@ -39,7 +56,7 @@ export default function ScrollReveal({
       opacity: 0,
       y: directionOffset[direction].y,
       x: directionOffset[direction].x,
-      scale: 0.95,
+      scale: isMobile ? 0.98 : 0.95,
     },
     visible: {
       opacity: 1,

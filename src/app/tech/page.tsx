@@ -128,7 +128,7 @@ export default function SoftwarePage() {
               {[
                 { name: "Python", role: "Data Science", color: "text-blue-400", icon: <Database size={24} /> },
                 { name: "Java", role: "Backend Dev", color: "text-red-400", icon: <Server size={24} /> },
-                { name: "Next.js", role: "Web Dev", color: "text-white", icon: <Layout size={24} /> },
+                { name: "Next.js", role: "Web Dev", color: "text-foreground", icon: <Layout size={24} /> },
                 { name: "Vercel", role: "Deployment", color: "text-yellow-400", icon: <Cloud size={24} /> },
               ].map((skill, i) => (
                 <motion.div

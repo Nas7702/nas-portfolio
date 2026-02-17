@@ -16,10 +16,10 @@ export default function AboutPage() {
       category: "Creative",
       description: (
         <>
-          <span className="block leading-relaxed text-neutral-200">
+          <span className="block leading-relaxed text-foreground/90">
             Freelance <span className="font-semibold">videography</span> and media since 2020, filming <span className="font-semibold">brand content</span>, <span className="font-semibold">sports coverage</span>, and promotional pieces for local businesses.
           </span>
-          <span className="block mt-3 leading-relaxed text-neutral-200">
+          <span className="block mt-3 leading-relaxed text-foreground/90">
             Focused on <span className="font-semibold">cinematic storytelling</span>, client relationships, and repeat work to scale.
           </span>
         </>
@@ -32,7 +32,7 @@ export default function AboutPage() {
       category: "Technical",
       description: (
         <>
-          <span className="block leading-relaxed text-neutral-200">
+          <span className="block leading-relaxed text-foreground/90">
             Studied at the University of Sheffield.{" "}
             <span className="font-semibold">Dissertation (Barbell AI)</span>:{" "}
             <span className="font-semibold">real-time bar speed</span> from lift video for objective calls, feeding future work with{" "}
@@ -40,13 +40,13 @@ export default function AboutPage() {
               href="https://stancefitness.co/"
               target="_blank"
               rel="noreferrer"
-              className="underline underline-offset-4 decoration-white/30 hover:decoration-white/60"
+              className="underline underline-offset-4 decoration-foreground/30 hover:decoration-foreground/60"
             >
               Stance Fitness
             </a>
             .
           </span>
-          <span className="block mt-3 leading-relaxed text-neutral-200">
+          <span className="block mt-3 leading-relaxed text-foreground/90">
             Built <span className="font-semibold">full-stack projects</span> and <span className="font-semibold">Python</span>/<span className="font-semibold">Java</span> tools, while filming student sport events.
           </span>
         </>
@@ -59,17 +59,17 @@ export default function AboutPage() {
       category: "Technical",
       description: (
         <>
-          <span className="block leading-relaxed text-neutral-200">
+          <span className="block leading-relaxed text-foreground/90">
             Pulled <span className="font-semibold">production data</span> to analyse algorithm performance, built <span className="font-semibold">evaluation tools</span> to compare versions against ground truth (e.g., linear encoder), and filmed brand content for Stance.
           </span>
           <a
             href="https://stancefitness.co/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 mt-3 text-[#e5d7ff] bg-gradient-to-r from-[#792EFE]/18 via-[#792EFE]/12 to-[#792EFE]/18 border border-[#792EFE]/40 rounded-full px-3 py-1 text-sm hover:from-[#792EFE]/22 hover:to-[#792EFE]/22 transition-colors w-fit shadow-[0_8px_30px_-12px_rgba(121,46,254,0.45)]"
+            className="inline-flex items-center gap-2 mt-3 text-purple-800 dark:text-[#e5d7ff] bg-gradient-to-r from-[#792EFE]/18 via-[#792EFE]/12 to-[#792EFE]/18 border border-[#792EFE]/40 rounded-full px-3 py-1 text-sm hover:from-[#792EFE]/22 hover:to-[#792EFE]/22 transition-colors w-fit shadow-[0_8px_30px_-12px_rgba(121,46,254,0.45)]"
           >
             Visit Stance Fitness
-            <span aria-hidden className="text-[#e5d7ff]">↗</span>
+            <span aria-hidden className="text-purple-800 dark:text-[#e5d7ff]">↗</span>
           </a>
         </>
       ),
@@ -80,7 +80,7 @@ export default function AboutPage() {
       title: "Building & Creating",
       category: "Creative",
       description: (
-        <span className="text-neutral-200">
+        <span className="text-foreground/90">
           Sharpening <span className="font-semibold">software</span> and <span className="font-semibold">data science</span> skills at Stance Fitness and on side builds to ship smarter products and tools while growing a <span className="font-semibold">media business</span> through client storytelling.
         </span>
       ),
@@ -185,7 +185,7 @@ function TimelineItem({ event }: { event: TimelineEvent }) {
               <span
                 className={`text-[11px] px-2 py-1 rounded-full border ${
                   event.category === "Technical"
-                    ? "bg-blue-500/10 border-blue-400/40 text-blue-200"
+                    ? "bg-blue-500/10 border-blue-400/40 text-blue-700 dark:text-blue-300"
                     : "bg-accent/10 border-accent/40 text-accent"
                 }`}
               >

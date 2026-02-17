@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, Code, Camera, User, Mail } from "lucide-react";
+import { Menu, X, Home, Code, Camera, User, Mail, Sun, Moon } from "lucide-react";
 import Logo from "./Logo";
+import { useTheme } from "./ThemeProvider";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -19,6 +20,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
 
   // Handle scroll effect
   useEffect(() => {
@@ -61,21 +63,50 @@ export default function Navbar() {
     return pathname.startsWith(href);
   };
 
+  const isCreativePage = pathname.startsWith("/create");
+
+  // Navbar background classes based on route and theme
+  const getNavBg = () => {
+    if (!(scrolled || isOpen)) return "bg-transparent";
+    if (isCreativePage) return "bg-black/85 backdrop-blur-md shadow-lg";
+    if (pathname.startsWith("/tech")) {
+      return theme === "dark"
+        ? "bg-blue-950/85 backdrop-blur-md shadow-lg border-b border-blue-900/30"
+        : "bg-white/85 backdrop-blur-md shadow-lg border-b border-blue-200/50";
+    }
+    if (pathname.startsWith("/about")) {
+      return theme === "dark"
+        ? "bg-gray-900/85 backdrop-blur-md shadow-lg border-b border-gray-800/30"
+        : "bg-white/85 backdrop-blur-md shadow-lg border-b border-gray-200/50";
+    }
+    return theme === "dark"
+      ? "bg-gray-900/85 backdrop-blur-md shadow-lg"
+      : "bg-white/85 backdrop-blur-md shadow-lg border-b border-gray-200/50";
+  };
+
+  // Mobile menu background
+  const getMobileBg = () => {
+    if (isCreativePage) return "border-white/10 bg-black/85";
+    if (pathname.startsWith("/tech")) {
+      return theme === "dark"
+        ? "border-blue-900/30 bg-blue-950/85"
+        : "border-blue-200/50 bg-white/90";
+    }
+    if (pathname.startsWith("/about")) {
+      return theme === "dark"
+        ? "border-gray-800/30 bg-gray-900/85"
+        : "border-gray-200/50 bg-white/90";
+    }
+    return theme === "dark"
+      ? "border-gray-700 bg-gray-900/85"
+      : "border-gray-200 bg-white/90";
+  };
+
   return (
     <>
       <motion.nav
-        data-theme={pathname.startsWith("/create") ? "creative" : undefined}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled || isOpen
-            ? pathname.startsWith("/create")
-              ? "bg-black/85 backdrop-blur-md shadow-lg"
-              : pathname.startsWith("/tech")
-              ? "bg-blue-950/85 backdrop-blur-md shadow-lg border-b border-blue-900/30"
-              : pathname.startsWith("/about")
-              ? "bg-gray-900/85 backdrop-blur-md shadow-lg border-b border-gray-800/30"
-              : "bg-gray-900/85 backdrop-blur-md shadow-lg"
-            : "bg-transparent"
-        }`}
+        data-theme={isCreativePage ? "creative" : undefined}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${getNavBg()}`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -83,7 +114,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Logo variant={pathname.startsWith("/create") ? "record" : "default"} />
+            <Logo variant={isCreativePage ? "record" : "default"} />
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">
@@ -94,13 +125,13 @@ export default function Navbar() {
                 // Use brand colors for Creative item
                 const isCreative = item.href === "/create";
                 const activeColor = isCreative
-                  ? "text-[color:var(--accent)]"
+                  ? "text-accent"
                   : "text-blue-600 dark:text-blue-400";
                 const hoverColor = isCreative
-                  ? "text-gray-700 dark:text-gray-300 hover:text-[color:var(--accent)]"
-                  : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400";
+                  ? "text-foreground/70 hover:text-accent"
+                  : "text-foreground/70 hover:text-blue-600 dark:hover:text-blue-400";
                 const activeBackground = isCreative
-                  ? "bg-[color:var(--accent)]/10"
+                  ? "bg-accent/10"
                   : "bg-blue-100 dark:bg-blue-900/30";
 
                 return (
@@ -131,12 +162,23 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="flex items-center">
+            {/* Mobile buttons */}
+            <div className="flex items-center gap-2">
+              {/* Theme toggle (mobile) */}
+              <motion.button
+                onClick={toggleTheme}
+                className="md:hidden p-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.85 }}
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              >
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              </motion.button>
+
               {/* Mobile Menu Button */}
               <motion.button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="md:hidden p-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                 whileHover={{ scale: 1.15, rotate: 5 }}
                 whileTap={{ scale: 0.85 }}
                 aria-label="Toggle menu"
@@ -173,15 +215,7 @@ export default function Navbar() {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className={`md:hidden border-t backdrop-blur-md ${
-                pathname.startsWith("/create")
-                  ? "border-white/10 bg-black/85"
-                  : pathname.startsWith("/tech")
-                  ? "border-blue-900/30 bg-blue-950/85"
-                  : pathname.startsWith("/about")
-                  ? "border-gray-800/30 bg-gray-900/85"
-                  : "border-gray-700 bg-gray-900/85"
-              }`}
+              className={`md:hidden border-t backdrop-blur-md ${getMobileBg()}`}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -194,15 +228,14 @@ export default function Navbar() {
 
                   // Use brand colors for Creative item
                   const isCreative = item.href === "/create";
-                  const onCreativePage = pathname.startsWith("/create");
 
                   const activeStyles = isCreative
-                    ? "bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400"
+                    ? "bg-accent/10 text-accent"
                     : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400";
 
-                  const inactiveStyles = onCreativePage
+                  const inactiveStyles = isCreativePage
                     ? "text-gray-300 hover:bg-white/10"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800";
+                    : "text-foreground/70 hover:bg-secondary";
 
                   return (
                     <motion.div
