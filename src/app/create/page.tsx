@@ -544,7 +544,7 @@ export default function CreativePage() {
                     <div
                       aria-hidden
                       className="absolute -inset-8 -z-20 rounded-[40px] opacity-70 blur-3xl transition-transform duration-500 ease-out group-hover:opacity-100 group-hover:scale-110"
-                      style={{ background: "radial-gradient(60% 60% at 50% 50%, rgb(var(--accent-rgb) / 0.6) 0%, rgb(var(--accent-rgb) / 0.18) 45%, rgb(var(--accent-rgb) / 0) 80%)" }}
+                      style={{ background: "radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0) 80%)" }}
                     />
                     <div className="relative flex items-center justify-center w-64 h-32 md:w-80 md:h-40 lg:w-96 lg:h-48 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
                       <Image
@@ -552,7 +552,7 @@ export default function CreativePage() {
                         alt="Nas.Create Logo"
                         width={480}
                         height={240}
-                        className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(57,255,136,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(57,255,136,0.6)]"
+                        className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(255,255,255,0.6)]"
                         priority
                       />
                     </div>
