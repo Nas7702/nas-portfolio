@@ -546,13 +546,13 @@ export default function CreativePage() {
                       className="absolute -inset-8 -z-20 rounded-[40px] opacity-70 blur-3xl transition-transform duration-500 ease-out group-hover:opacity-100 group-hover:scale-110"
                       style={{ background: "radial-gradient(60% 60% at 50% 50%, rgb(var(--accent-rgb) / 0.6) 0%, rgb(var(--accent-rgb) / 0.18) 45%, rgb(var(--accent-rgb) / 0) 80%)" }}
                     />
-                    <div className="relative flex items-center justify-center w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
+                    <div className="relative flex items-center justify-center w-64 h-32 md:w-80 md:h-40 lg:w-96 lg:h-48 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
                       <Image
-                        src="/logos/dark-trans-stacked.png"
+                        src="/logos/wordmark.png"
                         alt="Nas.Create Logo"
-                        width={320}
-                        height={320}
-                        className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(57,255,136,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(57,255,136,0.6)]"
+                        width={480}
+                        height={240}
+                        className="w-full h-full object-contain invert brightness-100 drop-shadow-[0_0_25px_rgba(57,255,136,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(57,255,136,0.6)]"
                         priority
                       />
                     </div>

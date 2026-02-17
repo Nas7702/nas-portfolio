@@ -207,7 +207,7 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
   const composedContainerClassName = [
     ...containerBaseClasses,
     sizeStyles.padding,
-    "hover:bg-white/5",
+    "hover:bg-black/5",
     "dark:hover:bg-white/10",
     "transition-colors",
     "duration-200",
