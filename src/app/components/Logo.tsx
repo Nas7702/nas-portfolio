@@ -251,7 +251,7 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
           {...interactiveProps}
         >
           <Image
-            src="/logos/dark-transparent-inline.png"
+            src="/logos/watermark-dark-transparent.png"
             alt="Nas.Create"
             width={size === "sm" ? 80 : 100}
             height={size === "sm" ? 32 : 40}
