@@ -552,7 +552,7 @@ export default function CreativePage() {
                         alt="Nas.Create Logo"
                         width={480}
                         height={240}
-                        className="w-full h-full object-contain invert brightness-100 drop-shadow-[0_0_25px_rgba(57,255,136,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(57,255,136,0.6)]"
+                        className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(57,255,136,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(57,255,136,0.6)]"
                         priority
                       />
                     </div>
