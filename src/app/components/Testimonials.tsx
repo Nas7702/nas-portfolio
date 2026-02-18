@@ -117,14 +117,14 @@ export default function Testimonials() {
               Featured Client Stories
             </h2>
             <p className="text-muted-foreground max-w-2xl">
-              Hear from clients who partnered with us to elevate their brand presence.
+              Real clients. Real results. Here&apos;s what they said.
             </p>
           </div>
           <div className="flex items-center gap-3 rounded-2xl border border-primary/30 bg-primary/10 px-4 py-3 shadow-[0_14px_45px_-20px_rgba(57,255,136,0.5)]">
             <Sparkles size={18} className="text-primary" aria-hidden />
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-primary leading-tight">Video-first storytelling</p>
-              <p className="text-xs text-muted-foreground leading-tight">Human, cinematic, measurable results</p>
+              <p className="text-sm font-semibold text-primary leading-tight">The video has a job to do</p>
+              <p className="text-xs text-muted-foreground leading-tight">Every brief starts with the outcome</p>
             </div>
           </div>
         </div>

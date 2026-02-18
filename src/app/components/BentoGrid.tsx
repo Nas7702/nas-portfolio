@@ -24,7 +24,7 @@ export default function BentoGrid() {
               </div>
               <h3 className="text-2xl font-bold text-foreground mb-2 drop-shadow-md">Creative Portfolio</h3>
               <p className="text-foreground/80 max-w-md drop-shadow-sm">
-                Cinematic videography, photography, and visual storytelling.
+                Brand films, Meta ads, event coverage and commercial photography. See the work.
               </p>
             </div>
             <div className="flex items-center gap-2 text-green-600 dark:text-green-400 font-medium group-hover:translate-x-2 transition-transform backdrop-blur-sm">
@@ -45,7 +45,7 @@ export default function BentoGrid() {
                 <User size={24} />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-2">About Me</h3>
-              <p className="text-muted-foreground text-sm">My story, my craft, and what drives me.</p>
+              <p className="text-muted-foreground text-sm">How I got here and what I&apos;m working on.</p>
             </div>
             <ArrowRight className="text-muted-foreground group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors self-end" />
           </div>
@@ -53,7 +53,7 @@ export default function BentoGrid() {
 
         {/* Services Card - Wide */}
         <Link
-          href="/contact"
+          href="/services"
           className="group relative col-span-1 md:col-span-2 row-span-1 overflow-hidden rounded-3xl bg-card border border-border p-8 transition-all hover:border-primary/30"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -62,10 +62,10 @@ export default function BentoGrid() {
               <h3 className="text-2xl font-bold text-foreground mb-4">Services</h3>
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { icon: Clapperboard, label: "Videography", desc: "Brand films & reels" },
-                  { icon: Camera, label: "Photography", desc: "Events & portraits" },
-                  { icon: Trophy, label: "Event Coverage", desc: "Sport & live events" },
-                  { icon: Palette, label: "Post-Production", desc: "Edit & color grade" },
+                  { icon: Clapperboard, label: "Videography", desc: "Brand films, promos & Meta ads" },
+                  { icon: Camera, label: "Photography", desc: "Commercial, fitness & events" },
+                  { icon: Trophy, label: "Event Coverage", desc: "Live events & multi-day projects" },
+                  { icon: Palette, label: "Post-Production", desc: "Edit, grade & sound design" },
                 ].map(({ icon: Icon, label, desc }) => (
                   <div key={label} className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-500 dark:text-emerald-400 flex-shrink-0 mt-0.5">
@@ -80,7 +80,7 @@ export default function BentoGrid() {
               </div>
             </div>
             <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-medium group-hover:translate-x-2 transition-transform mt-4">
-              Book a Shoot <ArrowRight size={16} />
+              See Services <ArrowRight size={16} />
             </div>
           </div>
         </Link>
@@ -97,7 +97,7 @@ export default function BentoGrid() {
                 <Mail size={24} />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-2">Get in Touch</h3>
-              <p className="text-muted-foreground text-sm">Let&apos;s create something amazing together.</p>
+              <p className="text-muted-foreground text-sm">Got a project? Let&apos;s talk.</p>
             </div>
             <ArrowRight className="text-muted-foreground group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors self-end" />
           </div>
