@@ -54,7 +54,6 @@ function Scene() {
   const particleCount = useMemo(() => {
     if (prefersReduced || performanceMode === 'minimal') return 0;
 
-    // Map performance mode to particle count
     const tier: 'low' | 'medium' | 'high' =
       (performanceMode === 'low' || performanceMode === 'medium' || performanceMode === 'high')
         ? performanceMode
@@ -62,10 +61,8 @@ function Scene() {
     return getRecommendedParticleCount(tier);
   }, [performanceMode, prefersReduced]);
 
-  // Darker blue for light mode so particles are visible on light backgrounds
-  const particleColor = theme === "dark" ? "#3b82f6" : "#2563eb";
+  const particleColor = theme === "dark" ? "#39ff88" : "#16a34a";
 
-  // Don't render particles if reduced motion is preferred or count is 0
   if (prefersReduced || particleCount === 0) {
     return null;
   }
@@ -95,14 +92,14 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50"
         >
-          Nas
+          Nas.Create
           <span className="block text-2xl md:text-3xl font-normal mt-2 text-muted-foreground">
-            Developer & Creative Professional
+            Visual Storyteller
           </span>
           <span className="relative mt-3 inline-flex items-center gap-2 text-lg md:text-xl text-foreground/80 hover:text-foreground transition-colors cursor-default group">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
-            Accepting new projects
-            <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-400/60 to-transparent group-hover:via-green-400 transition-all duration-300" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+            Available for projects
+            <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent group-hover:via-emerald-400 transition-all duration-300" />
           </span>
         </motion.h1>
 
@@ -112,8 +109,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10"
         >
-          Bridging the gap between analytical precision and creative storytelling.
-          I build intelligent systems and capture cinematic moments.
+          Cinematic videography, photography &amp; brand content.
+          Capturing moments that move people — based in the UK, available worldwide.
         </motion.p>
 
         <motion.div
@@ -123,16 +120,16 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-4"
         >
           <Link
-            href="/tech"
-            className="px-8 py-3 rounded-full bg-blue-500 text-white font-medium hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
-          >
-            View Technical Work
-          </Link>
-          <Link
             href="/create"
             className="px-8 py-3 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50"
           >
-            View Creative Work
+            See My Work
+          </Link>
+          <Link
+            href="/contact"
+            className="px-8 py-3 rounded-full border border-foreground/20 text-foreground font-medium hover:bg-foreground/5 transition-colors"
+          >
+            Work With Me
           </Link>
         </motion.div>
       </div>

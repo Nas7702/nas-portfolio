@@ -8,7 +8,7 @@ import { Check, Instagram, Mail, MapPin, MessageCircle, ArrowRight } from "lucid
 
 const WHATSAPP_BASE = "https://wa.me/447475437833";
 const EMAIL_URL =
-  "mailto:nascreate0@gmail.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BTech%2FVideo%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
+  "mailto:nascreate0@gmail.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BVideo%2FPhoto%2FEvent%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
 const INSTAGRAM_URL = "https://instagram.com/nas.create";
 
 const SERVICES = ["videography", "photography", "post-production", "color-grading"] as const;
@@ -108,8 +108,8 @@ function ContactPageInner() {
               Let&apos;s Talk
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Got a project in mind? Whether it&apos;s data science or visual storytelling,
-              I&apos;m ready to help you build it.
+              Got a project in mind? Whether it&apos;s a brand film, event coverage, or a photo shoot —
+              I&apos;m ready to make it happen.
             </p>
           </motion.div>
 

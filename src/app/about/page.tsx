@@ -4,84 +4,67 @@ import { motion } from "framer-motion";
 import { useRef, ReactNode } from "react";
 import ScrollReveal from "../components/ScrollReveal";
 import PageTransition from "../components/PageTransition";
-import { GraduationCap, Dumbbell, Sparkles, Camera, LucideIcon } from "lucide-react";
+import { Camera, Clapperboard, Sparkles, Trophy, LucideIcon } from "lucide-react";
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const timelineEvents: TimelineEvent[] = [
     {
-      year: "2020 to Present",
-      title: "Freelance Videography & Media",
+      year: "2020",
+      title: "Picking Up the Camera",
       category: "Creative",
       description: (
         <>
           <span className="block leading-relaxed text-foreground/90">
-            Freelance <span className="font-semibold">videography</span> and media since 2020, filming <span className="font-semibold">brand content</span>, <span className="font-semibold">sports coverage</span>, and promotional pieces for local businesses.
+            Started filming and editing as a passion project — sports events, local businesses, anything that told a story worth telling.
           </span>
           <span className="block mt-3 leading-relaxed text-foreground/90">
-            Focused on <span className="font-semibold">cinematic storytelling</span>, client relationships, and repeat work to scale.
+            That curiosity quickly turned into <span className="font-semibold">paid work</span>, and a brand was born.
           </span>
         </>
       ),
       Icon: Camera,
     },
     {
-      year: "Sep 2022 to Jun 2025",
-      title: "Computer Science (Software Engineering)",
-      category: "Technical",
+      year: "2022 – 2025",
+      title: "Sharpening the Craft",
+      category: "Creative",
       description: (
         <>
           <span className="block leading-relaxed text-foreground/90">
-            Studied at the University of Sheffield.{" "}
-            <span className="font-semibold">Dissertation (Barbell AI)</span>:{" "}
-            <span className="font-semibold">real-time bar speed</span> from lift video for objective calls, feeding future work with{" "}
-            <a
-              href="https://stancefitness.co/"
-              target="_blank"
-              rel="noreferrer"
-              className="underline underline-offset-4 decoration-foreground/30 hover:decoration-foreground/60"
-            >
-              Stance Fitness
-            </a>
-            .
+            Studied at the University of Sheffield — a background in <span className="font-semibold">software engineering</span> that sharpened how I think about systems, storytelling structure, and delivering results under pressure.
           </span>
           <span className="block mt-3 leading-relaxed text-foreground/90">
-            Built <span className="font-semibold">full-stack projects</span> and <span className="font-semibold">Python</span>/<span className="font-semibold">Java</span> tools, while filming student sport events.
+            All while filming <span className="font-semibold">student sport events</span>, building a client base, and developing a cinematic eye.
           </span>
         </>
       ),
-      Icon: GraduationCap,
+      Icon: Clapperboard,
     },
     {
-      year: "Feb 2025 to Present",
-      title: "Stance Fitness",
-      category: "Technical",
+      year: "2024 – 2025",
+      title: "Event Coverage & Brand Films",
+      category: "Creative",
       description: (
         <>
           <span className="block leading-relaxed text-foreground/90">
-            Pulled <span className="font-semibold">production data</span> to analyse algorithm performance, built <span className="font-semibold">evaluation tools</span> to compare versions against ground truth (e.g., linear encoder), and filmed brand content for Stance.
+            Covered <span className="font-semibold">Sheffield Varsity</span> across multiple sports — basketball, powerlifting, and more. Produced brand films for fitness clients, automotive brands, and coaching businesses.
           </span>
-          <a
-            href="https://stancefitness.co/"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 mt-3 text-purple-800 dark:text-[#e5d7ff] bg-gradient-to-r from-[#792EFE]/18 via-[#792EFE]/12 to-[#792EFE]/18 border border-[#792EFE]/40 rounded-full px-3 py-1 text-sm hover:from-[#792EFE]/22 hover:to-[#792EFE]/22 transition-colors w-fit shadow-[0_8px_30px_-12px_rgba(121,46,254,0.45)]"
-          >
-            Visit Stance Fitness
-            <span aria-hidden className="text-purple-800 dark:text-[#e5d7ff]">↗</span>
-          </a>
+          <span className="block mt-3 leading-relaxed text-foreground/90">
+            Building a reputation for <span className="font-semibold">cinematic quality</span> and fast turnaround.
+          </span>
         </>
       ),
-      Icon: Dumbbell,
+      Icon: Trophy,
     },
     {
-      year: "Present",
-      title: "Building & Creating",
+      year: "Now",
+      title: "Growing Nas.Create",
       category: "Creative",
       description: (
         <span className="text-foreground/90">
-          Sharpening <span className="font-semibold">software</span> and <span className="font-semibold">data science</span> skills at Stance Fitness and on side builds to ship smarter products and tools while growing a <span className="font-semibold">media business</span> through client storytelling.
+          Expanding into <span className="font-semibold">larger event coverage</span>, brand partnerships, and building a media business that clients come back to. If you have a story worth telling — let&apos;s tell it.
         </span>
       ),
       Icon: Sparkles,
@@ -93,18 +76,18 @@ export default function AboutPage() {
       <div ref={containerRef} className="min-h-screen bg-background pb-32 pt-24">
         {/* Hero */}
         <ScrollReveal className="max-w-4xl mx-auto px-6 mb-24 text-center" direction="up" delay={0} threshold={0.15}>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400">
             About Me
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            I combine software, data, and media to ship products and clear stories.
+            I tell stories through a lens. From sport events to brand films — I capture moments that matter.
           </p>
         </ScrollReveal>
 
         {/* Scrollytelling Timeline */}
         <div className="max-w-5xl mx-auto px-6 relative">
           {/* Vertical Line */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-blue-400 to-blue-600 opacity-20 md:-translate-x-1/2" />
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-green-400 to-teal-500 opacity-20 md:-translate-x-1/2" />
 
           <div className="space-y-24">
             {timelineEvents.map((event, index) => (
@@ -118,27 +101,27 @@ export default function AboutPage() {
         {/* Principles Grid */}
         <div className="max-w-6xl mx-auto px-6 mt-32">
           <ScrollReveal direction="up" delay={0} threshold={0.15}>
-            <h2 className="text-3xl font-bold text-center mb-16">Core Principles</h2>
+            <h2 className="text-3xl font-bold text-center mb-16">How I Work</h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <ScrollReveal direction="up" delay={0.05}>
               <PrincipleCard
-                title="Clarity over Noise"
-                description="Whether it's a dataset or a video edit, I strip away the non-essential to let the core message shine."
+                title="Story First"
+                description="Every frame serves the narrative. I don't just film — I find the angle that makes people feel something."
                 delay={0}
               />
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.12}>
               <PrincipleCard
-                title="Speed with Taste"
-                description="Rapid iteration doesn't mean cutting corners. I build fast, but I build with craftsmanship."
+                title="Craft Over Speed"
+                description="Quality that clients come back for. I move fast but I never cut corners on the details that matter."
                 delay={0}
               />
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.18}>
               <PrincipleCard
-                title="Athlete's Mindset"
-                description="Consistency, discipline, and continuous improvement. The work is never done; it just gets better."
+                title="Athlete's Eye"
+                description="I understand sport from the inside. That instinct for the decisive moment is what separates good coverage from great coverage."
                 delay={0}
               />
             </ScrollReveal>
@@ -152,13 +135,12 @@ export default function AboutPage() {
 interface TimelineEvent {
   year: string;
   title: string;
-  category: "Technical" | "Creative";
+  category: "Creative";
   description: ReactNode;
   Icon: LucideIcon;
 }
 
 function TimelineItem({ event }: { event: TimelineEvent }) {
-  const isCreative = event.category === "Creative";
   const Icon = event.Icon;
 
   return (
@@ -167,33 +149,20 @@ function TimelineItem({ event }: { event: TimelineEvent }) {
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-120px" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative flex flex-col md:flex-row items-center gap-8 ${
-        isCreative ? "md:flex-row" : "md:flex-row-reverse"
-      }`}
+      className="relative flex flex-col md:flex-row items-center gap-8"
     >
       {/* Icon Point */}
-      <div className="absolute left-6 md:left-1/2 w-12 h-12 -translate-x-1/2 bg-background border-2 border-primary rounded-full flex items-center justify-center z-10 shadow-lg shadow-primary/20 text-primary">
+      <div className="absolute left-6 md:left-1/2 w-12 h-12 -translate-x-1/2 bg-background border-2 border-emerald-500 rounded-full flex items-center justify-center z-10 shadow-lg shadow-emerald-500/20 text-emerald-400">
         <Icon size={20} />
       </div>
 
       {/* Content Card */}
-      <div className={`w-full md:w-1/2 pl-20 md:pl-0 ${isCreative ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"}`}>
-        <div className="bg-card border border-border p-6 rounded-2xl hover:border-primary/50 transition-colors group relative overflow-hidden shadow-lg shadow-primary/5">
+      <div className="w-full md:w-1/2 pl-20 md:pl-0 md:pr-16 md:text-right">
+        <div className="bg-card border border-border p-6 rounded-2xl hover:border-emerald-500/50 transition-colors group relative overflow-hidden shadow-lg shadow-emerald-500/5">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-mono text-primary">{event.year}</span>
-            {event.title !== "Building & Creating" && (
-              <span
-                className={`text-[11px] px-2 py-1 rounded-full border ${
-                  event.category === "Technical"
-                    ? "bg-blue-500/10 border-blue-400/40 text-blue-700 dark:text-blue-300"
-                    : "bg-accent/10 border-accent/40 text-accent"
-                }`}
-              >
-                {event.category}
-              </span>
-            )}
+            <span className="text-sm font-mono text-emerald-400">{event.year}</span>
           </div>
-          <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition-colors">{event.title}</h3>
+          <h3 className="text-xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">{event.title}</h3>
           <p className="text-muted-foreground relative z-10">{event.description}</p>
         </div>
       </div>
@@ -211,7 +180,7 @@ function PrincipleCard({ title, description, delay }: { title: string; descripti
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-card border border-border p-8 rounded-2xl text-center hover:bg-accent/5 transition-colors hover:scale-105 duration-300"
+      className="bg-card border border-border p-8 rounded-2xl text-center hover:bg-emerald-500/5 hover:border-emerald-500/30 transition-colors hover:scale-105 duration-300"
     >
       <h3 className="text-xl font-bold mb-4">{title}</h3>
       <p className="text-muted-foreground">{description}</p>

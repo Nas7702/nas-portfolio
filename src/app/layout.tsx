@@ -19,20 +19,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nas-portfolio.dev"),
-  title: "Nas - Data Scientist & Creative",
-  description: "Portfolio of Nas - Developer, Data Scientist & Creative Professional.",
+  metadataBase: new URL("https://nascreate.com"),
+  title: "Nas.Create — Visual Storyteller",
+  description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
   openGraph: {
-    title: "Nas - Data Scientist & Creative",
-    description: "Bridging the gap between analytical precision and creative storytelling.",
-    url: "https://nas-portfolio.dev",
-    siteName: "Nas Portfolio",
+    title: "Nas.Create — Visual Storyteller",
+    description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
+    url: "https://nascreate.com",
+    siteName: "Nas.Create",
     images: [
       {
         url: "/images/bokeh-lights-dark-background.jpg",
         width: 1200,
         height: 630,
-        alt: "Nas Portfolio",
+        alt: "Nas.Create — Visual Storyteller",
       },
     ],
     locale: "en_GB",
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nas - Data Scientist & Creative",
-    description: "Bridging the gap between analytical precision and creative storytelling.",
+    title: "Nas.Create — Visual Storyteller",
+    description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
     images: ["/images/bokeh-lights-dark-background.jpg"],
   },
 };
@@ -73,7 +73,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.instagram.com" />
 
         {/* Prefetch critical routes */}
-        <link rel="prefetch" href="/tech" />
         <link rel="prefetch" href="/create" />
         <link rel="prefetch" href="/about" />
         <link rel="prefetch" href="/contact" />

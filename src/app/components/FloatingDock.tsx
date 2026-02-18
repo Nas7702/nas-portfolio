@@ -3,7 +3,7 @@
 import { motion, MotionValue, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
-import { Home, Code, Camera, User, Mail, Sun, Moon } from "lucide-react";
+import { Home, Camera, User, Mail, Sun, Moon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useTheme } from "./ThemeProvider";
@@ -15,8 +15,7 @@ export default function FloatingDock() {
 
   const links = [
     { title: "Home", icon: <Home className="h-full w-full" />, href: "/" },
-    { title: "Tech", icon: <Code className="h-full w-full" />, href: "/tech" },
-    { title: "Creative", icon: <Camera className="h-full w-full" />, href: "/create" },
+    { title: "Work", icon: <Camera className="h-full w-full" />, href: "/create" },
     { title: "About", icon: <User className="h-full w-full" />, href: "/about" },
     { title: "Contact", icon: <Mail className="h-full w-full" />, href: "/contact" },
   ];
