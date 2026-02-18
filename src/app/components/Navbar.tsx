@@ -4,14 +4,13 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, Code, Camera, User, Mail, Sun, Moon } from "lucide-react";
+import { Menu, X, Home, Camera, User, Mail, Sun, Moon } from "lucide-react";
 import Logo from "./Logo";
 import { useTheme } from "./ThemeProvider";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/tech", label: "Technical", icon: Code },
-  { href: "/create", label: "Creative", icon: Camera },
+  { href: "/create", label: "Work", icon: Camera },
   { href: "/about", label: "About", icon: User },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
@@ -69,11 +68,6 @@ export default function Navbar() {
   const getNavBg = () => {
     if (!(scrolled || isOpen)) return "bg-transparent";
     if (isCreativePage) return "bg-black/85 backdrop-blur-md shadow-lg";
-    if (pathname.startsWith("/tech")) {
-      return theme === "dark"
-        ? "bg-blue-950/85 backdrop-blur-md shadow-lg border-b border-blue-900/30"
-        : "bg-white/85 backdrop-blur-md shadow-lg border-b border-blue-200/50";
-    }
     if (pathname.startsWith("/about")) {
       return theme === "dark"
         ? "bg-gray-900/85 backdrop-blur-md shadow-lg border-b border-gray-800/30"
@@ -87,11 +81,6 @@ export default function Navbar() {
   // Mobile menu background
   const getMobileBg = () => {
     if (isCreativePage) return "border-white/10 bg-black/85";
-    if (pathname.startsWith("/tech")) {
-      return theme === "dark"
-        ? "border-blue-900/30 bg-blue-950/85"
-        : "border-blue-200/50 bg-white/90";
-    }
     if (pathname.startsWith("/about")) {
       return theme === "dark"
         ? "border-gray-800/30 bg-gray-900/85"
@@ -122,17 +111,17 @@ export default function Navbar() {
                 const Icon = item.icon;
                 const active = isActive(item.href);
 
-                // Use brand colors for Creative item
+                // Use brand colors for Work/Creative item
                 const isCreative = item.href === "/create";
                 const activeColor = isCreative
                   ? "text-accent"
-                  : "text-blue-600 dark:text-blue-400";
+                  : "text-foreground";
                 const hoverColor = isCreative
                   ? "text-foreground/70 hover:text-accent"
-                  : "text-foreground/70 hover:text-blue-600 dark:hover:text-blue-400";
+                  : "text-foreground/70 hover:text-foreground";
                 const activeBackground = isCreative
                   ? "bg-accent/10"
-                  : "bg-blue-100 dark:bg-blue-900/30";
+                  : "bg-secondary";
 
                 return (
                   <Link key={item.href} href={item.href}>
@@ -226,12 +215,12 @@ export default function Navbar() {
                   const Icon = item.icon;
                   const active = isActive(item.href);
 
-                  // Use brand colors for Creative item
+                  // Use brand colors for Work/Creative item
                   const isCreative = item.href === "/create";
 
                   const activeStyles = isCreative
                     ? "bg-accent/10 text-accent"
-                    : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400";
+                    : "bg-secondary text-foreground";
 
                   const inactiveStyles = isCreativePage
                     ? "text-gray-300 hover:bg-white/10"
