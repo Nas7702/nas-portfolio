@@ -104,12 +104,11 @@ function ContactPageInner() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-20"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-foreground">
               Let&apos;s Talk
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Got a project in mind? Whether it&apos;s a brand film, event coverage, or a photo shoot —
-              I&apos;m ready to make it happen.
+              Got a project? Whether it&apos;s a brand film, event coverage or a photo shoot, get in touch.
             </p>
           </motion.div>
 

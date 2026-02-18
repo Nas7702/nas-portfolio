@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, Camera, User, Mail, Sun, Moon } from "lucide-react";
+import { Menu, X, Home, Camera, User, Mail, Sun, Moon, Briefcase } from "lucide-react";
 import Logo from "./Logo";
 import { useTheme } from "./ThemeProvider";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/create", label: "Work", icon: Camera },
+  { href: "/services", label: "Services", icon: Briefcase },
   { href: "/about", label: "About", icon: User },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
@@ -70,11 +71,11 @@ export default function Navbar() {
     if (isCreativePage) return "bg-black/85 backdrop-blur-md shadow-lg";
     if (pathname.startsWith("/about")) {
       return theme === "dark"
-        ? "bg-gray-900/85 backdrop-blur-md shadow-lg border-b border-gray-800/30"
+        ? "bg-black/85 backdrop-blur-md shadow-lg border-b border-gray-800/30"
         : "bg-white/85 backdrop-blur-md shadow-lg border-b border-gray-200/50";
     }
     return theme === "dark"
-      ? "bg-gray-900/85 backdrop-blur-md shadow-lg"
+      ? "bg-black/85 backdrop-blur-md shadow-lg"
       : "bg-white/85 backdrop-blur-md shadow-lg border-b border-gray-200/50";
   };
 
@@ -83,11 +84,11 @@ export default function Navbar() {
     if (isCreativePage) return "border-white/10 bg-black/85";
     if (pathname.startsWith("/about")) {
       return theme === "dark"
-        ? "border-gray-800/30 bg-gray-900/85"
+        ? "border-gray-800/30 bg-black/85"
         : "border-gray-200/50 bg-white/90";
     }
     return theme === "dark"
-      ? "border-gray-700 bg-gray-900/85"
+      ? "border-gray-700 bg-black/85"
       : "border-gray-200 bg-white/90";
   };
 

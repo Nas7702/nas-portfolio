@@ -251,9 +251,9 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
           {...interactiveProps}
         >
           <Image
-            src="/logos/watermark-dark-transparent.png"
+            src="/logos/darkmode-wordmark.png"
             alt="Nas.Create"
-            width={size === "sm" ? 80 : 100}
+            width={size === "sm" ? 32 : 40}
             height={size === "sm" ? 32 : 40}
             className="object-contain drop-shadow-[0_0_10px_rgba(57,255,136,0.3)] transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(57,255,136,0.5)]"
             priority
@@ -263,35 +263,35 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
     );
   }
 
+  // Default variant: use the Nas.Create inline wordmark
   return (
     <Link
       href="/"
-      aria-label="Nas - Home"
-      title="Nas - Home"
-      className={composedContainerClassName}
+      aria-label="Nas.Create - Home"
+      title="Nas.Create - Home"
+      className="inline-flex items-center relative group select-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-300 dark:focus-visible:outline-cyan-400 rounded-lg px-2 py-1 transition-colors duration-200"
       data-testid={dataTestId}
     >
-      <motion.span
+      <motion.div
         initial="rest"
         animate="rest"
         variants={{
           rest: { scale: 1 },
-          hover: { scale: 1.015, transition: { duration: 0.18, ease: [0.4, 0, 0.2, 1] } },
-          press: { scale: 0.985, transition: { duration: 0.1, ease: [0.4, 0, 0.2, 1] } },
+          hover: { scale: 1.05, transition: { duration: 0.18, ease: [0.4, 0, 0.2, 1] } },
+          press: { scale: 0.95, transition: { duration: 0.1, ease: [0.4, 0, 0.2, 1] } },
         }}
-        className="inline-flex items-center gap-[0.16em]"
+        className="relative"
         {...interactiveProps}
       >
-        <span className={textClassName}>NAS</span>
-        <motion.span
-          className={dotClassName}
-          variants={{
-            rest: { scale: 1 },
-            hover: { scale: 1.055, transition: { duration: 0.18, ease: [0.33, 1, 0.68, 1] } },
-            press: { scale: 0.965, transition: { duration: 0.1, ease: [0.4, 0, 0.2, 1] } },
-          }}
+        <Image
+          src="/logos/darkmode-wordmark.png"
+          alt="Nas.Create"
+          width={size === "sm" ? 32 : 40}
+          height={size === "sm" ? 32 : 40}
+          className="object-contain transition-all duration-300 dark:opacity-90 dark:group-hover:opacity-100 opacity-80 group-hover:opacity-100 dark:[filter:none] [filter:invert(1)]"
+          priority
         />
-      </motion.span>
+      </motion.div>
     </Link>
   );
 }

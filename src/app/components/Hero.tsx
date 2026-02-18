@@ -6,6 +6,7 @@ import { useState, useRef, Suspense, useMemo } from "react";
 import * as random from "maath/random/dist/maath-random.esm";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import * as THREE from "three";
 import { usePerformanceMode } from "@/hooks/usePerformanceMode";
 import { getRecommendedParticleCount } from "@/lib/performance";
@@ -86,22 +87,29 @@ export default function Hero() {
 
       {/* Content Overlay */}
       <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto">
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/50"
+          className="flex flex-col items-center mb-6"
         >
-          Nas.Create
-          <span className="block text-2xl md:text-3xl font-normal mt-2 text-muted-foreground">
-            Visual Storyteller
+          <Image
+            src="/logos/darkmode-inline.png"
+            alt="Nas.Create"
+            width={320}
+            height={80}
+            className="object-contain drop-shadow-[0_0_20px_rgba(57,255,136,0.25)] mb-4"
+            priority
+          />
+          <span className="block text-2xl md:text-3xl font-normal text-muted-foreground">
+            Commercial Video. Built Around Results.
           </span>
           <span className="relative mt-3 inline-flex items-center gap-2 text-lg md:text-xl text-foreground/80 hover:text-foreground transition-colors cursor-default group">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
             Available for projects
             <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent group-hover:via-emerald-400 transition-all duration-300" />
           </span>
-        </motion.h1>
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -109,8 +117,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10"
         >
-          Cinematic videography, photography &amp; brand content.
-          Capturing moments that move people — based in the UK, available worldwide.
+          Brand films, Meta ads, and content that has a job to do.
+          Based in Yorkshire, working across the UK.
         </motion.p>
 
         <motion.div

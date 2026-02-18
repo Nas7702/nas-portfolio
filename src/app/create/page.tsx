@@ -157,7 +157,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director, DP & Editor",
     date: "2025",
     cover: "https://i.ytimg.com/vi/LaoAVooLROU/hqdefault.jpg",
-    description: "Story-led Instagram reel mixing Kyle Allen's transformation narrative with cinematic gym B-roll, closing with a DM call-to-action for online coaching."
+    description: "Story-led Instagram reel for Kyle Allen's online coaching business. Opens with his transformation narrative, closes with a DM call-to-action."
   },
   {
     id: "Sheffield Varsity Basketball",
@@ -172,7 +172,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "DP & Editor",
     date: "2025",
     cover: "https://i.ytimg.com/vi/ohxsUU4xt2o/hqdefault.jpg",
-    description: "Event highlight reel for a basketball competition."
+    description: "Event highlight reel for Sheffield Varsity Basketball. Shot and edited same-week for the university."
   },
   {
     id: "Sheffield Varsity Powerlifting",
@@ -187,7 +187,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director, Editor",
     date: "2025",
     cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
-    description: "A highlight reel for an athlete at a powerlifting competition."
+    description: "Highlight reel for Sheffield Varsity Powerlifting. Covered the full event as sole videographer and editor."
   },
   {
     id: "Stance Fitness Promo",
@@ -202,7 +202,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director & Editor",
     date: "2024",
     cover: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
-    description: "A brand film highlighting craft and attention to detail."
+    description: "Brand film and ongoing content partnership for a fitness studio. Covers reels, ads and website content."
   },
   {
     id: "Vizual Mods Promo",
@@ -217,7 +217,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director, Editor",
     date: "2024",
     cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
-    description: "A promotional video for a car modification company."
+    description: "Meta ad for a vehicle wrap and car modification garage. Shot to build local trust and drive enquiries."
   },
   // PHOTO ALBUM - Fitness
   {
@@ -548,7 +548,7 @@ export default function CreativePage() {
                     />
                     <div className="relative flex items-center justify-center w-64 h-32 md:w-80 md:h-40 lg:w-96 lg:h-48 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
                       <Image
-                        src="/logos/wordmark.png"
+                        src="/logos/darkmode-wordmark.png"
                         alt="Nas.Create Logo"
                         width={480}
                         height={240}
@@ -558,8 +558,8 @@ export default function CreativePage() {
                     </div>
                   </div>
                 </div>
-                <h1 className="text-4xl md:text-6xl font-bold text-text mb-4">Visual Storytelling</h1>
-                <p className="text-xl md:text-2xl text-dim mb-6">Bringing ideas to life through the lens</p>
+                <h1 className="text-4xl md:text-6xl font-bold text-text mb-4">Commercial Video & Photography</h1>
+                <p className="text-xl md:text-2xl text-dim mb-6">Every piece of content has a job to do.</p>
               </div>
             </ScrollReveal>
 
@@ -802,7 +802,7 @@ export default function CreativePage() {
         <section className="py-20 px-8 bg-panel transition-colors duration-300">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal direction="up" delay={0.1}>
-              <h2 className="text-3xl md:text-4xl font-bold text-text mb-6 transition-colors duration-300">Ready to Create Something Amazing?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-text mb-6 transition-colors duration-300">Got a project? Let&apos;s talk.</h2>
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.5}>
               <CreativeCTA source="creative_footer" className="justify-center" />
