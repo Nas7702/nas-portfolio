@@ -7,130 +7,126 @@
   --font-display: "Cormorant Garant", Georgia, serif;
   --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
 
-  /* Colours — dark mode defaults */
-  --color-background: #0a0a0a;
-  --color-foreground: #F0EBE3;
+  /* Colours — using standard variable names to match tailwind.config.js */
+  --background: #0a0a0a;
+  --foreground: #F0EBE3;
 
-  --color-card: #111111;
-  --color-card-foreground: #F0EBE3;
+  --card: #111111;
+  --card-foreground: #F0EBE3;
 
-  --color-popover: #111111;
-  --color-popover-foreground: #F0EBE3;
+  --popover: #111111;
+  --popover-foreground: #F0EBE3;
 
-  --color-primary: #F0EBE3;
-  --color-primary-foreground: #0a0a0a;
+  --primary: #F0EBE3;
+  --primary-foreground: #0a0a0a;
 
-  --color-secondary: #1c1c1c;
-  --color-secondary-foreground: #F0EBE3;
+  --secondary: #1c1c1c;
+  --secondary-foreground: #F0EBE3;
 
-  --color-muted: #1c1c1c;
-  --color-muted-foreground: #888888;
+  --muted: #1c1c1c;
+  --muted-foreground: #888888;
 
-  --color-accent: #00C896;
-  --color-accent-foreground: #0a0a0a;
+  --accent: #00C896;
+  --accent-foreground: #0a0a0a;
 
-  --color-destructive: #ef4444;
-  --color-destructive-foreground: #F0EBE3;
+  --destructive: #ef4444;
+  --destructive-foreground: #F0EBE3;
 
-  --color-border: #2a2a2a;
-  --color-input: #1c1c1c;
-  --color-ring: #00C896;
+  --border: #2a2a2a;
+  --input: #1c1c1c;
+  --ring: #00C896;
 
-  /* Creative page colour tokens */
-  --color-bg: #0a0a0a;
-  --color-panel: #111111;
-  --color-text: #F0EBE3;
-  --color-dim: #888888;
-  --color-subtle: #2a2a2a;
-  --color-accent-ghost: rgba(0, 200, 150, 0.1);
+  /* Creative page colour tokens - mapped to standard vars where possible */
+  --bg: #0a0a0a;
+  --panel: #111111;
+  --text: #F0EBE3;
+  --dim: #888888;
+  --subtle: #2a2a2a;
+  --accent-ghost: rgba(0, 200, 150, 0.1);
 
   --radius: 0.25rem;
 }
 
-/* Creative page — always forces dark tokens regardless of site theme.
-   Values mirror the dark-mode globals so dark mode is visually unchanged. */
+/* Creative page — always forces dark tokens default */
 .theme-creative {
-  --color-bg: #0B0C0E;
-  --color-panel: #111314;
-  --color-text: #ffffff;
-  --color-dim: rgba(255, 255, 255, 0.55);
-  --color-accent: #00C896;
-  --color-ring: #00C896;
-  --color-subtle: rgba(255, 255, 255, 0.12);
-  --color-accent-ghost: rgba(0, 200, 150, 0.12);
-  /* Standard Tailwind colour tokens — keeps Testimonials and other
-     components readable even when the site is in light mode */
-  --color-background: #0B0C0E;
-  --color-card: #111314;
-  --color-card-foreground: #F0EBE3;
-  --color-primary: #F0EBE3;
-  --color-primary-foreground: #0a0a0a;
-  --color-muted-foreground: #888888;
-  --color-border: #2a2a2a;
+  --bg: #0B0C0E;
+  --panel: #111314;
+  --text: #ffffff;
+  --dim: rgba(255, 255, 255, 0.55);
+  --accent: #00C896;
+  --ring: #00C896;
+  --subtle: rgba(255, 255, 255, 0.12);
+  --accent-ghost: rgba(0, 200, 150, 0.12);
+
+  /* Overwrite standard tokens for components inside creative page */
+  --background: #0B0C0E;
+  --card: #111314;
+  --card-foreground: #F0EBE3;
+  --primary: #F0EBE3;
+  --primary-foreground: #0a0a0a;
+  --muted-foreground: #888888;
+  --border: #2a2a2a;
 }
 
-/* Creative page in light mode — matches global light theme for consistency.
-   Removes the "muddy" olive/charcoal tones in favor of clean warm whites. */
 html:not(.dark) .theme-creative {
   /* Match global light theme */
-  --color-bg: #F5F0EB;
-  --color-panel: #FAF7F4;
+  --bg: #F5F0EB;
+  --panel: #FAF7F4;
 
   /* Dark text for contrast */
-  --color-text: #1A1714;
-  --color-dim: #7A736B;
-  --color-subtle: rgba(26, 23, 20, 0.08);
+  --text: #1A1714;
+  --dim: #7A736B;
+  --subtle: rgba(26, 23, 20, 0.08);
 
-  /* Emerald accent remains, but with correct contrast on light bg */
-  --color-accent: #00875A;
-  --color-ring: #00875A;
-  --color-accent-ghost: rgba(0, 135, 90, 0.1);
+  --accent: #00875A;
+  --ring: #00875A;
+  --accent-ghost: rgba(0, 135, 90, 0.1);
 
   /* Standard Tailwind tokens */
-  --color-background: #F5F0EB;
-  --color-card: #FAF7F4;
-  --color-card-foreground: #1A1714;
-  --color-primary: #1A1714;
-  --color-primary-foreground: #F5F0EB;
-  --color-secondary: #EDE8E3;
-  --color-secondary-foreground: #1A1714;
-  --color-muted: #EDE8E3;
-  --color-muted-foreground: #7A736B;
-  --color-border: #DDD8D2;
-  --color-foreground: #1A1714;
-  --color-popover: #FAF7F4;
-  --color-popover-foreground: #1A1714;
+  --background: #F5F0EB;
+  --card: #FAF7F4;
+  --card-foreground: #1A1714;
+  --primary: #1A1714;
+  --primary-foreground: #F5F0EB;
+  --secondary: #EDE8E3;
+  --secondary-foreground: #1A1714;
+  --muted: #EDE8E3;
+  --muted-foreground: #7A736B;
+  --border: #DDD8D2;
+  --foreground: #1A1714;
+  --popover: #FAF7F4;
+  --popover-foreground: #1A1714;
 }
 
 /* Light mode colour overrides */
 html:not(.dark) {
-  --color-background: #F5F0EB;
-  --color-foreground: #1A1714;
+  --background: #F5F0EB;
+  --foreground: #1A1714;
 
-  --color-card: #FAF7F4;
-  --color-card-foreground: #1A1714;
+  --card: #FAF7F4;
+  --card-foreground: #1A1714;
 
-  --color-popover: #FAF7F4;
-  --color-popover-foreground: #1A1714;
+  --popover: #FAF7F4;
+  --popover-foreground: #1A1714;
 
-  --color-primary: #1A1714;
-  --color-primary-foreground: #F5F0EB;
+  --primary: #1A1714;
+  --primary-foreground: #F5F0EB;
 
-  --color-secondary: #EDE8E3;
-  --color-secondary-foreground: #1A1714;
+  --secondary: #EDE8E3;
+  --secondary-foreground: #1A1714;
 
-  --color-muted: #EDE8E3;
-  --color-muted-foreground: #7A736B;
+  --muted: #EDE8E3;
+  --muted-foreground: #7A736B;
 
-  --color-accent: #00875A;
-  --color-accent-foreground: #ffffff;
+  --accent: #00875A;
+  --accent-foreground: #ffffff;
 
-  --color-destructive: #dc2626;
-  --color-destructive-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
 
-  --color-border: #DDD8D2;
-  --color-input: #EDE8E3;
-  --color-ring: #00875A;
+  --border: #DDD8D2;
+  --input: #EDE8E3;
+  --ring: #00875A;
 }
 
 @layer base {
