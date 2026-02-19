@@ -5,11 +5,17 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
+  const [mounted, setMounted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     // Only enable on desktop
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;
@@ -37,10 +43,9 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, [pathname]);
+  }, [pathname, mounted]);
 
-  // Hide on touch devices or if no mouse event yet
-  if (typeof window === 'undefined') return null;
+  if (!mounted) return null;
 
   return (
     <>
