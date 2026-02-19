@@ -1,24 +1,21 @@
 "use client";
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { useReducedMotion } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-import { type PerformanceMode, usePerformanceMode } from "@/hooks/usePerformanceMode";
+import { useAdaptiveShaderQuality } from "@/hooks/useAdaptiveShaderQuality";
+import { useDemandDrivenAnimation } from "@/hooks/useDemandDrivenAnimation";
+import { usePerformanceMode, getShaderQualityFromPerformanceMode } from "@/hooks/usePerformanceMode";
+import { useSceneVisibility } from "@/hooks/useSceneVisibility";
+import { getShaderQualityProfile, type ShaderQuality } from "@/lib/performance";
 import { useTheme } from "./ThemeProvider";
 
-const SPEED_BY_MODE: Record<PerformanceMode, number> = {
+const SPEED_BY_QUALITY: Record<ShaderQuality, number> = {
   high: 0.2,
   medium: 0.15,
-  low: 0.11,
-  minimal: 0.03,
-};
-
-const DPR_BY_MODE: Record<PerformanceMode, [number, number]> = {
-  high: [1, 1.7],
-  medium: [1, 1.4],
-  low: [1, 1.2],
-  minimal: [1, 1],
+  low: 0.09,
+  minimal: 0,
 };
 
 const vertexShader = `
@@ -30,8 +27,41 @@ const vertexShader = `
   }
 `;
 
-const fragmentShader = `
-  precision highp float;
+interface BokehShaderOptions {
+  precision: "highp" | "mediump";
+  fbmOctaves: number;
+  layers: number;
+  blobsPerLayer: number;
+  useFastBlob: boolean;
+  includeFilmGrain: boolean;
+}
+
+function buildBokehFragmentShader(options: BokehShaderOptions): string {
+  const blobFunction = options.useFastBlob
+    ? `
+  float ellipseBlob(vec2 p, vec2 centre, vec2 radii, float angle) {
+    vec2 q = rotate2D(angle) * (p - centre);
+    vec2 n = q / radii;
+    return 1.0 / (1.0 + dot(n, n) * 3.2);
+  }
+`
+    : `
+  float ellipseBlob(vec2 p, vec2 centre, vec2 radii, float angle) {
+    vec2 q = rotate2D(angle) * (p - centre);
+    vec2 n = q / radii;
+    return exp(-dot(n, n) * 1.85);
+  }
+`;
+
+  const filmGrainExpression = options.includeFilmGrain
+    ? `
+    float grain = hash11(dot(gl_FragCoord.xy, vec2(0.06711, 0.00583)) + t * 0.1) - 0.5;
+    colour += grain * 0.01;
+`
+    : "";
+
+  return `
+  precision ${options.precision} float;
 
   varying vec2 vUv;
 
@@ -75,20 +105,14 @@ const fragmentShader = `
   float fbm(vec2 p) {
     float value = 0.0;
     float amplitude = 0.5;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < ${options.fbmOctaves}; i++) {
       value += noise(p) * amplitude;
       p *= 2.02;
       amplitude *= 0.5;
     }
     return value;
   }
-
-  float ellipseBlob(vec2 p, vec2 centre, vec2 radii, float angle) {
-    vec2 q = rotate2D(angle) * (p - centre);
-    vec2 n = q / radii;
-    return exp(-dot(n, n) * 1.85);
-  }
-
+${blobFunction}
   void main() {
     float t = uTime;
     vec2 uv = (vUv - 0.5) * vec2(uResolution.x / uResolution.y, 1.0);
@@ -103,11 +127,11 @@ const fragmentShader = `
 
     vec3 lights = vec3(0.0);
 
-    for (int layer = 0; layer < 3; layer++) {
+    for (int layer = 0; layer < ${options.layers}; layer++) {
       float lf = float(layer);
       float depth = 0.34 + lf * 0.3;
 
-      for (int i = 0; i < 16; i++) {
+      for (int i = 0; i < ${options.blobsPerLayer}; i++) {
         float id = float(i) + lf * 37.7;
         vec2 rndA = hash21(id + 0.13);
         vec2 rndB = hash21(id + 9.71);
@@ -147,22 +171,58 @@ const fragmentShader = `
 
     float vignette = smoothstep(1.55, 0.28, length(uv));
     colour *= mix(0.78, 1.0, vignette);
-
-    float grain = hash11(dot(gl_FragCoord.xy, vec2(0.06711, 0.00583)) + t * 0.1) - 0.5;
-    colour += grain * 0.01;
-
+${filmGrainExpression}
     gl_FragColor = vec4(colour, uAlpha);
   }
 `;
+}
+
+const BOKEH_FRAGMENT_SHADERS: Record<Exclude<ShaderQuality, "minimal">, string> = {
+  high: buildBokehFragmentShader({
+    precision: "highp",
+    fbmOctaves: 4,
+    layers: 3,
+    blobsPerLayer: 14,
+    useFastBlob: false,
+    includeFilmGrain: true,
+  }),
+  medium: buildBokehFragmentShader({
+    precision: "highp",
+    fbmOctaves: 3,
+    layers: 3,
+    blobsPerLayer: 10,
+    useFastBlob: false,
+    includeFilmGrain: false,
+  }),
+  low: buildBokehFragmentShader({
+    precision: "mediump",
+    fbmOctaves: 2,
+    layers: 2,
+    blobsPerLayer: 7,
+    useFastBlob: true,
+    includeFilmGrain: false,
+  }),
+};
 
 interface BokehPlaneProps {
   speed: number;
+  maxFps: number;
+  quality: Exclude<ShaderQuality, "minimal">;
   isLightTheme: boolean;
+  active: boolean;
+  onAverageFps: (averageFps: number) => void;
 }
 
-function BokehPlane({ speed, isLightTheme }: BokehPlaneProps) {
+function BokehPlane({
+  speed,
+  maxFps,
+  quality,
+  isLightTheme,
+  active,
+  onAverageFps,
+}: BokehPlaneProps) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const { size } = useThree();
+  const { size, invalidate } = useThree();
 
   const uniforms = useMemo(
     () => ({
@@ -180,7 +240,8 @@ function BokehPlane({ speed, isLightTheme }: BokehPlaneProps) {
 
   useEffect(() => {
     uniforms.uResolution.value.set(size.width, size.height);
-  }, [size.height, size.width, uniforms]);
+    invalidate();
+  }, [size.height, size.width, uniforms, invalidate]);
 
   useEffect(() => {
     if (isLightTheme) {
@@ -189,7 +250,8 @@ function BokehPlane({ speed, isLightTheme }: BokehPlaneProps) {
       uniforms.uLightWarm.value.setRGB(0.42, 0.62, 0.58);
       uniforms.uLightCool.value.setRGB(0.52, 0.57, 0.67);
       uniforms.uLightNeutral.value.setRGB(0.96, 0.97, 0.98);
-      uniforms.uAlpha.value = 0.52;
+      uniforms.uAlpha.value = quality === "low" ? 0.45 : 0.52;
+      invalidate();
       return;
     }
 
@@ -198,12 +260,24 @@ function BokehPlane({ speed, isLightTheme }: BokehPlaneProps) {
     uniforms.uLightWarm.value.setRGB(0.2, 0.42, 0.39);
     uniforms.uLightCool.value.setRGB(0.27, 0.33, 0.42);
     uniforms.uLightNeutral.value.setRGB(0.8, 0.84, 0.89);
-    uniforms.uAlpha.value = 0.74;
-  }, [isLightTheme, uniforms]);
+    uniforms.uAlpha.value = quality === "low" ? 0.64 : 0.74;
+    invalidate();
+  }, [isLightTheme, quality, uniforms, invalidate]);
 
-  useFrame((_, delta) => {
-    if (!materialRef.current) return;
-    materialRef.current.uniforms.uTime.value += delta * speed;
+  const handleStep = useCallback(
+    (deltaSeconds: number) => {
+      if (!materialRef.current) return;
+      materialRef.current.uniforms.uTime.value += deltaSeconds * speed;
+      invalidate();
+    },
+    [invalidate, speed]
+  );
+
+  useDemandDrivenAnimation({
+    enabled: active,
+    maxFps,
+    onStep: handleStep,
+    onSample: onAverageFps,
   });
 
   return (
@@ -213,7 +287,7 @@ function BokehPlane({ speed, isLightTheme }: BokehPlaneProps) {
         ref={materialRef}
         uniforms={uniforms}
         vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
+        fragmentShader={BOKEH_FRAGMENT_SHADERS[quality]}
         transparent
         depthWrite={false}
       />
@@ -223,8 +297,8 @@ function BokehPlane({ speed, isLightTheme }: BokehPlaneProps) {
 
 function BokehFallback({ isLightTheme }: { isLightTheme: boolean }) {
   const background = isLightTheme
-    ? "linear-gradient(90deg, rgba(236,238,241,0.92) 0%, rgba(228,231,237,0.88) 100%)"
-    : "linear-gradient(90deg, rgba(10,13,17,0.94) 0%, rgba(12,16,22,0.9) 100%)";
+    ? "linear-gradient(90deg, rgba(236, 238, 241, 0.92) 0%, rgba(228, 231, 237, 0.88) 100%)"
+    : "linear-gradient(90deg, rgba(10, 13, 17, 0.94) 0%, rgba(12, 16, 22, 0.9) 100%)";
 
   return <div className="absolute inset-0" aria-hidden="true" style={{ background }} />;
 }
@@ -244,7 +318,18 @@ function isWebGLSupported(): boolean {
   }
 }
 
-export function CreativeBokehShaderScene() {
+export interface CreativeBokehShaderSceneProps {
+  qualityOverride?: ShaderQuality;
+  disableWhenHidden?: boolean;
+  maxFpsOverride?: number;
+}
+
+export function CreativeBokehShaderScene({
+  qualityOverride,
+  disableWhenHidden = true,
+  maxFpsOverride,
+}: CreativeBokehShaderSceneProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const performanceMode = usePerformanceMode();
   const prefersReduced = useReducedMotion();
   const { theme } = useTheme();
@@ -254,21 +339,46 @@ export function CreativeBokehShaderScene() {
     setWebglAvailable(isWebGLSupported());
   }, []);
 
-  const mode: PerformanceMode = prefersReduced ? "minimal" : performanceMode;
-  const speed = SPEED_BY_MODE[mode];
-  const dpr = DPR_BY_MODE[mode];
+  const baseQuality = prefersReduced
+    ? "minimal"
+    : qualityOverride ?? getShaderQualityFromPerformanceMode(performanceMode);
+  const { quality, reportAverageFps } = useAdaptiveShaderQuality({
+    requestedQuality: baseQuality,
+  });
+
+  const visibilityActive = useSceneVisibility(containerRef, {
+    disableWhenHidden,
+    rootMargin: "160px 0px",
+  });
+
+  const profile = getShaderQualityProfile(quality);
+  const maxFps = maxFpsOverride ?? profile.maxFps;
+  const shouldRenderWebGL = webglAvailable && profile.useWebGL;
+  const active = shouldRenderWebGL && visibilityActive;
+  const shaderQuality: Exclude<ShaderQuality, "minimal"> =
+    quality === "high" ? "high" : quality === "medium" ? "medium" : "low";
+  const speed = SPEED_BY_QUALITY[quality];
   const isLightTheme = theme === "light";
 
-  if (!webglAvailable) {
-    return <BokehFallback isLightTheme={isLightTheme} />;
-  }
-
   return (
-    <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div ref={containerRef} className="absolute inset-0 pointer-events-none" aria-hidden="true">
       <BokehFallback isLightTheme={isLightTheme} />
-      <Canvas dpr={dpr} gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}>
-        <BokehPlane speed={speed} isLightTheme={isLightTheme} />
-      </Canvas>
+      {shouldRenderWebGL && (
+        <Canvas
+          frameloop="demand"
+          dpr={profile.dpr}
+          gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
+        >
+          <BokehPlane
+            speed={speed}
+            maxFps={maxFps}
+            quality={shaderQuality}
+            isLightTheme={isLightTheme}
+            active={active}
+            onAverageFps={reportAverageFps}
+          />
+        </Canvas>
+      )}
     </div>
   );
 }

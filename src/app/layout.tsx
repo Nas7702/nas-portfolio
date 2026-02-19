@@ -3,6 +3,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import Navbar from "./components/Navbar";
 import AnimationWrapper from "./components/AnimationWrapper";
 import CustomCursor from "./components/CustomCursor";
+import DebugFpsCounter from "./components/DebugFpsCounter";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -85,6 +86,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Navbar />
           <CustomCursor />
+          <DebugFpsCounter />
           <AnimationWrapper>
             {children}
           </AnimationWrapper>

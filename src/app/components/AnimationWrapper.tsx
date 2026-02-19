@@ -3,11 +3,15 @@
 import { AnimatePresence, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { usePerformanceMode } from "@/hooks/usePerformanceMode";
 
 function SpotlightOverlay() {
   const prefersReduced = useReducedMotion();
+  const performanceMode = usePerformanceMode();
   const [mounted, setMounted] = useState(false);
   const overlayRoot = useMemo(() => (typeof document !== "undefined" ? document.body : null), []);
+  const disableOverlay =
+    prefersReduced || performanceMode === "low" || performanceMode === "minimal";
 
   // Position state (animated via rAF; we store as refs to avoid re-renders)
   const spotRef = useRef<HTMLDivElement | null>(null);
@@ -27,6 +31,7 @@ function SpotlightOverlay() {
 
   useEffect(() => {
     if (!mounted || !overlayRoot) return;
+    if (disableOverlay) return;
 
     const handlePointerMove = (e: PointerEvent) => {
       lastMoveAtRef.current = Date.now();
@@ -82,7 +87,7 @@ function SpotlightOverlay() {
       targetYRef.current = window.innerHeight / 2;
     };
 
-    if (!prefersReduced) {
+    if (!disableOverlay) {
       window.addEventListener("pointermove", handlePointerMove, { passive: true });
       window.addEventListener("pointerover", handlePointerOver, { passive: true });
       window.addEventListener("pointerout", handlePointerOut, { passive: true });
@@ -125,7 +130,7 @@ function SpotlightOverlay() {
       animFrameRef.current = window.requestAnimationFrame(tick);
     };
 
-    if (!prefersReduced) {
+    if (!disableOverlay) {
       loopActiveRef.current = true;
       animFrameRef.current = window.requestAnimationFrame(tick);
     } else {
@@ -142,7 +147,7 @@ function SpotlightOverlay() {
         cancelAnimationFrame(animFrameRef.current);
         animFrameRef.current = null;
       }
-      if (!prefersReduced) {
+      if (!disableOverlay) {
         window.removeEventListener("pointermove", handlePointerMove);
         window.removeEventListener("pointerover", handlePointerOver);
         window.removeEventListener("pointerout", handlePointerOut);
@@ -151,9 +156,9 @@ function SpotlightOverlay() {
         document.removeEventListener("focusout", handleFocusOut);
       }
     };
-  }, [mounted, overlayRoot, prefersReduced]);
+  }, [disableOverlay, mounted, overlayRoot]);
 
-  if (!mounted || !overlayRoot) return null;
+  if (!mounted || !overlayRoot || disableOverlay) return null;
 
   return createPortal(
     <div className="spotlight-overlay" aria-hidden="true">

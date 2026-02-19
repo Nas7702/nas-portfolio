@@ -62,10 +62,13 @@ function useHeroParallax(
     const BG_MAX_Y = 210;
     const BG_MAX_ROTATE = 3;
     const BG_SCALE = 1.25;
+    const IDLE_AFTER_MS = 850;
     const bgTarget = { x: 0, y: 0, rotate: 0 };
     const bgCurrent = { x: 0, y: 0, rotate: 0 };
     let rafId: number | null = null;
     let lastPointer = { x: 0, y: 0, has: false };
+    let isInView = true;
+    let lastActivityAt = performance.now();
 
     const clamp = (v: number, min: number, max: number) => Math.max(min, Math.min(max, v));
 
@@ -89,9 +92,29 @@ function useHeroParallax(
       bgTarget.rotate = clamp(pointerXNorm * -4, -BG_MAX_ROTATE, BG_MAX_ROTATE);
     };
 
+    const stopLoop = () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    };
+
+    const startLoop = () => {
+      if (!isInView || rafId !== null) return;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const markActive = () => {
+      lastActivityAt = performance.now();
+      startLoop();
+    };
+
     const tick = () => {
       const bgEl = bgRef.current;
-      if (!bgEl) return;
+      if (!bgEl || !isInView) {
+        stopLoop();
+        return;
+      }
 
       bgCurrent.x += (bgTarget.x - bgCurrent.x) * 0.2;
       bgCurrent.y += (bgTarget.y - bgCurrent.y) * 0.2;
@@ -101,27 +124,60 @@ function useHeroParallax(
       const clampedY = clamp(bgCurrent.y, -BG_MAX_Y, BG_MAX_Y);
       const clampedRotate = clamp(bgCurrent.rotate, -BG_MAX_ROTATE, BG_MAX_ROTATE);
       bgEl.style.transform = `translate3d(${clampedX}px, ${clampedY}px, 0) rotate(${clampedRotate}deg) scale(${BG_SCALE})`;
+
+      const idle = performance.now() - lastActivityAt > IDLE_AFTER_MS;
+      const settled =
+        Math.abs(bgTarget.x - bgCurrent.x) < 0.35 &&
+        Math.abs(bgTarget.y - bgCurrent.y) < 0.35 &&
+        Math.abs(bgTarget.rotate - bgCurrent.rotate) < 0.03;
+
+      if (idle && settled) {
+        stopLoop();
+        return;
+      }
+
       rafId = requestAnimationFrame(tick);
     };
 
     const onPointerMove = (e: PointerEvent) => {
       lastPointer = { x: e.clientX, y: e.clientY, has: true };
       computeTargets();
+      markActive();
     };
 
     const onScrollOrResize = () => {
       computeTargets();
+      markActive();
     };
+
+    const sectionEl = sectionRef.current;
+    let observer: IntersectionObserver | null = null;
+    if (sectionEl && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          isInView = entry.isIntersecting;
+          if (isInView) {
+            computeTargets();
+            markActive();
+          } else {
+            stopLoop();
+          }
+        },
+        { threshold: 0.01, rootMargin: "160px 0px" }
+      );
+      observer.observe(sectionEl);
+    }
 
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize, { passive: true });
 
     computeTargets();
-    rafId = requestAnimationFrame(tick);
+    markActive();
 
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
+      stopLoop();
+      observer?.disconnect();
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("scroll", onScrollOrResize);
       window.removeEventListener("resize", onScrollOrResize);

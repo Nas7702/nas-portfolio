@@ -2,10 +2,13 @@
 
 import { motion, useMotionValue } from "framer-motion";
 import { useEffect, useState } from "react";
+import { usePerformanceMode } from "@/hooks/usePerformanceMode";
 
 export default function CustomCursor() {
   const [mounted, setMounted] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const performanceMode = usePerformanceMode();
+  const disableCursor = performanceMode === "low" || performanceMode === "minimal";
 
   // MotionValues update the DOM directly without triggering React re-renders
   const cursorX = useMotionValue(-100);
@@ -19,6 +22,7 @@ export default function CustomCursor() {
 
   useEffect(() => {
     if (!mounted) return;
+    if (disableCursor) return;
     // Only enable on desktop
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice) return;
@@ -48,9 +52,9 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, [mounted, cursorX, cursorY, trailX, trailY]);
+  }, [mounted, disableCursor, cursorX, cursorY, trailX, trailY]);
 
-  if (!mounted) return null;
+  if (!mounted || disableCursor) return null;
 
   return (
     <>
