@@ -86,6 +86,15 @@ export default function Hero() {
       {/* 3D Background */}
       <Scene />
 
+      {/* Atmospheric accent light */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 70% 50% at 35% 45%, rgba(0, 200, 150, 0.04) 0%, transparent 70%)'
+        }}
+      />
+
       {/* Content Overlay */}
       <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left px-4 max-w-4xl mx-auto">
         <motion.div
@@ -98,21 +107,24 @@ export default function Hero() {
             src="/logos/darkmode-inline.png"
             alt="Nas.Create"
             width={320}
-            height={80}
-            className="object-contain mb-6 hidden dark:block"
+            height={57}
+            className="mb-6 hidden dark:block"
             priority
           />
           <Image
             src="/logos/lightmode-inline.png"
             alt="Nas.Create"
             width={320}
-            height={80}
-            className="object-contain mb-6 block dark:hidden"
+            height={57}
+            className="mb-6 block dark:hidden"
             priority
           />
-          <h1 className="font-display font-light text-5xl md:text-7xl tracking-[-0.02em] leading-[1.1] text-foreground mb-3">
-            Commercial Video.<br />
-            <em>Built Around Results.</em>
+          <h1 className="font-display font-light text-5xl md:text-7xl tracking-[-0.03em] leading-[1.05] text-foreground mb-3">
+            Commercial Video.
+            <span className="flex items-baseline gap-3 mt-1 justify-center md:justify-start">
+              <span aria-hidden="true" className="w-8 md:w-12 h-px bg-foreground/20 mb-2 flex-shrink-0" />
+              <em className="text-foreground/85">Built Around Results.</em>
+            </span>
           </h1>
           <span className="relative mt-3 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default group">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse flex-shrink-0" />
@@ -138,8 +150,12 @@ export default function Hero() {
         >
           <Link
             href="/create"
-            className="group inline-flex items-center gap-2 px-8 py-3 rounded-sm bg-accent text-accent-foreground font-medium hover:opacity-90 transition-all"
+            className="group relative inline-flex items-center gap-2 px-8 py-3 rounded-sm bg-accent text-accent-foreground font-medium hover:opacity-90 transition-all overflow-hidden"
           >
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
+            />
             See My Work
             <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
           </Link>
