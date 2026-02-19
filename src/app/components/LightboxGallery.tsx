@@ -685,11 +685,11 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
             : adaptiveAspectRatio
               ? 'w-full'
               : 'aspect-square'
-        } bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden ${
+        } bg-card rounded-lg overflow-hidden ${
           !inlinePlayback && !adaptiveAspectRatio
-            ? "border border-subtle hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)]"
+            ? "border border-border hover:border-accent hover:shadow-lg transition-all duration-300"
             : ""
-        } transition-all duration-300`}
+        }`}
       >
         {isInView && (
           <>
@@ -777,7 +777,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
       {(showTitle && (item.title || (item.tags && item.tags.length > 0))) && (
         <div className="mt-3 space-y-2">
           {item.title && (
-            <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+            <h4 className="text-sm font-medium text-foreground">
               {item.title}
             </h4>
           )}
@@ -786,7 +786,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
               {item.tags.slice(0, 5).map((tag) => (
                 <span
                   key={tag}
-                  className="px-2.5 py-1 rounded-full text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                  className="px-2.5 py-1 rounded-full text-xs font-medium border border-accent/30 bg-accent/10 text-accent"
                 >
                   {tag}
                 </span>
