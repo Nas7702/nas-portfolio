@@ -108,7 +108,7 @@ export default function BentoGrid() {
                 Brand films, Meta ads, event coverage and commercial photography. See the work.
               </p>
             </div>
-            <div className="flex items-center gap-2 text-white/60 group-hover:text-white text-sm font-medium group-hover:translate-x-1 transition-all duration-200 backdrop-blur-sm">
+            <div className="flex items-center gap-2 text-white/60 group-hover:text-white text-sm font-medium group-hover:translate-x-1 transition-all duration-200">
               View Projects <ArrowRight size={14} />
             </div>
           </div>
@@ -120,12 +120,12 @@ export default function BentoGrid() {
           href="/about"
           className="group relative col-span-1 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
         >
-          <span
+          <User
             aria-hidden="true"
-            className="absolute bottom-4 right-5 font-display text-8xl font-light leading-none text-foreground/[0.04] select-none pointer-events-none"
-          >
-            01
-          </span>
+            size={140}
+            strokeWidth={0.6}
+            className="absolute -bottom-4 -right-4 text-foreground/[0.04] select-none pointer-events-none"
+          />
           <div className="relative z-10 flex flex-col justify-between h-full">
             <div>
               <div className="w-10 h-10 rounded-sm bg-accent/15 flex items-center justify-center mb-4 text-accent">
@@ -180,12 +180,12 @@ export default function BentoGrid() {
           href="/contact"
           className="group relative col-span-1 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
         >
-          <span
+          <Mail
             aria-hidden="true"
-            className="absolute bottom-4 right-5 font-display text-8xl font-light leading-none text-foreground/[0.04] select-none pointer-events-none"
-          >
-            02
-          </span>
+            size={140}
+            strokeWidth={0.6}
+            className="absolute -bottom-4 -right-4 text-foreground/[0.04] select-none pointer-events-none"
+          />
           <div className="relative z-10 flex flex-col justify-between h-full">
             <div>
               <div className="w-10 h-10 rounded-sm bg-accent/15 flex items-center justify-center mb-4 text-accent">
