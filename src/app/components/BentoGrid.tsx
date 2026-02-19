@@ -76,13 +76,13 @@ export default function BentoGrid() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-20">
       <div className="mb-10 flex items-end justify-between">
-        <div>
+        <div className="w-full text-center md:text-left">
           <p className="eyebrow mb-3">Selected Work</p>
           <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-foreground">
             At a Glance
           </h2>
         </div>
-        <span className="text-xs text-muted-foreground hidden md:block pb-1">Yorkshire — UK</span>
+        <span className="text-xs text-muted-foreground hidden md:block pb-1 flex-shrink-0">Yorkshire — UK</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 auto-rows-[300px]">
