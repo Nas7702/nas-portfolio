@@ -135,7 +135,7 @@ const featuredMedia: MediaItem[] = [
   {
     id: "featured-1",
     type: "video",
-    src: "https://youtu.be/lQ5mOoEOoqo",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/stance.mp4",
     thumbnail: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
     title: "Featured: Brand Film",
     alt: "Featured brand film video",
@@ -148,7 +148,7 @@ const portfolioItems: PortfolioItem[] = [
     id: "Kyle Allen Physique Coaching",
     type: "video",
     kind: "video",
-    src: "https://www.youtube.com/shorts/LaoAVooLROU",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/final.mov",
     thumbnail: "https://i.ytimg.com/vi/LaoAVooLROU/hqdefault.jpg",
     title: "Kyle Allen Physique Coaching Reel",
     alt: "Kyle Allen coaching promo reel thumbnail",
@@ -164,7 +164,7 @@ const portfolioItems: PortfolioItem[] = [
     id: "Sheffield Varsity Basketball",
     type: "video",
     kind: "video",
-    src: "https://youtu.be/y0E6twmL4_I",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/shef_varsity_bb.mp4_compressed.mov",
     thumbnail: "https://i.ytimg.com/vi/y0E6twmL4_I/hqdefault.jpg",
     title: "Sheffield Varsity Basketball",
     alt: "Sheffield Varsity Basketball thumbnail",
@@ -179,7 +179,7 @@ const portfolioItems: PortfolioItem[] = [
     id: "Sheffield Varsity Powerlifting",
     type: "video",
     kind: "video",
-    src: "https://youtu.be/aKEjwiwOTyg",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/shf_varsity_pl_compressed.mp4",
     thumbnail: "https://i.ytimg.com/vi/aKEjwiwOTyg/hqdefault.jpg",
     title: "Sheffield Varsity Powerlifting",
     alt: "Sheffield Varsity Powerlifting thumbnail",
@@ -194,7 +194,7 @@ const portfolioItems: PortfolioItem[] = [
     id: "Stance Fitness Promo",
     type: "video",
     kind: "video",
-    src: "https://youtu.be/lQ5mOoEOoqo",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/stance.mp4",
     thumbnail: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
     title: "Stance Fitness Promo",
     alt: "Stance Fitness Promo thumbnail",
@@ -209,7 +209,7 @@ const portfolioItems: PortfolioItem[] = [
     id: "Vizual Mods Promo",
     type: "video",
     kind: "video",
-    src: "https://youtube.com/shorts/rPJDmGHiTL0",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/vm_urus.mov",
     thumbnail: "https://i.ytimg.com/vi/rPJDmGHiTL0/hqdefault.jpg",
     title: "Vizual Mods Promo",
     alt: "Vizual Mods Promo thumbnail",
@@ -304,7 +304,7 @@ const portfolioItems: PortfolioItem[] = [
       {
         id: "automotive-5",
         type: "image",
-        src: "/images/Automotive/DSC09689-Enhanced-NR-Edit.png",
+        src: "/images/Automotive/DSC09689-Enhanced-NR-Edit.jpg",
         alt: "Automotive photography",
       },
       {
@@ -677,94 +677,102 @@ export default function CreativePage() {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.3}>
-              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-                {/* Render videos using LightboxGallery for each item to enable modal view */}
-                {mediaItems.map((item) => (
+              <div className="flex flex-col gap-6">
+                {/* All media items in one LightboxGallery — enables prev/next arrow navigation */}
+                {mediaItems.length > 0 && (
                   <LightboxGallery
-                    key={item.id}
-                    items={[item]}
-                    columns={1}
-                    className=""
+                    key={activeFilter}
+                    items={mediaItems}
+                    className="gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                     showTitles={true}
                     enableDownload={false}
                     enableZoom={false}
-                    useResponsiveGrid={false}
+                    useResponsiveGrid={true}
                   />
-                ))}
+                )}
 
-                {/* Render album items with custom card that triggers Album Modal */}
-                {albumItems.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    className="group cursor-pointer relative overflow-hidden transition-all duration-300 hover:-translate-y-1"
-                    whileHover={{ scale: 1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleAlbumOpen(item)}
-                  >
-                    <div className="relative aspect-square bg-muted rounded-md overflow-hidden border border-border group-hover:border-accent transition-all duration-300 shadow-sm group-hover:shadow-md">
-                      {item.cover && (
-                        <>
-                          <Image
-                            src={item.cover}
-                            alt={item.alt || item.title || "Album cover"}
-                            fill
-                            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                            className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                          />
-                          <div className="absolute top-3 left-3 z-10">
-                            <div className="px-2 py-1 rounded-sm bg-black/60 backdrop-blur-sm text-white text-[10px] font-medium uppercase tracking-widest shadow-sm">
-                              Photos
+                {/* Album items */}
+                {albumItems.length > 0 && (
+                  <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    {albumItems.map((item) => (
+                      <motion.div
+                        key={item.id}
+                        className="group cursor-pointer relative overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                        whileHover={{ scale: 1 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleAlbumOpen(item)}
+                      >
+                        <div className="relative aspect-square bg-muted rounded-md overflow-hidden border border-border group-hover:border-accent transition-all duration-300 shadow-sm group-hover:shadow-md">
+                          {item.cover && (
+                            <>
+                              <Image
+                                src={item.cover}
+                                alt={item.alt || item.title || "Album cover"}
+                                fill
+                                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                                className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                              />
+                              <div className="absolute top-3 left-3 z-10">
+                                <div className="px-2 py-1 rounded-sm bg-black/60 backdrop-blur-sm text-white text-[10px] font-medium uppercase tracking-widest shadow-sm">
+                                  Photos
+                                </div>
+                              </div>
+                              <div className="absolute bottom-3 right-3 z-10">
+                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/60 backdrop-blur-sm text-white text-xs font-medium shadow-sm">
+                                  <Camera size={14} />
+                                  <span>{item.albumImages?.length || 0}</span>
+                                </div>
+                              </div>
+                              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                            </>
+                          )}
+                        </div>
+                        <div className="mt-3 space-y-2">
+                          {item.title && <h4 className="font-display font-light text-base text-foreground group-hover:text-accent transition-colors">{item.title}</h4>}
+                          {item.tags && item.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5">
+                              {item.tags.slice(0, 4).map((tag) => (
+                                <span key={tag} className="px-2 py-0.5 rounded-sm text-[10px] font-medium border border-accent/20 bg-accent/5 text-accent uppercase tracking-wider">
+                                  {tag}
+                                </span>
+                              ))}
                             </div>
-                          </div>
-                          <div className="absolute bottom-3 right-3 z-10">
-                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/60 backdrop-blur-sm text-white text-xs font-medium shadow-sm">
-                              <Camera size={14} />
-                              <span>{item.albumImages?.length || 0}</span>
-                            </div>
-                          </div>
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-                        </>
-                      )}
-                    </div>
-                    <div className="mt-3 space-y-2">
-                      {item.title && <h4 className="font-display font-light text-base text-foreground group-hover:text-accent transition-colors">{item.title}</h4>}
-                      {item.tags && item.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                          {item.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className="px-2 py-0.5 rounded-sm text-[10px] font-medium border border-accent/20 bg-accent/5 text-accent uppercase tracking-wider">
-                              {tag}
-                            </span>
-                          ))}
+                          )}
                         </div>
-                      )}
-                    </div>
-                  </motion.div>
-                ))}
-
-                {caseItems.map((item) => (
-                  <div key={item.id} className="relative w-full">
-                    <button
-                      // onClick={() => handleCaseStudyOpen(item)}
-                      className="relative w-full text-left rounded-2xl border border-border bg-card hover:border-accent transition-all duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-background overflow-hidden group shadow-sm hover:shadow-md"
-                    >
-                      {item.cover && (
-                        <div className="relative aspect-video overflow-hidden">
-                          <Image src={item.cover} alt={item.title || ""} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
-                        </div>
-                      )}
-                      <div className="p-6 space-y-4">
-                        <div className="flex items-center justify-between">
-                          <span className="px-3 py-1 text-xs font-semibold rounded-full border border-accent/20 bg-accent/10 text-accent">Case Study</span>
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
-                          {item.caseSummary && <p className="text-sm text-muted-foreground line-clamp-3">{item.caseSummary}</p>}
-                        </div>
-                      </div>
-                    </button>
+                      </motion.div>
+                    ))}
                   </div>
-                ))}
+                )}
+
+                {/* Case study items */}
+                {caseItems.length > 0 && (
+                  <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    {caseItems.map((item) => (
+                      <div key={item.id} className="relative w-full">
+                        <button
+                          // onClick={() => handleCaseStudyOpen(item)}
+                          className="relative w-full text-left rounded-2xl border border-border bg-card hover:border-accent transition-all duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-background overflow-hidden group shadow-sm hover:shadow-md"
+                        >
+                          {item.cover && (
+                            <div className="relative aspect-video overflow-hidden">
+                              <Image src={item.cover} alt={item.title || ""} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
+                              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
+                            </div>
+                          )}
+                          <div className="p-6 space-y-4">
+                            <div className="flex items-center justify-between">
+                              <span className="px-3 py-1 text-xs font-semibold rounded-full border border-accent/20 bg-accent/10 text-accent">Case Study</span>
+                            </div>
+                            <div>
+                              <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
+                              {item.caseSummary && <p className="text-sm text-muted-foreground line-clamp-3">{item.caseSummary}</p>}
+                            </div>
+                          </div>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </ScrollReveal>
           </div>
@@ -805,6 +813,8 @@ export default function CreativePage() {
                       enableDownload={false}
                       useResponsiveGrid={false}
                       adaptiveAspectRatio={true}
+                      autoOpen={0}
+                      onLightboxClose={handleAlbumClose}
                     />
                   </div>
                 </div>

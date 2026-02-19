@@ -150,7 +150,7 @@ export const projects: Project[] = [
     description: "Dynamic automotive and brand cinematography featuring professional colour grading and storytelling.",
     category: "videography",
     stack: ["DaVinci Resolve Studio", "Lightroom", "Photoshop", "After Effects"],
-    image: "/images/Automotive/DSC09689-Enhanced-NR-Edit.png",
+    image: "/images/Automotive/DSC09689-Enhanced-NR-Edit.jpg",
     videoLink: "https://vimeo.com/nas/brand-video",
     caseStudy: {
       overview: "A comprehensive brand video series that elevated a company's digital presence through compelling visual storytelling.",

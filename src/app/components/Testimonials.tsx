@@ -8,6 +8,7 @@ type RelatedWork = {
   label: string;
   href?: string;
   scrollTo?: string;
+  openItemId?: string; // scroll to section + open a specific LightboxGallery item by id
 };
 
 type Testimonial = {
@@ -49,7 +50,7 @@ const testimonials: Testimonial[] = [
     praise:
       "I used the video to promote my page and it became my most viewed post. Couldn't recommend him enough, will definitely be using him again!",
     relatedWork: [
-      { label: "Watch the Reel", href: "https://www.youtube.com/shorts/LaoAVooLROU" },
+      { label: "Watch the Reel", openItemId: "Kyle Allen Physique Coaching", scrollTo: "creative-portfolio" },
       { label: "View Photos", scrollTo: "creative-portfolio" },
     ],
   },
@@ -195,7 +196,25 @@ export default function Testimonials() {
                 {testimonial.relatedWork && testimonial.relatedWork.length > 0 && (
                   <div className="flex flex-wrap gap-3 pt-4">
                     {testimonial.relatedWork.map((work) =>
-                      work.href ? (
+                      work.openItemId ? (
+                        <button
+                          key={work.label}
+                          type="button"
+                          onClick={() => {
+                            const el = document.getElementById(work.scrollTo ?? "creative-portfolio");
+                            if (el) el.scrollIntoView({ behavior: "smooth" });
+                            setTimeout(() => {
+                              window.dispatchEvent(
+                                new CustomEvent("open-lightbox-item", { detail: { itemId: work.openItemId } })
+                              );
+                            }, 600);
+                          }}
+                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-200"
+                        >
+                          <Play size={14} />
+                          {work.label}
+                        </button>
+                      ) : work.href ? (
                         <a
                           key={work.label}
                           href={work.href}

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import {
   X,
   ChevronLeft,
@@ -114,11 +115,32 @@ function getVimeoId(url: string): string | null {
 function getEmbedUrl(url: string): string | null {
   if (isYouTubeUrl(url)) {
     const id = getYouTubeId(url);
-    return id ? `https://www.youtube.com/embed/${id}` : null;
+    if (!id) return null;
+    // youtube-nocookie.com avoids tracking cookies and loads faster.
+    // vq + hd are unofficial but widely respected quality hints; rel=0 keeps
+    // end-screen suggestions within the same channel.
+    const params = new URLSearchParams({
+      rel: "0",
+      modestbranding: "1",
+      hd: "1",
+      vq: "hd1080",
+    });
+    return `https://www.youtube-nocookie.com/embed/${id}?${params}`;
   }
   if (isVimeoUrl(url)) {
     const id = getVimeoId(url);
-    return id ? `https://player.vimeo.com/video/${id}` : null;
+    if (!id) return null;
+    // quality=1080p works on Vimeo Pro/Business; harmless on basic accounts.
+    // title/byline/portrait=0 gives a cleaner, brandless player.
+    const params = new URLSearchParams({
+      quality: "1080p",
+      autoplay: "0",
+      title: "0",
+      byline: "0",
+      portrait: "0",
+      dnt: "1",
+    });
+    return `https://player.vimeo.com/video/${id}?${params}`;
   }
   if (isInstagramUrl(url)) {
     return ensureInstagramEmbedUrl(url);
@@ -165,6 +187,8 @@ function processInstagramEmbeds() {
   useResponsiveGrid?: boolean;
   adaptiveAspectRatio?: boolean; // if true, images keep their natural aspect ratio
   onItemClick?: (item: MediaItem, index: number) => boolean | void;
+  autoOpen?: number; // if set, opens the lightbox at this index on mount
+  onLightboxClose?: () => void; // called when the lightbox is closed
   // per-card CTA removed
 }
 
@@ -179,6 +203,8 @@ export default function LightboxGallery({
   useResponsiveGrid = false,
   adaptiveAspectRatio = false,
   onItemClick,
+  autoOpen,
+  onLightboxClose,
   // per-card CTA removed
 }: LightboxGalleryProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -248,9 +274,20 @@ export default function LightboxGallery({
   // openLightbox has no external deps; onItemClick is the only external reference
   }, [onItemClick]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Auto-open lightbox on mount (used by album cards to skip the grid step)
+  useEffect(() => {
+    if (typeof autoOpen === "number" && autoOpen >= 0 && autoOpen < items.length) {
+      setCurrentIndex(autoOpen);
+      setIsOpen(true);
+      setZoom(1);
+      setRotation(0);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const closeLightbox = () => {
     setIsOpen(false);
     setIsPlaying(false);
+    onLightboxClose?.();
   };
 
   const goToNext = useCallback(() => {
@@ -353,6 +390,29 @@ export default function LightboxGallery({
     };
   }, [isOpen]);
 
+  // Listen for external open-lightbox-item events (e.g. from Testimonials relatedWork links)
+  useEffect(() => {
+    const handleOpenItem = (e: Event) => {
+      const { itemId } = (e as CustomEvent<{ itemId: string }>).detail;
+      const idx = items.findIndex((item) => item.id === itemId);
+      if (idx !== -1) openLightbox(idx);
+    };
+    window.addEventListener("open-lightbox-item", handleOpenItem);
+    return () => window.removeEventListener("open-lightbox-item", handleOpenItem);
+  }, [items]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Auto-play self-hosted video when lightbox opens or user navigates to a video item
+  useEffect(() => {
+    if (!isOpen) return;
+    if (currentItem.type !== "video" || isEmbedUrl(currentItem.src)) return;
+    const timer = setTimeout(() => {
+      videoRef.current?.play().catch(() => {
+        // Autoplay blocked by browser — user can click play manually
+      });
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [isOpen, currentIndex, currentItem.type, currentItem.src]);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -386,7 +446,7 @@ export default function LightboxGallery({
     <>
       {/* Thumbnail Grid */}
       <div
-        className={adaptiveAspectRatio ? className : `grid gap-4 ${className}`}
+        className={adaptiveAspectRatio ? className : cn("grid gap-4", className)}
         style={
           adaptiveAspectRatio || useResponsiveGrid ? undefined : { gridTemplateColumns: `repeat(${columns}, 1fr)` }
         }
@@ -565,9 +625,12 @@ export default function LightboxGallery({
                       src={currentItem.src}
                       className="max-w-full max-h-full object-contain"
                       controls
+                      controlsList="nodownload noremoteplayback"
+                      disablePictureInPicture
                       muted={isMuted}
                       onPlay={() => setIsPlaying(true)}
                       onPause={() => setIsPlaying(false)}
+                      onContextMenu={handleContextMenu}
                     />
                   )}
 
@@ -645,6 +708,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
   const [isInView, setIsInView] = useState(false);
   const [imageError, setImageError] = useState(false);
   const imgRef = useRef<HTMLDivElement>(null);
+  const inlineVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -667,17 +731,40 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
   const thumbSrc = getThumbnailSrc(item);
   const isLocalThumb = thumbSrc.startsWith("/");
   const isEmbed = item.type === "video" && isEmbedUrl(item.src);
+  const isSelfHostedVideo = item.type === "video" && !isEmbedUrl(item.src);
+  const isInlineVideo = inlinePlayback && item.type === "video";
+
+  // Autoplay inline self-hosted video (muted) when scrolled into view; pause when scrolled out
+  useEffect(() => {
+    if (!inlinePlayback || !isSelfHostedVideo || !isInView) return;
+    const videoEl = inlineVideoRef.current;
+    if (!videoEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          videoEl.play().catch(() => {});
+        } else {
+          videoEl.pause();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(videoEl);
+    return () => observer.disconnect();
+  }, [isInView, inlinePlayback, isSelfHostedVideo]);
 
   return (
     <motion.div
-      className={`group ${inlinePlayback && isEmbed ? "" : "cursor-pointer"} ${adaptiveAspectRatio ? "break-inside-avoid mb-4" : ""} relative overflow-hidden ${
+      className={`group ${isInlineVideo ? "" : "cursor-pointer"} ${adaptiveAspectRatio ? "break-inside-avoid mb-4" : ""} relative overflow-hidden ${
         !inlinePlayback && !adaptiveAspectRatio
           ? "transition-all duration-300 hover:-translate-y-1"
           : ""
       }`}
       whileHover={{ scale: adaptiveAspectRatio ? 1.02 : 1 }}
       whileTap={{ scale: 0.95 }}
-      onClick={inlinePlayback && isEmbed ? undefined : () => onSelect(item, index)}
+      onClick={isInlineVideo ? undefined : () => onSelect(item, index)}
     >
       {/* Gradient overlay on hover */}
       {!inlinePlayback && !adaptiveAspectRatio && (
@@ -689,9 +776,11 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
         className={`relative ${
           inlinePlayback && isEmbed
             ? 'aspect-video'
-            : adaptiveAspectRatio
+            : inlinePlayback && isSelfHostedVideo
               ? 'w-full'
-              : 'aspect-square'
+              : adaptiveAspectRatio
+                ? 'w-full'
+                : 'aspect-square'
         } bg-card rounded-lg overflow-hidden ${
           !inlinePlayback && !adaptiveAspectRatio
             ? "border border-border hover:border-accent hover:shadow-lg transition-all duration-300"
@@ -713,6 +802,21 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
                   />
                 ) : null;
               })()
+            ) : inlinePlayback && isSelfHostedVideo ? (
+              <video
+                ref={inlineVideoRef}
+                src={item.src}
+                poster={item.thumbnail || item.cover}
+                className="w-full h-auto block"
+                controls
+                controlsList="nodownload noremoteplayback"
+                disablePictureInPicture
+                preload="auto"
+                playsInline
+                muted
+                loop
+                onContextMenu={(e) => e.preventDefault()}
+              />
             ) : !imageError ? (
               adaptiveAspectRatio ? (
                 <Image
