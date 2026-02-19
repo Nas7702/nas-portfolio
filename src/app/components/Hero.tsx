@@ -62,7 +62,7 @@ function Scene() {
     return getRecommendedParticleCount(tier);
   }, [performanceMode, prefersReduced]);
 
-  const particleColor = theme === "dark" ? "#39ff88" : "#16a34a";
+  const particleColor = theme === "dark" ? "#00C896" : "#00875A";
 
   if (prefersReduced || particleCount === 0) {
     return null;
@@ -90,7 +90,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
           className="flex flex-col items-center mb-6"
         >
           <Image
@@ -98,24 +98,32 @@ export default function Hero() {
             alt="Nas.Create"
             width={320}
             height={80}
-            className="object-contain drop-shadow-[0_0_20px_rgba(57,255,136,0.25)] mb-4"
+            className="object-contain mb-6 hidden dark:block"
             priority
           />
-          <span className="block text-2xl md:text-3xl font-normal text-muted-foreground">
-            Commercial Video. Built Around Results.
-          </span>
-          <span className="relative mt-3 inline-flex items-center gap-2 text-lg md:text-xl text-foreground/80 hover:text-foreground transition-colors cursor-default group">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+          <Image
+            src="/logos/lightmode-inline.png"
+            alt="Nas.Create"
+            width={320}
+            height={80}
+            className="object-contain mb-6 block dark:hidden"
+            priority
+          />
+          <h1 className="font-display font-light text-4xl md:text-6xl tracking-tight text-foreground mb-3">
+            Commercial Video.<br />
+            <em>Built Around Results.</em>
+          </h1>
+          <span className="relative mt-3 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default group">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse flex-shrink-0" />
             Available for projects
-            <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent group-hover:via-emerald-400 transition-all duration-300" />
           </span>
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10"
+          transition={{ duration: 0.9, delay: 0.4 }}
+          className="text-base md:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed"
         >
           Brand films, Meta ads, and content that has a job to do.
           Based in Yorkshire, working across the UK.
@@ -124,18 +132,18 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4"
+          transition={{ duration: 0.9, delay: 0.6 }}
+          className="flex flex-col sm:flex-row gap-4 items-center"
         >
           <Link
             href="/create"
-            className="px-8 py-3 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50"
+            className="px-8 py-3 rounded-sm bg-accent text-accent-foreground font-medium hover:opacity-90 transition-opacity"
           >
             See My Work
           </Link>
           <Link
             href="/contact"
-            className="px-8 py-3 rounded-full border border-foreground/20 text-foreground font-medium hover:bg-foreground/5 transition-colors"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4 decoration-muted-foreground/30 hover:decoration-foreground/50"
           >
             Work With Me
           </Link>

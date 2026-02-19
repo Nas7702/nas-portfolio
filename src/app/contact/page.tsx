@@ -14,30 +14,17 @@ const INSTAGRAM_URL = "https://instagram.com/nas.create";
 const SERVICES = ["videography", "photography", "post-production", "color-grading"] as const;
 type Service = typeof SERVICES[number];
 
+const SERVICE_LABELS: Record<Service, string> = {
+  "videography": "Videography",
+  "photography": "Photography",
+  "post-production": "Post-production",
+  "color-grading": "Colour Grading",
+};
+
 function ContactPageInner() {
   const searchParams = useSearchParams();
   const [copied, setCopied] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Handle form submission via mailto
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    const subject = `Portfolio Enquiry: ${formData.name}`;
-    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
-
-    window.location.href = `mailto:nascreate0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    setIsSubmitting(false);
-    setFormData({ name: "", email: "", message: "" });
-  };
 
   useEffect(() => {
     if (!copied) return;
@@ -47,7 +34,7 @@ function ContactPageInner() {
 
   const handleCopy = async (value: string, id: string) => {
     try {
-        await navigator.clipboard.writeText(value);
+      await navigator.clipboard.writeText(value);
     } catch (error) {
       console.error("Clipboard copy failed", error);
     } finally {
@@ -62,189 +49,152 @@ function ContactPageInner() {
 
   const whatsappHref = useMemo(() => {
     const serviceText = selectedService ? selectedService.replace("-", " ") : "[service]";
-    const text = `Hi Nas, I’m interested in ${serviceText}. Budget: [] Timeline: []`;
+    const text = `Hi Nas, I'm interested in ${serviceText}. Budget: [] Timeline: []`;
     const q = new URLSearchParams({ text });
     return `${WHATSAPP_BASE}?${q.toString()}`;
   }, [selectedService]);
 
-  const contactMethods = [
-    {
-      icon: <MessageCircle className="w-6 h-6" />,
-      label: "WhatsApp",
-      value: "+44 7475 437833",
-      href: whatsappHref,
-      action: "Chat",
-      primary: true,
-    },
-    {
-      icon: <Mail className="w-6 h-6" />,
-      label: "Email",
-      value: "nascreate0@gmail.com",
-      href: EMAIL_URL,
-      action: "Write",
-      copyId: "email",
-    },
-    {
-      icon: <Instagram className="w-6 h-6" />,
-      label: "Instagram",
-      value: "@nas.create",
-      href: INSTAGRAM_URL,
-      action: "Follow",
-    },
-  ];
-
   return (
     <PageTransition>
       <div className="min-h-screen bg-background pb-32 pt-24 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-2xl mx-auto">
 
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-20"
+            className="text-center mb-14"
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-foreground">
+            <h1 className="font-display font-light text-6xl md:text-8xl tracking-tight text-foreground mb-5">
               Let&apos;s Talk
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Got a project? Whether it&apos;s a brand film, event coverage or a photo shoot, get in touch.
+            <p className="text-lg text-muted-foreground">
+              Got a project in mind? Pick a service and let's talk it through.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-16 items-start">
-
-            {/* Contact Methods Column */}
-            <div className="space-y-8">
-              <h2 className="text-2xl font-bold mb-8">Direct Channels</h2>
-
-              <div className="grid gap-4">
-                {contactMethods.map((method, index) => (
-                  <motion.div
-                    key={method.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className={`group relative flex items-center p-6 rounded-3xl border transition-all duration-300 ${
-                      method.primary
-                        ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700"
-                        : "bg-card border-border hover:border-primary/50"
+          {/* Service chips */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mb-10"
+          >
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground text-center mb-4">
+              What are you after?
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {SERVICES.map((service) => {
+                const active = selectedService === service;
+                return (
+                  <button
+                    key={service}
+                    onClick={() => setSelectedService(active ? null : service)}
+                    className={`px-4 py-2 rounded-sm text-sm font-medium border transition-all duration-200 ${
+                      active
+                        ? "bg-accent border-accent text-accent-foreground"
+                        : "bg-card border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
                     }`}
                   >
-                    <a
-                      href={method.href}
-                      className="absolute inset-0 z-10"
-                      target={method.href.startsWith("http") ? "_blank" : undefined}
-                      rel="noopener noreferrer"
-                    />
-
-                    <div className={`p-3 rounded-2xl mr-4 ${
-                      method.primary ? "bg-white/10" : "bg-secondary"
-                    }`}>
-                      {method.icon}
-                    </div>
-
-                    <div className="flex-grow">
-                      <div className={`text-sm font-medium mb-0.5 ${
-                        method.primary ? "text-blue-100" : "text-muted-foreground"
-                      }`}>
-                        {method.label}
-                      </div>
-                      <div className="font-semibold text-lg">{method.value}</div>
-                    </div>
-
-                    {method.copyId && (
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleCopy(method.value, method.copyId!);
-                        }}
-                        className="relative z-20 p-2 hover:bg-secondary rounded-full transition-colors"
-                      >
-                         {copied === method.copyId ? <Check size={18} /> : <span className="text-xs font-medium px-2">Copy</span>}
-                      </button>
-                    )}
-
-                    <ArrowRight className={`transform transition-transform group-hover:translate-x-1 ${
-                      method.primary ? "text-white" : "text-muted-foreground group-hover:text-primary"
-                    }`} />
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="bg-secondary/30 p-6 rounded-3xl border border-border/50">
-                <div className="flex items-start gap-4">
-                  <MapPin className="w-6 h-6 text-muted-foreground mt-1" />
-                  <div>
-                    <h3 className="font-semibold mb-1">Based in the UK</h3>
-                    <p className="text-muted-foreground text-sm">
-                      Available for remote work worldwide and local shoots across the UK.
-                    </p>
-                  </div>
-                </div>
-              </div>
+                    {SERVICE_LABELS[service]}
+                  </button>
+                );
+              })}
             </div>
+          </motion.div>
 
-            {/* Simple Form Column */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="bg-card border border-border p-8 rounded-[2rem] shadow-sm"
+          {/* Contact cards */}
+          <div className="space-y-3">
+
+            {/* WhatsApp — primary full-width */}
+            <motion.a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="group flex items-center p-6 rounded-sm bg-green-600 border border-green-600 text-white shadow-lg shadow-green-500/20 hover:bg-green-700 transition-all duration-300"
             >
-              <h2 className="text-2xl font-bold mb-6">Send a Message</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium text-muted-foreground ml-1">Name</label>
-                  <input
-                    id="name"
-                    type="text"
-                    required
-                    className="w-full bg-secondary/50 border border-transparent focus:border-primary focus:bg-background rounded-xl px-4 py-3 transition-all outline-none"
-                    placeholder="Your name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  />
-                </div>
+              <div className="p-3 rounded-sm bg-white/10 mr-4">
+                <MessageCircle className="w-6 h-6" />
+              </div>
+              <div className="flex-grow">
+                <div className="text-sm font-medium text-green-100 mb-0.5">WhatsApp</div>
+                <div className="font-semibold text-lg">+44 7475 437833</div>
+              </div>
+              <ArrowRight className="text-white transform transition-transform group-hover:translate-x-1" />
+            </motion.a>
 
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-muted-foreground ml-1">Email</label>
-                  <input
-                    id="email"
-                    type="email"
-                    required
-                    className="w-full bg-secondary/50 border border-transparent focus:border-primary focus:bg-background rounded-xl px-4 py-3 transition-all outline-none"
-                    placeholder="your@email.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  />
-                </div>
+            {/* Email + Instagram — 2-col grid */}
+            <div className="grid sm:grid-cols-2 gap-3">
 
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-muted-foreground ml-1">Message</label>
-                  <textarea
-                    id="message"
-                    required
-                    rows={4}
-                    className="w-full bg-secondary/50 border border-transparent focus:border-primary focus:bg-background rounded-xl px-4 py-3 transition-all outline-none resize-none"
-                    placeholder="Tell me about your project..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  />
+              {/* Email */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="group relative flex items-center p-5 rounded-sm bg-card border border-border hover:border-primary/50 transition-all duration-300"
+              >
+                <a
+                  href={EMAIL_URL}
+                  className="absolute inset-0 z-10"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
+                <div className="p-3 rounded-sm bg-secondary mr-4 shrink-0">
+                  <Mail className="w-5 h-5" />
                 </div>
-
+                <div className="flex-grow min-w-0">
+                  <div className="text-xs font-medium text-muted-foreground mb-0.5">Email</div>
+                  <div className="font-semibold text-sm truncate">nascreate0@gmail.com</div>
+                </div>
                 <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-primary text-primary-foreground font-semibold rounded-xl py-4 hover:opacity-90 transition-opacity disabled:opacity-50"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleCopy("nascreate0@gmail.com", "email");
+                  }}
+                  className="relative z-20 p-2 hover:bg-secondary rounded-full transition-colors ml-2 shrink-0"
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {copied === "email" ? <Check size={16} /> : <span className="text-xs font-medium px-1">Copy</span>}
                 </button>
-              </form>
-            </motion.div>
+              </motion.div>
 
+              {/* Instagram */}
+              <motion.a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                className="group flex items-center p-5 rounded-sm bg-card border border-border hover:border-primary/50 transition-all duration-300"
+              >
+                <div className="p-3 rounded-sm bg-secondary mr-4 shrink-0">
+                  <Instagram className="w-5 h-5" />
+                </div>
+                <div className="flex-grow min-w-0">
+                  <div className="text-xs font-medium text-muted-foreground mb-0.5">Instagram</div>
+                  <div className="font-semibold text-sm">@nas.create</div>
+                </div>
+                <ArrowRight className="text-muted-foreground transform transition-transform group-hover:translate-x-1 group-hover:text-primary shrink-0" />
+              </motion.a>
+
+            </div>
           </div>
+
+          {/* Location badge */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.35 }}
+            className="flex items-center justify-center gap-2 mt-10 text-sm text-muted-foreground"
+          >
+            <MapPin className="w-4 h-4" />
+            <span>Based in the UK &middot; Available for remote work worldwide</span>
+          </motion.div>
+
         </div>
       </div>
     </PageTransition>

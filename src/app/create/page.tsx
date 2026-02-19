@@ -427,7 +427,6 @@ export default function CreativePage() {
     { label: "All", value: "all" },
     { label: "Video", value: "video" },
     { label: "Photo", value: "photo" },
-    { label: "Case Studies", value: "case" }
   ];
 
   const counts = useMemo(() => {
@@ -558,8 +557,8 @@ export default function CreativePage() {
                     </div>
                   </div>
                 </div>
-                <h1 className="text-4xl md:text-6xl font-bold text-text mb-4">Commercial Video & Photography</h1>
-                <p className="text-xl md:text-2xl text-dim mb-6">Every piece of content has a job to do.</p>
+                <h1 className="font-display font-light text-5xl md:text-7xl tracking-tight text-white mb-4">Premium Visuals</h1>
+                <p className="text-lg md:text-xl text-white/65 mb-6 italic">Every piece of content has a job to do.</p>
               </div>
             </ScrollReveal>
 
@@ -603,7 +602,8 @@ export default function CreativePage() {
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-text mb-3">Featured Work</h2>
+                <p className="eyebrow mb-3" style={{ color: "var(--color-accent)" }}>Featured</p>
+                <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-text mb-3">Featured Work</h2>
                 <p className="text-dim">A quick look at recent creative work.</p>
               </div>
             </ScrollReveal>
@@ -631,13 +631,14 @@ export default function CreativePage() {
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-text mb-3">Creative Portfolio</h2>
+                <p className="eyebrow mb-3" style={{ color: "var(--color-accent)" }}>The Work</p>
+                <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-text mb-3">Creative Portfolio</h2>
                 <p className="text-dim">Selected videography, photography, and case-led projects.</p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.2}>
-              <div className="flex flex-wrap justify-center gap-3 mb-12">
+              <div className="flex flex-wrap justify-center gap-1 mb-12 border-b border-white/10 pb-0">
                 {filters.map((filter) => {
                   const isActive = activeFilter === filter.value;
                   return (
@@ -645,10 +646,10 @@ export default function CreativePage() {
                       key={filter.value}
                       type="button"
                       onClick={() => handleFilterClick(filter.value)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-bg ${
+                      className={`px-5 py-3 text-sm font-medium transition-all duration-200 focus:outline-none border-b-2 -mb-px ${
                         isActive
-                          ? "bg-accent text-[#0B0C0E] border-transparent"
-                          : "bg-muted text-accent border-subtle hover:bg-subtle"
+                          ? "border-accent text-white"
+                          : "border-transparent text-white/50 hover:text-white/80"
                       }`}
                       aria-pressed={isActive}
                     >
@@ -684,8 +685,7 @@ export default function CreativePage() {
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleAlbumOpen(item)}
                   >
-                    <div className="pointer-events-none absolute inset-0 rounded-lg bg-gradient-to-br from-[color:var(--accent)]/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 -z-0" />
-                    <div className="relative aspect-square bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden border border-subtle hover:border-[color:var(--ring)] hover:shadow-[0_18px_35px_-18px_rgba(57,255,136,0.6)] transition-all duration-300">
+                    <div className="relative aspect-square bg-black/20 rounded-sm overflow-hidden border border-white/10 group-hover:border-white/25 transition-all duration-300">
                       {item.cover && (
                         <>
                           <Image
@@ -693,29 +693,29 @@ export default function CreativePage() {
                             alt={item.alt || item.title || "Album cover"}
                             fill
                             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                            className="object-cover"
+                            className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                           />
-                          <div className="absolute top-2 left-2 z-10">
-                            <div className="px-2 py-1 rounded-md bg-gradient-to-r from-emerald-400 to-green-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg animate-pulse">
+                          <div className="absolute top-3 left-3 z-10">
+                            <div className="px-2 py-1 rounded-sm bg-black/60 backdrop-blur-sm text-white/80 text-[10px] font-medium uppercase tracking-widest">
                               Photos
                             </div>
                           </div>
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="p-4 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full shadow-2xl group-hover:scale-110 transition-transform duration-300 flex items-center gap-2">
-                              <Camera size={24} />
-                              <span className="text-lg font-bold">{item.albumImages?.length || 0}</span>
+                          <div className="absolute bottom-3 right-3 z-10">
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/60 backdrop-blur-sm text-white/80 text-xs font-medium">
+                              <Camera size={14} />
+                              <span>{item.albumImages?.length || 0}</span>
                             </div>
                           </div>
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
                         </>
                       )}
                     </div>
                     <div className="mt-3 space-y-2">
-                      {item.title && <h4 className="text-sm font-medium text-gray-900 dark:text-white">{item.title}</h4>}
+                      {item.title && <h4 className="font-display font-light text-base text-white">{item.title}</h4>}
                       {item.tags && item.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {item.tags.slice(0, 5).map((tag) => (
-                            <span key={tag} className="px-2.5 py-1 rounded-full text-xs font-medium border border-emerald-500/30 bg-emerald-500/10 text-emerald-300">
+                        <div className="flex flex-wrap gap-1.5">
+                          {item.tags.slice(0, 4).map((tag) => (
+                            <span key={tag} className="px-2 py-0.5 rounded-sm text-[10px] font-medium border border-white/15 text-white/50 uppercase tracking-wider">
                               {tag}
                             </span>
                           ))}
@@ -772,14 +772,14 @@ export default function CreativePage() {
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ duration: 0.3 }}
               >
-                <div ref={albumModalRef} className="relative w-full max-w-7xl max-h-[90vh] rounded-3xl border border-subtle bg-panel backdrop-blur-md text-text shadow-2xl overflow-auto">
-                  <button onClick={handleAlbumClose} className="sticky top-4 right-4 float-right z-10 p-2 rounded-full bg-muted text-text hover:text-text ring-accent ring-offset-bg">
+                <div ref={albumModalRef} className="relative w-full max-w-7xl max-h-[90vh] rounded-sm border border-white/10 bg-[#0B0C0E] text-white shadow-2xl overflow-auto">
+                  <button onClick={handleAlbumClose} className="sticky top-4 right-4 float-right z-10 p-2 rounded-sm bg-white/10 text-white hover:bg-white/20 transition-colors">
                     <X size={20} />
                   </button>
                   <div className="p-8 space-y-6">
                     <div className="mb-6">
-                      <h2 className="text-3xl font-bold text-text mb-2">{activeAlbum.title}</h2>
-                      <p className="text-dim leading-relaxed">{activeAlbum.description}</p>
+                      <h2 className="font-display font-light text-3xl tracking-tight text-white mb-2">{activeAlbum.title}</h2>
+                      <p className="text-white/60 leading-relaxed">{activeAlbum.description}</p>
                     </div>
                     <LightboxGallery
                       items={activeAlbum.albumImages}
@@ -802,7 +802,8 @@ export default function CreativePage() {
         <section className="py-20 px-8 bg-panel transition-colors duration-300">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal direction="up" delay={0.1}>
-              <h2 className="text-3xl md:text-4xl font-bold text-text mb-6 transition-colors duration-300">Got a project? Let&apos;s talk.</h2>
+              <p className="eyebrow mb-3" style={{ color: "var(--color-accent)" }}>Get In Touch</p>
+              <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-text mb-6 transition-colors duration-300">Got a project? Let&apos;s talk.</h2>
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.5}>
               <CreativeCTA source="creative_footer" className="justify-center" />
@@ -851,14 +852,14 @@ function DesktopCtas() {
   return (
     <>
       <div className={`hidden md:block fixed left-1/2 z-40 -translate-x-1/2 transition-all duration-200 ${show ? "bottom-6 opacity-100" : "bottom-3 opacity-0 pointer-events-none"}`}>
-        <div className="rounded-3xl border border-gray-200/40 bg-gray-900/80 px-4 py-3 backdrop-blur-md shadow-xl dark:border-white/10">
+        <div className="rounded-sm border border-white/10 bg-black/80 px-4 py-3 backdrop-blur-md shadow-xl">
           <CreativeCTA source="creative_sticky" className="items-center" size="sm" />
         </div>
       </div>
       <div className={`hidden md:block fixed right-6 z-40 transition-all duration-200 ${showFab ? "bottom-24 opacity-100" : "bottom-20 opacity-0 pointer-events-none"}`}>
         <Link
           href="/contact?src=creative_fab#whatsapp"
-          className="rounded-full bg-emerald-500/90 text-white px-5 py-3 font-semibold shadow-lg hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200"
+          className="rounded-sm bg-accent text-accent-foreground px-5 py-3 font-medium text-sm shadow-lg hover:opacity-90 transition-opacity focus-visible:outline-none"
           data-cta="creative_fab_whatsapp"
           onClick={(e) => trackCta("creative_fab_whatsapp", { href: e.currentTarget.href })}
         >
@@ -886,7 +887,7 @@ function MobileFab() {
     <div className={`md:hidden fixed right-4 z-40 transition-all duration-300 ${scrolled ? "bottom-6 opacity-100 scale-100" : "bottom-0 opacity-0 scale-75 pointer-events-none"}`}>
       <Link
         href="/contact?src=creative_mobile_fab#whatsapp"
-        className="flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-500 text-white px-6 py-4 font-semibold shadow-2xl hover:shadow-emerald-500/50 active:scale-95 transition-all duration-200"
+        className="flex items-center gap-2 rounded-sm bg-accent text-accent-foreground px-6 py-4 font-medium text-sm shadow-xl active:scale-95 transition-all duration-200"
         data-cta="creative_mobile_fab"
         onClick={(e) => trackCta("creative_mobile_fab", { href: e.currentTarget.href })}
       >

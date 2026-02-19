@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Navbar from "./components/Navbar";
 import FloatingDock from "./components/FloatingDock";
@@ -7,16 +6,6 @@ import AnimationWrapper from "./components/AnimationWrapper";
 import CustomCursor from "./components/CustomCursor";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nascreate.com"),
@@ -67,9 +56,12 @@ export default function RootLayout({
         {/* Prevent flash of wrong theme on load */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("nas-theme");if(t==="light"&&!location.pathname.startsWith("/create")){document.documentElement.classList.remove("dark");document.documentElement.classList.add("light");document.documentElement.style.colorScheme="light"}}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("nas-theme");if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}if(t==="light"){document.documentElement.classList.remove("dark");document.documentElement.classList.add("light");document.documentElement.style.colorScheme="light";}else{document.documentElement.classList.add("dark");document.documentElement.classList.remove("light");document.documentElement.style.colorScheme="dark";}}catch(e){}})()`,
           }}
         />
+        {/* Google Fonts preconnect */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Preconnect to external domains for faster resource loading */}
         <link rel="preconnect" href="https://i.ytimg.com" />
         <link rel="preconnect" href="https://www.youtube.com" />
@@ -88,7 +80,7 @@ export default function RootLayout({
         <link rel="prefetch" href="/contact" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground min-h-screen overflow-x-hidden selection:bg-accent/30 selection:text-accent-foreground cursor-none`}
+        className="font-sans antialiased bg-background text-foreground min-h-screen overflow-x-hidden selection:bg-accent/30 selection:text-accent-foreground cursor-none"
         suppressHydrationWarning
       >
         <ThemeProvider>

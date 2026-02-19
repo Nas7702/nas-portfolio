@@ -1,35 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap");
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Typography */
+  --font-display: "Cormorant Garant", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+
+  /* Colours — dark mode defaults */
   --color-background: #0a0a0a;
-  --color-foreground: #ededed;
+  --color-foreground: #F0EBE3;
 
   --color-card: #111111;
-  --color-card-foreground: #ededed;
+  --color-card-foreground: #F0EBE3;
 
   --color-popover: #111111;
-  --color-popover-foreground: #ededed;
+  --color-popover-foreground: #F0EBE3;
 
-  --color-primary: #ededed;
+  --color-primary: #F0EBE3;
   --color-primary-foreground: #0a0a0a;
 
-  --color-secondary: #222222;
-  --color-secondary-foreground: #ededed;
+  --color-secondary: #1c1c1c;
+  --color-secondary-foreground: #F0EBE3;
 
-  --color-muted: #222222;
-  --color-muted-foreground: #a1a1a1;
+  --color-muted: #1c1c1c;
+  --color-muted-foreground: #888888;
 
-  --color-accent: #39FF88;
+  --color-accent: #00C896;
   --color-accent-foreground: #0a0a0a;
 
   --color-destructive: #ef4444;
-  --color-destructive-foreground: #ededed;
+  --color-destructive-foreground: #F0EBE3;
 
-  --color-border: #333333;
-  --color-input: #222222;
-  --color-ring: #39FF88;
+  --color-border: #2a2a2a;
+  --color-input: #1c1c1c;
+  --color-ring: #00C896;
 
-  --radius: 0.75rem;
+  /* Creative page colour tokens */
+  --color-bg: #0a0a0a;
+  --color-panel: #111111;
+  --color-text: #F0EBE3;
+  --color-dim: #888888;
+  --color-subtle: #2a2a2a;
+  --color-accent-ghost: rgba(0, 200, 150, 0.1);
+
+  --radius: 0.25rem;
+}
+
+/* Creative page — always forces dark tokens regardless of site theme.
+   Values mirror the dark-mode globals so dark mode is visually unchanged. */
+.theme-creative {
+  --color-bg: #0B0C0E;
+  --color-panel: #111314;
+  --color-text: #ffffff;
+  --color-dim: rgba(255, 255, 255, 0.55);
+  --color-accent: #00C896;
+  --color-ring: #00C896;
+  --color-subtle: rgba(255, 255, 255, 0.12);
+  --color-accent-ghost: rgba(0, 200, 150, 0.12);
+  /* Standard Tailwind colour tokens — keeps Testimonials and other
+     components readable even when the site is in light mode */
+  --color-background: #0B0C0E;
+  --color-card: #111314;
+  --color-card-foreground: #F0EBE3;
+  --color-primary: #F0EBE3;
+  --color-primary-foreground: #0a0a0a;
+  --color-muted-foreground: #888888;
+  --color-border: #2a2a2a;
 }
 
 /* Light mode colour overrides */
@@ -52,7 +89,7 @@ html:not(.dark) {
   --color-muted: #f0f0f0;
   --color-muted-foreground: #6b7280;
 
-  --color-accent: #059669;
+  --color-accent: #00875A;
   --color-accent-foreground: #ffffff;
 
   --color-destructive: #dc2626;
@@ -60,7 +97,7 @@ html:not(.dark) {
 
   --color-border: #e5e7eb;
   --color-input: #f0f0f0;
-  --color-ring: #059669;
+  --color-ring: #00875A;
 }
 
 @layer base {
@@ -83,7 +120,7 @@ html:not(.dark) {
     pointer-events: none;
     z-index: 100;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.4;
+    opacity: 0.55;
     mix-blend-mode: overlay;
   }
 
@@ -99,6 +136,16 @@ html:not(.dark) {
     text-wrap: balance;
   }
 
+  /* Eyebrow label — editorial section label above headings */
+  .eyebrow {
+    font-family: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--color-muted-foreground);
+  }
+
   /* Restored Creative Page Utilities */
   .overlay-tint {
     background-color: var(--color-background);
@@ -106,9 +153,19 @@ html:not(.dark) {
     mix-blend-mode: color-dodge;
   }
 
+  /* Force dark background for creative page overlays regardless of site theme */
+  .theme-creative .overlay-tint {
+    background-color: #0B0C0E;
+  }
+
   .gradient-vignette {
     background: radial-gradient(circle at center, transparent 40%, var(--color-background) 100%);
     pointer-events: none;
+  }
+
+  /* Force dark vignette on creative page regardless of site theme */
+  .theme-creative .gradient-vignette {
+    background: radial-gradient(circle at center, transparent 40%, #0B0C0E 100%);
   }
 
   .bg-grid {
