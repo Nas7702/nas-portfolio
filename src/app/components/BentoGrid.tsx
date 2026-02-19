@@ -29,7 +29,7 @@ function SpotlightCard({
         className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-500"
         style={{
           opacity: pos.show ? 1 : 0,
-          background: `radial-gradient(350px circle at ${pos.x}px ${pos.y}px, rgba(0,200,150,0.08), transparent 70%)`,
+          background: `radial-gradient(280px circle at ${pos.x}px ${pos.y}px, rgba(0,200,150,0.12), transparent 65%)`,
         }}
       />
       {children}
@@ -64,7 +64,7 @@ function SpotlightAnchor({
         className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-500"
         style={{
           opacity: pos.show ? 1 : 0,
-          background: `radial-gradient(350px circle at ${pos.x}px ${pos.y}px, rgba(0,200,150,0.08), transparent 70%)`,
+          background: `radial-gradient(280px circle at ${pos.x}px ${pos.y}px, rgba(0,200,150,0.12), transparent 65%)`,
         }}
       />
       {children}
@@ -75,11 +75,14 @@ function SpotlightAnchor({
 export default function BentoGrid() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-20">
-      <div className="mb-10 text-center">
-        <p className="eyebrow mb-3">The Work</p>
-        <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-foreground">
-          What I do
-        </h2>
+      <div className="mb-10 flex items-end justify-between">
+        <div>
+          <p className="eyebrow mb-3">Selected Work</p>
+          <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-foreground">
+            At a Glance
+          </h2>
+        </div>
+        <span className="text-xs text-muted-foreground hidden md:block pb-1">Yorkshire — UK</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 auto-rows-[300px]">
@@ -114,6 +117,12 @@ export default function BentoGrid() {
           href="/about"
           className="group relative col-span-1 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
         >
+          <span
+            aria-hidden="true"
+            className="absolute bottom-4 right-5 font-display text-8xl font-light leading-none text-foreground/[0.04] select-none pointer-events-none"
+          >
+            01
+          </span>
           <div className="relative z-10 flex flex-col justify-between h-full">
             <div>
               <div className="w-10 h-10 rounded-sm bg-accent/15 flex items-center justify-center mb-4 text-accent">
@@ -166,6 +175,12 @@ export default function BentoGrid() {
           href="/contact"
           className="group relative col-span-1 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
         >
+          <span
+            aria-hidden="true"
+            className="absolute bottom-4 right-5 font-display text-8xl font-light leading-none text-foreground/[0.04] select-none pointer-events-none"
+          >
+            02
+          </span>
           <div className="relative z-10 flex flex-col justify-between h-full">
             <div>
               <div className="w-10 h-10 rounded-sm bg-accent/15 flex items-center justify-center mb-4 text-accent">

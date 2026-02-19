@@ -132,7 +132,7 @@ function IconContainer({
         style={{ width, height }}
         className={cn(
           "aspect-square rounded-full flex items-center justify-center relative group",
-          isActive ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground hover:bg-muted hover:text-foreground"
+          isActive ? "bg-accent text-accent-foreground shadow-[0_0_18px_rgba(0,200,150,0.45),0_0_6px_rgba(0,200,150,0.3)]" : "bg-secondary text-muted-foreground hover:bg-muted hover:text-foreground"
         )}
       >
         <span className="absolute -top-8 rounded-md border border-border bg-card px-2 py-0.5 text-xs text-foreground opacity-0 transition-opacity group-hover:opacity-100 whitespace-nowrap">
