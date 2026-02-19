@@ -109,22 +109,22 @@ export default function Testimonials() {
       <ScrollReveal direction="up" delay={0} threshold={0.15}>
         <div className="flex flex-col md:flex-row justify-between gap-6 mb-10">
           <div className="space-y-3">
-            <p className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-white/50">
+            <p className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-muted-foreground">
               <MessageSquareQuote size={16} aria-hidden />
               Testimonials
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
               Featured Client Stories
             </h2>
-            <p className="text-white/55 max-w-2xl">
+            <p className="text-muted-foreground max-w-2xl">
               Real clients. Real results. Here&apos;s what they said.
             </p>
           </div>
-          <div className="flex items-center gap-3 rounded-2xl border border-white/15 bg-white/8 px-4 py-3">
+          <div className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-sm">
             <Sparkles size={18} className="text-accent" aria-hidden />
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-white leading-tight">The video has a job to do</p>
-              <p className="text-xs text-white/50 leading-tight">Every brief starts with the outcome</p>
+              <p className="text-sm font-semibold text-foreground leading-tight">The video has a job to do</p>
+              <p className="text-xs text-muted-foreground leading-tight">Every brief starts with the outcome</p>
             </div>
           </div>
         </div>
@@ -136,17 +136,17 @@ export default function Testimonials() {
           {/* Main testimonial card */}
           <article
             key={currentIndex}
-            className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#111314] p-8 md:p-12 shadow-lg animate-in fade-in slide-in-from-right-4 duration-500"
+            className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8 md:p-12 shadow-lg animate-in fade-in slide-in-from-right-4 duration-500"
           >
             {/* Background effects */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-accent/10 blur-3xl" />
-              <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-white/5 blur-3xl" />
+              <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-accent/5 blur-3xl" />
+              <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-foreground/5 blur-3xl" />
             </div>
 
             {/* Decorative quote mark */}
             <div className="absolute top-4 right-8 opacity-5">
-              <Quote size={180} className="text-white" strokeWidth={1} />
+              <Quote size={180} className="text-foreground" strokeWidth={1} />
             </div>
 
             {/* Content */}
@@ -159,23 +159,23 @@ export default function Testimonials() {
                       href={testimonial.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-white/8 px-4 py-1.5 mb-3 hover:bg-white/12 transition-colors duration-200 group/link"
+                      className="inline-flex items-center gap-2 rounded-full bg-accent/5 border border-accent/10 px-4 py-1.5 mb-3 hover:bg-accent/10 transition-colors duration-200 group/link"
                     >
                       <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                      <p className="text-sm font-semibold text-white/80 uppercase tracking-wider">{testimonial.role}</p>
-                      <ExternalLink size={12} className="text-white/40 opacity-0 group-hover/link:opacity-100 transition-opacity duration-200" />
+                      <p className="text-sm font-semibold text-accent uppercase tracking-wider">{testimonial.role}</p>
+                      <ExternalLink size={12} className="text-accent opacity-0 group-hover/link:opacity-100 transition-opacity duration-200" />
                     </a>
                   ) : (
-                    <div className="inline-flex items-center gap-2 rounded-full bg-white/8 px-4 py-1.5 mb-3">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-accent/5 border border-accent/10 px-4 py-1.5 mb-3">
                       <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                      <p className="text-sm font-semibold text-white/80 uppercase tracking-wider">{testimonial.role}</p>
+                      <p className="text-sm font-semibold text-accent uppercase tracking-wider">{testimonial.role}</p>
                     </div>
                   )}
-                  <h3 className="text-2xl md:text-3xl font-bold text-white">{testimonial.name}</h3>
-                  <p className="text-base text-white/60 font-medium italic mt-1">{testimonial.headline}</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground">{testimonial.name}</h3>
+                  <p className="text-base text-muted-foreground font-medium italic mt-1">{testimonial.headline}</p>
                 </div>
-                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-white/8 flex items-center justify-center border border-white/10">
-                  <MessageSquareQuote size={28} className="text-white/60" />
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-secondary flex items-center justify-center border border-border">
+                  <MessageSquareQuote size={28} className="text-muted-foreground" />
                 </div>
               </div>
 
@@ -183,13 +183,13 @@ export default function Testimonials() {
               <div className="space-y-6">
                 <div className="relative">
                   <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-accent via-accent/50 to-transparent rounded-full" />
-                  <p className="pl-6 text-lg md:text-xl leading-relaxed text-white/90 font-light">
+                  <p className="pl-6 text-lg md:text-xl leading-relaxed text-foreground/90 font-light">
                     &ldquo;{testimonial.quote}&rdquo;
                   </p>
                 </div>
 
-                <div className="relative pt-4 border-t border-white/10">
-                  <p className="text-base md:text-lg text-white/50 leading-relaxed">{testimonial.praise}</p>
+                <div className="relative pt-4 border-t border-border">
+                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed">{testimonial.praise}</p>
                 </div>
 
                 {testimonial.relatedWork && testimonial.relatedWork.length > 0 && (
@@ -201,7 +201,7 @@ export default function Testimonials() {
                           href={work.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm font-medium text-white/70 hover:bg-white/12 hover:text-white transition-all duration-200"
+                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-200"
                         >
                           <Play size={14} />
                           {work.label}
@@ -214,7 +214,7 @@ export default function Testimonials() {
                             const el = document.getElementById(work.scrollTo!);
                             if (el) el.scrollIntoView({ behavior: "smooth" });
                           }}
-                          className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-sm font-medium text-white/70 hover:bg-white/12 hover:text-white transition-all duration-200"
+                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-200"
                         >
                           <Camera size={14} />
                           {work.label}
@@ -230,14 +230,14 @@ export default function Testimonials() {
           {/* Navigation arrows */}
           <button
             onClick={() => { prevSlide(); setIsAutoPlaying(false); setTimeout(() => setIsAutoPlaying(true), 10000); }}
-            className="absolute left-4 top-[200px] w-10 h-10 rounded-full bg-black/40 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white/20 hover:bg-white/10 transition-all duration-200 backdrop-blur-sm"
+            className="absolute left-4 top-[200px] w-10 h-10 rounded-full bg-background/80 border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-200 backdrop-blur-sm shadow-sm"
             aria-label="Previous testimonial"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={() => { nextSlide(); setIsAutoPlaying(false); setTimeout(() => setIsAutoPlaying(true), 10000); }}
-            className="absolute right-4 top-[200px] w-10 h-10 rounded-full bg-black/40 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white/20 hover:bg-white/10 transition-all duration-200 backdrop-blur-sm"
+            className="absolute right-4 top-[200px] w-10 h-10 rounded-full bg-background/80 border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-200 backdrop-blur-sm shadow-sm"
             aria-label="Next testimonial"
           >
             <ChevronRight size={20} />
@@ -254,12 +254,12 @@ export default function Testimonials() {
                 className={`relative h-2 rounded-full transition-all duration-300 ${
                   index === currentIndex
                     ? "w-8 bg-accent"
-                    : "w-2 bg-white/20 hover:bg-white/40"
+                    : "w-2 bg-border hover:bg-accent/50"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
               >
                 {index === currentIndex && isAutoPlaying && (
-                  <span className="absolute inset-0 rounded-full bg-primary/50 animate-ping" />
+                  <span className="absolute inset-0 rounded-full bg-accent/30 animate-ping" />
                 )}
               </button>
             ))}
@@ -267,9 +267,9 @@ export default function Testimonials() {
 
           {/* Progress bar */}
           {isAutoPlaying && (
-            <div className="w-32 h-1 bg-white/10 rounded-full overflow-hidden">
+            <div className="w-32 h-1 bg-secondary rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-primary/50 via-primary to-primary/50 rounded-full transition-all duration-100 ease-linear"
+                className="h-full bg-gradient-to-r from-accent/50 via-accent to-accent/50 rounded-full transition-all duration-100 ease-linear"
                 style={{ width: `${progress}%` }}
               />
             </div>

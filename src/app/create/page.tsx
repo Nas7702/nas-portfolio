@@ -172,7 +172,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "DP & Editor",
     date: "2025",
     cover: "https://i.ytimg.com/vi/ohxsUU4xt2o/hqdefault.jpg",
-    description: "Event highlight reel for Sheffield Varsity Basketball. Shot and edited same-week for the university."
+    description: "Event highlight reel for Sheffield Varsity Basketball. Shot, edited and delivered the next day."
   },
   {
     id: "Sheffield Varsity Powerlifting",
@@ -514,8 +514,11 @@ export default function CreativePage() {
     <PageTransition>
       <div className="theme-creative min-h-screen bg-bg text-text transition-colors duration-300">
         {/* Nas.Create Branded Header */}
-        <section ref={heroSectionRef} className="relative overflow-hidden py-20 px-6 sm:px-8 bg-bg">
-          <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(11,15,10,0.82)_0%,rgba(6,10,8,0.94)_65%,rgba(0,0,0,1)_100%)]" />
+        {/* Nas.Create Branded Header */}
+        <section ref={heroSectionRef} className="relative overflow-hidden py-20 px-6 sm:px-8 bg-background">
+          {/* Light Mode: Subtle vignette. Dark Mode: Radial gradient overlay */}
+          <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.05)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(11,15,10,0.82)_0%,rgba(6,10,8,0.94)_65%,rgba(0,0,0,1)_100%)] transition-all duration-500" />
+
           <div
             ref={heroBgRef}
             className="absolute inset-0 pointer-events-none will-change-transform"
@@ -528,11 +531,13 @@ export default function CreativePage() {
               fill
               priority
               sizes="100vw"
-              className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[6px] brightness-[0.45] grayscale"
+              className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[6px] brightness-[0.45] grayscale hidden dark:block transition-all duration-500"
             />
-            <div aria-hidden className="absolute inset-0 overlay-tint" />
-            <div aria-hidden className="absolute inset-0 gradient-vignette" />
-            <div className="absolute inset-0 bg-grid hero-grid-mask" />
+            {/* Dark Mode Overlay Tints */}
+            <div aria-hidden className="absolute inset-0 overlay-tint hidden dark:block" />
+            <div aria-hidden className="absolute inset-0 gradient-vignette hidden dark:block" />
+            {/* Grid Pattern: Subtle in light, strong in dark */}
+            <div className="absolute inset-0 bg-grid hero-grid-mask opacity-10 dark:opacity-100" />
           </div>
 
           <div className="max-w-6xl mx-auto text-center relative z-10 px-2 sm:px-0">
@@ -546,19 +551,29 @@ export default function CreativePage() {
                       style={{ background: "radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0) 80%)" }}
                     />
                     <div className="relative flex items-center justify-center w-64 h-32 md:w-80 md:h-40 lg:w-96 lg:h-48 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
+                      {/* Light Mode Logo */}
+                      <Image
+                        src="/logos/lightmode-workmark.png"
+                        alt="Nas.Create Logo"
+                        width={480}
+                        height={240}
+                        className="w-full h-full object-contain drop-shadow-sm dark:hidden block"
+                        priority
+                      />
+                      {/* Dark Mode Logo */}
                       <Image
                         src="/logos/darkmode-wordmark.png"
                         alt="Nas.Create Logo"
                         width={480}
                         height={240}
-                        className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(255,255,255,0.6)]"
+                        className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(255,255,255,0.6)] hidden dark:block"
                         priority
                       />
                     </div>
                   </div>
                 </div>
-                <h1 className="font-display font-light text-5xl md:text-7xl tracking-tight text-white mb-4">Premium Visuals</h1>
-                <p className="text-lg md:text-xl text-white/65 mb-6 italic">Every piece of content has a job to do.</p>
+                <h1 className="font-display font-light text-5xl md:text-7xl tracking-tight text-foreground mb-4">Premium Visuals</h1>
+                <p className="text-lg md:text-xl text-muted-foreground mb-6 italic">Every piece of content has a job to do.</p>
               </div>
             </ScrollReveal>
 
@@ -568,16 +583,15 @@ export default function CreativePage() {
                   href="https://www.instagram.com/nas.create/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-6 py-3 font-medium rounded-xl transition-all duration-200 transform hover:scale-105 group text-accent"
-                  style={{ background: "linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%)" }}
+                  className="flex items-center gap-3 px-6 py-3 font-medium rounded-xl transition-all duration-200 transform hover:scale-105 group bg-accent hover:bg-accent/90 text-white shadow-lg shadow-accent/20"
                 >
-                  <Instagram size={20} />
-                  <span>@nas.create</span>
-                  <ExternalLink size={16} className="opacity-70 group-hover:opacity-100" />
+                  <Instagram size={20} className="text-white" />
+                  <span className="text-white">@nas.create</span>
+                  <ExternalLink size={16} className="opacity-70 group-hover:opacity-100 text-white" />
                 </a>
                 <div className="flex items-center gap-2 text-accent">
                   <div className="w-2 h-2 rounded-full animate-pulse bg-accent"></div>
-                  <span className="text-sm font-medium text-accent">Available for Projects</span>
+                  <span className="text-sm font-medium text-emerald-800 dark:text-accent">Available for Projects</span>
                 </div>
               </div>
             </ScrollReveal>
@@ -585,11 +599,11 @@ export default function CreativePage() {
             <ScrollReveal direction="up" delay={0.5}>
               <div className="flex flex-wrap justify-center gap-4 mb-8">
                 {skillHighlights.map(({ label, icon: Icon }) => (
-                  <div key={label} className="flex items-center gap-2 text-sm font-medium text-accent tracking-wide">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-md bg-accent-ghost text-accent">
+                  <div key={label} className="flex items-center gap-2 text-sm font-medium text-emerald-800 dark:text-accent tracking-wide">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-md bg-accent/10 border border-accent/20 text-accent">
                       <Icon size={16} strokeWidth={2} />
                     </span>
-                    <span className="uppercase text-[0.75rem] tracking-[0.24em] text-accent opacity-80">{label}</span>
+                    <span className="uppercase text-[0.75rem] tracking-[0.24em] opacity-80">{label}</span>
                   </div>
                 ))}
               </div>
@@ -598,13 +612,13 @@ export default function CreativePage() {
         </section>
 
         {/* Featured Work */}
-        <section className="py-20 px-8 bg-panel transition-colors duration-300">
+        <section className="py-20 px-8 bg-muted/30 transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-10">
-                <p className="eyebrow mb-3" style={{ color: "var(--color-accent)" }}>Featured</p>
-                <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-text mb-3">Featured Work</h2>
-                <p className="text-dim">A quick look at recent creative work.</p>
+                <p className="eyebrow mb-3 text-accent">Featured</p>
+                <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-foreground mb-3">Featured Work</h2>
+                <p className="text-muted-foreground">A quick look at recent creative work.</p>
               </div>
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.2}>
@@ -622,23 +636,23 @@ export default function CreativePage() {
         </section>
 
         {/* Testimonials */}
-        <section className="py-10 px-6 sm:px-8 bg-panel transition-colors duration-300">
+        <section className="py-10 px-6 sm:px-8 bg-muted/30 transition-colors duration-300">
           <Testimonials />
         </section>
 
         {/* Portfolio Section */}
-        <section id="creative-portfolio" className="py-20 px-6 sm:px-8 bg-bg transition-colors duration-300">
+        <section id="creative-portfolio" className="py-20 px-6 sm:px-8 bg-background transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-12">
-                <p className="eyebrow mb-3" style={{ color: "var(--color-accent)" }}>The Work</p>
-                <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-text mb-3">Creative Portfolio</h2>
-                <p className="text-dim">Selected videography, photography, and case-led projects.</p>
+                <p className="eyebrow mb-3 text-accent">The Work</p>
+                <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-foreground mb-3">Creative Portfolio</h2>
+                <p className="text-muted-foreground">Selected videography, photography, and case-led projects.</p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.2}>
-              <div className="flex flex-wrap justify-center gap-1 mb-12 border-b border-white/10 pb-0">
+              <div className="flex flex-wrap justify-center gap-1 mb-12 border-b border-border pb-0">
                 {filters.map((filter) => {
                   const isActive = activeFilter === filter.value;
                   return (
@@ -648,8 +662,8 @@ export default function CreativePage() {
                       onClick={() => handleFilterClick(filter.value)}
                       className={`px-5 py-3 text-sm font-medium transition-all duration-200 focus:outline-none border-b-2 -mb-px ${
                         isActive
-                          ? "border-accent text-white"
-                          : "border-transparent text-white/50 hover:text-white/80"
+                          ? "border-accent text-foreground"
+                          : "border-transparent text-muted-foreground hover:text-foreground"
                       }`}
                       aria-pressed={isActive}
                     >
@@ -685,7 +699,7 @@ export default function CreativePage() {
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleAlbumOpen(item)}
                   >
-                    <div className="relative aspect-square bg-black/20 rounded-sm overflow-hidden border border-white/10 group-hover:border-white/25 transition-all duration-300">
+                    <div className="relative aspect-square bg-muted rounded-md overflow-hidden border border-border group-hover:border-accent transition-all duration-300 shadow-sm group-hover:shadow-md">
                       {item.cover && (
                         <>
                           <Image
@@ -696,26 +710,26 @@ export default function CreativePage() {
                             className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
                           />
                           <div className="absolute top-3 left-3 z-10">
-                            <div className="px-2 py-1 rounded-sm bg-black/60 backdrop-blur-sm text-white/80 text-[10px] font-medium uppercase tracking-widest">
+                            <div className="px-2 py-1 rounded-sm bg-black/60 backdrop-blur-sm text-white text-[10px] font-medium uppercase tracking-widest shadow-sm">
                               Photos
                             </div>
                           </div>
                           <div className="absolute bottom-3 right-3 z-10">
-                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/60 backdrop-blur-sm text-white/80 text-xs font-medium">
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-black/60 backdrop-blur-sm text-white text-xs font-medium shadow-sm">
                               <Camera size={14} />
                               <span>{item.albumImages?.length || 0}</span>
                             </div>
                           </div>
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                         </>
                       )}
                     </div>
                     <div className="mt-3 space-y-2">
-                      {item.title && <h4 className="font-display font-light text-base text-white">{item.title}</h4>}
+                      {item.title && <h4 className="font-display font-light text-base text-foreground group-hover:text-accent transition-colors">{item.title}</h4>}
                       {item.tags && item.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5">
                           {item.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className="px-2 py-0.5 rounded-sm text-[10px] font-medium border border-white/15 text-white/50 uppercase tracking-wider">
+                            <span key={tag} className="px-2 py-0.5 rounded-sm text-[10px] font-medium border border-accent/20 bg-accent/5 text-accent uppercase tracking-wider">
                               {tag}
                             </span>
                           ))}
@@ -725,26 +739,25 @@ export default function CreativePage() {
                   </motion.div>
                 ))}
 
-                {/* Case Studies */}
                 {caseItems.map((item) => (
                   <div key={item.id} className="relative w-full">
                     <button
                       // onClick={() => handleCaseStudyOpen(item)}
-                      className="relative w-full text-left rounded-2xl border border-subtle bg-muted hover:bg-subtle transition-colors duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-bg overflow-hidden group"
+                      className="relative w-full text-left rounded-2xl border border-border bg-card hover:border-accent transition-all duration-200 focus:outline-none focus:ring-2 ring-accent ring-offset-background overflow-hidden group shadow-sm hover:shadow-md"
                     >
                       {item.cover && (
                         <div className="relative aspect-video overflow-hidden">
                           <Image src={item.cover} alt={item.title || ""} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
                         </div>
                       )}
                       <div className="p-6 space-y-4">
                         <div className="flex items-center justify-between">
-                          <span className="px-3 py-1 text-xs font-semibold rounded-full border bg-accent-ghost text-accent" style={{ borderColor: 'var(--ring)' }}>Case Study</span>
+                          <span className="px-3 py-1 text-xs font-semibold rounded-full border border-accent/20 bg-accent/10 text-accent">Case Study</span>
                         </div>
                         <div>
-                          <h3 className="text-lg font-semibold text-text mb-2">{item.title}</h3>
-                          {item.caseSummary && <p className="text-sm text-dim line-clamp-3">{item.caseSummary}</p>}
+                          <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
+                          {item.caseSummary && <p className="text-sm text-muted-foreground line-clamp-3">{item.caseSummary}</p>}
                         </div>
                       </div>
                     </button>
@@ -799,7 +812,7 @@ export default function CreativePage() {
         </AnimatePresence>
 
         {/* Contact and Footer */}
-        <section className="py-20 px-8 bg-panel transition-colors duration-300">
+        <section className="py-20 pb-36 md:pb-32 px-8 bg-panel transition-colors duration-300">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal direction="up" delay={0.1}>
               <p className="eyebrow mb-3" style={{ color: "var(--color-accent)" }}>Get In Touch</p>
@@ -851,7 +864,7 @@ function DesktopCtas() {
 
   return (
     <>
-      <div className={`hidden md:block fixed left-1/2 z-40 -translate-x-1/2 transition-all duration-200 ${show ? "bottom-6 opacity-100" : "bottom-3 opacity-0 pointer-events-none"}`}>
+      <div className={`hidden md:block fixed left-1/2 z-40 -translate-x-1/2 transition-all duration-200 ${show ? "bottom-28 opacity-100" : "bottom-24 opacity-0 pointer-events-none"}`}>
         <div className="rounded-sm border border-white/10 bg-black/80 px-4 py-3 backdrop-blur-md shadow-xl">
           <CreativeCTA source="creative_sticky" className="items-center" size="sm" />
         </div>

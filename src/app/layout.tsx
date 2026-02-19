@@ -80,7 +80,7 @@ export default function RootLayout({
         <link rel="prefetch" href="/contact" />
       </head>
       <body
-        className="font-sans antialiased bg-background text-foreground min-h-screen overflow-x-hidden selection:bg-accent/30 selection:text-accent-foreground cursor-none"
+        className="font-sans antialiased bg-background text-foreground min-h-screen flex flex-col overflow-x-hidden selection:bg-accent/30 selection:text-accent-foreground cursor-none"
         suppressHydrationWarning
       >
         <ThemeProvider>

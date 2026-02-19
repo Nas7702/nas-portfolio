@@ -69,6 +69,39 @@
   --color-border: #2a2a2a;
 }
 
+/* Creative page in light mode — matches global light theme for consistency.
+   Removes the "muddy" olive/charcoal tones in favor of clean warm whites. */
+html:not(.dark) .theme-creative {
+  /* Match global light theme */
+  --color-bg: #F5F0EB;
+  --color-panel: #FAF7F4;
+
+  /* Dark text for contrast */
+  --color-text: #1A1714;
+  --color-dim: #7A736B;
+  --color-subtle: rgba(26, 23, 20, 0.08);
+
+  /* Emerald accent remains, but with correct contrast on light bg */
+  --color-accent: #00875A;
+  --color-ring: #00875A;
+  --color-accent-ghost: rgba(0, 135, 90, 0.1);
+
+  /* Standard Tailwind tokens */
+  --color-background: #F5F0EB;
+  --color-card: #FAF7F4;
+  --color-card-foreground: #1A1714;
+  --color-primary: #1A1714;
+  --color-primary-foreground: #F5F0EB;
+  --color-secondary: #EDE8E3;
+  --color-secondary-foreground: #1A1714;
+  --color-muted: #EDE8E3;
+  --color-muted-foreground: #7A736B;
+  --color-border: #DDD8D2;
+  --color-foreground: #1A1714;
+  --color-popover: #FAF7F4;
+  --color-popover-foreground: #1A1714;
+}
+
 /* Light mode colour overrides */
 html:not(.dark) {
   --color-background: #F5F0EB;
@@ -157,6 +190,12 @@ html:not(.dark) {
   .theme-creative .overlay-tint {
     background-color: #0B0C0E;
   }
+  /* Light mode: lighten tint for warm feel */
+  html:not(.dark) .theme-creative .overlay-tint {
+    background-color: #F5F0EB;
+    mix-blend-mode: multiply;
+    opacity: 0.1;
+  }
 
   .gradient-vignette {
     background: radial-gradient(circle at center, transparent 40%, var(--color-background) 100%);
@@ -166,6 +205,10 @@ html:not(.dark) {
   /* Force dark vignette on creative page regardless of site theme */
   .theme-creative .gradient-vignette {
     background: radial-gradient(circle at center, transparent 40%, #0B0C0E 100%);
+  }
+  /* Light mode: vignette matches light background */
+  html:not(.dark) .theme-creative .gradient-vignette {
+    background: radial-gradient(circle at center, transparent 40%, #F5F0EB 100%);
   }
 
   .bg-grid {

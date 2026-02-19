@@ -60,41 +60,36 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
 
       {/* Content */}
       <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
           {project.title}
         </h3>
 
-        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
           {project.description}
         </p>
 
         {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 mb-4">
-          {project.stack.slice(0, 3).map((tech: string) => (
+          {project.stack.map((tech: string) => (
             <span
               key={tech}
-              className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-xs rounded-full font-medium"
+              className="px-2.5 py-1 text-xs font-medium rounded-full border border-accent/20 bg-accent/10 text-accent"
             >
               {tech}
             </span>
           ))}
-          {project.stack.length > 3 && (
-            <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs rounded-full font-medium">
-              +{project.stack.length - 3} more
-            </span>
-          )}
         </div>
 
         {/* View Details */}
         <div className="flex items-center justify-between">
-          <span className="text-blue-600 dark:text-blue-400 text-sm font-medium group-hover:underline">
+          <span className="text-accent text-sm font-medium group-hover:underline">
             View Case Study →
           </span>
         </div>
       </div>
 
       {/* Hover border effect */}
-      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 via-green-500 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl" />
+      <div className="absolute inset-0 rounded-xl bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl" />
     </motion.div>
   );
 }
