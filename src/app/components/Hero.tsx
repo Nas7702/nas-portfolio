@@ -6,7 +6,6 @@ import { useState, useRef, Suspense, useMemo } from "react";
 import * as random from "maath/random/dist/maath-random.esm";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import * as THREE from "three";
 import { usePerformanceMode } from "@/hooks/usePerformanceMode";
@@ -63,7 +62,7 @@ function Scene() {
     return getRecommendedParticleCount(tier);
   }, [performanceMode, prefersReduced]);
 
-  const particleColor = theme === "dark" ? "#00C896" : "#00875A";
+  const particleColor = theme === "dark" ? "#8C877F" : "#5A544E";
 
   if (prefersReduced || particleCount === 0) {
     return null;
@@ -86,12 +85,12 @@ export default function Hero() {
       {/* 3D Background */}
       <Scene />
 
-      {/* Atmospheric accent light */}
+      {/* Atmospheric vignette */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 70% 50% at 35% 45%, rgba(0, 200, 150, 0.04) 0%, transparent 70%)'
+          background: 'radial-gradient(ellipse 80% 60% at 30% 50%, rgba(240, 235, 227, 0.02) 0%, transparent 70%)'
         }}
       />
 
@@ -127,9 +126,8 @@ export default function Hero() {
               <em className="text-foreground/85">Built Around Results.</em>
             </span>
           </h1>
-          <span className="relative mt-3 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default group">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse flex-shrink-0" />
-            Available for projects
+          <span className="mt-3 text-[0.65rem] font-medium tracking-[0.25em] uppercase text-muted-foreground/60">
+            Currently accepting commissions
           </span>
         </motion.div>
 
@@ -151,14 +149,10 @@ export default function Hero() {
         >
           <Link
             href="/create"
-            className="group relative inline-flex items-center gap-2 px-8 py-3 rounded-sm bg-accent text-accent-foreground font-medium hover:opacity-90 transition-all overflow-hidden"
+            className="group inline-flex items-center gap-3 px-8 py-3 rounded-sm border border-foreground/25 text-foreground text-xs font-medium tracking-[0.2em] uppercase hover:bg-foreground hover:text-background transition-all duration-500"
           >
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
-            />
             See My Work
-            <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+            <span aria-hidden="true" className="text-foreground/40 group-hover:text-background/60 transition-colors duration-500">→</span>
           </Link>
           <Link
             href="/contact"

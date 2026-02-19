@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Navbar from "./components/Navbar";
-import FloatingDock from "./components/FloatingDock";
 import AnimationWrapper from "./components/AnimationWrapper";
 import CustomCursor from "./components/CustomCursor";
 import "./globals.css";
@@ -84,8 +83,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider>
-          <Navbar /> {/* Keeping existing navbar for mobile fallback for now */}
-          <FloatingDock />
+          <Navbar />
           <CustomCursor />
           <AnimationWrapper>
             {children}

@@ -2,18 +2,18 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, Camera, User, Mail, Sun, Moon, Briefcase } from "lucide-react";
-import Logo from "./Logo";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 
 const navItems = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/create", label: "Work", icon: Camera },
-  { href: "/services", label: "Services", icon: Briefcase },
-  { href: "/about", label: "About", icon: User },
-  { href: "/contact", label: "Contact", icon: Mail },
+  { href: "/", label: "Home" },
+  { href: "/create", label: "Work" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -22,12 +22,10 @@ export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -37,16 +35,11 @@ export default function Navbar() {
     setIsOpen(false);
     setScrolled(false);
 
-    if (typeof window === "undefined") {
-      return;
-    }
+    if (typeof window === "undefined") return;
 
     window.scrollTo({ top: 0, behavior: "auto" });
 
-    const updateScrollState = () => {
-      setScrolled(window.scrollY > 20);
-    };
-
+    const updateScrollState = () => setScrolled(window.scrollY > 20);
     const rafId = window.requestAnimationFrame(updateScrollState);
     const timeoutId = window.setTimeout(updateScrollState, 120);
 
@@ -57,108 +50,87 @@ export default function Navbar() {
   }, [pathname]);
 
   const isActive = (href: string) => {
-    if (href === "/") {
-      return pathname === "/";
-    }
+    if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
 
-  const isCreativePage = pathname.startsWith("/create");
+  const navBg = scrolled || isOpen
+    ? "bg-background/90 backdrop-blur-md border-b border-border/40"
+    : "bg-transparent";
 
-  // Navbar background classes based on theme
-  const getNavBg = () => {
-    if (!(scrolled || isOpen)) return "bg-transparent";
-    return theme === "dark"
-      ? "bg-black/85 backdrop-blur-md shadow-lg border-b border-gray-800/30"
-      : "bg-white/85 backdrop-blur-md shadow-lg border-b border-gray-200/50";
-  };
-
-  // Mobile menu background
-  const getMobileBg = () => {
-    return theme === "dark"
-      ? "border-gray-800/30 bg-black/85"
-      : "border-gray-200/50 bg-white/90";
-  };
+  const mobileBg = theme === "dark"
+    ? "border-border/30 bg-black/90 backdrop-blur-md"
+    : "border-border/40 bg-background/95 backdrop-blur-md";
 
   return (
     <>
-      <motion.nav
-        data-theme={isCreativePage ? "creative" : undefined}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${getNavBg()}`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${navBg}`}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <Logo variant="default" />
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-1">
+            {/* Logo — inline wordmark */}
+            <Link href="/" aria-label="Nas.Create — Home" className="flex-shrink-0">
+              <Image
+                src="/logos/darkmode-inline.png"
+                alt="Nas.Create"
+                width={140}
+                height={25}
+                className="hidden dark:block h-[22px] w-auto"
+                priority
+              />
+              <Image
+                src="/logos/lightmode-inline.png"
+                alt="Nas.Create"
+                width={140}
+                height={25}
+                className="block dark:hidden h-[22px] w-auto"
+              />
+            </Link>
+
+            {/* Desktop nav — editorial small caps */}
+            <div className="hidden md:flex items-center gap-8">
               {navItems.map((item) => {
-                const Icon = item.icon;
                 const active = isActive(item.href);
-
-                // Use brand colors for Work/Creative item
-                const isCreative = item.href === "/create";
-                const activeColor = isCreative
-                  ? "text-accent"
-                  : "text-foreground";
-                const hoverColor = isCreative
-                  ? "text-foreground/70 hover:text-accent"
-                  : "text-foreground/70 hover:text-foreground";
-                const activeBackground = isCreative
-                  ? "bg-accent/10"
-                  : "bg-secondary";
-
                 return (
-                  <Link key={item.href} href={item.href}>
-                    <motion.div
-                      className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
-                        active
-                          ? activeColor
-                          : hoverColor
-                      }`}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Icon size={16} />
-                      {item.label}
-
-                      {/* Active indicator */}
-                      {active && (
-                        <motion.div
-                          className={`absolute inset-0 rounded-lg -z-10 ${activeBackground}`}
-                          layoutId="activeTab"
-                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        />
-                      )}
-                    </motion.div>
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`text-[0.65rem] font-medium tracking-[0.22em] uppercase transition-colors duration-300 ${
+                      active
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {item.label}
+                    {active && (
+                      <span className="block mt-0.5 h-px bg-foreground/40 w-full" />
+                    )}
                   </Link>
                 );
               })}
+
+              {/* Theme toggle */}
+              <button
+                onClick={toggleTheme}
+                className="text-muted-foreground hover:text-foreground transition-colors duration-300"
+                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              >
+                {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+              </button>
             </div>
 
-            {/* Mobile buttons */}
-            <div className="flex items-center gap-2">
-              {/* Theme toggle (mobile) */}
-              <motion.button
+            {/* Mobile controls */}
+            <div className="flex md:hidden items-center gap-2">
+              <button
                 onClick={toggleTheme}
-                className="md:hidden p-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 0.85 }}
+                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
                 aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               >
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-              </motion.button>
-
-              {/* Mobile Menu Button */}
-              <motion.button
+              </button>
+              <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                whileHover={{ scale: 1.15, rotate: 5 }}
-                whileTap={{ scale: 0.85 }}
+                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="Toggle menu"
               >
                 <AnimatePresence mode="wait">
@@ -184,51 +156,39 @@ export default function Navbar() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.button>
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className={`md:hidden border-t backdrop-blur-md ${getMobileBg()}`}
+              className={`md:hidden border-t ${mobileBg}`}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.25 }}
             >
-              <div className="px-4 py-2 space-y-1">
+              <div className="px-6 py-4 space-y-1">
                 {navItems.map((item, index) => {
-                  const Icon = item.icon;
                   const active = isActive(item.href);
-
-                  // Use brand colors for Work/Creative item
-                  const isCreative = item.href === "/create";
-
-                  const activeStyles = isCreative
-                    ? "bg-accent/10 text-accent"
-                    : "bg-secondary text-foreground";
-
-                  const inactiveStyles = "text-foreground/70 hover:bg-secondary";
-
                   return (
                     <motion.div
                       key={item.href}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -16 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
+                      transition={{ delay: index * 0.06 }}
                     >
                       <Link href={item.href}>
                         <div
-                          className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                          className={`flex items-center py-3 text-[0.7rem] tracking-[0.2em] uppercase font-medium transition-colors ${
                             active
-                              ? activeStyles
-                              : inactiveStyles
+                              ? "text-foreground"
+                              : "text-muted-foreground hover:text-foreground"
                           }`}
                         >
-                          <Icon size={18} />
                           {item.label}
                         </div>
                       </Link>
@@ -239,9 +199,9 @@ export default function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.nav>
+      </nav>
 
-      {/* Spacer to prevent content from hiding under fixed navbar */}
+      {/* Spacer */}
       <div className="h-16" />
     </>
   );

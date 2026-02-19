@@ -2,9 +2,8 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, Camera, User, Mail, Instagram, Clapperboard, Palette, Trophy } from "lucide-react";
 
-// Single polymorphic spotlight wrapper — updates DOM directly, no setState on mousemove
+// Spotlight wrapper — neutral white shimmer, no brand colour bleed
 function SpotlightWrapper({
   as: Tag,
   href,
@@ -26,7 +25,7 @@ function SpotlightWrapper({
     const y = e.clientY - rect.top;
     if (overlayRef.current) {
       overlayRef.current.style.opacity = "1";
-      overlayRef.current.style.background = `radial-gradient(280px circle at ${x}px ${y}px, rgba(0,200,150,0.12), transparent 65%)`;
+      overlayRef.current.style.background = `radial-gradient(320px circle at ${x}px ${y}px, rgba(255,255,255,0.04), transparent 70%)`;
     }
   };
 
@@ -40,7 +39,7 @@ function SpotlightWrapper({
     <div
       ref={overlayRef}
       aria-hidden="true"
-      className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-500"
+      className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-700"
       style={{ opacity: 0 }}
     />
   );
@@ -77,7 +76,7 @@ function SpotlightWrapper({
 export default function BentoGrid() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-20">
-      <div className="mb-10 flex items-end justify-between">
+      <div className="mb-12 flex items-end justify-between">
         <div className="w-full text-center md:text-left">
           <p className="eyebrow mb-3">Selected Work</p>
           <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-foreground">
@@ -87,128 +86,108 @@ export default function BentoGrid() {
         <span className="text-xs text-muted-foreground hidden md:block pb-1 flex-shrink-0">Yorkshire — UK</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 auto-rows-[300px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[270px] gap-3">
 
-        {/* Creative Portfolio Card - Wide */}
+        {/* Creative Portfolio — dominant cinematic panel */}
         <Link
           href="/create"
-          className="group relative col-span-1 md:col-span-2 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
+          className="group relative col-span-1 md:col-span-2 md:row-span-2 overflow-hidden rounded-sm min-h-[320px] md:min-h-0"
         >
-          {/* Cinematic backdrop */}
-          <div className="absolute inset-0 bg-[url('/images/bokeh-lights-dark-background.jpg')] bg-cover bg-center filter grayscale blur-sm brightness-50 opacity-70 group-hover:scale-105 transition-transform duration-700 dark:opacity-70 opacity-40" />
-          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
+          {/* Full-bleed cinematic backdrop */}
+          <div className="absolute inset-0 bg-[url('/images/bokeh-lights-dark-background.jpg')] bg-cover bg-center grayscale brightness-[0.45] group-hover:brightness-[0.55] group-hover:scale-[1.03] transition-all duration-700 ease-out" />
+          {/* Bottom-weighted gradient so text is legible */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
 
-          <div className="relative z-10 flex flex-col justify-between h-full">
-            <div>
-              <div className="w-10 h-10 rounded-sm bg-white/10 flex items-center justify-center mb-4 text-white backdrop-blur-sm">
-                <Camera size={20} />
-              </div>
-              <h3 className="font-display font-light text-2xl text-white mb-2 drop-shadow-md">Creative Portfolio</h3>
-              <p className="text-white/70 max-w-md text-sm drop-shadow-sm">
-                Brand films, Meta ads, event coverage and commercial photography. See the work.
-              </p>
-            </div>
-            <div className="flex items-center gap-2 text-white/60 group-hover:text-white text-sm font-medium group-hover:translate-x-1 transition-all duration-200">
-              View Projects <ArrowRight size={14} />
+          <div className="relative z-10 flex flex-col justify-end h-full p-8 md:p-10">
+            <span className="font-display italic text-white/25 text-[0.6rem] tracking-[0.35em] uppercase mb-5">I</span>
+            <h3 className="font-display font-light text-3xl md:text-[2.5rem] text-white mb-3 leading-tight">
+              Creative Portfolio
+            </h3>
+            <p className="text-white/55 max-w-sm text-sm leading-relaxed mb-7">
+              Brand films, Meta ads, event coverage and commercial photography.
+            </p>
+            <div className="flex items-center gap-3 text-white/45 group-hover:text-white/75 transition-colors duration-400">
+              <span className="w-6 h-px bg-current" />
+              <span className="text-[0.65rem] tracking-[0.25em] uppercase">View the work</span>
             </div>
           </div>
         </Link>
 
-        {/* About Me - Square */}
+        {/* About */}
         <SpotlightWrapper
           as="link"
           href="/about"
-          className="group relative col-span-1 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
+          className="group relative col-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 min-h-[200px] md:min-h-0 transition-all duration-300 hover:border-foreground/20"
         >
-          <User
-            aria-hidden="true"
-            size={140}
-            strokeWidth={0.6}
-            className="absolute -bottom-4 -right-4 text-foreground/[0.04] select-none pointer-events-none"
-          />
           <div className="relative z-10 flex flex-col justify-between h-full">
+            <span className="font-display italic text-foreground/15 text-[0.6rem] tracking-[0.35em] uppercase">II</span>
             <div>
-              <div className="w-10 h-10 rounded-sm bg-accent/15 flex items-center justify-center mb-4 text-accent">
-                <User size={20} />
-              </div>
-              <h3 className="font-display font-light text-xl text-foreground mb-2">About Me</h3>
-              <p className="text-muted-foreground text-sm">How I got here and what I&apos;m working on.</p>
+              <h3 className="font-display font-light text-xl text-foreground mb-2">About</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">How I got here and what I&apos;m working on.</p>
             </div>
-            <ArrowRight size={16} className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200 self-end" />
+            <span className="text-foreground/25 group-hover:text-foreground/55 text-[0.65rem] tracking-[0.2em] uppercase transition-colors duration-300">
+              Read →
+            </span>
           </div>
         </SpotlightWrapper>
 
-        {/* Services Card - Wide */}
-        <SpotlightWrapper
-          as="link"
-          href="/services"
-          className="group relative col-span-1 md:col-span-2 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
-        >
-          {/* Diagonal accent gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.05] via-transparent to-transparent pointer-events-none z-[1]" />
-          <div className="relative z-10 flex flex-col justify-between h-full">
-            <div>
-              <h3 className="font-display font-light text-2xl text-foreground mb-4">Services</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { icon: Clapperboard, label: "Videography", desc: "Brand films, promos & Meta ads" },
-                  { icon: Camera, label: "Photography", desc: "Commercial, fitness & events" },
-                  { icon: Trophy, label: "Event Coverage", desc: "Live events & multi-day projects" },
-                  { icon: Palette, label: "Post-Production", desc: "Edit, grade & sound design" },
-                ].map(({ icon: Icon, label, desc }) => (
-                  <div key={label} className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-sm bg-secondary flex items-center justify-center text-foreground flex-shrink-0 mt-0.5">
-                      <Icon size={14} />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{label}</p>
-                      <p className="text-xs text-muted-foreground">{desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200 text-sm font-medium mt-4">
-              See Services <ArrowRight size={14} />
-            </div>
-          </div>
-        </SpotlightWrapper>
-
-        {/* Contact - Square */}
+        {/* Contact */}
         <SpotlightWrapper
           as="link"
           href="/contact"
-          className="group relative col-span-1 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
+          className="group relative col-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 min-h-[200px] md:min-h-0 transition-all duration-300 hover:border-foreground/20"
         >
-          <Mail
-            aria-hidden="true"
-            size={140}
-            strokeWidth={0.6}
-            className="absolute -bottom-4 -right-4 text-foreground/[0.04] select-none pointer-events-none"
-          />
           <div className="relative z-10 flex flex-col justify-between h-full">
+            <span className="font-display italic text-foreground/15 text-[0.6rem] tracking-[0.35em] uppercase">III</span>
             <div>
-              <div className="w-10 h-10 rounded-sm bg-accent/15 flex items-center justify-center mb-4 text-accent">
-                <Mail size={20} />
-              </div>
               <h3 className="font-display font-light text-xl text-foreground mb-2">Get in Touch</h3>
-              <p className="text-muted-foreground text-sm">Got a project? Let&apos;s talk.</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">Got a project? Let&apos;s talk.</p>
             </div>
-            <ArrowRight size={16} className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200 self-end" />
+            <span className="text-foreground/25 group-hover:text-foreground/55 text-[0.65rem] tracking-[0.2em] uppercase transition-colors duration-300">
+              Start a conversation →
+            </span>
           </div>
         </SpotlightWrapper>
 
-        {/* Instagram Strip */}
+        {/* Services — full-width editorial strip */}
         <SpotlightWrapper
-          as="anchor"
-          href="https://www.instagram.com/nas.create/"
-          external
-          className="col-span-1 md:col-span-3 row-span-1 md:h-[80px] relative flex items-center justify-center gap-3 rounded-sm bg-card border border-border hover:border-foreground/30 transition-all duration-300 group"
+          as="link"
+          href="/services"
+          className="group relative col-span-1 md:col-span-3 overflow-hidden rounded-sm bg-card border border-border px-8 py-7 transition-all duration-300 hover:border-foreground/20"
         >
-          <Instagram className="text-muted-foreground group-hover:text-foreground transition-colors duration-200 relative z-10" size={18} />
-          <span className="text-muted-foreground group-hover:text-foreground transition-colors duration-200 font-medium text-sm tracking-wide relative z-10">@nas.create</span>
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-5 h-full">
+            <div className="flex items-center gap-5">
+              <span className="font-display italic text-foreground/15 text-[0.6rem] tracking-[0.35em] uppercase">IV</span>
+              <h3 className="font-display font-light text-xl text-foreground">Services</h3>
+            </div>
+            <div className="grid grid-cols-2 md:flex md:flex-wrap gap-x-8 gap-y-2 flex-1 md:justify-center">
+              {["Videography", "Photography", "Event Coverage", "Post-Production"].map((service) => (
+                <span
+                  key={service}
+                  className="text-[0.65rem] text-muted-foreground/60 tracking-[0.15em] uppercase group-hover:text-muted-foreground transition-colors duration-400"
+                >
+                  {service}
+                </span>
+              ))}
+            </div>
+            <span className="text-foreground/25 group-hover:text-foreground/55 text-[0.65rem] tracking-[0.2em] uppercase transition-colors duration-300 md:flex-shrink-0">
+              View Services →
+            </span>
+          </div>
         </SpotlightWrapper>
 
+      </div>
+
+      {/* Discreet social link — moved out of grid */}
+      <div className="mt-5 flex justify-end">
+        <a
+          href="https://www.instagram.com/nas.create/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[0.6rem] text-muted-foreground/40 hover:text-muted-foreground/70 tracking-[0.3em] uppercase transition-colors duration-300"
+        >
+          @nas.create
+        </a>
       </div>
     </section>
   );
