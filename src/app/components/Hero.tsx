@@ -1,96 +1,22 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
-import { useState, useRef, Suspense, useMemo } from "react";
-import * as random from "maath/random/dist/maath-random.esm";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import * as THREE from "three";
-import { usePerformanceMode } from "@/hooks/usePerformanceMode";
-import { getRecommendedParticleCount } from "@/lib/performance";
-import { useTheme } from "./ThemeProvider";
-
-interface ParticleCloudProps {
-  particleCount?: number;
-  color?: string;
-}
-
-function ParticleCloud({ particleCount = 3500, color = "#3b82f6" }: ParticleCloudProps) {
-  const ref = useRef<THREE.Points>(null);
-  const [sphere] = useState(() =>
-    random.inSphere(new Float32Array(particleCount), { radius: 1.5 }) as Float32Array
-  );
-
-  const prefersReduced = useReducedMotion();
-
-  useFrame((state, delta) => {
-    if (ref.current && !prefersReduced) {
-      ref.current.rotation.x -= delta / 10;
-      ref.current.rotation.y -= delta / 15;
-    }
-  });
-
-  return (
-    <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
-        <PointMaterial
-          transparent
-          color={color}
-          size={0.002}
-          sizeAttenuation={true}
-          depthWrite={false}
-        />
-      </Points>
-    </group>
-  );
-}
-
-function Scene() {
-  const performanceMode = usePerformanceMode();
-  const prefersReduced = useReducedMotion();
-  const { theme } = useTheme();
-
-  const particleCount = useMemo(() => {
-    if (prefersReduced || performanceMode === 'minimal') return 0;
-
-    const tier: 'low' | 'medium' | 'high' =
-      (performanceMode === 'low' || performanceMode === 'medium' || performanceMode === 'high')
-        ? performanceMode
-        : 'low';
-    return getRecommendedParticleCount(tier);
-  }, [performanceMode, prefersReduced]);
-
-  const particleColor = theme === "dark" ? "#8C877F" : "#5A544E";
-
-  if (prefersReduced || particleCount === 0) {
-    return null;
-  }
-
-  return (
-    <div className="absolute inset-0 z-0" aria-hidden="true">
-      <Canvas camera={{ position: [0, 0, 1] }}>
-        <Suspense fallback={null}>
-          <ParticleCloud particleCount={particleCount} color={particleColor} />
-        </Suspense>
-      </Canvas>
-    </div>
-  );
-}
+import { HeroInkShaderScene } from "./HeroInkShaderScene";
 
 export default function Hero() {
   return (
     <section className="relative min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center pt-6 sm:pt-10 md:pt-0 pb-20 overflow-hidden bg-background">
-      {/* 3D Background */}
-      <Scene />
+      {/* Ink shader background */}
+      <HeroInkShaderScene />
 
       {/* Atmospheric vignette */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 80% 60% at 30% 50%, rgba(240, 235, 227, 0.02) 0%, transparent 70%)'
+          background: 'radial-gradient(ellipse 86% 66% at 34% 50%, rgba(232, 228, 218, 0.012) 0%, transparent 74%)'
         }}
       />
 

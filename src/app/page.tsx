@@ -8,7 +8,7 @@ import LoadingSkeleton from "./components/LoadingSkeleton";
 // Dynamic imports for heavy components
 const Hero = dynamic(() => import("./components/Hero"), {
   loading: () => <LoadingSkeleton variant="hero" />,
-  ssr: false, // Three.js requires client-side rendering
+  ssr: false, // WebGL shader canvas requires client-side rendering
 });
 
 const BentoGrid = dynamic(() => import("./components/BentoGrid"), {

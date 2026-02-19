@@ -22,7 +22,13 @@ const Testimonials = dynamic(() => import("../components/Testimonials"), {
   loading: () => <LoadingSkeleton variant="card" count={2} />,
 });
 
-const HERO_BACKGROUND = "/images/bokeh-lights-dark-background.jpg";
+const CreativeBokehShaderScene = dynamic(
+  () =>
+    import("../components/CreativeBokehShaderScene").then(
+      (module) => module.CreativeBokehShaderScene
+    ),
+  { ssr: false }
+);
 // Force rebuild for logo update
 
 // Extended type for Portfolio items
@@ -527,19 +533,10 @@ export default function CreativePage() {
             aria-hidden
             style={{ transform: "scale(1.24)" }}
           >
-            <Image
-              src={HERO_BACKGROUND}
-              alt="Warm bokeh lights out of focus"
-              fill
-              priority
-              sizes="100vw"
-              className="absolute inset-0 object-cover object-center scale-[1.25] sm:scale-[1.15] lg:scale-[1.08] blur-[6px] brightness-[0.45] grayscale hidden dark:block transition-all duration-500"
-            />
+            <CreativeBokehShaderScene />
             {/* Dark Mode Overlay Tints */}
             <div aria-hidden className="absolute inset-0 overlay-tint hidden dark:block" />
             <div aria-hidden className="absolute inset-0 gradient-vignette hidden dark:block" />
-            {/* Grid Pattern: Subtle in light, strong in dark */}
-            <div className="absolute inset-0 bg-grid hero-grid-mask opacity-10 dark:opacity-100" />
           </div>
 
           <div className="max-w-6xl mx-auto text-center relative z-10 px-2 sm:px-0">
