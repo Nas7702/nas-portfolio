@@ -106,7 +106,7 @@ export default function Testimonials() {
   const testimonial = testimonials[currentIndex];
 
   return (
-    <section className="max-w-6xl mx-auto px-6 mt-32">
+    <section className="max-w-6xl mx-auto px-6 mt-12 md:mt-16">
       <ScrollReveal direction="up" delay={0} threshold={0.15}>
         <div className="flex flex-col md:flex-row justify-between gap-6 mb-10">
           <div className="space-y-3">

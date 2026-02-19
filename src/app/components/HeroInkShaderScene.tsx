@@ -227,13 +227,13 @@ function InkPlane({
 
   useEffect(() => {
     if (isLightTheme) {
-      uniforms.uColourA.value.setRGB(0.949, 0.945, 0.936);
-      uniforms.uColourB.value.setRGB(0.865, 0.858, 0.846);
-      uniforms.uRayTint.value.setRGB(0.92, 0.905, 0.87);
-      uniforms.uIntensity.value = quality === "low" ? 0.56 : 0.62;
-      uniforms.uSparkle.value = quality === "high" ? 0.018 : 0.012;
-      uniforms.uRayStrength.value = quality === "low" ? 0.0 : 0.14;
-      uniforms.uVignetteStrength.value = quality === "low" ? 0.11 : 0.16;
+      uniforms.uColourA.value.setRGB(0.947, 0.942, 0.934);
+      uniforms.uColourB.value.setRGB(0.852, 0.843, 0.828);
+      uniforms.uRayTint.value.setRGB(0.91, 0.885, 0.84);
+      uniforms.uIntensity.value = quality === "low" ? 0.66 : 0.74;
+      uniforms.uSparkle.value = quality === "high" ? 0.014 : 0.01;
+      uniforms.uRayStrength.value = quality === "low" ? 0.0 : 0.15;
+      uniforms.uVignetteStrength.value = quality === "low" ? 0.18 : 0.25;
       invalidate();
       return;
     }
@@ -281,7 +281,7 @@ function InkPlane({
 
 function InkFallback({ isLightTheme }: { isLightTheme: boolean }) {
   const background = isLightTheme
-    ? "radial-gradient(circle at 28% 44%, rgba(235, 231, 221, 0.92) 0%, rgba(219, 214, 202, 0.9) 48%, rgba(208, 201, 188, 0.92) 100%)"
+    ? "radial-gradient(circle at 28% 44%, rgba(242, 236, 228, 0.94) 0%, rgba(226, 217, 204, 0.92) 50%, rgba(213, 202, 186, 0.93) 100%)"
     : "radial-gradient(circle at 30% 42%, rgba(13, 15, 18, 0.95) 0%, rgba(16, 19, 24, 0.92) 52%, rgba(9, 12, 16, 0.95) 100%)";
 
   return <div className="absolute inset-0" aria-hidden="true" style={{ background }} />;

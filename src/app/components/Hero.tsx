@@ -16,7 +16,7 @@ export default function Hero() {
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 86% 66% at 34% 50%, rgba(232, 228, 218, 0.012) 0%, transparent 74%)'
+          background: "radial-gradient(ellipse 86% 66% at 34% 50%, rgba(212, 199, 179, 0.08) 0%, rgba(212, 199, 179, 0.03) 52%, transparent 78%)"
         }}
       />
 
@@ -81,10 +81,10 @@ export default function Hero() {
             <span aria-hidden="true" className="text-foreground/40 group-hover:text-background/60 transition-colors duration-500">→</span>
           </Link>
           <Link
-            href="/contact"
+            href="/contact#calendly"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors underline underline-offset-4 decoration-muted-foreground/30 hover:decoration-foreground/50"
           >
-            Work With Me
+            Book a Free Call
           </Link>
         </motion.div>
       </div>

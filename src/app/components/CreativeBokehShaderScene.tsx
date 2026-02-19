@@ -245,12 +245,12 @@ function BokehPlane({
 
   useEffect(() => {
     if (isLightTheme) {
-      uniforms.uBaseWarm.value.setRGB(0.92, 0.92, 0.93);
-      uniforms.uBaseCool.value.setRGB(0.89, 0.9, 0.93);
-      uniforms.uLightWarm.value.setRGB(0.42, 0.62, 0.58);
-      uniforms.uLightCool.value.setRGB(0.52, 0.57, 0.67);
-      uniforms.uLightNeutral.value.setRGB(0.96, 0.97, 0.98);
-      uniforms.uAlpha.value = quality === "low" ? 0.45 : 0.52;
+      uniforms.uBaseWarm.value.setRGB(0.94, 0.92, 0.89);
+      uniforms.uBaseCool.value.setRGB(0.9, 0.88, 0.85);
+      uniforms.uLightWarm.value.setRGB(0.72, 0.6, 0.46);
+      uniforms.uLightCool.value.setRGB(0.64, 0.58, 0.5);
+      uniforms.uLightNeutral.value.setRGB(0.98, 0.96, 0.93);
+      uniforms.uAlpha.value = quality === "low" ? 0.47 : 0.54;
       invalidate();
       return;
     }
@@ -297,7 +297,7 @@ function BokehPlane({
 
 function BokehFallback({ isLightTheme }: { isLightTheme: boolean }) {
   const background = isLightTheme
-    ? "linear-gradient(90deg, rgba(236, 238, 241, 0.92) 0%, rgba(228, 231, 237, 0.88) 100%)"
+    ? "linear-gradient(90deg, rgba(244, 237, 228, 0.94) 0%, rgba(235, 226, 213, 0.9) 100%)"
     : "linear-gradient(90deg, rgba(10, 13, 17, 0.94) 0%, rgba(12, 16, 22, 0.9) 100%)";
 
   return <div className="absolute inset-0" aria-hidden="true" style={{ background }} />;

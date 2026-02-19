@@ -134,17 +134,17 @@ export default function BentoGrid() {
         {/* Contact */}
         <SpotlightWrapper
           as="link"
-          href="/contact"
+          href="/contact#calendly"
           className="group relative col-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 min-h-[200px] md:min-h-0 transition-all duration-300 hover:border-foreground/20"
         >
           <div className="relative z-10 flex flex-col justify-between h-full">
             <span className="font-display italic text-foreground/15 text-[0.6rem] tracking-[0.35em] uppercase">III</span>
             <div>
               <h3 className="font-display font-light text-xl text-foreground mb-2">Get in Touch</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">Got a project? Let&apos;s talk.</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">Book a free call and let&apos;s talk through what you need.</p>
             </div>
             <span className="text-foreground/25 group-hover:text-foreground/55 text-[0.65rem] tracking-[0.2em] uppercase transition-colors duration-300">
-              Start a conversation →
+              Book your free call →
             </span>
           </div>
         </SpotlightWrapper>

@@ -4,9 +4,11 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PageTransition from "../components/PageTransition";
 import { motion } from "framer-motion";
-import { Check, Instagram, Mail, MapPin, MessageCircle, ArrowRight } from "lucide-react";
+import { Calendar, Check, Instagram, Mail, MapPin, MessageCircle, ArrowRight } from "lucide-react";
+import { trackCta } from "../../lib/analytics";
 
 const WHATSAPP_BASE = "https://wa.me/447475437833";
+const CALENDLY_URL = "https://calendly.com/nas-create0/30min";
 const EMAIL_URL =
   "mailto:nascreate0@gmail.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BVideo%2FPhoto%2FEvent%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
 const INSTAGRAM_URL = "https://instagram.com/nas.create";
@@ -54,6 +56,21 @@ function ContactPageInner() {
     return `${WHATSAPP_BASE}?${q.toString()}`;
   }, [selectedService]);
 
+  const calendlyEmbedHref = useMemo(() => {
+    const params = new URLSearchParams({
+      "hide_event_type_details": "1",
+      "hide_gdpr_banner": "1",
+    });
+    if (selectedService) {
+      params.set("utm_content", selectedService);
+    }
+    return `${CALENDLY_URL}?${params.toString()}`;
+  }, [selectedService]);
+
+  const selectedServiceHint = selectedService
+    ? ` for ${SERVICE_LABELS[selectedService].toLowerCase()}`
+    : "";
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-background pb-32 pt-24 px-6">
@@ -69,7 +86,7 @@ function ContactPageInner() {
               Let&apos;s Talk
             </h1>
             <p className="text-lg text-muted-foreground">
-              Got a project in mind? Pick a service and let's talk it through.
+              Got a project in mind? Book a free call and let&apos;s talk through exactly what you need.
             </p>
           </motion.div>
 
@@ -103,27 +120,85 @@ function ContactPageInner() {
             </div>
           </motion.div>
 
-          {/* Contact cards */}
+          {/* Booking and contact cards */}
           <div className="space-y-3">
 
-            {/* WhatsApp — primary full-width */}
+            {/* Calendly — inline primary booking block */}
+            <motion.section
+              id="calendly"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="rounded-sm bg-card border border-border p-4 sm:p-6"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 mb-4">
+                <div className="flex items-start gap-3 flex-1">
+                  <div className="p-3 rounded-sm bg-accent text-accent-foreground shrink-0">
+                    <Calendar className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium text-muted-foreground mb-0.5">Free Discovery Call</div>
+                    <div className="font-semibold text-lg text-foreground">Book a free 30-minute call</div>
+                    <div className="text-sm mt-1 text-muted-foreground">
+                      We&apos;ll talk through exactly what you need{selectedServiceHint}.
+                    </div>
+                  </div>
+                </div>
+                <a
+                  href={calendlyEmbedHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-sm bg-accent text-accent-foreground px-4 py-2.5 text-sm font-medium hover:opacity-90 transition-opacity"
+                  onClick={(e) =>
+                    trackCta("contact_calendly_primary", {
+                      href: e.currentTarget.href,
+                      service: selectedService ?? "none",
+                    })
+                  }
+                >
+                  Open in new tab
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+
+              <div className="rounded-sm border border-border overflow-hidden bg-background">
+                <iframe
+                  title="Book a free call with Nas.Create"
+                  src={calendlyEmbedHref}
+                  className="w-full h-[760px] md:h-[720px]"
+                />
+              </div>
+
+              <p className="text-xs text-muted-foreground mt-3">
+                Prefer messaging first? WhatsApp is just below.
+              </p>
+            </motion.section>
+
+            {/* WhatsApp — fast secondary option */}
             <motion.a
               href={whatsappHref}
+              id="whatsapp"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 }}
-              className="group flex items-center p-6 rounded-sm bg-green-600 border border-green-600 text-white shadow-lg shadow-green-500/20 hover:bg-green-700 transition-all duration-300"
+              transition={{ delay: 0.2 }}
+              className="group flex items-center p-6 rounded-sm bg-card border border-border hover:border-primary/50 transition-all duration-300"
+              onClick={(e) =>
+                trackCta("contact_whatsapp_secondary", {
+                  href: e.currentTarget.href,
+                  service: selectedService ?? "none",
+                })
+              }
             >
-              <div className="p-3 rounded-sm bg-white/10 mr-4">
+              <div className="p-3 rounded-sm bg-secondary mr-4">
                 <MessageCircle className="w-6 h-6" />
               </div>
               <div className="flex-grow">
-                <div className="text-sm font-medium text-green-100 mb-0.5">WhatsApp</div>
-                <div className="font-semibold text-lg">+44 7475 437833</div>
+                <div className="text-sm font-medium text-muted-foreground mb-0.5">WhatsApp</div>
+                <div className="font-semibold text-lg text-foreground">+44 7475 437833</div>
               </div>
-              <ArrowRight className="text-white transform transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="text-muted-foreground transform transition-transform group-hover:translate-x-1 group-hover:text-primary" />
             </motion.a>
 
             {/* Email + Instagram — 2-col grid */}

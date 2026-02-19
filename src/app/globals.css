@@ -51,6 +51,7 @@
 .theme-creative {
   --color-bg: #0B0C0E;
   --color-panel: #111314;
+  --color-creative-band: #111314;
   --color-text: #ffffff;
   --color-dim: rgba(255, 255, 255, 0.55);
   --color-accent: #00C896;
@@ -72,6 +73,7 @@ html:not(.dark) .theme-creative {
   /* Match global light theme */
   --color-bg: #F5F0EB;
   --color-panel: #FAF7F4;
+  --color-creative-band: #F1E6D9;
 
   /* Dark text for contrast */
   --color-text: #1A1714;

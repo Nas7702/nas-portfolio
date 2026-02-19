@@ -482,8 +482,10 @@ export default function CreativePage() {
   // const [activeCaseStudy, setActiveCaseStudy] = useState<PortfolioItem | null>(null);
   const [isAlbumModalOpen, setIsAlbumModalOpen] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState<PortfolioItem | null>(null);
+  const [isScrollCueHidden, setIsScrollCueHidden] = useState(false);
   const heroSectionRef = useRef<HTMLElement | null>(null);
   const heroBgRef = useRef<HTMLDivElement | null>(null);
+  const scrollCueRef = useRef<HTMLAnchorElement | null>(null);
 
   useHeroParallax(heroSectionRef, heroBgRef);
 
@@ -570,6 +572,43 @@ export default function CreativePage() {
     setIsAlbumModalOpen(false);
   }, []);
 
+  useEffect(() => {
+    let rafId: number | null = null;
+
+    const updateScrollCueState = () => {
+      const cue = scrollCueRef.current;
+      if (!cue) return;
+
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const rect = cue.getBoundingClientRect();
+      const cueMidpoint = rect.top + (rect.height / 2);
+      const distanceFromBottom = viewportHeight - cueMidpoint;
+      const shouldHide = distanceFromBottom >= viewportHeight * 0.7;
+
+      setIsScrollCueHidden((prev) => (prev === shouldHide ? prev : shouldHide));
+    };
+
+    const scheduleUpdate = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = null;
+        updateScrollCueState();
+      });
+    };
+
+    updateScrollCueState();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      if (rafId !== null) {
+        window.cancelAnimationFrame(rafId);
+      }
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, []);
+
   // Modal focus trap refs
   // const modalRef = useRef<HTMLDivElement>(null);
   const albumModalRef = useRef<HTMLDivElement>(null);
@@ -580,7 +619,7 @@ export default function CreativePage() {
         {/* Nas.Create Branded Header */}
         {/* Nas.Create Branded Header */}
         <section ref={heroSectionRef} className="relative overflow-hidden py-20 px-6 sm:px-8 bg-background">
-          {/* Light Mode: Subtle vignette. Dark Mode: Radial gradient overlay */}
+          {/* Base vignette layer beneath shader */}
           <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.05)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(11,15,10,0.82)_0%,rgba(6,10,8,0.94)_65%,rgba(0,0,0,1)_100%)] transition-all duration-500" />
 
           <div
@@ -667,7 +706,7 @@ export default function CreativePage() {
         </section>
 
         {/* Featured Work */}
-        <section className="py-20 px-8 bg-muted/30 transition-colors duration-300">
+        <section className="pt-20 pb-10 px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-10">
@@ -687,11 +726,24 @@ export default function CreativePage() {
                 inlinePlayback={true}
               />
             </ScrollReveal>
+            <a
+              ref={scrollCueRef}
+              href="#create-testimonials"
+              className={`mt-6 inline-flex w-full justify-center transition-all duration-300 ${
+                isScrollCueHidden ? "opacity-0 -translate-y-1 pointer-events-none" : "opacity-100 translate-y-0"
+              }`}
+              aria-label="Scroll to client stories"
+            >
+              <div className="flex flex-col items-center gap-2">
+                <span className="font-sans text-[0.6rem] font-medium tracking-[0.3em] uppercase text-foreground/35">Scroll</span>
+                <div className="w-px h-10 bg-gradient-to-b from-accent/60 to-transparent" />
+              </div>
+            </a>
           </div>
         </section>
 
         {/* Testimonials */}
-        <section className="py-10 px-6 sm:px-8 bg-muted/30 transition-colors duration-300">
+        <section id="create-testimonials" className="pt-2 pb-10 px-6 sm:px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
           <Testimonials />
         </section>
 
@@ -936,12 +988,12 @@ function DesktopCtas() {
       </div>
       <div className={`hidden md:block fixed right-6 z-40 transition-all duration-200 ${showFab ? "bottom-24 opacity-100" : "bottom-20 opacity-0 pointer-events-none"}`}>
         <Link
-          href="/contact?src=creative_fab#whatsapp"
+          href="/contact?src=creative_fab#calendly"
           className="rounded-sm bg-accent text-accent-foreground px-5 py-3 font-medium text-sm shadow-lg hover:opacity-90 transition-opacity focus-visible:outline-none"
-          data-cta="creative_fab_whatsapp"
-          onClick={(e) => trackCta("creative_fab_whatsapp", { href: e.currentTarget.href })}
+          data-cta="creative_fab_calendly"
+          onClick={(e) => trackCta("creative_fab_calendly", { href: e.currentTarget.href })}
         >
-          WhatsApp Chat
+          Book Free Call
         </Link>
       </div>
     </>
@@ -964,13 +1016,13 @@ function MobileFab() {
   return (
     <div className={`md:hidden fixed right-4 z-40 transition-all duration-300 ${scrolled ? "bottom-6 opacity-100 scale-100" : "bottom-0 opacity-0 scale-75 pointer-events-none"}`}>
       <Link
-        href="/contact?src=creative_mobile_fab#whatsapp"
+        href="/contact?src=creative_mobile_fab#calendly"
         className="flex items-center gap-2 rounded-sm bg-accent text-accent-foreground px-6 py-4 font-medium text-sm shadow-xl active:scale-95 transition-all duration-200"
-        data-cta="creative_mobile_fab"
-        onClick={(e) => trackCta("creative_mobile_fab", { href: e.currentTarget.href })}
+        data-cta="creative_mobile_fab_calendly"
+        onClick={(e) => trackCta("creative_mobile_fab_calendly", { href: e.currentTarget.href })}
       >
         <Camera size={20} />
-        <span>Book Now</span>
+        <span>Book Free Call</span>
       </Link>
     </div>
   );

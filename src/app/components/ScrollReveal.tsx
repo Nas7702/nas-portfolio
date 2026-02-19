@@ -33,16 +33,18 @@ export default function ScrollReveal({
   direction = "up",
   delay = 0,
   duration = 0.6,
-  threshold = 0.1,
+  threshold = 0.08,
   className = "",
 }: ScrollRevealProps) {
   const ref = useRef(null);
   const isMobile = useIsMobile();
+  const revealMargin = isMobile ? "0px 0px 120px 0px" : "0px 0px 220px 0px";
+  const revealAmount = isMobile ? Math.min(threshold, 0.03) : Math.min(threshold, 0.08);
 
   const isInView = useInView(ref, {
     once: true,
-    margin: isMobile ? "-30px 0px" : "-100px 0px",
-    amount: isMobile ? Math.min(threshold, 0.05) : threshold,
+    margin: revealMargin,
+    amount: revealAmount,
   });
 
   const offset = isMobile ? 20 : 60;

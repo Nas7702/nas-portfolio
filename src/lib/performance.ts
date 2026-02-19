@@ -83,7 +83,7 @@ export function downgradeShaderQuality(quality: ShaderQuality): ShaderQuality {
     case "medium":
       return "low";
     case "low":
-      return "minimal";
+      return "low";
     default:
       return "minimal";
   }
@@ -96,7 +96,7 @@ export function getShaderQualityDowngradeThreshold(quality: ShaderQuality): numb
     case "medium":
       return 42;
     case "low":
-      return 32;
+      return null;
     default:
       return null;
   }
@@ -129,7 +129,11 @@ export function setSessionShaderQualityCap(quality: ShaderQuality): void {
 }
 
 export function applySessionShaderQualityCap(quality: ShaderQuality): ShaderQuality {
-  const cap = getSessionShaderQualityCap();
+  const rawCap = getSessionShaderQualityCap();
+  const cap =
+    rawCap === "minimal" && !prefersReducedMotion() && !prefersReducedData()
+      ? "low"
+      : rawCap;
   if (!cap) return quality;
 
   const requestedIndex = SHADER_QUALITY_ORDER.indexOf(quality);

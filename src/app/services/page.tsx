@@ -9,7 +9,7 @@ import {
   Palette,
   ArrowRight,
   MessageCircle,
-  Mail,
+  Calendar,
   CheckCircle2,
   ClipboardList,
   Aperture,
@@ -20,8 +20,7 @@ import ScrollReveal from "../components/ScrollReveal";
 
 const WHATSAPP_HREF =
   "https://wa.me/447475437833?text=Hi%20Nas%2C%20I%27d%20like%20to%20discuss%20a%20project.";
-const EMAIL_HREF =
-  "mailto:nascreate0@gmail.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BVideo%2FPhoto%2FEvent%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D";
+const CALENDLY_HREF = "https://calendly.com/nas-create0/30min";
 
 const services = [
   {
@@ -90,20 +89,27 @@ const services = [
 const steps = [
   {
     number: "01",
-    icon: ClipboardList,
-    title: "Brief",
+    icon: Calendar,
+    title: "Free Call",
     description:
-      "Tell me what the project needs to achieve, your rough timeline, and your budget. No lengthy forms. A message is enough to get started.",
+      "Start with a free 30-minute call. We'll talk through exactly what you need, plus your timeline and budget.",
   },
   {
     number: "02",
+    icon: ClipboardList,
+    title: "Plan",
+    description:
+      "I turn that call into a clear production plan: concept, shot list, schedule, and deliverables.",
+  },
+  {
+    number: "03",
     icon: Aperture,
     title: "Shoot",
     description:
       "I handle the planning, the kit, and the crew if needed. On the day, you focus on your business. I focus on getting the shots.",
   },
   {
-    number: "03",
+    number: "04",
     icon: PackageCheck,
     title: "Deliver",
     description:
@@ -168,10 +174,10 @@ export default function ServicesPage() {
 
                       {/* CTA */}
                       <Link
-                        href={`/contact?service=${service.slug}`}
+                        href={`/contact?service=${service.slug}#calendly`}
                         className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground group-hover:translate-x-1 transition-all duration-200"
                       >
-                        Get a quote <ArrowRight size={14} />
+                        Book a free call <ArrowRight size={14} />
                       </Link>
                     </div>
                   </motion.div>
@@ -187,13 +193,13 @@ export default function ServicesPage() {
             <p className="eyebrow text-center mb-3">The Process</p>
             <h2 className="font-display font-light text-3xl md:text-4xl text-center tracking-tight mb-4">How It Works</h2>
             <p className="text-muted-foreground text-center max-w-xl mx-auto mb-16">
-              No complicated process. Three steps from first message to finished files.
+              Four clear steps from first conversation to final delivery.
             </p>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {/* Connector line (desktop only) */}
-            <div className="hidden md:block absolute top-10 left-[calc(16.67%+1.5rem)] right-[calc(16.67%+1.5rem)] h-px bg-border/60" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+            {/* Connector line (large desktop only) */}
+            <div className="hidden lg:block absolute top-10 left-[calc(12.5%+1.5rem)] right-[calc(12.5%+1.5rem)] h-px bg-border/60" />
 
             {steps.map((step, index) => {
               const StepIcon = step.icon;
@@ -226,24 +232,26 @@ export default function ServicesPage() {
             <p className="eyebrow mb-4">Get Started</p>
             <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight mb-4">Ready to start?</h2>
             <p className="text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed">
-              Drop me a message with your project idea. I&apos;ll come back to you within 24 hours.
+              Book a free 30-minute call and we&apos;ll talk through exactly what you need before we plan anything else.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href={WHATSAPP_HREF}
+                href={CALENDLY_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-sm bg-accent hover:opacity-90 text-accent-foreground font-semibold transition-opacity"
               >
-                <MessageCircle size={18} />
-                WhatsApp me
+                <Calendar size={18} />
+                Book a free call
               </a>
               <a
-                href={EMAIL_HREF}
+                href={WHATSAPP_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-sm bg-card border border-border hover:border-foreground/20 hover:bg-secondary font-medium transition-all"
               >
-                <Mail size={18} />
-                Send an email
+                <MessageCircle size={18} />
+                Or message on WhatsApp
               </a>
             </div>
           </div>
