@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import {
@@ -236,7 +236,7 @@ export default function LightboxGallery({
     setRotation(0);
   };
 
-  const handleItemSelect = (item: MediaItem, index: number) => {
+  const handleItemSelect = useCallback((item: MediaItem, index: number) => {
     if (onItemClick) {
       const result = onItemClick(item, index);
       if (result === false) {
@@ -244,7 +244,8 @@ export default function LightboxGallery({
       }
     }
     openLightbox(index);
-  };
+  // openLightbox has no external deps; onItemClick is the only external reference
+  }, [onItemClick]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const closeLightbox = () => {
     setIsOpen(false);
@@ -394,7 +395,7 @@ export default function LightboxGallery({
             key={item.id}
             item={item}
             index={index}
-            onClick={() => handleItemSelect(item, index)}
+            onSelect={handleItemSelect}
             showTitle={showTitles}
             inlinePlayback={inlinePlayback}
             adaptiveAspectRatio={adaptiveAspectRatio}
@@ -618,18 +619,18 @@ export default function LightboxGallery({
   );
 }
 
-// Thumbnail Card Component with Lazy Loading
-function ThumbnailCard({
+// Thumbnail Card Component with Lazy Loading — memoised to prevent re-renders when parent state changes
+const ThumbnailCard = React.memo(function ThumbnailCard({
   item,
   index,
-  onClick,
+  onSelect,
   showTitle,
   inlinePlayback,
   adaptiveAspectRatio = false,
 }: {
   item: MediaItem;
   index: number;
-  onClick: () => void;
+  onSelect: (item: MediaItem, index: number) => void;
   showTitle: boolean;
   inlinePlayback: boolean;
   adaptiveAspectRatio?: boolean;
@@ -669,7 +670,7 @@ function ThumbnailCard({
       }`}
       whileHover={{ scale: adaptiveAspectRatio ? 1.02 : 1 }}
       whileTap={{ scale: 0.95 }}
-      onClick={inlinePlayback && isEmbed ? undefined : onClick}
+      onClick={inlinePlayback && isEmbed ? undefined : () => onSelect(item, index)}
     >
       {/* Gradient overlay on hover */}
       {!inlinePlayback && !adaptiveAspectRatio && (
@@ -797,10 +798,10 @@ function ThumbnailCard({
       )}
     </motion.div>
   );
-}
+});
 
-// Thumbnail Preview Component (for lightbox strip)
-function ThumbnailPreview({ item }: { item: MediaItem }) {
+// Thumbnail Preview Component (for lightbox strip) — memoised; re-renders only when item changes
+const ThumbnailPreview = React.memo(function ThumbnailPreview({ item }: { item: MediaItem }) {
   return (
     <div className="relative w-full h-full bg-gray-200 dark:bg-gray-800">
       {(() => {
@@ -836,4 +837,4 @@ function ThumbnailPreview({ item }: { item: MediaItem }) {
       )}
     </div>
   );
-}
+});

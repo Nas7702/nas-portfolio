@@ -37,6 +37,7 @@ export function getDevicePerformanceTier(): 'low' | 'medium' | 'high' {
  */
 export class FPSMonitor {
   private frames: number[] = [];
+  private runningSum: number = 0; // maintained incrementally — O(1) average instead of O(n) reduce per frame
   private lastTime: number = performance.now();
   private callback?: (fps: number) => void;
   private rafId?: number;
@@ -68,15 +69,15 @@ export class FPSMonitor {
     this.lastTime = now;
 
     const fps = 1000 / delta;
+    this.runningSum += fps;
     this.frames.push(fps);
 
     // Keep only last 60 frames (1 second at 60fps)
     if (this.frames.length > 60) {
-      this.frames.shift();
+      this.runningSum -= this.frames.shift()!;
     }
 
-    // Calculate average FPS
-    const avgFps = this.frames.reduce((a, b) => a + b, 0) / this.frames.length;
+    const avgFps = this.runningSum / this.frames.length;
 
     if (this.callback) {
       this.callback(Math.round(avgFps));
@@ -87,7 +88,7 @@ export class FPSMonitor {
 
   getAverageFPS(): number {
     if (this.frames.length === 0) return 60;
-    return Math.round(this.frames.reduce((a, b) => a + b, 0) / this.frames.length);
+    return Math.round(this.runningSum / this.frames.length);
   }
 }
 

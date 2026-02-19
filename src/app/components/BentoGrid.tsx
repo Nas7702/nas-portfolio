@@ -1,74 +1,76 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Camera, User, Mail, Instagram, Clapperboard, Palette, Trophy } from "lucide-react";
 
-function SpotlightCard({
+// Single polymorphic spotlight wrapper — updates DOM directly, no setState on mousemove
+function SpotlightWrapper({
+  as: Tag,
   href,
   className,
   children,
+  external,
 }: {
+  as: "link" | "anchor";
   href: string;
   className: string;
   children: React.ReactNode;
+  external?: boolean;
 }) {
-  const [pos, setPos] = useState({ x: 0, y: 0, show: false });
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (overlayRef.current) {
+      overlayRef.current.style.opacity = "1";
+      overlayRef.current.style.background = `radial-gradient(280px circle at ${x}px ${y}px, rgba(0,200,150,0.12), transparent 65%)`;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (overlayRef.current) {
+      overlayRef.current.style.opacity = "0";
+    }
+  };
+
+  const overlay = (
+    <div
+      ref={overlayRef}
+      aria-hidden="true"
+      className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-500"
+      style={{ opacity: 0 }}
+    />
+  );
+
+  if (Tag === "anchor") {
+    return (
+      <a
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+        className={className}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        {overlay}
+        {children}
+      </a>
+    );
+  }
+
   return (
     <Link
       href={href}
       className={className}
-      onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top, show: true });
-      }}
-      onMouseLeave={() => setPos((p) => ({ ...p, show: false }))}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-500"
-        style={{
-          opacity: pos.show ? 1 : 0,
-          background: `radial-gradient(280px circle at ${pos.x}px ${pos.y}px, rgba(0,200,150,0.12), transparent 65%)`,
-        }}
-      />
+      {overlay}
       {children}
     </Link>
-  );
-}
-
-function SpotlightAnchor({
-  href,
-  className,
-  children,
-}: {
-  href: string;
-  className: string;
-  children: React.ReactNode;
-}) {
-  const [pos, setPos] = useState({ x: 0, y: 0, show: false });
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={className}
-      onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top, show: true });
-      }}
-      onMouseLeave={() => setPos((p) => ({ ...p, show: false }))}
-    >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-500"
-        style={{
-          opacity: pos.show ? 1 : 0,
-          background: `radial-gradient(280px circle at ${pos.x}px ${pos.y}px, rgba(0,200,150,0.12), transparent 65%)`,
-        }}
-      />
-      {children}
-    </a>
   );
 }
 
@@ -113,7 +115,8 @@ export default function BentoGrid() {
         </Link>
 
         {/* About Me - Square */}
-        <SpotlightCard
+        <SpotlightWrapper
+          as="link"
           href="/about"
           className="group relative col-span-1 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
         >
@@ -133,10 +136,11 @@ export default function BentoGrid() {
             </div>
             <ArrowRight size={16} className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200 self-end" />
           </div>
-        </SpotlightCard>
+        </SpotlightWrapper>
 
         {/* Services Card - Wide */}
-        <SpotlightCard
+        <SpotlightWrapper
+          as="link"
           href="/services"
           className="group relative col-span-1 md:col-span-2 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
         >
@@ -168,10 +172,11 @@ export default function BentoGrid() {
               See Services <ArrowRight size={14} />
             </div>
           </div>
-        </SpotlightCard>
+        </SpotlightWrapper>
 
         {/* Contact - Square */}
-        <SpotlightCard
+        <SpotlightWrapper
+          as="link"
           href="/contact"
           className="group relative col-span-1 row-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 transition-all duration-300 hover:border-foreground/30"
         >
@@ -191,16 +196,18 @@ export default function BentoGrid() {
             </div>
             <ArrowRight size={16} className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all duration-200 self-end" />
           </div>
-        </SpotlightCard>
+        </SpotlightWrapper>
 
         {/* Instagram Strip */}
-        <SpotlightAnchor
+        <SpotlightWrapper
+          as="anchor"
           href="https://www.instagram.com/nas.create/"
+          external
           className="col-span-1 md:col-span-3 row-span-1 md:h-[80px] relative flex items-center justify-center gap-3 rounded-sm bg-card border border-border hover:border-foreground/30 transition-all duration-300 group"
         >
           <Instagram className="text-muted-foreground group-hover:text-foreground transition-colors duration-200 relative z-10" size={18} />
           <span className="text-muted-foreground group-hover:text-foreground transition-colors duration-200 font-medium text-sm tracking-wide relative z-10">@nas.create</span>
-        </SpotlightAnchor>
+        </SpotlightWrapper>
 
       </div>
     </section>
