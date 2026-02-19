@@ -157,7 +157,8 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director, DP & Editor",
     date: "2025",
     cover: "https://i.ytimg.com/vi/LaoAVooLROU/hqdefault.jpg",
-    description: "Story-led Instagram reel for Kyle Allen's online coaching business. Opens with his transformation narrative, closes with a DM call-to-action."
+    description: "Story-led Instagram reel for Kyle Allen's online coaching business. Opens with his transformation narrative, closes with a DM call-to-action.",
+    isVertical: true
   },
   {
     id: "Sheffield Varsity Basketball",
@@ -217,7 +218,8 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director, Editor",
     date: "2024",
     cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
-    description: "Meta ad for a vehicle wrap and car modification garage. Shot to build local trust and drive enquiries."
+    description: "Meta ad for a vehicle wrap and car modification garage. Shot to build local trust and drive enquiries.",
+    isVertical: true
   },
   // PHOTO ALBUM - Fitness
   {
@@ -865,7 +867,7 @@ function DesktopCtas() {
   return (
     <>
       <div className={`hidden md:block fixed left-1/2 z-40 -translate-x-1/2 transition-all duration-200 ${show ? "bottom-28 opacity-100" : "bottom-24 opacity-0 pointer-events-none"}`}>
-        <div className="rounded-sm border border-white/10 bg-black/80 px-4 py-3 backdrop-blur-md shadow-xl">
+        <div className="rounded-sm border border-white/10 bg-black/80 px-4 py-3 backdrop-blur-md shadow-xl dark">
           <CreativeCTA source="creative_sticky" className="items-center" size="sm" />
         </div>
       </div>

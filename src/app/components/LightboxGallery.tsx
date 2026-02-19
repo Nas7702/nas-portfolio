@@ -29,6 +29,7 @@ export interface MediaItem {
   tags?: string[];
   kind?: "video" | "photo" | "case" | "album";
   cover?: string;
+  isVertical?: boolean;
 }
 
 // per-card CTA removed
@@ -523,7 +524,13 @@ export default function LightboxGallery({
                       />
                     </motion.div>
                   ) : isEmbedUrl(currentItem.src) ? (
-                    <div className="relative w-full max-w-[min(100%,1280px)] aspect-video">
+                    <div
+                      className={`relative w-full ${
+                        currentItem.isVertical
+                          ? 'max-w-[min(100%,360px)] aspect-[9/16]'
+                          : 'max-w-[min(100%,1280px)] aspect-video'
+                      }`}
+                    >
                       {(() => {
                         const embedUrl = getEmbedUrl(currentItem.src);
                         if (!embedUrl) return null;

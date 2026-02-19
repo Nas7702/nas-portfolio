@@ -123,7 +123,7 @@ export default function Hero() {
           <h1 className="font-display font-light text-[2.5rem] sm:text-5xl md:text-7xl tracking-[-0.03em] leading-[1.05] text-foreground mb-3">
             Commercial Video.
             <span className="flex items-baseline gap-2 md:gap-3 mt-1 justify-center md:justify-start">
-              <span aria-hidden="true" className="w-6 md:w-12 h-px bg-foreground/20 self-center flex-shrink-0" />
+              <span aria-hidden="true" className="w-3 md:w-12 h-px bg-foreground/20 self-center flex-shrink-0" />
               <em className="text-foreground/85">Built Around Results.</em>
             </span>
           </h1>
