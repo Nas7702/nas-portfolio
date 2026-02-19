@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, ReactNode, useState, useEffect } from "react";
+import { debounce } from "@/lib/performance";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -18,8 +19,10 @@ function useIsMobile(breakpoint = 768) {
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < breakpoint);
     check();
-    window.addEventListener("resize", check, { passive: true });
-    return () => window.removeEventListener("resize", check);
+    // Debounced so rapid window resizing doesn't flood setState calls
+    const debouncedCheck = debounce(check, 150);
+    window.addEventListener("resize", debouncedCheck, { passive: true });
+    return () => window.removeEventListener("resize", debouncedCheck);
   }, [breakpoint]);
 
   return isMobile;
