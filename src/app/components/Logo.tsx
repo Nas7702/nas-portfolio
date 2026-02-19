@@ -283,12 +283,22 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
         className="relative"
         {...interactiveProps}
       >
+        {/* Dark mode logo */}
         <Image
           src="/logos/darkmode-wordmark.png"
           alt="Nas.Create"
           width={size === "sm" ? 32 : 40}
           height={size === "sm" ? 32 : 40}
-          className="object-contain transition-all duration-300 dark:opacity-90 dark:group-hover:opacity-100 opacity-80 group-hover:opacity-100 dark:[filter:none] [filter:invert(1)]"
+          className="object-contain transition-all duration-300 hidden dark:block"
+          priority
+        />
+        {/* Light mode logo */}
+        <Image
+          src="/logos/lightmode-workmark.png"
+          alt="Nas.Create"
+          width={size === "sm" ? 32 : 40}
+          height={size === "sm" ? 32 : 40}
+          className="object-contain transition-all duration-300 block dark:hidden"
           priority
         />
       </motion.div>

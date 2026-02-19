@@ -65,31 +65,19 @@ export default function Navbar() {
 
   const isCreativePage = pathname.startsWith("/create");
 
-  // Navbar background classes based on route and theme
+  // Navbar background classes based on theme
   const getNavBg = () => {
     if (!(scrolled || isOpen)) return "bg-transparent";
-    if (isCreativePage) return "bg-black/85 backdrop-blur-md shadow-lg";
-    if (pathname.startsWith("/about")) {
-      return theme === "dark"
-        ? "bg-black/85 backdrop-blur-md shadow-lg border-b border-gray-800/30"
-        : "bg-white/85 backdrop-blur-md shadow-lg border-b border-gray-200/50";
-    }
     return theme === "dark"
-      ? "bg-black/85 backdrop-blur-md shadow-lg"
+      ? "bg-black/85 backdrop-blur-md shadow-lg border-b border-gray-800/30"
       : "bg-white/85 backdrop-blur-md shadow-lg border-b border-gray-200/50";
   };
 
   // Mobile menu background
   const getMobileBg = () => {
-    if (isCreativePage) return "border-white/10 bg-black/85";
-    if (pathname.startsWith("/about")) {
-      return theme === "dark"
-        ? "border-gray-800/30 bg-black/85"
-        : "border-gray-200/50 bg-white/90";
-    }
     return theme === "dark"
-      ? "border-gray-700 bg-black/85"
-      : "border-gray-200 bg-white/90";
+      ? "border-gray-800/30 bg-black/85"
+      : "border-gray-200/50 bg-white/90";
   };
 
   return (
@@ -104,7 +92,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Logo variant={isCreativePage ? "record" : "default"} />
+            <Logo variant="default" />
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-1">
@@ -223,9 +211,7 @@ export default function Navbar() {
                     ? "bg-accent/10 text-accent"
                     : "bg-secondary text-foreground";
 
-                  const inactiveStyles = isCreativePage
-                    ? "text-gray-300 hover:bg-white/10"
-                    : "text-foreground/70 hover:bg-secondary";
+                  const inactiveStyles = "text-foreground/70 hover:bg-secondary";
 
                   return (
                     <motion.div

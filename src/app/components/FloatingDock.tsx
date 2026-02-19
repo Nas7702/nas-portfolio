@@ -25,7 +25,7 @@ export default function FloatingDock() {
       <motion.div
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
-        className="mx-auto flex h-16 items-end gap-4 rounded-2xl bg-card/50 backdrop-blur-xl border border-border px-4 pb-3"
+        className="mx-auto flex h-16 items-end gap-4 rounded-2xl bg-card/60 backdrop-blur-xl border border-white/8 dark:border-white/8 px-4 pb-3"
       >
         {links.map((link) => (
           <IconContainer mouseX={mouseX} key={link.title} {...link} isActive={pathname === link.href} />

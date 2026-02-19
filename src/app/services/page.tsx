@@ -86,32 +86,6 @@ const services = [
   },
 ];
 
-const colorMap: Record<string, { bg: string; icon: string; border: string; badge: string }> = {
-  emerald: {
-    bg: "from-emerald-500/10 to-emerald-500/5",
-    icon: "bg-emerald-500/15 text-emerald-400",
-    border: "hover:border-emerald-500/40",
-    badge: "text-emerald-400",
-  },
-  teal: {
-    bg: "from-teal-500/10 to-teal-500/5",
-    icon: "bg-teal-500/15 text-teal-400",
-    border: "hover:border-teal-500/40",
-    badge: "text-teal-400",
-  },
-  green: {
-    bg: "from-green-500/10 to-green-500/5",
-    icon: "bg-green-500/15 text-green-400",
-    border: "hover:border-green-500/40",
-    badge: "text-green-400",
-  },
-  cyan: {
-    bg: "from-cyan-500/10 to-cyan-500/5",
-    icon: "bg-cyan-500/15 text-cyan-400",
-    border: "hover:border-cyan-500/40",
-    badge: "text-cyan-400",
-  },
-};
 
 const steps = [
   {
@@ -144,10 +118,11 @@ export default function ServicesPage() {
 
         {/* Hero */}
         <ScrollReveal className="max-w-4xl mx-auto px-6 mb-24 text-center" direction="up" delay={0} threshold={0.1}>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
+          <p className="eyebrow mb-4">What We Offer</p>
+          <h1 className="font-display font-light text-5xl md:text-7xl tracking-tight mb-6 text-foreground">
             Services
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Video and photography built around your business goals. Every project starts with a brief and ends with content that has a job to do.
           </p>
         </ScrollReveal>
@@ -157,26 +132,22 @@ export default function ServicesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {services.map((service, index) => {
               const Icon = service.icon;
-              const c = colorMap[service.color];
               return (
                 <ScrollReveal key={service.slug} direction="up" delay={0.05 * index} threshold={0.1}>
                   <motion.div
-                    whileHover={{ y: -4 }}
-                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                    className={`group relative bg-card border border-border ${c.border} rounded-3xl p-8 transition-colors duration-300 overflow-hidden h-full flex flex-col`}
+                    whileHover={{ y: -3 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="group relative bg-card border border-border hover:border-foreground/20 rounded-sm p-8 transition-colors duration-300 h-full flex flex-col"
                   >
-                    {/* Gradient wash */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${c.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
-
-                    <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex flex-col h-full">
                       {/* Icon + Title */}
                       <div className="flex items-start gap-4 mb-4">
-                        <div className={`w-12 h-12 rounded-2xl ${c.icon} flex items-center justify-center flex-shrink-0`}>
-                          <Icon size={22} />
+                        <div className="w-11 h-11 rounded-sm bg-secondary flex items-center justify-center flex-shrink-0 text-foreground">
+                          <Icon size={20} />
                         </div>
                         <div>
-                          <h2 className="text-xl font-bold text-foreground">{service.title}</h2>
-                          <p className={`text-sm font-medium mt-0.5 ${c.badge}`}>{service.tagline}</p>
+                          <h2 className="font-display font-light text-xl text-foreground">{service.title}</h2>
+                          <p className="text-sm text-muted-foreground mt-0.5">{service.tagline}</p>
                         </div>
                       </div>
 
@@ -189,7 +160,7 @@ export default function ServicesPage() {
                       <ul className="space-y-2 mb-8 flex-grow">
                         {service.includes.map((item) => (
                           <li key={item} className="flex items-center gap-2.5 text-sm text-foreground/80">
-                            <CheckCircle2 size={15} className={c.badge} />
+                            <CheckCircle2 size={14} className="text-accent flex-shrink-0" />
                             {item}
                           </li>
                         ))}
@@ -198,9 +169,9 @@ export default function ServicesPage() {
                       {/* CTA */}
                       <Link
                         href={`/contact?service=${service.slug}`}
-                        className={`inline-flex items-center gap-2 text-sm font-semibold ${c.badge} group-hover:translate-x-1 transition-transform duration-200`}
+                        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground group-hover:translate-x-1 transition-all duration-200"
                       >
-                        Get a quote <ArrowRight size={15} />
+                        Get a quote <ArrowRight size={14} />
                       </Link>
                     </div>
                   </motion.div>
@@ -213,7 +184,8 @@ export default function ServicesPage() {
         {/* How It Works */}
         <div className="max-w-6xl mx-auto px-6 mb-32">
           <ScrollReveal direction="up" delay={0} threshold={0.1}>
-            <h2 className="text-3xl font-bold text-center mb-4">How It Works</h2>
+            <p className="eyebrow text-center mb-3">The Process</p>
+            <h2 className="font-display font-light text-3xl md:text-4xl text-center tracking-tight mb-4">How It Works</h2>
             <p className="text-muted-foreground text-center max-w-xl mx-auto mb-16">
               No complicated process. Three steps from first message to finished files.
             </p>
@@ -221,7 +193,7 @@ export default function ServicesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {/* Connector line (desktop only) */}
-            <div className="hidden md:block absolute top-10 left-[calc(16.67%+1.5rem)] right-[calc(16.67%+1.5rem)] h-px bg-gradient-to-r from-emerald-500/30 via-green-400/30 to-teal-500/30" />
+            <div className="hidden md:block absolute top-10 left-[calc(16.67%+1.5rem)] right-[calc(16.67%+1.5rem)] h-px bg-border/60" />
 
             {steps.map((step, index) => {
               const StepIcon = step.icon;
@@ -230,14 +202,14 @@ export default function ServicesPage() {
                   <div className="relative flex flex-col items-center text-center">
                     {/* Number badge */}
                     <div className="relative mb-6">
-                      <div className="w-20 h-20 rounded-full bg-card border-2 border-emerald-500/40 flex items-center justify-center shadow-lg shadow-emerald-500/10 z-10 relative">
-                        <StepIcon size={28} className="text-emerald-400" />
+                      <div className="w-20 h-20 rounded-sm bg-card border border-border flex items-center justify-center z-10 relative">
+                        <StepIcon size={26} className="text-foreground" />
                       </div>
-                      <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center">
+                      <span className="absolute -top-2 -right-2 w-6 h-6 rounded-sm bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center">
                         {index + 1}
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                    <h3 className="font-display font-light text-xl mb-3">{step.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
                       {step.description}
                     </p>
@@ -250,32 +222,29 @@ export default function ServicesPage() {
 
         {/* CTA Banner */}
         <ScrollReveal className="max-w-4xl mx-auto px-6" direction="up" delay={0} threshold={0.1}>
-          <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-12 text-center">
-            {/* Background glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/8 via-transparent to-teal-500/8 pointer-events-none" />
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to start?</h2>
-              <p className="text-muted-foreground text-lg mb-10 max-w-xl mx-auto">
-                Drop me a message with your project idea. I&apos;ll come back to you within 24 hours.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href={WHATSAPP_HREF}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition-colors shadow-lg shadow-emerald-500/20"
-                >
-                  <MessageCircle size={20} />
-                  WhatsApp me
-                </a>
-                <a
-                  href={EMAIL_HREF}
-                  className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-card border border-border hover:border-emerald-500/40 hover:bg-emerald-500/5 font-semibold transition-all"
-                >
-                  <Mail size={20} />
-                  Send an email
-                </a>
-              </div>
+          <div className="rounded-sm bg-card border border-border p-12 text-center">
+            <p className="eyebrow mb-4">Get Started</p>
+            <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight mb-4">Ready to start?</h2>
+            <p className="text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed">
+              Drop me a message with your project idea. I&apos;ll come back to you within 24 hours.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href={WHATSAPP_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-sm bg-accent hover:opacity-90 text-accent-foreground font-semibold transition-opacity"
+              >
+                <MessageCircle size={18} />
+                WhatsApp me
+              </a>
+              <a
+                href={EMAIL_HREF}
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-sm bg-card border border-border hover:border-foreground/20 hover:bg-secondary font-medium transition-all"
+              >
+                <Mail size={18} />
+                Send an email
+              </a>
             </div>
           </div>
         </ScrollReveal>

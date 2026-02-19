@@ -8,7 +8,7 @@ import {
   useCallback,
   ReactNode,
 } from "react";
-import { usePathname } from "next/navigation";
+
 
 type Theme = "dark" | "light";
 
@@ -53,16 +53,17 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [mounted, setMounted] = useState(false);
   const [userTheme, setUserTheme] = useState<Theme>("dark");
-  const pathname = usePathname();
+  const activeTheme: Theme = userTheme;
 
-  // /create always forces dark mode
-  const isCreative = pathname?.startsWith("/create") ?? false;
-  const activeTheme: Theme = isCreative ? "dark" : userTheme;
-
-  // Read stored preference on mount
+  // Read stored preference on mount; fall back to OS preference
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    const initial: Theme = stored === "light" ? "light" : "dark";
+    let initial: Theme;
+    if (stored === "light" || stored === "dark") {
+      initial = stored;
+    } else {
+      initial = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
     setUserTheme(initial);
     setMounted(true);
   }, []);
