@@ -18,6 +18,8 @@ function SpotlightOverlay() {
   const currentXRef = useRef<number>(targetXRef.current);
   const currentYRef = useRef<number>(targetYRef.current);
   const boostRef = useRef<number>(1);
+  // When the spotlight has settled, the RAF loop pauses itself. Any pointer movement restarts it.
+  const loopActiveRef = useRef<boolean>(false);
 
   useEffect(() => {
     setMounted(true);
@@ -30,6 +32,11 @@ function SpotlightOverlay() {
       lastMoveAtRef.current = Date.now();
       targetXRef.current = e.clientX;
       targetYRef.current = e.clientY;
+      // Restart the loop if it has gone idle
+      if (!loopActiveRef.current) {
+        loopActiveRef.current = true;
+        animFrameRef.current = window.requestAnimationFrame(tick);
+      }
     };
 
     const handlePointerOver = (e: PointerEvent) => {
@@ -106,11 +113,20 @@ function SpotlightOverlay() {
         // Only transform & opacity
         spot.style.transform = `translate3d(${x}px, ${y}px, 0) translate3d(-50%, -50%, 0)`;
         spot.style.opacity = String(0.08 * boostRef.current);
+
+        // Stop the loop once the dot has settled to within 0.5px of its target
+        const dx = Math.abs(targetXRef.current - currentXRef.current);
+        const dy = Math.abs(targetYRef.current - currentYRef.current);
+        if (dx < 0.5 && dy < 0.5 && idle) {
+          loopActiveRef.current = false;
+          return; // don't schedule next frame
+        }
       }
       animFrameRef.current = window.requestAnimationFrame(tick);
     };
 
     if (!prefersReduced) {
+      loopActiveRef.current = true;
       animFrameRef.current = window.requestAnimationFrame(tick);
     } else {
       // Reduced motion: static, low intensity at center

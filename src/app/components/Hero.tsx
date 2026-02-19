@@ -103,6 +103,8 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 0.2 }}
           className="flex flex-col items-center md:items-start mb-6"
         >
+          {/* Dark logo: priority because it is visible on first load (site defaults to dark).
+              Light logo: no priority — hidden until the user switches theme, so no need to preload it. */}
           <Image
             src="/logos/darkmode-inline.png"
             alt="Nas.Create"
@@ -117,7 +119,6 @@ export default function Hero() {
             width={320}
             height={57}
             className="mb-6 block dark:hidden"
-            priority
           />
           <h1 className="font-display font-light text-5xl md:text-7xl tracking-[-0.03em] leading-[1.05] text-foreground mb-3">
             Commercial Video.
