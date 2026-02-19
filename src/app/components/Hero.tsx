@@ -82,7 +82,7 @@ function Scene() {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-start md:justify-center pt-6 sm:pt-10 md:pt-0 pb-20 overflow-hidden bg-background">
+    <section className="relative min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center pt-6 sm:pt-10 md:pt-0 pb-20 overflow-hidden bg-background">
       {/* 3D Background */}
       <Scene />
 
@@ -96,7 +96,7 @@ export default function Hero() {
       />
 
       {/* Content Overlay */}
-      <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left px-4 max-w-4xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left px-6 sm:px-8 md:px-4 max-w-4xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -108,7 +108,7 @@ export default function Hero() {
             alt="Nas.Create"
             width={320}
             height={57}
-            className="mb-6 hidden dark:block"
+            className="mb-5 hidden dark:block w-[200px] sm:w-[260px] md:w-[320px] h-auto"
             priority
           />
           <Image
@@ -116,13 +116,13 @@ export default function Hero() {
             alt="Nas.Create"
             width={320}
             height={57}
-            className="mb-6 block dark:hidden"
+            className="mb-5 block dark:hidden w-[200px] sm:w-[260px] md:w-[320px] h-auto"
             priority
           />
-          <h1 className="font-display font-light text-5xl md:text-7xl tracking-[-0.03em] leading-[1.05] text-foreground mb-3">
+          <h1 className="font-display font-light text-[2.5rem] sm:text-5xl md:text-7xl tracking-[-0.03em] leading-[1.05] text-foreground mb-3">
             Commercial Video.
-            <span className="flex items-baseline gap-3 mt-1 justify-center md:justify-start">
-              <span aria-hidden="true" className="w-8 md:w-12 h-px bg-foreground/20 mb-2 flex-shrink-0" />
+            <span className="flex items-baseline gap-2 md:gap-3 mt-1 justify-center md:justify-start">
+              <span aria-hidden="true" className="w-6 md:w-12 h-px bg-foreground/20 self-center flex-shrink-0" />
               <em className="text-foreground/85">Built Around Results.</em>
             </span>
           </h1>
@@ -136,9 +136,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4 }}
-          className="text-base md:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed"
+          className="text-sm md:text-base lg:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed text-left md:text-left"
         >
-          Brand films, Meta ads, and content that has a job to do. <br />
+          Brand films, Meta ads, and content that has a job to do.<br />
           Based in Yorkshire, working across the UK.
         </motion.p>
 
