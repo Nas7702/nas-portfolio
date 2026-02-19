@@ -6,6 +6,7 @@ import { useState, useRef, Suspense, useMemo } from "react";
 import * as random from "maath/random/dist/maath-random.esm";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import * as THREE from "three";
 import { usePerformanceMode } from "@/hooks/usePerformanceMode";
@@ -86,12 +87,12 @@ export default function Hero() {
       <Scene />
 
       {/* Content Overlay */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left px-4 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="flex flex-col items-center mb-6"
+          className="flex flex-col items-center md:items-start mb-6"
         >
           <Image
             src="/logos/darkmode-inline.png"
@@ -109,7 +110,7 @@ export default function Hero() {
             className="object-contain mb-6 block dark:hidden"
             priority
           />
-          <h1 className="font-display font-light text-4xl md:text-6xl tracking-tight text-foreground mb-3">
+          <h1 className="font-display font-light text-5xl md:text-7xl tracking-[-0.02em] leading-[1.1] text-foreground mb-3">
             Commercial Video.<br />
             <em>Built Around Results.</em>
           </h1>
@@ -125,7 +126,7 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 0.4 }}
           className="text-base md:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed"
         >
-          Brand films, Meta ads, and content that has a job to do.
+          Brand films, Meta ads, and content that has a job to do. <br />
           Based in Yorkshire, working across the UK.
         </motion.p>
 
@@ -133,13 +134,14 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 items-center"
+          className="flex flex-col sm:flex-row gap-4 items-center md:items-start"
         >
           <Link
             href="/create"
-            className="px-8 py-3 rounded-sm bg-accent text-accent-foreground font-medium hover:opacity-90 transition-opacity"
+            className="group inline-flex items-center gap-2 px-8 py-3 rounded-sm bg-accent text-accent-foreground font-medium hover:opacity-90 transition-all"
           >
             See My Work
+            <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
           </Link>
           <Link
             href="/contact"
@@ -157,7 +159,10 @@ export default function Hero() {
         transition={{ delay: 1.3, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
-        <div className="w-[1px] h-24 bg-gradient-to-b from-transparent via-foreground/50 to-transparent" />
+        <div className="flex flex-col items-center gap-2">
+          <span className="font-sans text-[0.6rem] font-medium tracking-[0.3em] uppercase text-foreground/30">Scroll</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-foreground/30 to-transparent" />
+        </div>
       </motion.div>
     </section>
   );

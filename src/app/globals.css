@@ -71,23 +71,23 @@
 
 /* Light mode colour overrides */
 html:not(.dark) {
-  --color-background: #f8f9fa;
-  --color-foreground: #171717;
+  --color-background: #F5F0EB;
+  --color-foreground: #1A1714;
 
-  --color-card: #ffffff;
-  --color-card-foreground: #171717;
+  --color-card: #FAF7F4;
+  --color-card-foreground: #1A1714;
 
-  --color-popover: #ffffff;
-  --color-popover-foreground: #171717;
+  --color-popover: #FAF7F4;
+  --color-popover-foreground: #1A1714;
 
-  --color-primary: #171717;
-  --color-primary-foreground: #f8f9fa;
+  --color-primary: #1A1714;
+  --color-primary-foreground: #F5F0EB;
 
-  --color-secondary: #f0f0f0;
-  --color-secondary-foreground: #171717;
+  --color-secondary: #EDE8E3;
+  --color-secondary-foreground: #1A1714;
 
-  --color-muted: #f0f0f0;
-  --color-muted-foreground: #6b7280;
+  --color-muted: #EDE8E3;
+  --color-muted-foreground: #7A736B;
 
   --color-accent: #00875A;
   --color-accent-foreground: #ffffff;
@@ -95,8 +95,8 @@ html:not(.dark) {
   --color-destructive: #dc2626;
   --color-destructive-foreground: #ffffff;
 
-  --color-border: #e5e7eb;
-  --color-input: #f0f0f0;
+  --color-border: #DDD8D2;
+  --color-input: #EDE8E3;
   --color-ring: #00875A;
 }
 
