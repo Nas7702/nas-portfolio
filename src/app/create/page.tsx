@@ -13,6 +13,10 @@ import Link from "next/link";
 import { trackCta } from "../../lib/analytics";
 import LoadingSkeleton from "../components/LoadingSkeleton";
 
+function toSlug(str: string): string {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 // Dynamic imports for heavy components
 const LightboxGallery = dynamic(() => import("../components/LightboxGallery"), {
   loading: () => <LoadingSkeleton variant="gallery" count={3} />,
@@ -207,18 +211,33 @@ const featuredMedia: MediaItem[] = [
 
 const portfolioItems: PortfolioItem[] = [
   {
+    id: "The JMC",
+    type: "video",
+    kind: "video",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/theJMC.mp4",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_theJMC_thumbnail.png",
+    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_theJMC_thumbnail.png",
+    title: "The JMC",
+    alt: "The JMC brand film thumbnail",
+    tags: ["Brand Film", "Cinematic", "Promo"],
+    client: "The JMC",
+    role: "Director, DP & Editor",
+    date: "2025",
+    description: "Brand film for JMC, a creative director working with leading YouTubers. Produced to capture his creative identity and attract high-profile creator clients.",
+  },
+  {
     id: "Kyle Allen Physique Coaching",
     type: "video",
     kind: "video",
     src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/final.mov",
-    thumbnail: "https://i.ytimg.com/vi/LaoAVooLROU/hqdefault.jpg",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_K1_thumbnail.png",
     title: "Kyle Allen Physique Coaching Reel",
     alt: "Kyle Allen coaching promo reel thumbnail",
     tags: ["Fitness", "Promo", "Story Reel"],
     client: "Kyle Allen Coaching",
     role: "Director, DP & Editor",
     date: "2025",
-    cover: "https://i.ytimg.com/vi/LaoAVooLROU/hqdefault.jpg",
+    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_K1_thumbnail.png",
     description: "Story-led Instagram reel for Kyle Allen's online coaching business. Opens with his transformation narrative, closes with a DM call-to-action.",
     isVertical: true
   },
@@ -227,14 +246,14 @@ const portfolioItems: PortfolioItem[] = [
     type: "video",
     kind: "video",
     src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/shef_varsity_bb.mp4_compressed.mov",
-    thumbnail: "https://i.ytimg.com/vi/y0E6twmL4_I/hqdefault.jpg",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_varsity_bb_thumbnail.png",
     title: "Sheffield Varsity Basketball",
     alt: "Sheffield Varsity Basketball thumbnail",
     tags: ["Sport", "Cinematic", "Highlight"],
     client: "University of Sheffield",
     role: "DP & Editor",
     date: "2025",
-    cover: "https://i.ytimg.com/vi/ohxsUU4xt2o/hqdefault.jpg",
+    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_varsity_bb_thumbnail.png",
     description: "Event highlight reel for Sheffield Varsity Basketball. Shot, edited and delivered the next day."
   },
   {
@@ -242,14 +261,14 @@ const portfolioItems: PortfolioItem[] = [
     type: "video",
     kind: "video",
     src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/shf_varsity_pl_compressed.mp4",
-    thumbnail: "https://i.ytimg.com/vi/aKEjwiwOTyg/hqdefault.jpg",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_varsity_pl_thumbnail.png",
     title: "Sheffield Varsity Powerlifting",
     alt: "Sheffield Varsity Powerlifting thumbnail",
     tags: ["Sport", "Cinematic", "Highlight"],
     client: "University of Sheffield",
     role: "Director, Editor",
     date: "2025",
-    cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
+    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_varsity_pl_thumbnail.png",
     description: "Highlight reel for Sheffield Varsity Powerlifting. Covered the full event as sole videographer and editor."
   },
   {
@@ -257,14 +276,14 @@ const portfolioItems: PortfolioItem[] = [
     type: "video",
     kind: "video",
     src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/stance.mp4",
-    thumbnail: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_stance_thumbnail.png",
     title: "Stance Fitness Promo",
     alt: "Stance Fitness Promo thumbnail",
     tags: ["Brand Film", "Cinematic", "Color Grading"],
     client: "Nas.Create",
     role: "Director & Editor",
     date: "2024",
-    cover: "https://i.ytimg.com/vi/lQ5mOoEOoqo/hqdefault.jpg",
+    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_stance_thumbnail.png",
     description: "Brand film and ongoing content partnership for a fitness studio. Covers reels, ads and website content."
   },
   {
@@ -272,14 +291,14 @@ const portfolioItems: PortfolioItem[] = [
     type: "video",
     kind: "video",
     src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/vm_urus.mov",
-    thumbnail: "https://i.ytimg.com/vi/rPJDmGHiTL0/hqdefault.jpg",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_vm_urus_thumnail.png",
     title: "Vizual Mods Promo",
     alt: "Vizual Mods Promo thumbnail",
     tags: ["Automotive", "Promo", "Motion"],
     client: "Vizual Mods",
     role: "Director, Editor",
     date: "2024",
-    cover: "https://i.vimeocdn.com/video/452001751-8b1768af2e2de0c8dfe2e2c58e4458b4d9b27eb698cb928142b29be4c2c460a9-d_640?force=0",
+    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_vm_urus_thumnail.png",
     description: "Meta ad for a vehicle wrap and car modification garage. Shot to build local trust and drive enquiries.",
     isVertical: true
   },
@@ -288,8 +307,8 @@ const portfolioItems: PortfolioItem[] = [
     id: "fitness-portfolio",
     type: "image",
     kind: "album",
-    cover: "/images/portfolio/sheffield-powerlifting/fitness/DSC00947.jpg",
-    src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00947.jpg",
+    cover: "/images/portfolio/sheffield-powerlifting/fitness/DSC00917.jpg",
+    src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00917.jpg",
     title: "Fitness & Physiques",
     alt: "Fitness photography collection",
     tags: ["Fitness", "Gym", "Physique", "Photography"],
@@ -554,6 +573,23 @@ export default function CreativePage() {
     setActiveFilter(value);
   }, []);
 
+  // Hash-based deep-linking: /create#the-jmc opens that item's lightbox
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const allMedia = portfolioItems.filter((item) => {
+      const kind = item.kind || (item.type === "image" ? "photo" : "video");
+      return kind !== "case" && kind !== "album";
+    });
+    const match = allMedia.find((item) => toSlug(item.id) === hash);
+    if (!match) return;
+    setActiveFilter("all");
+    const timer = setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("open-lightbox-item", { detail: { itemId: match.id } }));
+    }, 400);
+    return () => clearTimeout(timer);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // const handleCaseStudyOpen = useCallback((item: PortfolioItem) => {
   //   setActiveCaseStudy(item);
   //   setIsCaseModalOpen(true);
@@ -754,7 +790,7 @@ export default function CreativePage() {
               <div className="text-center mb-12">
                 <p className="eyebrow mb-3 text-accent">The Work</p>
                 <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-foreground mb-3">Creative Portfolio</h2>
-                <p className="text-muted-foreground">Selected videography, photography, and case-led projects.</p>
+                <p className="text-muted-foreground">Selected videography and photography projects.</p>
               </div>
             </ScrollReveal>
 
@@ -793,6 +829,12 @@ export default function CreativePage() {
                     enableDownload={false}
                     enableZoom={false}
                     useResponsiveGrid={true}
+                    onItemClick={(item) => {
+                      window.history.replaceState(null, "", "#" + toSlug(item.id));
+                    }}
+                    onLightboxClose={() => {
+                      window.history.replaceState(null, "", window.location.pathname);
+                    }}
                   />
                 )}
 
