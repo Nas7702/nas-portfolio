@@ -947,34 +947,28 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
 
 // Thumbnail Preview Component (for lightbox strip) — memoised; re-renders only when item changes
 const ThumbnailPreview = React.memo(function ThumbnailPreview({ item }: { item: MediaItem }) {
+  const thumb = getThumbnailSrc(item);
   return (
     <div className="relative w-full h-full bg-gray-200 dark:bg-gray-800">
-      {(() => {
-        const thumb = getThumbnailSrc(item);
-        if (thumb.startsWith("/")) {
-          return (
-            <Image
-              src={thumb}
-              alt={item.alt || item.title || "Thumbnail"}
-              fill
-              className="object-cover select-none"
-              draggable={false}
-              onContextMenu={(e) => e.preventDefault()}
-            />
-          );
-        }
-        return (
-          <Image
-            src={thumb}
-            alt={item.alt || item.title || "Thumbnail"}
-            fill
-            sizes="(min-width: 1024px) 120px, (min-width: 640px) 96px, 72px"
-            className="object-cover select-none"
-            draggable={false}
-            onContextMenu={(e) => e.preventDefault()}
-          />
-        );
-      })()}
+      {thumb.startsWith("/") ? (
+        <Image
+          src={thumb}
+          alt={item.alt || item.title || "Thumbnail"}
+          fill
+          className="object-cover select-none"
+          draggable={false}
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      ) : (
+        // Plain img — bypasses Vercel optimisation pipeline for R2 remote URLs
+        <img
+          src={thumb}
+          alt={item.alt || item.title || "Thumbnail"}
+          className="absolute inset-0 w-full h-full object-cover select-none"
+          draggable={false}
+          onContextMenu={(e) => e.preventDefault()}
+        />
+      )}
       {item.type === "video" && (
         <div className="absolute inset-0 flex items-center justify-center">
           <Play size={12} className="text-white" />
