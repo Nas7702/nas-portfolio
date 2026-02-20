@@ -17,6 +17,18 @@ export interface VideoPlayerHandle {
   pause: () => void;
 }
 
+// Vendor-prefixed fullscreen API types — defined once at module scope
+type DocFS = Document & {
+  webkitFullscreenElement?: Element;
+  webkitExitFullscreen?: () => void;
+};
+type ElFS = HTMLElement & {
+  webkitRequestFullscreen?: () => void;
+};
+type VidFS = HTMLVideoElement & {
+  webkitEnterFullscreen?: () => void;
+};
+
 interface VideoPlayerProps {
   src: string;
   poster?: string;
@@ -166,30 +178,31 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
       const v = videoRef.current;
       if (!el || !v) return;
 
-      // Check fullscreen state including webkit prefix (Safari desktop)
-      const isFullscreen = !!(
-        document.fullscreenElement ||
-        (document as Document & { webkitFullscreenElement?: Element }).webkitFullscreenElement
-      );
+      const doc = document as DocFS;
+      const container = el as ElFS;
+      const vid = v as VidFS;
 
-      if (isFullscreen) {
+      // Exit if already fullscreen (standard + webkit)
+      if (document.fullscreenElement || doc.webkitFullscreenElement) {
         if (document.exitFullscreen) {
           document.exitFullscreen().catch(() => {});
         } else {
-          (document as Document & { webkitExitFullscreen?: () => void }).webkitExitFullscreen?.();
+          doc.webkitExitFullscreen?.();
         }
         return;
       }
 
-      // Standard API — works on Android Chrome and iPadOS 16.4+
-      if (el.requestFullscreen) {
-        el.requestFullscreen().catch(() => {});
-      } else if ((el as HTMLElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen) {
-        // Safari desktop
-        (el as HTMLElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen?.();
-      } else if ((v as HTMLVideoElement & { webkitEnterFullscreen?: () => void }).webkitEnterFullscreen) {
-        // iPhone Safari — only <video> elements can go fullscreen; must be called synchronously
-        (v as HTMLVideoElement & { webkitEnterFullscreen?: () => void }).webkitEnterFullscreen?.();
+      // Enter fullscreen — cascade for maximum device coverage:
+      // 1. Standard API: Chrome/Firefox/Edge on Windows, Android, Linux, iPadOS 16.4+
+      // 2. webkitRequestFullscreen: Safari on macOS
+      // 3. webkitEnterFullscreen on <video>: iPhone Safari (divs cannot go fullscreen on iOS)
+      //    Also used as rejection fallback for standard API (some Android WebViews)
+      if (container.requestFullscreen) {
+        container.requestFullscreen().catch(() => vid.webkitEnterFullscreen?.());
+      } else if (container.webkitRequestFullscreen) {
+        container.webkitRequestFullscreen();
+      } else if (vid.webkitEnterFullscreen) {
+        vid.webkitEnterFullscreen();
       }
     }, []);
 
