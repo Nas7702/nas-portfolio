@@ -9,15 +9,13 @@ import {
   ChevronLeft,
   ChevronRight,
   Play,
-  Pause,
-  Volume2,
-  VolumeX,
   ZoomIn,
   ZoomOut,
   RotateCw,
   Download,
   Maximize2
 } from "lucide-react";
+import VideoPlayer, { type VideoPlayerHandle } from "./VideoPlayer";
 
 export interface MediaItem {
   id: string;
@@ -209,11 +207,10 @@ export default function LightboxGallery({
 }: LightboxGalleryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [globalMuted, setGlobalMuted] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoPlayerRef = useRef<VideoPlayerHandle>(null);
 
   const currentItem = items[currentIndex];
 
@@ -241,7 +238,7 @@ export default function LightboxGallery({
         case " ":
           e.preventDefault();
           if (currentItem.type === "video" && !isEmbedUrl(currentItem.src)) {
-            togglePlayPause();
+            videoPlayerRef.current?.togglePlayPause();
           }
           break;
       }
@@ -271,8 +268,7 @@ export default function LightboxGallery({
       }
     }
     openLightbox(index);
-  // openLightbox has no external deps; onItemClick is the only external reference
-  }, [onItemClick]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [onItemClick]);
 
   // Auto-open lightbox on mount (used by album cards to skip the grid step)
   useEffect(() => {
@@ -286,7 +282,6 @@ export default function LightboxGallery({
 
   const closeLightbox = () => {
     setIsOpen(false);
-    setIsPlaying(false);
     onLightboxClose?.();
   };
 
@@ -294,33 +289,13 @@ export default function LightboxGallery({
     setCurrentIndex((prev) => (prev + 1) % items.length);
     setZoom(1);
     setRotation(0);
-    setIsPlaying(false);
   }, [items.length]);
 
   const goToPrevious = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
     setZoom(1);
     setRotation(0);
-    setIsPlaying(false);
   }, [items.length]);
-
-  const togglePlayPause = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
 
   const handleZoomIn = () => {
     setZoom((prev) => Math.min(prev + 0.5, 3));
@@ -399,19 +374,7 @@ export default function LightboxGallery({
     };
     window.addEventListener("open-lightbox-item", handleOpenItem);
     return () => window.removeEventListener("open-lightbox-item", handleOpenItem);
-  }, [items]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Auto-play self-hosted video when lightbox opens or user navigates to a video item
-  useEffect(() => {
-    if (!isOpen) return;
-    if (currentItem.type !== "video" || isEmbedUrl(currentItem.src)) return;
-    const timer = setTimeout(() => {
-      videoRef.current?.play().catch(() => {
-        // Autoplay blocked by browser — user can click play manually
-      });
-    }, 50);
-    return () => clearTimeout(timer);
-  }, [isOpen, currentIndex, currentItem.type, currentItem.src]);
+  }, [items]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -523,23 +486,6 @@ export default function LightboxGallery({
                       </>
                     )}
 
-                    {currentItem.type === "video" && !isEmbedUrl(currentItem.src) && (
-                      <>
-                        <button
-                          onClick={togglePlayPause}
-                          className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                        >
-                          {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-                        </button>
-                        <button
-                          onClick={toggleMute}
-                          className="p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors"
-                        >
-                          {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-                        </button>
-                      </>
-                    )}
-
                     {enableDownload && !isEmbedUrl(currentItem.src) && (
                       <button
                         onClick={handleDownload}
@@ -620,17 +566,19 @@ export default function LightboxGallery({
                       })()}
                     </div>
                   ) : (
-                    <video
-                      ref={videoRef}
+                    // key forces remount on src change so autoPlay fires on each navigation
+                    <VideoPlayer
+                      key={currentItem.src}
+                      ref={videoPlayerRef}
                       src={currentItem.src}
-                      className="max-w-full max-h-full object-contain"
-                      controls
-                      controlsList="nodownload noremoteplayback"
-                      disablePictureInPicture
-                      muted={isMuted}
-                      onPlay={() => setIsPlaying(true)}
-                      onPause={() => setIsPlaying(false)}
+                      autoPlay
+                      loop
+                      playsInline
+                      muted={globalMuted}
+                      onMuteChange={setGlobalMuted}
                       onContextMenu={handleContextMenu}
+                      className="w-full h-full"
+                      videoClassName="w-full h-full object-contain"
                     />
                   )}
 
@@ -708,7 +656,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
   const [isInView, setIsInView] = useState(false);
   const [imageError, setImageError] = useState(false);
   const imgRef = useRef<HTMLDivElement>(null);
-  const inlineVideoRef = useRef<HTMLVideoElement>(null);
+  const inlineVideoPlayerRef = useRef<VideoPlayerHandle>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -737,21 +685,19 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
   // Autoplay inline self-hosted video (muted) when scrolled into view; pause when scrolled out
   useEffect(() => {
     if (!inlinePlayback || !isSelfHostedVideo || !isInView) return;
-    const videoEl = inlineVideoRef.current;
-    if (!videoEl) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          videoEl.play().catch(() => {});
+          inlineVideoPlayerRef.current?.play();
         } else {
-          videoEl.pause();
+          inlineVideoPlayerRef.current?.pause();
         }
       },
       { threshold: 0.3 }
     );
 
-    observer.observe(videoEl);
+    if (imgRef.current) observer.observe(imgRef.current);
     return () => observer.disconnect();
   }, [isInView, inlinePlayback, isSelfHostedVideo]);
 
@@ -812,19 +758,17 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
                 ) : null;
               })()
             ) : inlinePlayback && isSelfHostedVideo ? (
-              <video
-                ref={inlineVideoRef}
+              <VideoPlayer
+                ref={inlineVideoPlayerRef}
                 src={item.src}
                 poster={item.thumbnail || item.cover}
-                className="w-full h-auto block"
-                controls
-                controlsList="nodownload noremoteplayback"
-                disablePictureInPicture
-                preload="auto"
-                playsInline
                 muted
                 loop
+                playsInline
+                preload="auto"
                 onContextMenu={(e) => e.preventDefault()}
+                videoClassName="w-full h-auto block"
+                className="w-full"
               />
             ) : !imageError ? (
               adaptiveAspectRatio ? (

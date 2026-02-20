@@ -14,13 +14,6 @@ export const metadata: Metadata = {
     template: "%s | Nas.Create",
   },
   description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
-  icons: {
-    icon: [
-      { url: "/logos/darkmode-wordmark.png", type: "image/png" },
-    ],
-    shortcut: "/logos/darkmode-wordmark.png",
-    apple: "/logos/darkmode-wordmark.png",
-  },
   openGraph: {
     title: "Nas.Create — Visual Storyteller",
     description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
