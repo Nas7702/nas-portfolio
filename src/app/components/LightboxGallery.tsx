@@ -787,6 +787,15 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
             : ""
         }`}
       >
+        {/* Blurred backdrop fill — video cards only */}
+        {!inlinePlayback && item.type === "video" && !thumbSrc.endsWith(".svg") && (
+          <div
+            aria-hidden
+            className="absolute inset-0 scale-110 blur-xl brightness-50"
+            style={{ backgroundImage: `url(${thumbSrc})`, backgroundSize: "cover", backgroundPosition: "center" }}
+          />
+        )}
+
         {isInView && (
           <>
             {inlinePlayback && isEmbed ? (
@@ -835,7 +844,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
                   src={thumbSrc}
                   alt={item.alt || item.title || `Media ${index + 1}`}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110 select-none"
+                  className={`${item.type === "video" ? "object-contain" : "object-cover transition-transform duration-300 group-hover:scale-110"} select-none`}
                   onError={() => setImageError(true)}
                   draggable={false}
                   onContextMenu={(e) => e.preventDefault()}
@@ -846,7 +855,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
                   alt={item.alt || item.title || `Media ${index + 1}`}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover select-none"
+                  className={`${item.type === "video" ? "object-contain" : "object-cover"} select-none`}
                   onError={() => setImageError(true)}
                   draggable={false}
                   onContextMenu={(e) => e.preventDefault()}
@@ -861,16 +870,16 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
             {/* Media Type Indicator */}
             {!inlinePlayback && item.type === "video" && (
               <>
-                {/* Corner badge */}
+                {/* Corner badge — frosted, minimal */}
                 <div className="absolute top-2 left-2 z-10">
-                  <div className="px-2 py-1 rounded-md bg-gradient-to-r from-emerald-400 to-green-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg animate-pulse">
+                  <div className="px-2 py-1 rounded-sm bg-black/60 backdrop-blur-sm text-white text-[10px] font-medium uppercase tracking-widest shadow-sm">
                     Video
                   </div>
                 </div>
-                {/* Play button */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="p-4 bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-full shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                    <Play size={24} fill="white" />
+                {/* Play indicator — bottom-right corner, out of the way */}
+                <div className="absolute bottom-2 right-2 z-10 pointer-events-none">
+                  <div className="flex items-center justify-center w-7 h-7 rounded-full border border-white/30 bg-black/40 backdrop-blur-sm opacity-70 group-hover:opacity-100 group-hover:border-white/70 group-hover:bg-white/10 group-hover:scale-110 transition-all duration-300 ease-out">
+                    <Play size={9} fill="white" className="text-white ml-px" />
                   </div>
                 </div>
               </>
@@ -888,23 +897,22 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
       {(showTitle && (item.title || (item.tags && item.tags.length > 0))) && (
         <div className="mt-3 space-y-2">
           {item.title && (
-            <h4 className="text-sm font-medium text-foreground">
+            <h4 className="font-display font-light text-base text-foreground group-hover:text-accent transition-colors">
               {item.title}
             </h4>
           )}
           {item.tags && item.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {item.tags.slice(0, 5).map((tag) => (
                 <span
                   key={tag}
-                  className="px-2.5 py-1 rounded-full text-xs font-medium border border-accent/30 bg-accent/10 text-accent"
+                  className="px-2 py-0.5 rounded-sm text-[10px] font-medium border border-accent/20 bg-accent/5 text-accent uppercase tracking-wider"
                 >
                   {tag}
                 </span>
               ))}
             </div>
           )}
-
         </div>
       )}
     </motion.div>
