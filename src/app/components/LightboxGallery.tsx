@@ -584,13 +584,16 @@ export default function LightboxGallery({
                     </div>
                   ) : (
                     // key forces remount on src change so autoPlay fires on each navigation
+                    // playsInline intentionally omitted — on iOS, videos auto-enter the native
+                    // system fullscreen player on tap. Users can swipe to dismiss and continue
+                    // watching inline with the custom controls.
                     <VideoPlayer
                       key={currentItem.src}
                       ref={videoPlayerRef}
                       src={currentItem.src}
                       autoPlay
                       loop
-                      playsInline
+                      playsInline={false}
                       muted={globalMuted}
                       onMuteChange={setGlobalMuted}
                       onContextMenu={handleContextMenu}
