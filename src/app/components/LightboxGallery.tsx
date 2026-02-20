@@ -840,26 +840,52 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
                   onContextMenu={(e) => e.preventDefault()}
                 />
               ) : isLocalThumb ? (
-                <Image
-                  src={thumbSrc}
-                  alt={item.alt || item.title || `Media ${index + 1}`}
-                  fill
-                  className={`${item.type === "video" ? "object-contain z-[1]" : "object-cover transition-transform duration-300 group-hover:scale-110"} select-none`}
-                  onError={() => setImageError(true)}
-                  draggable={false}
-                  onContextMenu={(e) => e.preventDefault()}
-                />
+                item.type === "video" ? (
+                  // Plain img for video thumbnails — bypasses Next.js/Vercel optimisation
+                  // pipeline so the browser fetches R2 directly, same path as the CSS backdrop
+                  <img
+                    src={thumbSrc}
+                    alt={item.alt || item.title || `Media ${index + 1}`}
+                    className="absolute inset-0 w-full h-full object-contain select-none"
+                    style={{ zIndex: 1 }}
+                    onError={() => setImageError(true)}
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                  />
+                ) : (
+                  <Image
+                    src={thumbSrc}
+                    alt={item.alt || item.title || `Media ${index + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110 select-none"
+                    onError={() => setImageError(true)}
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                  />
+                )
               ) : (
-                <Image
-                  src={thumbSrc}
-                  alt={item.alt || item.title || `Media ${index + 1}`}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className={`${item.type === "video" ? "object-contain z-[1]" : "object-cover"} select-none`}
-                  onError={() => setImageError(true)}
-                  draggable={false}
-                  onContextMenu={(e) => e.preventDefault()}
-                />
+                item.type === "video" ? (
+                  <img
+                    src={thumbSrc}
+                    alt={item.alt || item.title || `Media ${index + 1}`}
+                    className="absolute inset-0 w-full h-full object-contain select-none"
+                    style={{ zIndex: 1 }}
+                    onError={() => setImageError(true)}
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                  />
+                ) : (
+                  <Image
+                    src={thumbSrc}
+                    alt={item.alt || item.title || `Media ${index + 1}`}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover select-none"
+                    onError={() => setImageError(true)}
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                  />
+                )
               )
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400">
