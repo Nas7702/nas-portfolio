@@ -163,11 +163,33 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
 
     const handleFullscreen = useCallback(() => {
       const el = containerRef.current;
-      if (!el) return;
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-      } else {
-        el.requestFullscreen?.().catch(() => {});
+      const v = videoRef.current;
+      if (!el || !v) return;
+
+      // Check fullscreen state including webkit prefix (Safari desktop)
+      const isFullscreen = !!(
+        document.fullscreenElement ||
+        (document as Document & { webkitFullscreenElement?: Element }).webkitFullscreenElement
+      );
+
+      if (isFullscreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        } else {
+          (document as Document & { webkitExitFullscreen?: () => void }).webkitExitFullscreen?.();
+        }
+        return;
+      }
+
+      // Standard API — works on Android Chrome and iPadOS 16.4+
+      if (el.requestFullscreen) {
+        el.requestFullscreen().catch(() => {});
+      } else if ((el as HTMLElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen) {
+        // Safari desktop
+        (el as HTMLElement & { webkitRequestFullscreen?: () => void }).webkitRequestFullscreen?.();
+      } else if ((v as HTMLVideoElement & { webkitEnterFullscreen?: () => void }).webkitEnterFullscreen) {
+        // iPhone Safari — only <video> elements can go fullscreen; must be called synchronously
+        (v as HTMLVideoElement & { webkitEnterFullscreen?: () => void }).webkitEnterFullscreen?.();
       }
     }, []);
 
