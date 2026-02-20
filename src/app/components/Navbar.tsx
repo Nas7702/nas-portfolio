@@ -55,8 +55,12 @@ export default function Navbar() {
   };
 
   const navBg = scrolled || isOpen
-    ? "bg-background/90 backdrop-blur-md border-b border-border/40"
-    : "bg-transparent";
+    ? "bg-background/85 supports-[backdrop-filter]:bg-background/55 backdrop-blur-2xl border-b border-border/45 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+    : "bg-background/70 supports-[backdrop-filter]:bg-background/35 backdrop-blur-xl border-b border-border/25";
+
+  const safeAreaBg = scrolled || isOpen
+    ? "bg-background/95 supports-[backdrop-filter]:bg-background/75 backdrop-blur-2xl"
+    : "bg-background/90 supports-[backdrop-filter]:bg-background/70 backdrop-blur-2xl";
 
   const mobileBg = theme === "dark"
     ? "border-border/30 bg-black/90 backdrop-blur-md"
@@ -65,10 +69,16 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed left-0 right-0 z-40 transition-all duration-500 ${navBg}`}
-        style={{ top: "env(safe-area-inset-top, 0px)" }}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${navBg}`}
+        style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-x-0 top-0 ${safeAreaBg}`}
+          style={{ height: "env(safe-area-inset-top, 0px)" }}
+        />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
 
             {/* Logo — inline wordmark */}
@@ -205,7 +215,10 @@ export default function Navbar() {
       </nav>
 
       {/* Spacer */}
-      <div className="h-16" />
+      <div
+        aria-hidden="true"
+        style={{ height: "calc(4rem + env(safe-area-inset-top, 0px))" }}
+      />
     </>
   );
 }
