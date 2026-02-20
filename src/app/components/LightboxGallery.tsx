@@ -787,17 +787,17 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
             : ""
         }`}
       >
-        {/* Blurred backdrop fill — video cards only */}
-        {!inlinePlayback && item.type === "video" && !thumbSrc.endsWith(".svg") && (
-          <div
-            aria-hidden
-            className="absolute inset-0 scale-110 blur-xl brightness-50"
-            style={{ backgroundImage: `url(${thumbSrc})`, backgroundSize: "cover", backgroundPosition: "center" }}
-          />
-        )}
-
         {isInView && (
           <>
+            {/* Blurred backdrop fill — video cards only, rendered first so image stacks on top */}
+            {!inlinePlayback && item.type === "video" && !thumbSrc.endsWith(".svg") && (
+              <div
+                aria-hidden
+                className="absolute inset-0 scale-110 blur-xl brightness-50"
+                style={{ backgroundImage: `url(${thumbSrc})`, backgroundSize: "cover", backgroundPosition: "center" }}
+              />
+            )}
+
             {inlinePlayback && isEmbed ? (
               (() => {
         const embedUrl = getEmbedUrl(item.src);
@@ -844,7 +844,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
                   src={thumbSrc}
                   alt={item.alt || item.title || `Media ${index + 1}`}
                   fill
-                  className={`${item.type === "video" ? "object-contain" : "object-cover transition-transform duration-300 group-hover:scale-110"} select-none`}
+                  className={`${item.type === "video" ? "object-contain z-[1]" : "object-cover transition-transform duration-300 group-hover:scale-110"} select-none`}
                   onError={() => setImageError(true)}
                   draggable={false}
                   onContextMenu={(e) => e.preventDefault()}
@@ -855,7 +855,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
                   alt={item.alt || item.title || `Media ${index + 1}`}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className={`${item.type === "video" ? "object-contain" : "object-cover"} select-none`}
+                  className={`${item.type === "video" ? "object-contain z-[1]" : "object-cover"} select-none`}
                   onError={() => setImageError(true)}
                   draggable={false}
                   onContextMenu={(e) => e.preventDefault()}
