@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Navbar from "./components/Navbar";
 import AnimationWrapper from "./components/AnimationWrapper";
@@ -6,6 +6,12 @@ import CustomCursor from "./components/CustomCursor";
 import DebugFpsCounter from "./components/DebugFpsCounter";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+
+// viewport-fit=cover: lets position:fixed elements cover the full screen on iOS,
+// including the Dynamic Island/notch strip at top and home indicator strip at bottom.
+export const viewport: Viewport = {
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nascreate.com"),

@@ -245,11 +245,24 @@ export default function LightboxGallery({
     };
 
     document.addEventListener("keydown", handleKeyDown);
+
+    // iOS-safe scroll lock: overflow:hidden alone doesn't stop touch-scrolling on Safari.
+    // Fixing the body position prevents the page from scrolling behind the modal.
+    const scrollY = window.scrollY;
     document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      window.scrollTo(0, scrollY);
     };
   }, [isOpen, currentIndex, currentItem.type]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -443,7 +456,11 @@ export default function LightboxGallery({
             {/* Modal Content */}
             <motion.div
               data-lightbox-modal="true"
-              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center px-4"
+              style={{
+                paddingTop: "max(env(safe-area-inset-top, 0px), 1rem)",
+                paddingBottom: "max(env(safe-area-inset-bottom, 0px), 1rem)",
+              }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
