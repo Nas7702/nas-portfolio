@@ -211,6 +211,17 @@ export default function LightboxGallery({
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
   const videoPlayerRef = useRef<VideoPlayerHandle>(null);
+  const preloadRef = useRef<HTMLVideoElement | null>(null);
+
+  const preloadVideo = useCallback((src: string) => {
+    // Skip if already loading this src
+    const filename = src.split("/").pop()!;
+    if (preloadRef.current?.src.endsWith(filename)) return;
+    const video = document.createElement("video");
+    video.preload = "auto";
+    video.src = src;
+    preloadRef.current = video;
+  }, []);
 
   const currentItem = items[currentIndex];
 
@@ -436,6 +447,7 @@ export default function LightboxGallery({
             showTitle={showTitles}
             inlinePlayback={inlinePlayback}
             adaptiveAspectRatio={adaptiveAspectRatio}
+            onPreload={preloadVideo}
           />
         ))}
       </div>
@@ -591,6 +603,7 @@ export default function LightboxGallery({
                       key={currentItem.src}
                       ref={videoPlayerRef}
                       src={currentItem.src}
+                      preload="auto"
                       autoPlay
                       loop
                       playsInline={false}
@@ -665,6 +678,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
   showTitle,
   inlinePlayback,
   adaptiveAspectRatio = false,
+  onPreload,
 }: {
   item: MediaItem;
   index: number;
@@ -672,6 +686,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
   showTitle: boolean;
   inlinePlayback: boolean;
   adaptiveAspectRatio?: boolean;
+  onPreload?: (src: string) => void;
 }) {
   const [isInView, setIsInView] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -731,6 +746,11 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
       whileHover={{ scale: adaptiveAspectRatio ? 1.02 : 1 }}
       whileTap={{ scale: 0.95 }}
       onClick={isInlineVideo ? undefined : () => onSelect(item, index)}
+      onMouseEnter={() => {
+        if (item.type === "video" && !isEmbedUrl(item.src)) {
+          onPreload?.(item.src);
+        }
+      }}
     >
       {/* Gradient overlay on hover */}
       {!inlinePlayback && !adaptiveAspectRatio && (

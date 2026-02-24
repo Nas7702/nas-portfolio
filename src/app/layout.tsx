@@ -72,6 +72,9 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://i.vimeocdn.com" />
         <link rel="dns-prefetch" href="https://player.vimeo.com" />
         <link rel="dns-prefetch" href="https://www.instagram.com" />
+        {/* Preconnect to Cloudflare R2 for self-hosted videos */}
+        <link rel="preconnect" href="https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev" />
 
         {/* Prefetch critical routes */}
         <link rel="prefetch" href="/create" />

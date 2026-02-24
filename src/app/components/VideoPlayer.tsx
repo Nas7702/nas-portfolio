@@ -71,6 +71,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(initialMuted);
     const [controlsVisible, setControlsVisible] = useState(true);
+    const [isBuffering, setIsBuffering] = useState(false);
 
     // Expose imperative handle to parent
     useImperativeHandle(ref, () => ({
@@ -214,6 +215,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
 
     const handleVideoPause = useCallback(() => {
       setIsPlaying(false);
+      setIsBuffering(false);
       setControlsVisible(true);
       if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
       stopRAF();
@@ -241,9 +243,21 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
           disablePictureInPicture
           onPlay={handleVideoPlay}
           onPause={handleVideoPause}
+          onWaiting={() => setIsBuffering(true)}
+          onStalled={() => setIsBuffering(true)}
+          onPlaying={() => setIsBuffering(false)}
+          onCanPlay={() => setIsBuffering(false)}
+          onCanPlayThrough={() => setIsBuffering(false)}
           onContextMenu={onContextMenu}
           className={cn(videoClassName)}
         />
+
+        {/* Buffering spinner — shown when the browser stalls waiting for data */}
+        {isBuffering && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full border-2 border-white/20 border-t-accent animate-spin" />
+          </div>
+        )}
 
         {/* Frosted glass control bar — auto-hides when playing, always visible when paused */}
         <div
