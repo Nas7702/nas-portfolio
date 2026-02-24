@@ -115,15 +115,16 @@ function buildBokehFragmentShader(options: BokehShaderOptions): string {
 ${blobFunction}
   void main() {
     float t = uTime;
-    vec2 uv = (vUv - 0.5) * vec2(uResolution.x / uResolution.y, 1.0);
+    float aspect = uResolution.x / uResolution.y;
+    vec2 uv = (vUv - 0.5) * vec2(aspect, 1.0);
 
     float split = smoothstep(-1.05, 1.05, uv.x);
     vec3 base = mix(uBaseWarm, uBaseCool, split * 0.55 + 0.225);
 
-    float warmLeak = exp(-pow((uv.x + 0.58) * 1.45, 2.0)) * 0.08;
-    float coolLeak = exp(-pow((uv.x - 0.62) * 1.6, 2.0)) * 0.08;
-    base += uLightWarm * warmLeak * 0.14;
-    base += uLightCool * coolLeak * 0.14;
+    float warmLeak = exp(-pow((uv.x + aspect * 0.65) * 1.45, 2.0)) * 0.14;
+    float coolLeak = exp(-pow((uv.x - aspect * 0.70) * 1.6, 2.0)) * 0.14;
+    base += uLightWarm * warmLeak * 0.24;
+    base += uLightCool * coolLeak * 0.24;
 
     vec3 lights = vec3(0.0);
 
@@ -137,12 +138,12 @@ ${blobFunction}
         vec2 rndB = hash21(id + 9.71);
 
         vec2 centre = vec2(
-          mix(-1.62, 1.62, rndA.x),
+          mix(-aspect * 0.91, aspect * 0.91, rndA.x),
           mix(-1.0, 1.0, rndA.y)
         );
 
         float speed = mix(0.016, 0.09, rndB.x) * (0.8 + lf * 0.5);
-        centre.x += sin(t * speed + rndA.y * 6.2831) * (0.3 + depth * 0.25);
+        centre.x += sin(t * speed + rndA.y * 6.2831) * (0.3 + depth * 0.25) * min(aspect, 1.0);
         centre.y += cos(t * speed * 1.28 + rndA.x * 6.2831) * (0.22 + depth * 0.18);
 
         vec2 radii = vec2(
@@ -153,7 +154,7 @@ ${blobFunction}
         float angle = rndA.x * 6.2831 + t * (rndB.y - 0.5) * 0.08;
         float blob = ellipseBlob(uv, centre, radii, angle);
 
-        float intensity = blob * mix(0.08, 0.22, depth) * mix(0.7, 1.0, rndA.y);
+        float intensity = blob * mix(0.14, 0.40, depth) * mix(0.72, 1.0, rndA.y);
         vec3 tint = mix(uLightCool, uLightWarm, rndB.x);
         tint = mix(tint, uLightNeutral, 0.42);
         lights += tint * intensity;
@@ -161,11 +162,11 @@ ${blobFunction}
     }
 
     float atmosphere = fbm(uv * 2.25 + vec2(t * 0.03, -t * 0.02));
-    lights += vec3(atmosphere * 0.02);
+    lights += vec3(atmosphere * 0.04);
 
     float heroCentre = length(uv - vec2(0.0, -0.08));
     float centreMask = smoothstep(0.12, 0.56, heroCentre);
-    lights *= mix(0.22, 1.0, centreMask);
+    lights *= mix(0.44, 1.0, centreMask);
 
     vec3 colour = base + lights;
 

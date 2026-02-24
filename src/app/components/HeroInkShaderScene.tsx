@@ -149,7 +149,7 @@ ${sunRayFunction}
 
     float ridges = pow(1.0 - abs(smoke * 2.0 - 1.0), 1.25);
     float veil = fbm(flowUv * 1.05 + vec2(t * 0.08, -t * 0.06));
-    float ink = smoothstep(0.2, 0.9, smoke * 0.63 + detail * 0.16 + ridges * 0.11);
+    float ink = smoothstep(0.18, 0.84, smoke * 0.54 + detail * 0.16 + ridges * 0.26);
 
     vec3 blended = mix(uColourA, uColourB, ink);
     blended = mix(blended, mix(uColourA, uColourB, veil), 0.05 * uIntensity);
@@ -210,12 +210,12 @@ function InkPlane({
       uTime: { value: 0 },
       uResolution: { value: new THREE.Vector2(1, 1) },
       uColourA: { value: new THREE.Color(0.023, 0.024, 0.027) },
-      uColourB: { value: new THREE.Color(0.085, 0.088, 0.094) },
+      uColourB: { value: new THREE.Color(0.13, 0.14, 0.16) },
       uRayTint: { value: new THREE.Color(0.69, 0.7, 0.67) },
-      uIntensity: { value: 0.82 },
+      uIntensity: { value: 0.88 },
       uSparkle: { value: 0.075 },
       uRayStrength: { value: 0.18 },
-      uVignetteStrength: { value: 0.52 },
+      uVignetteStrength: { value: 0.48 },
     }),
     []
   );
@@ -228,9 +228,9 @@ function InkPlane({
   useEffect(() => {
     if (isLightTheme) {
       uniforms.uColourA.value.setRGB(0.947, 0.942, 0.934);
-      uniforms.uColourB.value.setRGB(0.852, 0.843, 0.828);
+      uniforms.uColourB.value.setRGB(0.765, 0.752, 0.732);
       uniforms.uRayTint.value.setRGB(0.91, 0.885, 0.84);
-      uniforms.uIntensity.value = quality === "low" ? 0.66 : 0.74;
+      uniforms.uIntensity.value = quality === "low" ? 0.72 : 0.82;
       uniforms.uSparkle.value = quality === "high" ? 0.014 : 0.01;
       uniforms.uRayStrength.value = quality === "low" ? 0.0 : 0.15;
       uniforms.uVignetteStrength.value = quality === "low" ? 0.18 : 0.25;
@@ -239,12 +239,12 @@ function InkPlane({
     }
 
     uniforms.uColourA.value.setRGB(0.023, 0.024, 0.027);
-    uniforms.uColourB.value.setRGB(0.085, 0.088, 0.094);
+    uniforms.uColourB.value.setRGB(0.13, 0.14, 0.16);
     uniforms.uRayTint.value.setRGB(0.69, 0.7, 0.67);
-    uniforms.uIntensity.value = quality === "low" ? 0.78 : 0.84;
+    uniforms.uIntensity.value = quality === "low" ? 0.84 : 0.92;
     uniforms.uSparkle.value = quality === "high" ? 0.05 : 0.03;
     uniforms.uRayStrength.value = quality === "low" ? 0.0 : 0.14;
-    uniforms.uVignetteStrength.value = quality === "low" ? 0.32 : 0.42;
+    uniforms.uVignetteStrength.value = quality === "low" ? 0.28 : 0.38;
     invalidate();
   }, [isLightTheme, quality, uniforms, invalidate]);
 
