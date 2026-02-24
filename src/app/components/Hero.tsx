@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { HeroInkShaderScene } from "./HeroInkShaderScene";
 
 export default function Hero() {
@@ -28,23 +27,7 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 0.2 }}
           className="flex flex-col items-center md:items-start mb-6"
         >
-          {/* Dark logo: priority because it is visible on first load (site defaults to dark).
-              Light logo: no priority — hidden until the user switches theme, so no need to preload it. */}
-          <Image
-            src="/logos/darkmode-inline.png"
-            alt="Nas.Create"
-            width={320}
-            height={57}
-            className="mb-5 hidden dark:block w-[200px] sm:w-[260px] md:w-[320px] h-auto"
-            priority
-          />
-          <Image
-            src="/logos/lightmode-inline.png"
-            alt="Nas.Create"
-            width={320}
-            height={57}
-            className="mb-5 block dark:hidden w-[200px] sm:w-[260px] md:w-[320px] h-auto"
-          />
+
           <h1 className="font-display font-light text-[2.5rem] sm:text-5xl md:text-7xl tracking-[-0.03em] leading-[1.05] text-foreground mb-3">
             Commercial Video.
             <span className="flex items-baseline gap-2 md:gap-3 mt-1 justify-center md:justify-start">

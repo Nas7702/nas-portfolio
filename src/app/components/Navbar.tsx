@@ -81,22 +81,22 @@ export default function Navbar() {
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
 
-            {/* Logo — inline wordmark */}
+            {/* Logo — wordmark */}
             <Link href="/" aria-label="Nas.Create — Home" className="flex-shrink-0">
               <Image
-                src="/logos/darkmode-inline.png"
+                src="/logos/cropped-darkmode-wordmark.png"
                 alt="Nas.Create"
-                width={140}
-                height={25}
-                className="hidden dark:block h-[22px] w-auto"
+                width={1366}
+                height={772}
+                className="hidden dark:block h-[38px] w-auto"
                 priority
               />
               <Image
-                src="/logos/lightmode-inline.png"
+                src="/logos/cropped-lightmode-workmark.png"
                 alt="Nas.Create"
-                width={140}
-                height={25}
-                className="block dark:hidden h-[22px] w-auto"
+                width={1366}
+                height={772}
+                className="block dark:hidden h-[38px] w-auto"
               />
             </Link>
 
