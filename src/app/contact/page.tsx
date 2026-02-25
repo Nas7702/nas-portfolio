@@ -175,31 +175,43 @@ function ContactPageInner() {
             </motion.section>
 
             {/* WhatsApp — fast secondary option */}
-            <motion.a
-              href={whatsappHref}
+            <motion.div
               id="whatsapp"
-              target="_blank"
-              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="group flex items-center p-6 rounded-sm bg-card border border-border hover:border-primary/50 transition-all duration-300"
-              onClick={(e) =>
-                trackCta("contact_whatsapp_secondary", {
-                  href: e.currentTarget.href,
-                  service: selectedService ?? "none",
-                })
-              }
+              className="group relative flex items-center p-6 rounded-sm bg-card border border-border hover:border-primary/50 transition-all duration-300"
             >
-              <div className="p-3 rounded-sm bg-secondary mr-4">
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 z-10"
+                onClick={(e) =>
+                  trackCta("contact_whatsapp_secondary", {
+                    href: e.currentTarget.href,
+                    service: selectedService ?? "none",
+                  })
+                }
+              />
+              <div className="p-3 rounded-sm bg-secondary mr-4 shrink-0">
                 <MessageCircle className="w-6 h-6" />
               </div>
               <div className="flex-grow">
                 <div className="text-sm font-medium text-muted-foreground mb-0.5">WhatsApp</div>
                 <div className="font-semibold text-lg text-foreground">+44 7475 437833</div>
               </div>
-              <ArrowRight className="text-muted-foreground transform transition-transform group-hover:translate-x-1 group-hover:text-primary" />
-            </motion.a>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleCopy("+447475437833", "phone");
+                }}
+                className="relative z-20 p-2 hover:bg-secondary rounded-full transition-colors ml-2 shrink-0"
+              >
+                {copied === "phone" ? <Check size={16} /> : <span className="text-xs font-medium px-1">Copy</span>}
+              </button>
+            </motion.div>
 
             {/* Email + Instagram — 2-col grid */}
             <div className="grid sm:grid-cols-2 gap-3">
