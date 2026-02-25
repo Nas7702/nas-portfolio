@@ -10,7 +10,7 @@ import { trackCta } from "../../lib/analytics";
 const WHATSAPP_BASE = "https://wa.me/447475437833";
 const CALENDLY_URL = "https://calendly.com/nas-create0/30min";
 const EMAIL_URL =
-  "mailto:nascreate0@gmail.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BVideo%2FPhoto%2FEvent%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
+  "mailto:hello@nascreate.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BVideo%2FPhoto%2FEvent%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
 const INSTAGRAM_URL = "https://instagram.com/nas.create";
 
 const SERVICES = ["videography", "photography", "post-production", "color-grading"] as const;
@@ -222,13 +222,13 @@ function ContactPageInner() {
                 </div>
                 <div className="flex-grow min-w-0">
                   <div className="text-xs font-medium text-muted-foreground mb-0.5">Email</div>
-                  <div className="font-semibold text-sm truncate">nascreate0@gmail.com</div>
+                  <div className="font-semibold text-sm truncate">hello@nascreate.com</div>
                 </div>
                 <button
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    handleCopy("nascreate0@gmail.com", "email");
+                    handleCopy("hello@nascreate.com", "email");
                   }}
                   className="relative z-20 p-2 hover:bg-secondary rounded-full transition-colors ml-2 shrink-0"
                 >

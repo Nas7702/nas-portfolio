@@ -320,5 +320,5 @@ Open source for reference. You're welcome to study the code, but please don't co
 
 - **Site:** [nascreate.com](https://nascreate.com)
 - **WhatsApp:** +44 7475 437833
-- **Email:** nascreate0@gmail.com
+- **Email:** hello@nascreate.com
 - **Instagram:** [@nas.create](https://instagram.com/nas.create)
