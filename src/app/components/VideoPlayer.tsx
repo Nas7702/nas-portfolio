@@ -72,6 +72,9 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
     const [isMuted, setIsMuted] = useState(initialMuted);
     const [controlsVisible, setControlsVisible] = useState(true);
     const [isBuffering, setIsBuffering] = useState(false);
+    // True when the browser blocked unmuted autoplay and we fell back to muted.
+    // Drives the "Tap to unmute" badge until the user explicitly unmutes.
+    const [mutedByPolicy, setMutedByPolicy] = useState(false);
 
     // Expose imperative handle to parent
     useImperativeHandle(ref, () => ({
@@ -90,10 +93,24 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
       if (v) v.muted = isMuted;
     }, [isMuted]);
 
-    // Autoplay on mount
+    // Autoplay on mount — if unmuted autoplay is blocked (no prior user interaction),
+    // fall back to muted so the video still plays, then show a "Tap to unmute" badge.
     useEffect(() => {
       if (!autoPlay) return;
-      const t = setTimeout(() => videoRef.current?.play().catch(() => {}), 50);
+      const t = setTimeout(async () => {
+        const v = videoRef.current;
+        if (!v) return;
+        try {
+          await v.play();
+        } catch {
+          // Browser policy blocked unmuted autoplay — retry muted
+          v.muted = true;
+          setIsMuted(true);
+          onMuteChange?.(true);
+          setMutedByPolicy(true);
+          v.play().catch(() => {});
+        }
+      }, 50);
       return () => clearTimeout(t);
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -156,6 +173,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
       const newMuted = !isMuted;
       setIsMuted(newMuted);
       onMuteChange?.(newMuted);
+      if (!newMuted) setMutedByPolicy(false);
     }, [isMuted, onMuteChange]);
 
     const handleSeek = useCallback(
@@ -251,6 +269,20 @@ const VideoPlayer = forwardRef<VideoPlayerHandle, VideoPlayerProps>(
           onContextMenu={onContextMenu}
           className={cn(videoClassName)}
         />
+
+        {/* "Tap to unmute" badge — visible when browser policy forced muted autoplay.
+            Dismissed as soon as the user unmutes (via badge or the controls bar). */}
+        {mutedByPolicy && isMuted && (
+          <button
+            type="button"
+            aria-label="Unmute"
+            onClick={handleMute}
+            className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-sm border border-white/20 text-white text-xs font-medium hover:bg-black/90 hover:border-white/40 transition-all duration-200"
+          >
+            <VolumeX size={12} />
+            Tap to unmute
+          </button>
+        )}
 
         {/* Buffering spinner — shown when the browser stalls waiting for data */}
         {isBuffering && (

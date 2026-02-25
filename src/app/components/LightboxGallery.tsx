@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -210,6 +211,7 @@ export default function LightboxGallery({
   const [globalMuted, setGlobalMuted] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const videoPlayerRef = useRef<VideoPlayerHandle>(null);
   const preloadRef = useRef<HTMLVideoElement | null>(null);
 
@@ -222,6 +224,9 @@ export default function LightboxGallery({
     video.src = src;
     preloadRef.current = video;
   }, []);
+
+  // Guard against SSR: portal target (document.body) is only available client-side
+  useEffect(() => { setMounted(true); }, []);
 
   const currentItem = items[currentIndex];
 
@@ -452,7 +457,8 @@ export default function LightboxGallery({
         ))}
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal — rendered via portal to escape any transformed ancestor stacking context */}
+      {mounted && createPortal(
       <AnimatePresence>
         {isOpen && (
           <>
@@ -603,6 +609,7 @@ export default function LightboxGallery({
                       key={currentItem.src}
                       ref={videoPlayerRef}
                       src={currentItem.src}
+                      poster={currentItem.thumbnail}
                       preload="auto"
                       autoPlay
                       loop
@@ -665,7 +672,9 @@ export default function LightboxGallery({
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+      )}
     </>
   );
 }
