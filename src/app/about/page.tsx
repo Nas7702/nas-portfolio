@@ -1,11 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { useRef, ReactNode } from "react";
 import Image from "next/image";
 import ScrollReveal from "../components/ScrollReveal";
 import PageTransition from "../components/PageTransition";
 import { Camera, Clapperboard, Sparkles, Trophy, LucideIcon } from "lucide-react";
+
+const PortraitSmoke = dynamic(
+  () => import("../components/PortraitSmoke").then((m) => ({ default: m.PortraitSmoke })),
+  { ssr: false }
+);
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -110,12 +116,14 @@ export default function AboutPage() {
               className="flex justify-center md:justify-end"
             >
               <div className="relative w-[280px] sm:w-[320px] md:w-full md:max-w-[420px] aspect-[2/3]">
+                {/* Atmospheric smoke sits behind the portrait */}
+                <PortraitSmoke />
                 <Image
                   src="/images/nas-portrait.png"
                   alt="Nas Ahmed — commercial videographer and photographer"
                   fill
                   sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 420px"
-                  className="object-contain object-bottom"
+                  className="object-contain object-bottom z-10"
                   priority
                 />
                 {/* Hair-blend fade — softens mask fringing at top */}
