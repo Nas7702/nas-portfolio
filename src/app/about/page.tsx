@@ -104,9 +104,9 @@ export default function AboutPage() {
 
             {/* Photo */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="flex justify-center md:justify-end"
             >
               <div className="relative w-[280px] sm:w-[320px] md:w-full md:max-w-[420px] aspect-[2/3]">
@@ -114,6 +114,7 @@ export default function AboutPage() {
                   src="/images/nas-portrait.png"
                   alt="Nas Ahmed — commercial videographer and photographer"
                   fill
+                  sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 420px"
                   className="object-contain object-bottom"
                   priority
                 />

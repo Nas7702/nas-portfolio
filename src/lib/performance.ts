@@ -38,38 +38,17 @@ export const SHADER_QUALITY_PROFILES: Record<ShaderQuality, ShaderQualityProfile
 };
 
 /**
- * Detects device capabilities and returns performance tier
+ * Returns the performance tier — always high unless the user has
+ * explicitly opted into reduced motion or reduced data via OS/browser settings.
  */
 export function getDevicePerformanceTier(): PerformanceMode {
-  if (typeof window === "undefined") return "medium";
+  if (typeof window === "undefined") return "high";
 
   if (prefersReducedMotion() || prefersReducedData()) {
     return "minimal";
   }
 
-  // Check if running on mobile
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
-
-  // Check hardware concurrency (CPU cores)
-  const cores = navigator.hardwareConcurrency || 4;
-
-  // Check memory (if available)
-  const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 0;
-  const dpr = window.devicePixelRatio || 1;
-
-  // Conservative mobile strategy: keep quality lower by default.
-  if (isMobile) {
-    if ((memory > 0 && memory <= 3) || cores <= 3 || dpr >= 3) return "minimal";
-    return "low";
-  }
-
-  // Desktop: only grant "high" to clearly strong hardware.
-  if ((memory > 0 && memory <= 3) || cores <= 2) return "minimal";
-  if (cores >= 10 && (memory === 0 || memory >= 12) && dpr <= 2) return "high";
-  if (cores >= 6 && (memory === 0 || memory >= 6)) return "medium";
-  return "low";
+  return "high";
 }
 
 export function getShaderQualityProfile(quality: ShaderQuality): ShaderQualityProfile {

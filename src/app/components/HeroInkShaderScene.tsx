@@ -328,6 +328,7 @@ export function HeroInkShaderScene({
     : qualityOverride ?? getShaderQualityFromPerformanceMode(performanceMode);
   const { quality, reportAverageFps } = useAdaptiveShaderQuality({
     requestedQuality: baseQuality,
+    enableAdaptiveDowngrade: false,
   });
 
   const visibilityActive = useSceneVisibility(containerRef, {
