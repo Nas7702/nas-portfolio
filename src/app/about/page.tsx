@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRef, ReactNode } from "react";
+import Image from "next/image";
 import ScrollReveal from "../components/ScrollReveal";
 import PageTransition from "../components/PageTransition";
 import { Camera, Clapperboard, Sparkles, Trophy, LucideIcon } from "lucide-react";
@@ -74,16 +75,80 @@ export default function AboutPage() {
   return (
     <PageTransition>
       <div ref={containerRef} className="min-h-screen bg-background pb-32 pt-24">
-        {/* Hero */}
-        <ScrollReveal className="max-w-4xl mx-auto px-6 mb-24 text-center" direction="up" delay={0} threshold={0.15}>
-          <p className="eyebrow mb-4">The Person</p>
-          <h1 className="font-display font-light text-5xl md:text-7xl tracking-tight mb-6 text-foreground">
-            About Me
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            I make commercial video and photography for businesses that need content with a purpose. Brand films, Meta ads, event coverage.
-          </p>
-        </ScrollReveal>
+        {/* Hero — editorial split */}
+        {/*
+          Glow sits on a full-viewport-width wrapper so it is never clipped by
+          max-w constraints. Separate desktop / mobile variants keep the centre
+          point behind the figure in both layouts.
+        */}
+        <div className="relative w-full mb-24">
+          {/* Desktop glow: figure lives in the left column (~25-30 % from viewport left) */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none hidden md:block"
+            style={{
+              background: "radial-gradient(ellipse 52% 70% at 27% 50%, rgba(212, 199, 179, 0.13) 0%, transparent 65%)"
+            }}
+          />
+          {/* Mobile glow: figure is centred, upper portion of the stacked layout */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none md:hidden"
+            style={{
+              background: "radial-gradient(ellipse 85% 42% at 50% 30%, rgba(212, 199, 179, 0.13) 0%, transparent 65%)"
+            }}
+          />
+
+          <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* Photo */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+              className="flex justify-center md:justify-end"
+            >
+              <div className="relative w-[280px] sm:w-[320px] md:w-full md:max-w-[420px] aspect-[2/3]">
+                <Image
+                  src="/images/nas-portrait.png"
+                  alt="Nas Ahmed — commercial videographer and photographer"
+                  fill
+                  className="object-contain object-bottom"
+                  priority
+                />
+                {/* Hair-blend fade — softens mask fringing at top */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-background/50 to-transparent pointer-events-none z-10"
+                />
+                {/* Ground fade */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent pointer-events-none z-10"
+                />
+              </div>
+            </motion.div>
+
+            {/* Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col justify-center text-center md:text-left"
+            >
+              <p className="eyebrow mb-4">The Person</p>
+              <h1 className="font-display font-light text-5xl md:text-6xl lg:text-7xl tracking-tight mb-6 text-foreground">
+                About Me
+              </h1>
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
+                I&apos;m Nas. I make commercial video and photography for businesses that need content with a purpose. Brand films, Meta ads, event coverage.
+              </p>
+            </motion.div>
+
+          </div>
+          </div>
+        </div>
 
         {/* Scrollytelling Timeline */}
         <div className="max-w-5xl mx-auto px-6 relative">
