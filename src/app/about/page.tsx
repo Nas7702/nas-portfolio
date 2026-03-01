@@ -142,7 +142,7 @@ export default function AboutPage() {
                 About Me
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
-                I&apos;m Nas. I make commercial video and photography for businesses that need content with a purpose. Brand films, Meta ads, event coverage.
+                I&apos;m Nas. I make commercial video for businesses that need content with a purpose. Brand films, Meta ads, event coverage.
               </p>
             </motion.div>
 
