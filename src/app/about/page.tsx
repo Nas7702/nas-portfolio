@@ -80,7 +80,7 @@ export default function AboutPage() {
 
   return (
     <PageTransition>
-      <div ref={containerRef} className="min-h-screen bg-background pb-32 pt-24">
+      <div ref={containerRef} className="min-h-screen bg-background pb-32 pt-8 md:pt-24">
         {/* Hero — editorial split */}
         {/*
           Glow sits on a full-viewport-width wrapper so it is never clipped by
