@@ -26,11 +26,11 @@ export default function MobileBottomNav() {
     <>
       {/* Fixed bottom nav — mobile only */}
       <nav
-        className="fixed bottom-0 left-0 right-0 z-40 md:hidden"
+        className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-background/80 supports-[backdrop-filter]:bg-background/55 backdrop-blur-2xl"
         aria-label="Site navigation"
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       >
-        <div className="bg-background/80 supports-[backdrop-filter]:bg-background/55 backdrop-blur-2xl border-t border-border/40 shadow-[0_-8px_32px_rgba(0,0,0,0.3)]">
+        <div className="border-t border-border/40 shadow-[0_-8px_32px_rgba(0,0,0,0.3)]">
           <div className="flex items-stretch h-14">
             {tabs.map((tab) => {
               const active = isActive(tab.href);

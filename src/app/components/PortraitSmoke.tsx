@@ -62,21 +62,19 @@ const fragmentShader = `
       fbm(centred * 1.1 + vec2(t * 0.18, -t * 0.14)),
       fbm(centred * 1.1 + vec2(-t * 0.12, t * 0.16))
     ) - 0.5;
-    vec2 flowUv = centred + warp * 0.28;
+    vec2 flowUv = centred + warp * 0.40;
 
     float base = fbm(flowUv * 2.4 + vec2(t * 0.18, -t * 0.14));
     float detail = fbm(flowUv * 4.2 + vec2(-t * 0.10, t * 0.16));
-    float ink = smoothstep(0.22, 0.80, base * 0.62 + detail * 0.38);
+    float ink = smoothstep(0.15, 0.72, base * 0.62 + detail * 0.38);
 
     vec3 colour = mix(uColourA, uColourB, ink * uIntensity);
 
-    // Radial fade — in UV space this is circular, which in a portrait-oriented
-    // canvas translates to a tall oval in screen space. Allows a gentle halo
-    // to bleed past the figure's edges where the PNG is transparent.
+    // Radial fade — wider spread so smoke bleeds visibly around the figure.
     float dist = length(vUv - 0.5) * 2.0;
-    float edgeMask = smoothstep(1.35, 0.25, dist);
+    float edgeMask = smoothstep(1.55, 0.10, dist);
 
-    gl_FragColor = vec4(colour, ink * 0.25 * edgeMask);
+    gl_FragColor = vec4(colour, ink * 0.82 * edgeMask);
   }
 `;
 
@@ -94,8 +92,8 @@ function SmokePlane({ isLightTheme, active }: SmokePlaneProps) {
       uTime: { value: 0 },
       uResolution: { value: new THREE.Vector2(1, 1) },
       uColourA: { value: new THREE.Color(0.023, 0.024, 0.027) },
-      uColourB: { value: new THREE.Color(0.14, 0.15, 0.19) },
-      uIntensity: { value: 0.8 },
+      uColourB: { value: new THREE.Color(0.50, 0.52, 0.62) },
+      uIntensity: { value: 1.0 },
     }),
     []
   );
@@ -108,12 +106,12 @@ function SmokePlane({ isLightTheme, active }: SmokePlaneProps) {
   useEffect(() => {
     if (isLightTheme) {
       uniforms.uColourA.value.setRGB(0.935, 0.930, 0.921);
-      uniforms.uColourB.value.setRGB(0.70, 0.68, 0.65);
-      uniforms.uIntensity.value = 0.62;
+      uniforms.uColourB.value.setRGB(0.52, 0.50, 0.47);
+      uniforms.uIntensity.value = 0.75;
     } else {
       uniforms.uColourA.value.setRGB(0.023, 0.024, 0.027);
-      uniforms.uColourB.value.setRGB(0.14, 0.15, 0.19);
-      uniforms.uIntensity.value = 0.80;
+      uniforms.uColourB.value.setRGB(0.50, 0.52, 0.62);
+      uniforms.uIntensity.value = 1.0;
     }
     invalidate();
   }, [isLightTheme, uniforms, invalidate]);

@@ -983,7 +983,6 @@ export default function CreativePage() {
           </div>
         </section>
         <DesktopCtas />
-        <MobileFab />
       </div>
     </PageTransition>
   );
@@ -1042,30 +1041,4 @@ function DesktopCtas() {
   );
 }
 
-function MobileFab() {
-  const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Show FAB after scrolling past hero section (roughly 500px)
-      setScrolled(window.scrollY > 500);
-    };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <div className={`md:hidden fixed right-4 z-40 transition-all duration-300 ${scrolled ? "bottom-6 opacity-100 scale-100" : "bottom-0 opacity-0 scale-75 pointer-events-none"}`}>
-      <Link
-        href="/contact?src=creative_mobile_fab#calendly"
-        className="flex items-center gap-2 rounded-sm bg-accent text-accent-foreground px-6 py-4 font-medium text-sm shadow-xl active:scale-95 transition-all duration-200"
-        data-cta="creative_mobile_fab_calendly"
-        onClick={(e) => trackCta("creative_mobile_fab_calendly", { href: e.currentTarget.href })}
-      >
-        <Camera size={20} />
-        <span>Book Free Call</span>
-      </Link>
-    </div>
-  );
-}
