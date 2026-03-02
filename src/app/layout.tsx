@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Navbar from "./components/Navbar";
+import MobileBottomNav from "./components/MobileBottomNav";
 import AnimationWrapper from "./components/AnimationWrapper";
 import CustomCursor from "./components/CustomCursor";
 import DebugFpsCounter from "./components/DebugFpsCounter";
@@ -92,6 +93,7 @@ export default function RootLayout({
           <AnimationWrapper>
             {children}
           </AnimationWrapper>
+          <MobileBottomNav />
         </ThemeProvider>
         <Analytics />
       </body>
