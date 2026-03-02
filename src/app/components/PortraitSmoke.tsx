@@ -166,7 +166,7 @@ export function PortraitSmoke() {
       style={{ zIndex: 0 }}
       aria-hidden="true"
     >
-      {!prefersReduced && (
+      {!prefersReduced && !isLightTheme && (
         <Canvas
           frameloop="demand"
           dpr={[1, 1]}
