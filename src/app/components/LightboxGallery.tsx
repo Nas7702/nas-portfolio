@@ -610,7 +610,7 @@ export default function LightboxGallery({
                       ref={videoPlayerRef}
                       src={currentItem.src}
                       poster={currentItem.thumbnail}
-                      preload="auto"
+                      preload="metadata"
                       autoPlay
                       loop
                       playsInline={false}
