@@ -26,14 +26,6 @@ export const metadata: Metadata = {
     description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
     url: "https://nascreate.com",
     siteName: "Nas.Create",
-    images: [
-      {
-        url: "/images/bokeh-lights-dark-background.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Nas.Create — Visual Storyteller",
-      },
-    ],
     locale: "en_GB",
     type: "website",
   },
@@ -41,7 +33,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Nas.Create — Visual Storyteller",
     description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
-    images: ["/images/bokeh-lights-dark-background.jpg"],
   },
 };
 
