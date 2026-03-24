@@ -45,19 +45,19 @@ export default function PropertyPage() {
             <div className={styles.valueList}>
               <div className={styles.vItem}>
                 <h3>Win more instructions from sellers</h3>
-                <p>Homeowners choose their agent based on how you market other properties. Premium content wins you the listing before the buyer is ever involved.</p>
+                <p>Homeowners choose their agent based on <span className={styles.hl}>how you market other properties</span>. Premium content wins you the listing before the buyer is ever involved.</p>
               </div>
               <div className={styles.vItem}>
                 <h3>Stand out on Rightmove &amp; Zoopla</h3>
-                <p>Listings with professional video generate more enquiries and move faster. Your properties get noticed first.</p>
+                <p>Listings with professional video <span className={styles.hl}>generate more enquiries and move faster</span>. Your properties get noticed first.</p>
               </div>
               <div className={styles.vItem}>
                 <h3>Build your brand on social</h3>
-                <p>Consistent, cinematic content positions you as the obvious premium choice in your area — on every platform.</p>
+                <p>Consistent, cinematic content positions you as the <span className={styles.hl}>obvious premium choice</span> in your area — on every platform.</p>
               </div>
               <div className={styles.vItem}>
                 <h3>Justify your fee to vendors</h3>
-                <p>When sellers see you invest properly in their marketing, it validates your commission and reduces fee negotiation.</p>
+                <p>When sellers see you invest properly in their marketing, it <span className={styles.hl}>validates your commission and reduces fee negotiation</span>.</p>
               </div>
             </div>
           </div>
@@ -69,40 +69,37 @@ export default function PropertyPage() {
                 <span className={styles.howStepNum}>01</span>
                 <div className={styles.howStepContent}>
                   <h4>Book</h4>
-                  <p>Share a date, a time, and an address. No brief, no content plan.</p>
+                  <p>Share a date, a time, and an address. <span className={styles.hl}>No brief, no content plan</span> — nothing else required.</p>
                 </div>
               </div>
               <div className={styles.howStep}>
                 <span className={styles.howStepNum}>02</span>
                 <div className={styles.howStepContent}>
                   <h4>Shoot</h4>
-                  <p>I arrive on-site and handle everything: walkthrough video, drone footage, and a full photo set.</p>
+                  <p>I arrive on-site and <span className={styles.hl}>handle everything</span>: walkthrough video, drone footage, and a full photo set.</p>
                 </div>
               </div>
               <div className={styles.howStep}>
                 <span className={styles.howStepNum}>03</span>
                 <div className={styles.howStepContent}>
                   <h4>Edit</h4>
-                  <p>I colour grade, cut, and finish everything to a cinematic standard. No input required from you.</p>
+                  <p>I colour grade, cut, and finish everything to a <span className={styles.hl}>cinematic standard</span>. No input required from you.</p>
                 </div>
               </div>
               <div className={styles.howStep}>
                 <span className={styles.howStepNum}>04</span>
                 <div className={styles.howStepContent}>
                   <h4>Brand</h4>
-                  <p>Your agency branding is applied across every format — video, stills, and social-ready cuts.</p>
+                  <p>Your agency branding is applied across <span className={styles.hl}>every format</span> — video, stills, and social-ready cuts.</p>
                 </div>
               </div>
               <div className={styles.howStep}>
                 <span className={styles.howStepNum}>05</span>
                 <div className={styles.howStepContent}>
                   <h4>Deliver</h4>
-                  <p>Finished files are in your inbox within 48 hours, ready to upload anywhere you need them.</p>
+                  <p>Finished files in your inbox <span className={styles.hl}>within 48 hours</span>, ready to upload anywhere you need them.</p>
                 </div>
               </div>
-            </div>
-            <div className={styles.retainerCallout}>
-              <p>On a monthly retainer, there&rsquo;s no briefing process. Send me a date, a time, and a postcode — I handle everything else.</p>
             </div>
           </div>
 
