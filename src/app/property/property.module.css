@@ -136,6 +136,12 @@
   color: #aaa;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.statSource:hover {
+  color: #a07c20;
 }
 
 /* ─── Column label ───────────────────────────────────── */

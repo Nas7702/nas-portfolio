@@ -42,17 +42,32 @@ export default function PropertyPage() {
           <div className={styles.statItem}>
             <p className={styles.statNum}>68<span className={styles.statSuffix}>%</span></p>
             <p className={styles.statDesc}>of UK buyers prefer properties with video content</p>
-            <p className={styles.statSource}>Zoopla, 2023</p>
+            <a
+              href="https://www.chbl.uk/en/explore/How-Social-Media-is-Transforming-the-UK-Property-Industry"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.statSource}
+            >Zoopla, 2023 ↗</a>
           </div>
           <div className={styles.statItem}>
             <p className={styles.statNum}>4<span className={styles.statSuffix}>×</span></p>
             <p className={styles.statDesc}>more enquiries for agents who use video marketing</p>
-            <p className={styles.statSource}>NAR Technology Survey</p>
+            <a
+              href="https://www.nar.realtor/research-and-statistics/research-reports/real-estate-in-a-digital-age"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.statSource}
+            >NAR Technology Survey ↗</a>
           </div>
           <div className={styles.statItem}>
             <p className={styles.statNum}>6<span className={styles.statSuffix}>%</span></p>
             <p className={styles.statDesc}>of sellers choose their agent on fee alone</p>
-            <p className={styles.statSource}>TwentyEA Research</p>
+            <a
+              href="https://news.twentyea.co.uk/blog/how-can-estate-agents-justify-raising-fees"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.statSource}
+            >TwentyEA Research ↗</a>
           </div>
         </div>
 
