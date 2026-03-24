@@ -37,9 +37,10 @@
 }
 
 .header     { animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.05s; }
-.main       { animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.18s; }
-.bottomGrid { animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.30s; }
-.footer     { animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.42s; }
+.statsStrip { animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.14s; }
+.main       { animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.24s; }
+.bottomGrid { animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.36s; }
+.footer     { animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.46s; }
 
 /* ─── Header ─────────────────────────────────────────── */
 .header {
@@ -82,6 +83,59 @@
   width: 50px;
   height: auto;
   display: block;
+}
+
+/* ─── Stats strip ────────────────────────────────────── */
+.statsStrip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid #c8bfb0;
+  border-bottom: 1px solid #c8bfb0;
+  padding: 20px 0;
+}
+
+.statItem {
+  padding: 0 40px 0 0;
+  border-right: 1px solid #c8bfb0;
+}
+
+.statItem:nth-child(2) {
+  padding: 0 40px;
+}
+
+.statItem:last-child {
+  padding: 0 0 0 40px;
+  border-right: none;
+}
+
+.statNum {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 300;
+  line-height: 1;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.statSuffix {
+  font-size: 32px;
+  color: #a07c20;
+}
+
+.statDesc {
+  font-size: 13.5px;
+  color: #444;
+  line-height: 1.55;
+  margin-bottom: 6px;
+  max-width: 200px;
+}
+
+.statSource {
+  font-size: 10px;
+  color: #aaa;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* ─── Column label ───────────────────────────────────── */
@@ -359,6 +413,30 @@
   .page {
     padding: 24px 20px;
     gap: 28px;
+  }
+
+  /* Stats strip → single column */
+  .statsStrip {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .statItem,
+  .statItem:nth-child(2),
+  .statItem:last-child {
+    padding: 0 0 20px 0;
+    border-right: none;
+    border-bottom: 1px solid #c8bfb0;
+  }
+
+  .statItem:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .statNum {
+    font-size: 44px;
   }
 
   /* Header: wordmark above, headline below */

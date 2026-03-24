@@ -37,6 +37,25 @@ export default function PropertyPage() {
           </div>
         </header>
 
+        {/* STATS STRIP */}
+        <div className={styles.statsStrip}>
+          <div className={styles.statItem}>
+            <p className={styles.statNum}>68<span className={styles.statSuffix}>%</span></p>
+            <p className={styles.statDesc}>of UK buyers prefer properties with video content</p>
+            <p className={styles.statSource}>Zoopla, 2023</p>
+          </div>
+          <div className={styles.statItem}>
+            <p className={styles.statNum}>4<span className={styles.statSuffix}>×</span></p>
+            <p className={styles.statDesc}>more enquiries for agents who use video marketing</p>
+            <p className={styles.statSource}>NAR Technology Survey</p>
+          </div>
+          <div className={styles.statItem}>
+            <p className={styles.statNum}>6<span className={styles.statSuffix}>%</span></p>
+            <p className={styles.statDesc}>of sellers choose their agent on fee alone</p>
+            <p className={styles.statSource}>TwentyEA Research</p>
+          </div>
+        </div>
+
         {/* ROW 1: Why it works | How it works */}
         <div className={styles.main}>
 
@@ -97,7 +116,7 @@ export default function PropertyPage() {
                 <span className={styles.howStepNum}>05</span>
                 <div className={styles.howStepContent}>
                   <h4>Deliver</h4>
-                  <p>Finished files in your inbox <span className={styles.hl}>within 48 hours</span>, ready to upload anywhere you need them.</p>
+                  <p>Finished files delivered directly to your inbox — <span className={styles.hl}>ready to upload anywhere</span>.</p>
                 </div>
               </div>
             </div>
