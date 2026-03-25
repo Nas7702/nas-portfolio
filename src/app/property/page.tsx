@@ -40,24 +40,14 @@ export default function PropertyPage() {
         {/* STATS STRIP */}
         <div className={styles.statsStrip}>
           <div className={styles.statItem}>
-            <p className={styles.statNum}>68<span className={styles.statSuffix}>%</span></p>
-            <p className={styles.statDesc}>of UK buyers prefer properties with video content</p>
+            <p className={styles.statNum}>31<span className={styles.statSuffix}>%</span></p>
+            <p className={styles.statDesc}>more leads for video listings vs photos only</p>
             <a
-              href="https://www.chbl.uk/en/explore/How-Social-Media-is-Transforming-the-UK-Property-Industry"
+              href="https://hub.rightmove.co.uk/content/uploads/2020/11/Create-the-Ultimate-Sales-Listing.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.statSource}
-            >Zoopla, 2023 ↗</a>
-          </div>
-          <div className={styles.statItem}>
-            <p className={styles.statNum}>4<span className={styles.statSuffix}>×</span></p>
-            <p className={styles.statDesc}>more enquiries for agents who use video marketing</p>
-            <a
-              href="https://www.nar.realtor/research-and-statistics/research-reports/real-estate-in-a-digital-age"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.statSource}
-            >NAR Technology Survey ↗</a>
+            >Rightmove data ↗</a>
           </div>
           <div className={styles.statItem}>
             <p className={styles.statNum}>6<span className={styles.statSuffix}>%</span></p>
