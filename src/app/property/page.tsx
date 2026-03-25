@@ -47,7 +47,7 @@ export default function PropertyPage() {
               target="_blank"
               rel="noopener noreferrer"
               className={styles.statSource}
-            >Rightmove data ↗</a>
+            >Rightmove data ↗︎</a>
           </div>
           <div className={styles.statItem}>
             <p className={styles.statNum}>6<span className={styles.statSuffix}>%</span></p>
@@ -57,7 +57,7 @@ export default function PropertyPage() {
               target="_blank"
               rel="noopener noreferrer"
               className={styles.statSource}
-            >TwentyEA Research ↗</a>
+            >TwentyEA Research ↗︎</a>
           </div>
         </div>
 
