@@ -69,7 +69,7 @@ export default function PropertyPage() {
             <video
               className={styles.video}
               src="https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/property1.mov"
-              poster="https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_prop1_thumbnail.png"
+              poster="https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_prop1_thumbnail.webp"
               autoPlay
               muted
               loop
