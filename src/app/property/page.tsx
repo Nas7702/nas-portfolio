@@ -61,6 +61,27 @@ export default function PropertyPage() {
           </div>
         </div>
 
+        {/* FEATURED VIDEO */}
+        <div className={styles.videoSection}>
+          <p className={styles.colLabel}>Featured work</p>
+          <div className={styles.videoWrap}>
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+            <video
+              className={styles.video}
+              src="https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/property1.mov"
+              poster="https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_prop1_thumbnail.png"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            />
+            <div className={styles.videoOverlay}>
+              <span className={styles.videoTag}>Property · Real Estate</span>
+            </div>
+          </div>
+        </div>
+
         {/* ROW 1: Why it works | How it works */}
         <div className={styles.main}>
 

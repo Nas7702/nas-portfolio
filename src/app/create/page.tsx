@@ -211,6 +211,21 @@ const featuredMedia: MediaItem[] = [
 
 const portfolioItems: PortfolioItem[] = [
   {
+    id: "Property Showcase",
+    type: "video",
+    kind: "video",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/property1.mov",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_prop1_thumbnail.png",
+    title: "Property Showcase",
+    alt: "Cinematic property video thumbnail",
+    tags: ["Real Estate", "Cinematic", "Property"],
+    client: "Estate Agent",
+    role: "Director, DP & Editor",
+    date: "2025",
+    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_prop1_thumbnail.png",
+    description: "Cinematic property film for a real estate agent. Designed to attract buyers and win sellers — shot and edited to a premium standard that elevates listings on Rightmove, Zoopla and social.",
+  },
+  {
     id: "The JMC",
     type: "video",
     kind: "video",

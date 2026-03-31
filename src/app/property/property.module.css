@@ -88,7 +88,7 @@
 /* ─── Stats strip ────────────────────────────────────── */
 .statsStrip {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   border-top: 1px solid #c8bfb0;
   border-bottom: 1px solid #c8bfb0;
   padding: 20px 0;
@@ -97,10 +97,6 @@
 .statItem {
   padding: 0 40px 0 0;
   border-right: 1px solid #c8bfb0;
-}
-
-.statItem:nth-child(2) {
-  padding: 0 40px;
 }
 
 .statItem:last-child {
@@ -151,6 +147,47 @@
   text-transform: uppercase;
   color: #a07c20;
   margin-bottom: 22px;
+}
+
+/* ─── Featured video ─────────────────────────────────── */
+.videoSection {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.19s;
+}
+
+.videoWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #0e0d0b;
+  overflow: hidden;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.videoOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 24px;
+  background: linear-gradient(to top, rgba(10,9,7,0.55) 0%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.videoTag {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 /* ─── ROW 1: Why it works | How it works ────────────── */
@@ -429,7 +466,6 @@
   }
 
   .statItem,
-  .statItem:nth-child(2),
   .statItem:last-child {
     padding: 0 0 20px 0;
     border-right: none;
