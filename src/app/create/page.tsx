@@ -337,8 +337,8 @@ const portfolioItems: PortfolioItem[] = [
     id: "fitness-portfolio",
     type: "image",
     kind: "album",
-    cover: "/images/portfolio/sheffield-powerlifting/fitness/DSC00917.jpg",
-    src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00917.jpg",
+    cover: "/images/portfolio/sheffield-powerlifting/fitness/DSC02758.jpg",
+    src: "/images/portfolio/sheffield-powerlifting/fitness/DSC02758.jpg",
     title: "Fitness & Physiques",
     alt: "Fitness photography collection",
     tags: ["Fitness", "Gym", "Physique", "Photography"],
@@ -350,23 +350,47 @@ const portfolioItems: PortfolioItem[] = [
       {
         id: "fitness-1",
         type: "image",
-        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00947.jpg",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC02872.jpg",
         alt: "Fitness photography",
       },
       {
         id: "fitness-2",
         type: "image",
-        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00944.jpg",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC02902.jpg",
         alt: "Fitness photography",
       },
       {
         id: "fitness-3",
         type: "image",
-        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00917.jpg",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC02948.jpg",
         alt: "Fitness photography",
       },
       {
         id: "fitness-4",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC02984.jpg",
+        alt: "Fitness photography",
+      },
+      {
+        id: "fitness-5",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00947.jpg",
+        alt: "Fitness photography",
+      },
+      {
+        id: "fitness-6",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00944.jpg",
+        alt: "Fitness photography",
+      },
+      {
+        id: "fitness-7",
+        type: "image",
+        src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00917.jpg",
+        alt: "Fitness photography",
+      },
+      {
+        id: "fitness-8",
         type: "image",
         src: "/images/portfolio/sheffield-powerlifting/fitness/DSC00881.jpg",
         alt: "Fitness photography",
@@ -603,10 +627,25 @@ export default function CreativePage() {
     setActiveFilter(value);
   }, []);
 
-  // Hash-based deep-linking: /create#the-jmc opens that item's lightbox
+  // Hash-based deep-linking: /create#the-jmc opens that item's lightbox or album modal
   useEffect(() => {
     const hash = window.location.hash.slice(1);
     if (!hash) return;
+
+    // Check albums first
+    const albumMatch = portfolioItems.find(
+      (item) => item.kind === "album" && toSlug(item.id) === hash
+    );
+    if (albumMatch) {
+      setActiveFilter("all");
+      const timer = setTimeout(() => {
+        setActiveAlbum(albumMatch);
+        setIsAlbumModalOpen(true);
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+
+    // Then check regular media items
     const allMedia = portfolioItems.filter((item) => {
       const kind = item.kind || (item.type === "image" ? "photo" : "video");
       return kind !== "case" && kind !== "album";
@@ -632,10 +671,12 @@ export default function CreativePage() {
   const handleAlbumOpen = useCallback((item: PortfolioItem) => {
     setActiveAlbum(item);
     setIsAlbumModalOpen(true);
+    window.history.replaceState(null, "", "#" + toSlug(item.id));
   }, []);
 
   const handleAlbumClose = useCallback(() => {
     setIsAlbumModalOpen(false);
+    window.history.replaceState(null, "", window.location.pathname);
   }, []);
 
   useEffect(() => {
