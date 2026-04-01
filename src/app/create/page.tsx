@@ -205,7 +205,7 @@ const featuredMedia: MediaItem[] = [
     thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_3location_thumbnail.webp",
     title: "ADJ Surfacing & Consultancy",
     alt: "ADJ Surfacing three-location commercial film",
-    description: "Three-location drone compilation for ADJ Surfacing & Consultancy, documenting completed commercial surfacing works across North Wales, Merseyside, and Warrington. Shot in a single day, edited into a 90-second cinematic completion film with location title cards, motion graphic stat overlays, and a consistent visual treatment across all three sites."
+    description: "Cinematic completion film for ADJ Surfacing & Consultancy, documenting commercial surfacing and line marking works across three sites in North Wales, Merseyside, and Warrington. Motion graphic stat overlays and location title cards turn a technical deliverable into a client-facing asset."
   }
 ];
 
@@ -253,7 +253,7 @@ const portfolioItems: PortfolioItem[] = [
     client: "ADJ Surfacing & Consultancy Ltd",
     role: "Director, DP & Editor",
     date: "2025",
-    description: "Three-location drone compilation documenting completed commercial surfacing and line marking works across North Wales, Merseyside, and Warrington. Left Scunthorpe at 3am to catch early morning light at Mostyn Champneys Retail Park in Llandudno before the car park filled, then worked through to Mersey Shopping Park in Liverpool and Stanford House in Warrington. Drone only across all three sites, completed in a single day. Edited into a 90-second cinematic completion film with location title cards, motion graphic stat overlays showing scope of works at each site, and a consistent visual treatment across three distinct site types.",
+    description: "Cinematic completion film documenting commercial surfacing and line marking works across three sites in North Wales, Merseyside, and Warrington. Location title cards, motion graphic stat overlays, and a consistent visual treatment give ADJ a professional record of each project and a ready-made asset for client pitches and LinkedIn.",
   },
   {
     id: "The JMC",
