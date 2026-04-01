@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { MessageSquareQuote, Sparkles, Quote, ChevronLeft, ChevronRight, ExternalLink, Play, Camera } from "lucide-react";
+import { MessageSquareQuote, Quote, ChevronLeft, ChevronRight, ExternalLink, Play, Camera } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 type RelatedWork = {
   label: string;
   href?: string;
   scrollTo?: string;
-  openItemId?: string; // scroll to section + open a specific LightboxGallery item by id
+  openItemId?: string;
 };
 
 type Testimonial = {
@@ -23,28 +23,43 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
   {
-    name: "Jayshan",
-    role: "Stance Fitness",
-    headline: "Clear increase in views, follows & ad performance",
+    name: "Walshe's Property",
+    role: "Estate Agent",
+    headline: "The whole office was impressed. Nothing like you'd see locally.",
+    quote:
+      "Nas produced a walkthrough video for one of our listings and the whole office was really impressed by how it turned out. The drone footage and interior shots really stood out, nothing like you'd see locally.",
+    praise:
+      "He was easy to work with, knew exactly what he was doing on the day, and delivered quickly. We'd absolutely look to use him again for future listings.",
+    relatedWork: [
+      { label: "Watch the Film", openItemId: "Property Showcase", scrollTo: "creative-portfolio" },
+    ],
+  },
+  {
+    name: "Stance Fitness",
+    role: "Sports Tech · VBT Wearables",
+    headline: "Clear increase in views, follows and ad performance.",
     quote:
       "Nas has been fantastic at developing social media and website content (reels, posts, video, ads, statics) which has delivered clear value to us. He understood our brand and audience and was able to take ideas and develop them into clear narratives to shoot and edit the content.",
     praise:
       "He's easy to work with, clarifies what is needed and works quickly. With his content we've seen a clear increase in views, follows and an increase in performance across our ads. I would highly recommend Nas to anyone who wants to up their online presence.",
     link: "https://stancefitness.co/",
+    relatedWork: [
+      { label: "Watch the Film", openItemId: "Stance Fitness Promo", scrollTo: "creative-portfolio" },
+    ],
   },
   {
-    name: "Sivan",
-    role: "Lalezar Restaurant",
-    headline: "A promotional video everyone keeps praising",
+    name: "Lalezar Restaurant",
+    role: "Restaurant",
+    headline: "A promotional video everyone keeps praising.",
     quote:
       "The video Nas delivered was phenomenal and we're overjoyed with how it turned out. We've had compliments in person and online from guests impressed by it.",
     praise:
       "Nas was a delight to work with and we recommend Nas to any business looking to stand out on social because the work is exceptional.",
   },
   {
-    name: "Kyle",
-    role: "Kyle Allen Coaching",
-    headline: "Became my most viewed post",
+    name: "Kyle Allen Coaching",
+    role: "Online Coaching",
+    headline: "Became my most viewed post.",
     quote:
       "I went with Nas for professional photos and a promo video for my online coaching business. Absolutely loved the video, his skills are amazing with a super fast turnaround and great service.",
     praise:
@@ -75,28 +90,20 @@ export default function Testimonials() {
     setCurrentIndex(index);
     setProgress(0);
     setIsAutoPlaying(false);
-    // Resume auto-play after 10 seconds of inactivity
     setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
-  // Progress bar animation
   useEffect(() => {
     if (!isAutoPlaying) {
       setProgress(0);
       return;
     }
-
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 0;
-        return prev + (100 / 60); // 60 frames in 6 seconds (100ms intervals)
-      });
+      setProgress((prev) => (prev >= 100 ? 0 : prev + 100 / 60));
     }, 100);
-
     return () => clearInterval(interval);
   }, [isAutoPlaying, currentIndex]);
 
-  // Auto-rotate every 6 seconds
   useEffect(() => {
     if (!isAutoPlaying) return;
     const interval = setInterval(nextSlide, 6000);
@@ -117,182 +124,163 @@ export default function Testimonials() {
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
               Featured Client Stories
             </h2>
-            <p className="text-muted-foreground max-w-2xl">
-              Real clients. Real results. Here&apos;s what they said.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-sm">
-            <Sparkles size={18} className="text-accent" aria-hidden />
-            <div className="space-y-1">
-              <p className="text-sm font-semibold text-foreground leading-tight">The video has a job to do</p>
-              <p className="text-xs text-muted-foreground leading-tight">Every brief starts with the outcome</p>
-            </div>
           </div>
         </div>
       </ScrollReveal>
 
-      {/* Carousel */}
       <ScrollReveal delay={0.1} threshold={0.2}>
         <div className="relative">
-          {/* Main testimonial card */}
           <article
             key={currentIndex}
-            className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8 md:p-12 shadow-lg animate-in fade-in slide-in-from-right-4 duration-500"
+            className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-lg animate-in fade-in slide-in-from-right-4 duration-500"
           >
-            {/* Background effects */}
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-accent/5 blur-3xl" />
-              <div className="absolute -left-20 bottom-0 h-60 w-60 rounded-full bg-foreground/5 blur-3xl" />
-            </div>
-
             {/* Decorative quote mark */}
-            <div className="absolute top-4 right-8 opacity-5">
+            <div className="absolute top-4 right-8 opacity-5 pointer-events-none" aria-hidden>
               <Quote size={180} className="text-foreground" strokeWidth={1} />
             </div>
 
-            {/* Content */}
-            <div className="relative max-w-4xl mx-auto">
-              {/* Header */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                <div>
-                  {testimonial.link ? (
-                    <a
-                      href={testimonial.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-accent/5 border border-accent/10 px-4 py-1.5 mb-3 hover:bg-accent/10 transition-colors duration-200 group/link"
-                    >
-                      <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                      <p className="text-sm font-semibold text-accent uppercase tracking-wider">{testimonial.role}</p>
-                      <ExternalLink size={12} className="text-accent opacity-0 group-hover/link:opacity-100 transition-opacity duration-200" />
-                    </a>
-                  ) : (
-                    <div className="inline-flex items-center gap-2 rounded-full bg-accent/5 border border-accent/10 px-4 py-1.5 mb-3">
-                      <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-                      <p className="text-sm font-semibold text-accent uppercase tracking-wider">{testimonial.role}</p>
-                    </div>
-                  )}
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground">{testimonial.name}</h3>
-                  <p className="text-base text-muted-foreground font-medium italic mt-1">{testimonial.headline}</p>
-                </div>
-                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-secondary flex items-center justify-center border border-border">
-                  <MessageSquareQuote size={28} className="text-muted-foreground" />
-                </div>
-              </div>
+            <div className="relative p-8 md:p-12">
+              <div className="grid md:grid-cols-[2fr_3fr] gap-8 md:gap-0">
 
-              {/* Quote */}
-              <div className="space-y-6">
-                <div className="relative">
-                  <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-accent via-accent/50 to-transparent rounded-full" />
-                  <p className="pl-6 text-lg md:text-xl leading-relaxed text-foreground/90 font-light">
-                    &ldquo;{testimonial.quote}&rdquo;
-                  </p>
-                </div>
+                {/* LEFT — Identity */}
+                <div className="flex flex-col justify-between gap-8 md:pr-12">
+                  <div>
+                    <p className="text-xs tracking-[0.25em] uppercase text-accent font-medium mb-4">
+                      {testimonial.role}
+                    </p>
 
-                <div className="relative pt-4 border-t border-border">
-                  <p className="text-base md:text-lg text-muted-foreground leading-relaxed">{testimonial.praise}</p>
-                </div>
-
-                {testimonial.relatedWork && testimonial.relatedWork.length > 0 && (
-                  <div className="flex flex-wrap gap-3 pt-4">
-                    {testimonial.relatedWork.map((work) =>
-                      work.openItemId ? (
-                        <button
-                          key={work.label}
-                          type="button"
-                          onClick={() => {
-                            const el = document.getElementById(work.scrollTo ?? "creative-portfolio");
-                            if (el) el.scrollIntoView({ behavior: "smooth" });
-                            setTimeout(() => {
-                              window.dispatchEvent(
-                                new CustomEvent("open-lightbox-item", { detail: { itemId: work.openItemId } })
-                              );
-                            }, 600);
-                          }}
-                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-200"
-                        >
-                          <Play size={14} />
-                          {work.label}
-                        </button>
-                      ) : work.href ? (
-                        <a
-                          key={work.label}
-                          href={work.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-200"
-                        >
-                          <Play size={14} />
-                          {work.label}
-                        </a>
-                      ) : work.scrollTo ? (
-                        <button
-                          key={work.label}
-                          type="button"
-                          onClick={() => {
-                            const el = document.getElementById(work.scrollTo!);
-                            if (el) el.scrollIntoView({ behavior: "smooth" });
-                          }}
-                          className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-200"
-                        >
-                          <Camera size={14} />
-                          {work.label}
-                        </button>
-                      ) : null
+                    {testimonial.link ? (
+                      <a
+                        href={testimonial.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/link inline-block"
+                      >
+                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight group-hover/link:text-accent transition-colors duration-300">
+                          {testimonial.name}
+                        </h3>
+                        <span className="inline-flex items-center gap-1 mt-2 text-xs text-accent opacity-0 group-hover/link:opacity-100 transition-opacity duration-200">
+                          <ExternalLink size={12} />
+                          Visit site
+                        </span>
+                      </a>
+                    ) : (
+                      <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                        {testimonial.name}
+                      </h3>
                     )}
                   </div>
-                )}
+
+                  {testimonial.relatedWork && testimonial.relatedWork.length > 0 && (
+                    <div className="flex flex-wrap gap-3">
+                      {testimonial.relatedWork.map((work) =>
+                        work.openItemId ? (
+                          <button
+                            key={work.label}
+                            type="button"
+                            onClick={() => {
+                              const el = document.getElementById(work.scrollTo ?? "creative-portfolio");
+                              if (el) el.scrollIntoView({ behavior: "smooth" });
+                              setTimeout(() => {
+                                window.dispatchEvent(
+                                  new CustomEvent("open-lightbox-item", { detail: { itemId: work.openItemId } })
+                                );
+                              }, 600);
+                            }}
+                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 cursor-pointer"
+                          >
+                            <Play size={14} />
+                            {work.label}
+                          </button>
+                        ) : work.href ? (
+                          <a
+                            key={work.label}
+                            href={work.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-200"
+                          >
+                            <Play size={14} />
+                            {work.label}
+                          </a>
+                        ) : work.scrollTo ? (
+                          <button
+                            key={work.label}
+                            type="button"
+                            onClick={() => {
+                              const el = document.getElementById(work.scrollTo!);
+                              if (el) el.scrollIntoView({ behavior: "smooth" });
+                            }}
+                            className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-200 cursor-pointer"
+                          >
+                            <Camera size={14} />
+                            {work.label}
+                          </button>
+                        ) : null
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* RIGHT — Quote content */}
+                <div className="flex flex-col gap-6 md:border-l md:border-border md:pl-12">
+                  {/* Headline as pull-quote */}
+                  <p className="text-xl md:text-2xl font-light italic text-foreground/85 leading-snug">
+                    &ldquo;{testimonial.headline}&rdquo;
+                  </p>
+
+                  <div className="space-y-4 pt-5 border-t border-border/50">
+                    <p className="text-base text-foreground/75 leading-relaxed">
+                      {testimonial.quote}
+                    </p>
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                      {testimonial.praise}
+                    </p>
+                  </div>
+                </div>
+
               </div>
             </div>
           </article>
 
-          {/* Navigation arrows */}
+          {/* Navigation arrows — vertically centred */}
           <button
             onClick={() => { prevSlide(); setIsAutoPlaying(false); setTimeout(() => setIsAutoPlaying(true), 10000); }}
-            className="absolute left-4 top-[200px] w-10 h-10 rounded-full bg-background/80 border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-200 backdrop-blur-sm shadow-sm"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-200 backdrop-blur-sm shadow-sm cursor-pointer"
             aria-label="Previous testimonial"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={() => { nextSlide(); setIsAutoPlaying(false); setTimeout(() => setIsAutoPlaying(true), 10000); }}
-            className="absolute right-4 top-[200px] w-10 h-10 rounded-full bg-background/80 border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-200 backdrop-blur-sm shadow-sm"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-200 backdrop-blur-sm shadow-sm cursor-pointer"
             aria-label="Next testimonial"
           >
             <ChevronRight size={20} />
           </button>
         </div>
 
-        {/* Navigation dots */}
-        <div className="flex flex-col items-center gap-3 mt-8">
-          <div className="flex items-center justify-center gap-3">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`relative h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? "w-8 bg-accent"
-                    : "w-2 bg-border hover:bg-accent/50"
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              >
-                {index === currentIndex && isAutoPlaying && (
-                  <span className="absolute inset-0 rounded-full bg-accent/30 animate-ping" />
-                )}
-              </button>
-            ))}
-          </div>
-
-          {/* Progress bar */}
-          {isAutoPlaying && (
-            <div className="w-32 h-1 bg-secondary rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-accent/50 via-accent to-accent/50 rounded-full transition-all duration-100 ease-linear"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          )}
+        {/* Navigation — thin progress lines instead of dots */}
+        <div className="flex items-center justify-center gap-2 mt-8">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              aria-label={`Go to testimonial ${index + 1}`}
+              className="relative h-[3px] rounded-full overflow-hidden transition-all duration-300 cursor-pointer bg-border hover:bg-border/80"
+              style={{ width: index === currentIndex ? "2.5rem" : "1.25rem" }}
+            >
+              {index === currentIndex && isAutoPlaying && (
+                <span
+                  className="absolute inset-y-0 left-0 rounded-full bg-accent transition-none"
+                  style={{ width: `${progress}%` }}
+                />
+              )}
+              {index === currentIndex && !isAutoPlaying && (
+                <span className="absolute inset-0 bg-accent rounded-full" />
+              )}
+            </button>
+          ))}
         </div>
       </ScrollReveal>
     </section>
