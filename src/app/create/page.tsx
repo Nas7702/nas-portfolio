@@ -223,7 +223,7 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director, DP & Editor",
     date: "2025",
     cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_prop1_thumbnail.webp",
-    description: "Cinematic property film for a real estate agent. Designed to attract buyers and win sellers — shot and edited to a premium standard that elevates listings on Rightmove, Zoopla and social.",
+    description: "Cinematic property film for a real estate agent. Designed to attract buyers and win sellers, shot and edited to a premium standard that elevates listings on Rightmove, Zoopla and social.",
   },
   {
     id: "ADJ St Helens Retail Park",
@@ -238,7 +238,7 @@ const portfolioItems: PortfolioItem[] = [
     client: "ADJ Surfacing & Consultancy Ltd",
     role: "Director, DP & Editor",
     date: "2025",
-    description: "Completion film for ADJ Surfacing's St Helens Retail Park project — 5,000m² of commercial resurfacing documented at sunrise before the site opened. Cinematic drone footage, motion graphics overlaying scope of works, and golden-hour framing turned a technical deliverable into a LinkedIn asset that reached senior industry figures within days of posting.",
+    description: "Completion film for ADJ Surfacing's St Helens Retail Park project. 5,000m² of commercial resurfacing documented at sunrise before the site opened. Cinematic drone footage, motion graphics overlaying scope of works, and golden-hour framing turned a technical deliverable into a LinkedIn asset that reached senior industry figures within days of posting.",
   },
   {
     id: "ADJ 3 Location",

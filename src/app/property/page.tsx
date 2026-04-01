@@ -98,7 +98,7 @@ export default function PropertyPage() {
               </div>
               <div className={styles.vItem}>
                 <h3>Build your brand on social</h3>
-                <p>Consistent, cinematic content positions you as the <span className={styles.hl}>obvious premium choice</span> in your area — on every platform.</p>
+                <p>Consistent, cinematic content positions you as the <span className={styles.hl}>obvious premium choice</span> in your area, on every platform.</p>
               </div>
               <div className={styles.vItem}>
                 <h3>Justify your fee to vendors</h3>
@@ -114,7 +114,7 @@ export default function PropertyPage() {
                 <span className={styles.howStepNum}>01</span>
                 <div className={styles.howStepContent}>
                   <h4>Book</h4>
-                  <p>Share a date, a time, and an address. <span className={styles.hl}>No brief, no content plan</span> — nothing else required.</p>
+                  <p>Share a date, a time, and an address. <span className={styles.hl}>No brief, no content plan.</span> Nothing else required.</p>
                 </div>
               </div>
               <div className={styles.howStep}>
@@ -135,14 +135,14 @@ export default function PropertyPage() {
                 <span className={styles.howStepNum}>04</span>
                 <div className={styles.howStepContent}>
                   <h4>Brand</h4>
-                  <p>Your agency branding is applied across <span className={styles.hl}>every format</span> — video, stills, and social-ready cuts.</p>
+                  <p>Your agency branding is applied across <span className={styles.hl}>every format:</span> video, stills, and social-ready cuts.</p>
                 </div>
               </div>
               <div className={styles.howStep}>
                 <span className={styles.howStepNum}>05</span>
                 <div className={styles.howStepContent}>
                   <h4>Deliver</h4>
-                  <p>Finished files delivered directly to your inbox — <span className={styles.hl}>ready to upload anywhere</span>.</p>
+                  <p>Finished files delivered directly to your inbox, <span className={styles.hl}>ready to upload anywhere</span>.</p>
                 </div>
               </div>
             </div>
@@ -217,7 +217,7 @@ export default function PropertyPage() {
 
         {/* FOOTER */}
         <footer className={styles.footer}>
-          <p className={styles.footerQuote}>&ldquo;Video doesn&rsquo;t just sell the house — it wins you the instruction.&rdquo;</p>
+          <p className={styles.footerQuote}>&ldquo;Video doesn&rsquo;t just sell the house. It wins you the instruction.&rdquo;</p>
           <div className={styles.footerRight}>
             <p className={styles.footerCta}>Ready to talk?</p>
             <a href="/contact" className={styles.footerLink}>nas.create/contact</a>

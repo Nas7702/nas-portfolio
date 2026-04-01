@@ -83,7 +83,7 @@ export default function BentoGrid() {
             At a Glance
           </h2>
         </div>
-        <span className="text-xs text-muted-foreground hidden md:block pb-1 flex-shrink-0">Yorkshire — UK</span>
+        <span className="text-xs text-muted-foreground hidden md:block pb-1 flex-shrink-0">Yorkshire, UK</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[270px] gap-3">
