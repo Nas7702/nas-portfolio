@@ -201,11 +201,11 @@ const featuredMedia: MediaItem[] = [
   {
     id: "featured-1",
     type: "video",
-    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/ADJ_3Location.mov",
-    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_3location_thumbnail.webp",
-    title: "ADJ Surfacing & Consultancy",
-    alt: "ADJ Surfacing three-location commercial film",
-    description: "Cinematic completion film for ADJ Surfacing & Consultancy, documenting commercial surfacing and line marking works across three sites in North Wales, Merseyside, and Warrington. Motion graphic stat overlays and location title cards turn a technical deliverable into a client-facing asset."
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/ADJ_Aintree.mp4",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_aintree_thumbnail.webp",
+    title: "Commercial Resurfacing, Aintree Shopping Park",
+    alt: "ADJ Surfacing Aintree Shopping Park completion film",
+    description: "Completion film for ADJ Surfacing at Aintree Shopping Park, a premium Liverpool retail destination anchored by M&S, Next and B&Q. Cinematic drone framing and motion-graphic overlays turn the scope of works into a sales-ready asset."
   }
 ];
 
