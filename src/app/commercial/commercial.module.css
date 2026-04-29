@@ -1,0 +1,583 @@
+/* Reset */
+.page * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Page shell - Option B: tender-document white, sheet-of-paper on warm desk */
+.page {
+  background: #FAFAF7;
+  color: #141414;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 56px 64px;
+  gap: 48px;
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  border-left: 1px solid #141414;
+  border-right: 1px solid #141414;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+/* Entrance animations */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.header     { animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.05s; }
+.statsStrip { animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.12s; }
+.main       { animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.22s; }
+.bottomGrid { animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.32s; }
+.footer     { animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.40s; }
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #141414;
+  flex-shrink: 0;
+  gap: 18px;
+}
+
+.headerLeft h1 {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-size: 76px;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  color: #141414;
+  text-transform: uppercase;
+}
+
+.headerLeft h1 em {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.4;
+  color: #444444;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-top: 14px;
+}
+
+.subhead {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #2A2A2A;
+  max-width: 720px;
+}
+
+/* Stats strip - 3 cells in a thin black-bordered band */
+.statsStrip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 1px solid #141414;
+}
+
+.statItem {
+  padding: 28px 32px;
+  border-right: 1px solid #141414;
+}
+
+.statItem:last-child {
+  border-right: none;
+}
+
+.statNum {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  color: #141414;
+  margin-bottom: 14px;
+  letter-spacing: 0.005em;
+}
+
+.statSuffix {
+  font-size: 38px;
+  color: #141414;
+  margin-left: 1px;
+}
+
+.statDesc {
+  font-size: 14.5px;
+  color: #2A2A2A;
+  line-height: 1.55;
+  margin-bottom: 12px;
+  max-width: 280px;
+}
+
+.statSource {
+  font-size: 10.5px;
+  color: #6A6A6A;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.statSource:hover {
+  color: #141414;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Column label */
+.colLabel {
+  font-size: 10.5px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #141414;
+  margin-bottom: 22px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.colLabel::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 2px;
+  background: #141414;
+}
+
+/* Featured video - constrained */
+.videoSection {
+  animation: fadeSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.18s;
+  display: flex;
+  flex-direction: column;
+}
+
+.videoWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 56vh;
+  background: #000;
+  overflow: hidden;
+  border: 1px solid #141414;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.soundToggle {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(20, 20, 20, 0.72);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.soundToggle:hover {
+  background: rgba(20, 20, 20, 0.9);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.soundToggle:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
+.soundToggle svg {
+  flex-shrink: 0;
+}
+
+.soundToggleLabel {
+  line-height: 1;
+}
+
+.videoCaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #444444;
+}
+
+.videoCaptionTag {
+  color: #141414;
+  font-weight: 600;
+}
+
+/* ROW 1: Why it works | How it works */
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.valueCol {
+  padding-right: 0;
+}
+
+.valueList {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.vItem {
+  padding-left: 18px;
+  border-left: 2px solid #141414;
+}
+
+.vItem h3 {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #141414;
+  margin-bottom: 8px;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.vItem p {
+  font-size: 16px;
+  color: #2A2A2A;
+  line-height: 1.65;
+}
+
+.howCol {
+  padding-left: 0;
+}
+
+.howSteps {
+  display: flex;
+  flex-direction: column;
+}
+
+.howStep {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 0 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid #D8D4CB;
+  align-items: start;
+}
+
+.howStep:first-child {
+  border-top: 1px solid #141414;
+}
+
+.howStep:last-child {
+  border-bottom: 1px solid #141414;
+}
+
+.howStepNum {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #141414;
+  line-height: 1.2;
+  padding-top: 1px;
+  letter-spacing: 0.02em;
+}
+
+.howStepContent h4 {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #141414;
+  margin-bottom: 4px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.howStepContent p {
+  font-size: 16px;
+  color: #2A2A2A;
+  line-height: 1.65;
+}
+
+/* ROW 2: Includes | Examples */
+.bottomGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.includedSection {
+  padding-right: 0;
+}
+
+.includeList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  border-top: 1px solid #141414;
+}
+
+.includeItem {
+  font-size: 15px;
+  color: #2A2A2A;
+  padding: 14px 0;
+  border-bottom: 1px solid #D8D4CB;
+  line-height: 1.4;
+}
+
+/* Examples - replaces priced tiers */
+.packagesSection {
+  padding-left: 0;
+}
+
+.pkgStack {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #141414;
+}
+
+.pkg {
+  padding: 22px 0;
+  border-bottom: 1px solid #D8D4CB;
+}
+
+.pkg:last-child {
+  border-bottom: 1px solid #141414;
+}
+
+.pkgName {
+  font-family: 'Bebas Neue', 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+  color: #141414;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.pkgScope {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #141414;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.pkgDesc {
+  font-size: 15px;
+  color: #2A2A2A;
+  line-height: 1.6;
+}
+
+/* Keyword highlight */
+.hl {
+  font-weight: 600;
+  color: #141414;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid #141414;
+  padding-top: 24px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.footerQuote {
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  font-style: italic;
+  font-weight: 400;
+  color: #444444;
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+.footerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.footerCta {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #141414;
+}
+
+.footerLink {
+  font-size: 14px;
+  color: #141414;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid #141414;
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.footerLink:hover {
+  color: #141414;
+  border-bottom-color: #141414;
+}
+
+.footerNote {
+  font-size: 10px;
+  color: #888888;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .page {
+    padding: 28px 22px;
+    gap: 32px;
+  }
+
+  .statsStrip {
+    grid-template-columns: 1fr;
+  }
+
+  .statItem {
+    padding: 22px 24px;
+    border-right: none;
+    border-bottom: 1px solid #141414;
+  }
+
+  .statItem:last-child {
+    border-bottom: none;
+  }
+
+  .statNum {
+    font-size: 52px;
+  }
+
+  .statSuffix {
+    font-size: 32px;
+  }
+
+  .header {
+    padding-bottom: 22px;
+    gap: 14px;
+  }
+
+  .headerLeft h1 {
+    font-size: 46px;
+  }
+
+  .headerLeft h1 em {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .subhead {
+    font-size: 15px;
+  }
+
+  .videoWrap {
+    max-height: none;
+  }
+
+  .soundToggle {
+    bottom: 10px;
+    right: 10px;
+    padding: 7px 10px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  .videoCaption {
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .main {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .vItem h3 {
+    font-size: 22px;
+  }
+
+  .vItem p {
+    font-size: 15.5px;
+  }
+
+  .howStepContent h4 {
+    font-size: 20px;
+  }
+
+  .howStepContent p {
+    font-size: 15.5px;
+  }
+
+  .bottomGrid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .includeList {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .includeItem {
+    font-size: 14.5px;
+  }
+
+  .pkgName {
+    font-size: 22px;
+  }
+
+  .pkgDesc {
+    font-size: 14.5px;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .footerRight {
+    align-items: flex-start;
+  }
+}
