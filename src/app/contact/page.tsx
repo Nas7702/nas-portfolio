@@ -8,7 +8,7 @@ import { Calendar, Check, Instagram, Mail, MapPin, MessageCircle, ArrowRight } f
 import { trackCta } from "../../lib/analytics";
 
 const WHATSAPP_BASE = "https://wa.me/447475437833";
-const CALENDLY_URL = "https://calendly.com/nas-create0/30min";
+const CALENDLY_URL = "https://calendly.com/hello-nascreate/30min";
 const EMAIL_URL =
   "mailto:hello@nascreate.com?subject=New%20enquiry%20from%20nascreate.com&body=Hi%20Nas%2C%0AProject%20type%3A%20%5BVideo%2FPhoto%2FEvent%5D%0ABudget%3A%20%5B%5D%0ATimeline%3A%20%5B%5D%0ALinks%3A%20%5B%5D";
 const INSTAGRAM_URL = "https://instagram.com/nas.create";

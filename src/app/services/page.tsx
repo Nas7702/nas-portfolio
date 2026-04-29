@@ -20,7 +20,7 @@ import ScrollReveal from "../components/ScrollReveal";
 
 const WHATSAPP_HREF =
   "https://wa.me/447475437833?text=Hi%20Nas%2C%20I%27d%20like%20to%20discuss%20a%20project.";
-const CALENDLY_HREF = "https://calendly.com/nas-create0/30min";
+const CALENDLY_HREF = "https://calendly.com/hello-nascreate/30min";
 
 const services = [
   {
