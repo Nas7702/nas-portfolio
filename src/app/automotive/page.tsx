@@ -40,7 +40,7 @@ export default function AutomotivePage() {
               <span className={styles.accent}>for premium automotive</span>
             </h1>
             <p className={styles.heroSub}>
-              For wrap shops, modifiers, detailers and restoration houses where the build is the product. Short-form for Instagram, dealer pages and brand. One shoot, cut for every surface.
+              For wrap shops, modifiers, detailers and restoration houses where the work is the product. Short-form for Instagram, dealer pages and brand. One shoot, cut for every surface.
             </p>
             <div className={styles.heroVideoFrame}>
               {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -168,6 +168,28 @@ export default function AutomotivePage() {
             <p className={styles.testimonialAttribution}>Director, Vizual Mods</p>
           </section>
 
+          {/* STATS — placeholders. Nas to source three premium-automotive numbers. */}
+          <section className={styles.stats}>
+            <p className={styles.sectionLabel}>By the numbers</p>
+            <div className={styles.statsGrid}>
+              <div className={styles.statItem}>
+                <p className={styles.statNum}>TBD</p>
+                <p className={styles.statDesc}>Placeholder. Replace with a sourced stat about premium automotive video performance.</p>
+                <p className={styles.statSource}>Source pending</p>
+              </div>
+              <div className={styles.statItem}>
+                <p className={styles.statNum}>TBD</p>
+                <p className={styles.statDesc}>Placeholder. Replace with a sourced stat about social engagement or buyer behaviour.</p>
+                <p className={styles.statSource}>Source pending</p>
+              </div>
+              <div className={styles.statItem}>
+                <p className={styles.statNum}>TBD</p>
+                <p className={styles.statDesc}>Placeholder. Replace with a sourced stat that supports the short-form film pitch.</p>
+                <p className={styles.statSource}>Source pending</p>
+              </div>
+            </div>
+          </section>
+
           {/* CTA */}
           <section id="cta" className={styles.cta}>
             <h2 className={styles.ctaHeadline}>
@@ -190,7 +212,7 @@ export default function AutomotivePage() {
           {/* FOOTER */}
           <footer className={styles.footer}>
             <p className={styles.footerQuote}>
-              &ldquo;Most shops in this sector let the build speak for itself. The ones winning the next booking make sure the build doesn&rsquo;t go unfilmed.&rdquo;
+              &ldquo;Most shops in this sector let the work speak for itself. The ones winning the next booking make sure it doesn&rsquo;t go unfilmed.&rdquo;
             </p>
             <div className={styles.footerRight}>
               <p className={styles.footerNote}>Nas Create Ltd · 2026</p>
