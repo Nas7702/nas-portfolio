@@ -115,37 +115,19 @@ export default function AboutPage() {
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="flex justify-center md:justify-end"
             >
-              <div className="relative w-[280px] sm:w-[320px] md:w-full md:max-w-[420px] aspect-[2/3]">
+              <div className="relative w-[280px] sm:w-[320px] md:w-full md:max-w-[420px] aspect-square">
                 {/* Atmospheric smoke sits behind the portrait */}
                 <PortraitSmoke />
-                <Image
-                  src="/images/nas-portrait.png"
-                  alt="Nas Ahmed — commercial videographer and photographer"
-                  fill
-                  sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 420px"
-                  className="object-contain object-bottom z-10"
-                  priority
-                />
-                {/* Top fade — softens head/hair cutout edge */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/90 to-transparent pointer-events-none z-20"
-                />
-                {/* Ground fade */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background to-transparent pointer-events-none z-20"
-                />
-                {/* Left edge fade */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent pointer-events-none z-20"
-                />
-                {/* Right edge fade */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent pointer-events-none z-20"
-                />
+                <div className="absolute inset-0 rounded-lg border border-border overflow-hidden shadow-2xl shadow-black/60 z-10">
+                  <Image
+                    src="/images/nas-portrait-2026.jpg"
+                    alt="Nas Hoque, commercial videographer and photographer"
+                    fill
+                    sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 420px"
+                    className="object-cover rounded-[inherit]"
+                    priority
+                  />
+                </div>
               </div>
             </motion.div>
 
