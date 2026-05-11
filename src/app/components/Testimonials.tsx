@@ -69,6 +69,19 @@ const testimonials: Testimonial[] = [
       { label: "View Photos", scrollTo: "creative-portfolio" },
     ],
   },
+  {
+    name: "Vizual Mods",
+    role: "Vehicle Wraps & Modifications",
+    headline: "Enquiries on Instagram and Facebook went up.",
+    quote:
+      "Nas produces the content we put out on socials, covering wraps, body kits, tinting and custom plates. Enquiries on Instagram and Facebook went up and the brand looks how it should.",
+    praise:
+      "He gets what we do and is easy to deal with.",
+    link: "https://vizualmods.co.uk/",
+    relatedWork: [
+      { label: "Watch the Film", openItemId: "Vizual Mods Promo", scrollTo: "creative-portfolio" },
+    ],
+  },
 ];
 
 export default function Testimonials() {
