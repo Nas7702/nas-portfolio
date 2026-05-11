@@ -910,6 +910,46 @@ export default function CreativePage() {
           </div>
         </section>
 
+        {/* Numbers strip — subtle, built into the band between featured and testimonials */}
+        <section className="py-6 md:py-8 px-6 sm:px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal direction="up" delay={0.1}>
+              <div className="grid grid-cols-1 md:grid-cols-3 border-y border-border/60">
+                <div className="py-5 px-5 border-b md:border-b-0 md:border-r border-border/60">
+                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2 leading-none">63<span className="text-xl md:text-2xl">%</span></p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">of consumers prefer short video to learn about a product.</p>
+                  <a
+                    href="https://www.wyzowl.com/video-marketing-statistics/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
+                  >Wyzowl 2024 ↗</a>
+                </div>
+                <div className="py-5 px-5 border-b md:border-b-0 md:border-r border-border/60">
+                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2 leading-none">+125<span className="text-xl md:text-2xl">%</span></p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">Reels reach over single-photo posts on Instagram.</p>
+                  <a
+                    href="https://buffer.com/library/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
+                  >Buffer 2024 ↗</a>
+                </div>
+                <div className="py-5 px-5">
+                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2 leading-none">78<span className="text-xl md:text-2xl">%</span></p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">of consumers trust video with real people more than AI-generated content.</p>
+                  <a
+                    href="https://animoto.com/business"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
+                  >Animoto 2024-25 ↗</a>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
         {/* Testimonials */}
         <section id="create-testimonials" className="pt-2 pb-10 px-6 sm:px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
           <Testimonials />
@@ -1101,59 +1141,6 @@ export default function CreativePage() {
             </>
           )}
         </AnimatePresence>
-
-        {/* By the numbers */}
-        <section className="py-16 md:py-20 px-6 sm:px-8 bg-background transition-colors duration-300">
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal direction="up" delay={0.1}>
-              <p className="eyebrow mb-8" style={{ color: "var(--color-accent)" }}>By the numbers</p>
-            </ScrollReveal>
-            <ScrollReveal direction="up" delay={0.2}>
-              <div className="grid grid-cols-1 lg:grid-cols-4 border border-border">
-                <div className="p-7 border-b lg:border-b-0 lg:border-r border-border">
-                  <p className="font-display text-5xl lg:text-6xl font-bold text-text mb-3 leading-none">93<span className="text-3xl lg:text-4xl">%</span></p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">Marketers say they have landed a new customer through video.</p>
-                  <a
-                    href="https://www.wyzowl.com/video-marketing-statistics/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
-                  >Wyzowl 2024 ↗</a>
-                </div>
-                <div className="p-7 border-b lg:border-b-0 lg:border-r border-border">
-                  <p className="font-display text-5xl lg:text-6xl font-bold text-text mb-3 leading-none">63<span className="text-3xl lg:text-4xl">%</span></p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">of consumers prefer short video to learn about a product.</p>
-                  <a
-                    href="https://www.wyzowl.com/video-marketing-statistics/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
-                  >Wyzowl 2024 ↗</a>
-                </div>
-                <div className="p-7 border-b lg:border-b-0 lg:border-r border-border">
-                  <p className="font-display text-5xl lg:text-6xl font-bold text-text mb-3 leading-none">+125<span className="text-3xl lg:text-4xl">%</span></p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">Reels reach over single-photo posts on Instagram.</p>
-                  <a
-                    href="https://buffer.com/library/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
-                  >Buffer 2024 ↗</a>
-                </div>
-                <div className="p-7">
-                  <p className="font-display text-5xl lg:text-6xl font-bold text-text mb-3 leading-none">78<span className="text-3xl lg:text-4xl">%</span></p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">of consumers trust video with real people more than AI-generated content.</p>
-                  <a
-                    href="https://animoto.com/business"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
-                  >Animoto 2024-25 ↗</a>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
 
         {/* Contact and Footer */}
         <section className="py-20 pb-36 md:pb-32 px-8 bg-panel transition-colors duration-300">
