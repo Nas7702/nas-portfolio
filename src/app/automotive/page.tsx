@@ -168,24 +168,39 @@ export default function AutomotivePage() {
             <p className={styles.testimonialAttribution}>Director, Vizual Mods</p>
           </section>
 
-          {/* STATS — placeholders. Nas to source three premium-automotive numbers. */}
+          {/* STATS */}
           <section className={styles.stats}>
             <p className={styles.sectionLabel}>By the numbers</p>
             <div className={styles.statsGrid}>
               <div className={styles.statItem}>
-                <p className={styles.statNum}>TBD</p>
-                <p className={styles.statDesc}>Placeholder. Replace with a sourced stat about premium automotive video performance.</p>
-                <p className={styles.statSource}>Source pending</p>
+                <p className={styles.statNum}>92<span style={{ fontSize: '38px', marginLeft: '2px' }}>%</span></p>
+                <p className={styles.statDesc}>of auto shoppers turn to YouTube when researching a vehicle.</p>
+                <a
+                  href="https://www.thinkwithgoogle.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.statSource}
+                >Think with Google ↗</a>
               </div>
               <div className={styles.statItem}>
-                <p className={styles.statNum}>TBD</p>
-                <p className={styles.statDesc}>Placeholder. Replace with a sourced stat about social engagement or buyer behaviour.</p>
-                <p className={styles.statSource}>Source pending</p>
+                <p className={styles.statNum}>40<span style={{ fontSize: '38px', marginLeft: '2px' }}>%+</span></p>
+                <p className={styles.statDesc}>of auto shoppers were introduced to a vehicle they weren&rsquo;t considering by online video.</p>
+                <a
+                  href="https://www.thinkwithgoogle.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.statSource}
+                >Think with Google ↗</a>
               </div>
               <div className={styles.statItem}>
-                <p className={styles.statNum}>TBD</p>
-                <p className={styles.statDesc}>Placeholder. Replace with a sourced stat that supports the short-form film pitch.</p>
-                <p className={styles.statSource}>Source pending</p>
+                <p className={styles.statNum}>78<span style={{ fontSize: '38px', marginLeft: '2px' }}>%</span></p>
+                <p className={styles.statDesc}>of consumers trust video with real people more than AI-generated content.</p>
+                <a
+                  href="https://animoto.com/business"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.statSource}
+                >Animoto 2024-25 ↗</a>
               </div>
             </div>
           </section>

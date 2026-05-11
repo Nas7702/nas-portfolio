@@ -332,6 +332,13 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 600;
+  text-decoration: none;
+  transition: color 0.18s ease;
+  display: inline-block;
+}
+
+.statSource:hover {
+  color: #1E5186;
 }
 
 /* CTA */
