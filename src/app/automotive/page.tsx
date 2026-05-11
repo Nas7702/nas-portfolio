@@ -104,6 +104,15 @@ export default function AutomotivePage() {
             </div>
           </section>
 
+          {/* TESTIMONIAL */}
+          <section className={styles.testimonial}>
+            <p className={styles.sectionLabel}>Client</p>
+            <p className={styles.testimonialQuote}>
+              &ldquo;Nas produces the content we put out on socials, covering wraps, body kits, tinting and custom plates. Enquiries on Instagram and Facebook went up and the brand looks how it should. He gets what we do and is easy to deal with.&rdquo;
+            </p>
+            <p className={styles.testimonialAttribution}>Director, Vizual Mods</p>
+          </section>
+
           {/* SECTORS */}
           <section className={styles.sectors}>
             <p className={styles.sectionLabel}>Who this is for</p>
@@ -261,12 +270,8 @@ export default function AutomotivePage() {
 
           {/* FOOTER */}
           <footer className={styles.footer}>
-            <p className={styles.footerQuote}>
-              &ldquo;The cars are already worth filming. The film is what makes the next one walk through the door.&rdquo;
-            </p>
-            <div className={styles.footerRight}>
-              <p className={styles.footerNote}>Nas Create Ltd · 2026</p>
-            </div>
+            <a href="#start" className={styles.footerBackToTop}>Start a project ↑</a>
+            <p className={styles.footerNote}>Nas Create Ltd · 2026</p>
           </footer>
 
         </div>
