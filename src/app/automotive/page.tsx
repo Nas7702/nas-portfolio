@@ -26,36 +26,39 @@ export default function AutomotivePage() {
       {/* eslint-disable-next-line @next/next/no-page-custom-font */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
-        html, body { margin: 0; padding: 0; background: #FAFAF7; overflow-x: hidden; cursor: auto !important; }
+        html, body { margin: 0; padding: 0; background: #FAFAF7; cursor: auto !important; }
       `}</style>
 
       <div className={styles.page}>
 
-        {/* HERO — dark, full-bleed */}
-        <section className={styles.hero}>
-          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video
-            className={styles.heroVideo}
-            src={RS6_VIDEO}
-            poster={RS6_POSTER}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-hidden="true"
-            tabIndex={-1}
-          />
-          <div className={styles.heroOverlay} />
-          <div className={styles.heroContent}>
-            <div className={styles.heroTopLeft}>
-              <h1 className={styles.heroTitle}>
-                <span>Cinematic film</span>
-                <span className={styles.accent}>for premium automotive</span>
-              </h1>
+        {/* HERO — dark band, normal document flow, video at standard tile scale */}
+        <section className={styles.heroSection}>
+          <div className={styles.inner}>
+            <p className={styles.heroEyebrow}>Nas Create Ltd · Automotive</p>
+            <h1 className={styles.heroTitle}>
+              <span>Cinematic film</span>
+              <span className={styles.accent}>for premium automotive</span>
+            </h1>
+            <p className={styles.heroSub}>
+              For wrap shops, modifiers, detailers and restoration houses where the build is the product. Short-form for Instagram, dealer pages and brand. One shoot, cut for every surface.
+            </p>
+            <div className={styles.heroVideoFrame}>
+              {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+              <video
+                className={styles.heroVideo}
+                src={RS6_VIDEO}
+                poster={RS6_POSTER}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-hidden="true"
+                tabIndex={-1}
+              />
             </div>
-            <div className={styles.heroBottom}>
-              <p className={styles.heroSubline}>wraps · mods · detail · restoration</p>
+            <div className={styles.heroCaptionRow}>
+              <p className={styles.heroCaption}>Audi RS6 · Detail Showcase</p>
               <a
                 href={CALENDLY_URL}
                 target="_blank"
@@ -67,16 +70,6 @@ export default function AutomotivePage() {
         </section>
 
         <div className={styles.inner}>
-
-          {/* POSITIONING */}
-          <section className={styles.positioning}>
-            <h2 className={styles.positioningTitle}>
-              Film that turns scroll into enquiries.
-            </h2>
-            <p className={styles.positioningSub}>
-              For the wrap shops, modifiers, detailers and restoration houses where the build is the product. Short-form for Instagram, dealer pages and brand. One shoot, cut for every surface.
-            </p>
-          </section>
 
           {/* SELECTED WORK */}
           <section className={styles.selected}>
@@ -95,6 +88,8 @@ export default function AutomotivePage() {
                     loop
                     playsInline
                     preload="metadata"
+                    aria-hidden="true"
+                    tabIndex={-1}
                   />
                 </div>
                 <div className={styles.workTileInfo}>
@@ -120,6 +115,8 @@ export default function AutomotivePage() {
                     loop
                     playsInline
                     preload="metadata"
+                    aria-hidden="true"
+                    tabIndex={-1}
                   />
                 </div>
                 <div className={styles.workTileInfo}>
@@ -145,6 +142,8 @@ export default function AutomotivePage() {
                     loop
                     playsInline
                     preload="metadata"
+                    aria-hidden="true"
+                    tabIndex={-1}
                   />
                 </div>
                 <div className={styles.workTileInfo}>
