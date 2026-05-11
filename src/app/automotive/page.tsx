@@ -19,6 +19,8 @@ const VM_VIDEO = 'https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/vm_urus.mo
 const VM_POSTER = 'https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_vm_urus_thumnail.webp';
 
 const CALENDLY_URL = 'https://calendly.com/hello-nascreate/30min';
+const WHATSAPP_URL = 'https://wa.me/447475437833';
+const EMAIL_URL = 'mailto:hello@nascreate.com';
 
 export default function AutomotivePage() {
   return (
@@ -213,15 +215,24 @@ export default function AutomotivePage() {
             <p className={styles.ctaLine}>
               Solo operator. Plan, shoot, edit, deliver. End to end. The call is twenty minutes, no brief or deck needed beforehand.
             </p>
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.ctaButton}
-            >Book a 30-min call</a>
-            <p className={styles.ctaSecondary}>
-              Or email <a href="mailto:hello@nascreate.com">hello@nascreate.com</a>
-            </p>
+            <div className={styles.ctaButtons}>
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.ctaButton}
+              >Book a 30-min call</a>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.ctaButton} ${styles.ctaButtonOutline}`}
+              >WhatsApp</a>
+              <a
+                href={EMAIL_URL}
+                className={`${styles.ctaButton} ${styles.ctaButtonOutline}`}
+              >Email</a>
+            </div>
           </section>
 
           {/* FOOTER */}
