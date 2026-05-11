@@ -784,8 +784,8 @@ export default function CreativePage() {
   return (
     <PageTransition>
       <div className="theme-creative min-h-screen bg-bg text-text transition-colors duration-300">
-        {/* Nas.Create Branded Header */}
-        {/* Nas.Create Branded Header */}
+        {/* Nas Create Branded Header */}
+        {/* Nas Create Branded Header */}
         <section ref={heroSectionRef} className="relative overflow-hidden py-20 px-6 sm:px-8 bg-background">
           {/* Base vignette layer beneath shader */}
           <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.05)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(11,15,10,0.82)_0%,rgba(6,10,8,0.94)_65%,rgba(0,0,0,1)_100%)] transition-all duration-500" />
@@ -816,7 +816,7 @@ export default function CreativePage() {
                       {/* Light Mode Logo */}
                       <Image
                         src="/logos/lightmode-workmark.png"
-                        alt="Nas.Create Logo"
+                        alt="Nas Create Logo"
                         width={480}
                         height={240}
                         className="w-full h-full object-contain drop-shadow-sm dark:hidden block"
@@ -825,7 +825,7 @@ export default function CreativePage() {
                       {/* Dark Mode Logo */}
                       <Image
                         src="/logos/darkmode-wordmark.png"
-                        alt="Nas.Create Logo"
+                        alt="Nas Create Logo"
                         width={480}
                         height={240}
                         className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.45)] transition-all duration-500 ease-out group-hover:drop-shadow-[0_0_35px_rgba(255,255,255,0.6)] hidden dark:block"

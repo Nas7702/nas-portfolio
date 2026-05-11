@@ -27,7 +27,7 @@ export default function AboutPage() {
             Started filming in 2020 as a side thing. Sports events, local businesses, anything worth shooting.
           </span>
           <span className="block mt-3 leading-relaxed text-foreground/90">
-            It turned into <span className="font-semibold">paid work</span> pretty quickly, and Nas.Create was born.
+            It turned into <span className="font-semibold">paid work</span> pretty quickly, and Nas Create was born.
           </span>
         </>
       ),
@@ -67,11 +67,11 @@ export default function AboutPage() {
     },
     {
       year: "Now",
-      title: "Growing Nas.Create",
+      title: "Growing Nas Create",
       category: "Creative",
       description: (
         <span className="text-foreground/90">
-          More commercial work, longer partnerships, bigger events. Building Nas.Create into something that lasts. If you&apos;ve got a project, get in touch.
+          More commercial work, longer partnerships, bigger events. Building Nas Create into something that lasts. If you&apos;ve got a project, get in touch.
         </span>
       ),
       Icon: Sparkles,

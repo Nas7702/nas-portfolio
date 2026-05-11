@@ -3,7 +3,7 @@ import styles from './commercial.module.css';
 import CommercialVideo from './CommercialVideo';
 
 export const metadata: Metadata = {
-  title: 'Nas Create LTD — Commercial & Civils',
+  title: 'Nas Create — Commercial & Civils',
   robots: { index: false, follow: false },
 };
 
@@ -194,8 +194,8 @@ export default function CommercialPage() {
           <p className={styles.footerQuote}>&ldquo;Most companies in this sector win work on the strength of what they build. The companies winning the next contract make sure it doesn&rsquo;t go undocumented.&rdquo;</p>
           <div className={styles.footerRight}>
             <p className={styles.footerCta}>Ready to talk?</p>
-            <a href="/contact" className={styles.footerLink}>Nas Create LTD / contact</a>
-            <p className={styles.footerNote}>Nas Create LTD · 2026</p>
+            <a href="/contact" className={styles.footerLink}>Nas Create / contact</a>
+            <p className={styles.footerNote}>Nas Create · 2026</p>
           </div>
         </footer>
 

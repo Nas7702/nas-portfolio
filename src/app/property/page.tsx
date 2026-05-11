@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import styles from './property.module.css';
 
 export const metadata: Metadata = {
-  title: 'Nas.Create — Property Content',
+  title: 'Nas Create — Property Content',
   robots: { index: false, follow: false },
 };
 
@@ -30,7 +30,7 @@ export default function PropertyPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logos/darkmode-wordmark.png"
-                alt="Nas.Create"
+                alt="Nas Create"
                 className={styles.wordmark}
               />
             </div>

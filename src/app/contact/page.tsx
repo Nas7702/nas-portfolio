@@ -163,7 +163,7 @@ function ContactPageInner() {
 
               <div className="rounded-sm border border-border overflow-hidden bg-background">
                 <iframe
-                  title="Book a free call with Nas.Create"
+                  title="Book a free call with Nas Create"
                   src={calendlyEmbedHref}
                   className="w-full h-[760px] md:h-[720px]"
                 />

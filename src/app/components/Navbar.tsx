@@ -72,10 +72,10 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
 
             {/* Logo — wordmark */}
-            <Link href="/" aria-label="Nas.Create — Home" className="flex-shrink-0">
+            <Link href="/" aria-label="Nas Create — Home" className="flex-shrink-0">
               <Image
                 src="/logos/cropped-darkmode-wordmark.png"
-                alt="Nas.Create"
+                alt="Nas Create"
                 width={1366}
                 height={772}
                 className="hidden dark:block h-[38px] w-auto"
@@ -83,7 +83,7 @@ export default function Navbar() {
               />
               <Image
                 src="/logos/cropped-lightmode-workmark.png"
-                alt="Nas.Create"
+                alt="Nas Create"
                 width={1366}
                 height={772}
                 className="block dark:hidden h-[38px] w-auto"

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Nas.Create × Hunters</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f7f3ed;
+    color: #1a1a1a;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 36px 48px;
+    gap: 28px;
+    overflow: hidden;
+  }
+
+  /* HEADER */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #c8bfb0;
+    flex-shrink: 0;
+  }
+  .header-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .header-left h1 em {
+    font-style: italic;
+    color: #a07c20;
+  }
+  .header-right {
+    text-align: right;
+  }
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a07c20;
+  }
+  .brand-sub {
+    font-size: 12px;
+    color: #999;
+    margin-top: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  /* MAIN GRID */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.15fr;
+    gap: 24px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* COLUMN LABELS */
+  .col-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #a07c20;
+    margin-bottom: 14px;
+  }
+
+  /* VALUE COLUMN */
+  .value-col {}
+  .value-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .v-item {
+    padding: 14px 0;
+    border-bottom: 1px solid #c8bfb0;
+  }
+  .v-item:first-child { border-top: 1px solid #c8bfb0; }
+  .v-item h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .v-item p {
+    font-size: 12.5px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* INCLUDED COLUMN */
+  .included-col {}
+  .tag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .tag {
+    font-size: 12px;
+    padding: 7px 13px;
+    border: 1px solid #c8bfb0;
+    color: #444;
+    background: #fff;
+    line-height: 1;
+  }
+
+  /* PACKAGES COLUMN */
+  .packages-col {}
+  .pkg-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pkg {
+    padding: 16px 18px;
+    border: 1px solid #c8bfb0;
+    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 16px;
+    align-items: start;
+  }
+  .pkg.featured {
+    background: #fff;
+    border-color: #c8bfb0;
+    color: #1a1a1a;
+  }
+  .pkg-left {}
+  .pkg-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .pkg-desc {
+    font-size: 11.5px;
+    color: #888;
+    line-height: 1.5;
+    max-width: 200px;
+  }
+  .pkg-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .pkg-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 1;
+    color: #1a1a1a;
+  }
+  .pkg-unit {
+    font-size: 11px;
+    color: #999;
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid #c8bfb0;
+    padding-top: 16px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 300;
+    color: #999;
+  }
+  .footer-note {
+    font-size: 11px;
+    color: #bbb;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>Property content that<br><em>wins you the instruction.</em></h1>
+  </div>
+  <div class="header-right">
+    <p class="brand-name">Nas.Create</p>
+    <p class="brand-sub">Scunthorpe, North Lincolnshire</p>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- VALUE -->
+  <div class="value-col">
+    <p class="col-label">Why it works</p>
+    <div class="value-list">
+      <div class="v-item">
+        <h3>Win more instructions from sellers</h3>
+        <p>Homeowners choose their agent based on how you market other properties. Premium content wins you the listing before the buyer is ever involved.</p>
+      </div>
+      <div class="v-item">
+        <h3>Stand out on Rightmove & Zoopla</h3>
+        <p>Listings with professional video generate more enquiries and move faster. Your properties get noticed first.</p>
+      </div>
+      <div class="v-item">
+        <h3>Build the Hunters brand on social</h3>
+        <p>Consistent, cinematic content positions you as the obvious premium choice in Scunthorpe — on every platform.</p>
+      </div>
+      <div class="v-item">
+        <h3>Justify your fee to vendors</h3>
+        <p>When sellers see you invest properly in their marketing, it validates your commission and reduces fee negotiation.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- INCLUDED -->
+  <div class="included-col">
+    <p class="col-label">Every property includes</p>
+    <div class="tag-grid">
+      <span class="tag">Cinematic walkthrough video</span>
+      <span class="tag">Drone aerial exterior</span>
+      <span class="tag">Full photo set</span>
+      <span class="tag">Colour grading & edit</span>
+      <span class="tag">Hunters branded intro/outro</span>
+      <span class="tag">Social-ready vertical formats</span>
+      <span class="tag">Licensed music</span>
+      <span class="tag">Everything end to end</span>
+    </div>
+  </div>
+
+  <!-- PACKAGES -->
+  <div class="packages-col">
+    <p class="col-label">Investment</p>
+    <div class="pkg-stack">
+
+      <div class="pkg">
+        <div class="pkg-left">
+          <p class="pkg-name">One-Off</p>
+          <p class="pkg-desc">No commitment. Ideal for trying the format on select listings.</p>
+        </div>
+        <div class="pkg-right">
+          <p class="pkg-price">£350</p>
+          <p class="pkg-unit">per property</p>
+        </div>
+      </div>
+
+      <div class="pkg">
+        <div class="pkg-left">
+          <p class="pkg-name">Monthly Retainer</p>
+          <p class="pkg-desc">Fixed monthly schedule. Exclusivity to Hunters included. 3-month minimum.</p>
+        </div>
+        <div class="pkg-right">
+          <p class="pkg-price">£1,500</p>
+          <p class="pkg-unit">per month<br>6 properties · £250 each</p>
+        </div>
+      </div>
+
+      <div class="pkg">
+        <div class="pkg-left">
+          <p class="pkg-name">High Volume</p>
+          <p class="pkg-desc">For busier months. Best per-property rate.</p>
+        </div>
+        <div class="pkg-right">
+          <p class="pkg-price">£1,800</p>
+          <p class="pkg-unit">per month<br>8 properties · £225 each</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p class="footer-quote">"Video doesn't just sell the house — it wins you the instruction."</p>
+  <p class="footer-note">nas.create · 2026</p>
+</footer>
+
+</body>
+</html>

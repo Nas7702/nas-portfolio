@@ -252,7 +252,7 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
         >
           <Image
             src="/logos/darkmode-wordmark.png"
-            alt="Nas.Create"
+            alt="Nas Create"
             width={size === "sm" ? 32 : 40}
             height={size === "sm" ? 32 : 40}
             className="object-contain drop-shadow-[0_0_10px_rgba(57,255,136,0.3)] transition-all duration-300 group-hover:drop-shadow-[0_0_15px_rgba(57,255,136,0.5)]"
@@ -263,12 +263,12 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
     );
   }
 
-  // Default variant: use the Nas.Create inline wordmark
+  // Default variant: use the Nas Create inline wordmark
   return (
     <Link
       href="/"
-      aria-label="Nas.Create - Home"
-      title="Nas.Create - Home"
+      aria-label="Nas Create - Home"
+      title="Nas Create - Home"
       className="inline-flex items-center relative group select-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-300 dark:focus-visible:outline-cyan-400 rounded-lg px-2 py-1 transition-colors duration-200"
       data-testid={dataTestId}
     >
@@ -286,7 +286,7 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
         {/* Dark mode logo */}
         <Image
           src="/logos/darkmode-wordmark.png"
-          alt="Nas.Create"
+          alt="Nas Create"
           width={size === "sm" ? 32 : 40}
           height={size === "sm" ? 32 : 40}
           className="object-contain transition-all duration-300 hidden dark:block"
@@ -295,7 +295,7 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
         {/* Light mode logo */}
         <Image
           src="/logos/lightmode-workmark.png"
-          alt="Nas.Create"
+          alt="Nas Create"
           width={size === "sm" ? 32 : 40}
           height={size === "sm" ? 32 : 40}
           className="object-contain transition-all duration-300 block dark:hidden"

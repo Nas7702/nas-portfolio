@@ -1,6 +1,6 @@
-# Nas.Create
+# Nas Create
 
-Commercial videography and photography website for Nas.Create, a UK-based creative production business. The site serves as a client-facing portfolio and booking hub, with a filterable work gallery, client testimonials, a service breakdown, and direct booking via Calendly and WhatsApp.
+Commercial videography and photography website for Nas Create, a UK-based creative production business. The site serves as a client-facing portfolio and booking hub, with a filterable work gallery, client testimonials, a service breakdown, and direct booking via Calendly and WhatsApp.
 
 **Live:** [nascreate.com](https://nascreate.com)
 
@@ -26,7 +26,7 @@ Commercial videography and photography website for Nas.Create, a UK-based creati
 
 ## What the Site Is
 
-This is the website for **Nas.Create**, a freelance creative production business based in Yorkshire, UK. It is not a software/developer portfolio. The focus is entirely on commercial video and photography work.
+This is the website for **Nas Create**, a freelance creative production business based in Yorkshire, UK. It is not a software/developer portfolio. The focus is entirely on commercial video and photography work.
 
 The site is built to do three things:
 
@@ -61,7 +61,7 @@ The floating dock (desktop) and navbar (mobile) link to: **Home**, **Work** (`/c
 | Kyle Allen Physique Coaching | Kyle Allen Coaching | Fitness, Promo, Story Reel |
 | Sheffield Varsity Basketball | University of Sheffield | Sport, Cinematic, Highlight |
 | Sheffield Varsity Powerlifting | University of Sheffield | Sport, Cinematic, Highlight |
-| Stance Fitness Promo | Nas.Create | Brand Film, Cinematic, Colour Grading |
+| Stance Fitness Promo | Nas Create | Brand Film, Cinematic, Colour Grading |
 | Vizual Mods Promo | Vizual Mods | Automotive, Promo, Motion |
 
 **Photo albums**

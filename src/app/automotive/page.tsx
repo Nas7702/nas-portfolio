@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import styles from './automotive.module.css';
 
 export const metadata: Metadata = {
-  title: 'Nas Create LTD — Automotive',
+  title: 'Nas Create — Automotive',
   robots: { index: false, follow: false },
 };
 
@@ -34,7 +34,7 @@ export default function AutomotivePage() {
         {/* HERO — dark band, normal document flow, video at standard tile scale */}
         <section className={styles.heroSection}>
           <div className={styles.inner}>
-            <p className={styles.heroEyebrow}>Nas Create Ltd · Automotive</p>
+            <p className={styles.heroEyebrow}>Nas Create · Automotive</p>
             <h1 className={styles.heroTitle}>
               <span>Cinematic film</span>
               <span className={styles.accent}>for premium automotive</span>
@@ -230,7 +230,7 @@ export default function AutomotivePage() {
               &ldquo;Most shops in this sector let the work speak for itself. The ones winning the next booking make sure it doesn&rsquo;t go unfilmed.&rdquo;
             </p>
             <div className={styles.footerRight}>
-              <p className={styles.footerNote}>Nas Create Ltd · 2026</p>
+              <p className={styles.footerNote}>Nas Create · 2026</p>
             </div>
           </footer>
 
