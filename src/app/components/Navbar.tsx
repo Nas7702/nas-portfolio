@@ -55,8 +55,8 @@ export default function Navbar() {
   };
 
   const navBg = scrolled || isOpen
-    ? "bg-background/85 supports-[backdrop-filter]:bg-background/55 backdrop-blur-2xl border-b border-border/45 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
-    : "bg-background/70 supports-[backdrop-filter]:bg-background/35 backdrop-blur-xl border-b border-border/25";
+    ? "bg-background/92 supports-[backdrop-filter]:bg-background/78 backdrop-blur-2xl backdrop-saturate-150 border-b border-border/45 shadow-[0_10px_30px_rgba(0,0,0,0.2)]"
+    : "bg-background/85 supports-[backdrop-filter]:bg-background/65 backdrop-blur-xl backdrop-saturate-150 border-b border-border/30";
 
   const mobileBg = theme === "dark"
     ? "border-border/30 bg-black/90 backdrop-blur-md"
