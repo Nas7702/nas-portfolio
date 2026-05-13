@@ -169,7 +169,7 @@ export default function CommercialPage() {
               <div className={styles.pkg}>
                 <p className={styles.pkgName}>Single completion film</p>
                 <p className={styles.pkgScope}>One-off · One site · Full deliverables</p>
-                <p className={styles.pkgDesc}>A finished site, shot in a day, edited into a two-minute film with motion-graphic overlays mapping the scope of works. Pilot piece, marquee project, or a tender add-on. Recent example: ADJ Surfacing & Consultancy at Aintree Shopping Park.</p>
+                <p className={styles.pkgDesc}>A finished site, shot in a day, edited into a two-minute film with motion-graphic overlays mapping the scope of works. Pilot piece, marquee project, or a tender add-on.</p>
               </div>
 
               <div className={styles.pkg}>
