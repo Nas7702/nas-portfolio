@@ -34,6 +34,8 @@ export default function CommercialVideo({ src, poster }: CommercialVideoProps) {
         loop
         playsInline
         preload="metadata"
+        aria-hidden="true"
+        tabIndex={-1}
       />
       <button
         type="button"
