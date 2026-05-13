@@ -13,12 +13,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://nascreate.com"),
   title: {
-    default: "Nas Create — Visual Storyteller",
+    default: "Nas Create | Commercial Videography",
     template: "%s | Nas Create",
   },
   description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
   openGraph: {
-    title: "Nas Create — Visual Storyteller",
+    title: "Nas Create | Commercial Videography",
     description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
     url: "https://nascreate.com",
     siteName: "Nas Create",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nas Create — Visual Storyteller",
+    title: "Nas Create | Commercial Videography",
     description: "Cinematic videography, photography & brand content. Based in the UK, available worldwide.",
   },
 };
