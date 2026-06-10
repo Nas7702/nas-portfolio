@@ -75,7 +75,7 @@ function SpotlightWrapper({
 
 export default function BentoGrid() {
   return (
-    <section className="max-w-7xl mx-auto px-4 py-20">
+    <section className="max-w-7xl mx-auto px-4 pt-10 pb-16 md:py-20">
       <div className="mb-12 flex items-end justify-between">
         <div className="w-full text-center md:text-left">
           <p className="eyebrow mb-3">Selected Work</p>

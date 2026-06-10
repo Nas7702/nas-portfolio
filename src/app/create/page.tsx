@@ -5,8 +5,9 @@ import dynamic from "next/dynamic";
 import PageTransition from "../components/PageTransition";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { Clapperboard, Camera, Palette, Sparkles, Instagram, ExternalLink, X } from "lucide-react";
+import { Camera, Instagram, ExternalLink, X } from "lucide-react";
 import CreativeCTA from "../components/CreativeCTA";
+import TestimonialMarquee from "../components/TestimonialMarquee";
 import type { MediaItem } from "../components/LightboxGallery";
 import ScrollReveal from "../components/ScrollReveal";
 import Link from "next/link";
@@ -189,12 +190,7 @@ function useHeroParallax(
   }, [prefersReduced, sectionRef, bgRef]);
 }
 
-const skillHighlights = [
-  { label: "Videography", icon: Clapperboard },
-  { label: "Photography", icon: Camera },
-  { label: "Color Grading", icon: Palette },
-  { label: "Post-Production", icon: Sparkles }
-];
+const disciplines = ["Videography", "Photography", "Colour Grading", "Post-Production"];
 
 // Starter media for Featured Work
 const featuredMedia: MediaItem[] = [
@@ -816,8 +812,7 @@ export default function CreativePage() {
     <PageTransition>
       <div className="theme-creative min-h-screen bg-bg text-text transition-colors duration-300">
         {/* Nas Create Branded Header */}
-        {/* Nas Create Branded Header */}
-        <section ref={heroSectionRef} className="relative overflow-hidden py-20 px-6 sm:px-8 bg-background">
+        <section ref={heroSectionRef} className="relative overflow-hidden py-10 sm:py-20 px-6 sm:px-8 bg-background">
           {/* Base vignette layer beneath shader */}
           <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_0%,rgba(0,0,0,0.05)_100%)] dark:bg-[radial-gradient(circle_at_center,rgba(11,15,10,0.82)_0%,rgba(6,10,8,0.94)_65%,rgba(0,0,0,1)_100%)] transition-all duration-500" />
 
@@ -835,15 +830,15 @@ export default function CreativePage() {
 
           <div className="max-w-6xl mx-auto text-center relative z-10 px-2 sm:px-0">
             <ScrollReveal direction="up" delay={0.1}>
-              <div className="flex flex-col items-center mb-8">
-                <div className="flex items-center justify-center mb-6">
+              <div className="flex flex-col items-center mb-6 sm:mb-8">
+                <div className="flex items-center justify-center mb-4 sm:mb-6">
                   <div className="relative group isolate">
                     <div
                       aria-hidden
                       className="absolute -inset-8 -z-20 rounded-[40px] opacity-70 blur-3xl transition-transform duration-500 ease-out group-hover:opacity-100 group-hover:scale-110"
                       style={{ background: "radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0) 80%)" }}
                     />
-                    <div className="relative flex items-center justify-center w-64 h-32 md:w-80 md:h-40 lg:w-96 lg:h-48 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
+                    <div className="relative flex items-center justify-center w-40 h-20 sm:w-64 sm:h-32 md:w-80 md:h-40 lg:w-96 lg:h-48 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
                       {/* Light Mode Logo */}
                       <Image
                         src="/logos/lightmode-workmark.png"
@@ -865,22 +860,36 @@ export default function CreativePage() {
                     </div>
                   </div>
                 </div>
-                <h1 className="font-display font-light text-5xl md:text-7xl tracking-tight text-foreground mb-4">Premium Visuals</h1>
-                <p className="text-lg md:text-xl text-muted-foreground mb-6 italic">Every piece of content has a job to do.</p>
+                <h1 className="font-display font-light text-4xl sm:text-5xl md:text-7xl tracking-tight text-foreground mb-3 sm:mb-4">Premium Visuals</h1>
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-0 italic">Every piece of content has a job to do.</p>
               </div>
             </ScrollReveal>
 
+            {/* Disciplines — single editorial line in place of icon chips */}
             <ScrollReveal direction="up" delay={0.3}>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
+              <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-4 gap-y-2 mb-7 sm:mb-9">
+                {disciplines.map((label, i) => (
+                  <span key={label} className="flex items-center gap-x-3 sm:gap-x-4">
+                    {i > 0 && <span aria-hidden className="w-3 sm:w-5 h-px bg-foreground/20" />}
+                    <span className="text-[0.65rem] sm:text-xs font-medium tracking-[0.22em] uppercase text-muted-foreground">
+                      {label}
+                    </span>
+                  </span>
+                ))}
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal direction="up" delay={0.5}>
+              <div className="flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 mb-0 sm:mb-6">
                 <a
                   href="https://www.instagram.com/nas.create/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-6 py-3 font-medium rounded-xl transition-all duration-200 transform hover:scale-105 group bg-accent hover:bg-accent/90 text-white shadow-lg shadow-accent/20"
+                  className="flex items-center gap-2.5 sm:gap-3 px-5 sm:px-6 py-3 font-medium rounded-sm transition-colors duration-300 group bg-accent hover:bg-accent/90 text-white shadow-lg shadow-accent/20"
                 >
-                  <Instagram size={20} className="text-white" />
-                  <span className="text-white">@nas.create</span>
-                  <ExternalLink size={16} className="opacity-70 group-hover:opacity-100 text-white" />
+                  <Instagram size={18} className="text-white" />
+                  <span className="text-sm sm:text-base text-white">@nas.create</span>
+                  <ExternalLink size={15} className="opacity-70 group-hover:opacity-100 text-white" />
                 </a>
                 <div className="flex items-center gap-2 text-accent">
                   <div className="w-2 h-2 rounded-full animate-pulse bg-accent"></div>
@@ -889,23 +898,22 @@ export default function CreativePage() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" delay={0.5}>
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
-                {skillHighlights.map(({ label, icon: Icon }) => (
-                  <div key={label} className="flex items-center gap-2 text-sm font-medium text-emerald-800 dark:text-accent tracking-wide">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-md bg-accent/10 border border-accent/20 text-accent">
-                      <Icon size={16} strokeWidth={2} />
-                    </span>
-                    <span className="uppercase text-[0.75rem] tracking-[0.24em] opacity-80">{label}</span>
-                  </div>
-                ))}
+            {/* Mobile scroll cue — the hero is compressed so Featured Work peeks, this reinforces it */}
+            <a
+              href="#featured-work"
+              className="sm:hidden mt-7 inline-flex w-full justify-center"
+              aria-label="Scroll to featured work"
+            >
+              <div className="flex flex-col items-center gap-1.5">
+                <span className="font-sans text-[0.6rem] font-medium tracking-[0.3em] uppercase text-foreground/40">The Work</span>
+                <div className="w-px h-8 bg-gradient-to-b from-accent/60 to-transparent" />
               </div>
-            </ScrollReveal>
+            </a>
           </div>
         </section>
 
         {/* Featured Work */}
-        <section className="pt-20 pb-10 px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
+        <section id="featured-work" className="scroll-mt-16 pt-12 sm:pt-20 pb-10 px-6 sm:px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-10">
@@ -927,67 +935,25 @@ export default function CreativePage() {
             </ScrollReveal>
             <a
               ref={scrollCueRef}
-              href="#create-testimonials"
+              href="#creative-portfolio"
               className={`mt-6 inline-flex w-full justify-center transition-all duration-300 ${
                 isScrollCueHidden ? "opacity-0 -translate-y-1 pointer-events-none" : "opacity-100 translate-y-0"
               }`}
-              aria-label="Scroll to client stories"
+              aria-label="Scroll to the creative portfolio"
             >
               <div className="flex flex-col items-center gap-2">
-                <span className="font-sans text-[0.6rem] font-medium tracking-[0.3em] uppercase text-foreground/35">Scroll</span>
+                <span className="font-sans text-[0.6rem] font-medium tracking-[0.3em] uppercase text-foreground/35">More Work</span>
                 <div className="w-px h-10 bg-gradient-to-b from-accent/60 to-transparent" />
               </div>
             </a>
           </div>
         </section>
 
-        {/* Numbers strip — subtle, built into the band between featured and testimonials */}
-        <section className="py-6 md:py-8 px-6 sm:px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal direction="up" delay={0.1}>
-              <div className="grid grid-cols-1 md:grid-cols-3 border-y border-border/60">
-                <div className="py-5 px-5 border-b md:border-b-0 md:border-r border-border/60">
-                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2 leading-none">63<span className="text-xl md:text-2xl">%</span></p>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">of consumers prefer short video to learn about a product.</p>
-                  <a
-                    href="https://www.wyzowl.com/video-marketing-statistics/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
-                  >Wyzowl 2024 ↗</a>
-                </div>
-                <div className="py-5 px-5 border-b md:border-b-0 md:border-r border-border/60">
-                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2 leading-none">+125<span className="text-xl md:text-2xl">%</span></p>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">Reels reach over single-photo posts on Instagram.</p>
-                  <a
-                    href="https://buffer.com/library/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
-                  >Buffer 2024 ↗</a>
-                </div>
-                <div className="py-5 px-5">
-                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2 leading-none">78<span className="text-xl md:text-2xl">%</span></p>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">of consumers trust video with real people more than AI-generated content.</p>
-                  <a
-                    href="https://animoto.com/business"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
-                  >Animoto 2024-25 ↗</a>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <section id="create-testimonials" className="pt-2 pb-10 px-6 sm:px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
-          <Testimonials />
-        </section>
+        {/* Client stories teaser — compact marquee so social proof is seen before the portfolio */}
+        <TestimonialMarquee />
 
         {/* Portfolio Section */}
-        <section id="creative-portfolio" className="py-20 px-6 sm:px-8 bg-background transition-colors duration-300">
+        <section id="creative-portfolio" className="scroll-mt-16 py-16 sm:py-20 px-6 sm:px-8 bg-background transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-12">
@@ -1127,6 +1093,51 @@ export default function CreativePage() {
             </ScrollReveal>
           </div>
         </section>
+        {/* Testimonials */}
+        <section id="create-testimonials" className="scroll-mt-16 pt-12 pb-10 px-6 sm:px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
+          <Testimonials />
+        </section>
+
+        {/* Numbers strip — subtle proof points between testimonials and the footer CTA */}
+        <section className="py-6 md:py-8 px-6 sm:px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal direction="up" delay={0.1}>
+              <div className="grid grid-cols-1 md:grid-cols-3 border-y border-border/60">
+                <div className="py-5 px-5 border-b md:border-b-0 md:border-r border-border/60">
+                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2 leading-none">63<span className="text-xl md:text-2xl">%</span></p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">of consumers prefer short video to learn about a product.</p>
+                  <a
+                    href="https://www.wyzowl.com/video-marketing-statistics/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
+                  >Wyzowl 2024 ↗</a>
+                </div>
+                <div className="py-5 px-5 border-b md:border-b-0 md:border-r border-border/60">
+                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2 leading-none">+125<span className="text-xl md:text-2xl">%</span></p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">Reels reach over single-photo posts on Instagram.</p>
+                  <a
+                    href="https://buffer.com/library/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
+                  >Buffer 2024 ↗</a>
+                </div>
+                <div className="py-5 px-5">
+                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2 leading-none">78<span className="text-xl md:text-2xl">%</span></p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-2">of consumers trust video with real people more than AI-generated content.</p>
+                  <a
+                    href="https://animoto.com/business"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] tracking-[0.18em] uppercase font-semibold text-muted-foreground hover:text-accent transition-colors"
+                  >Animoto 2024-25 ↗</a>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
         {/* Album Modal */}
         <AnimatePresence>
           {isAlbumModalOpen && activeAlbum && activeAlbum.albumImages && (
@@ -1185,28 +1196,28 @@ export default function CreativePage() {
             </ScrollReveal>
           </div>
         </section>
-        <DesktopCtas />
+        <StickyCtas />
       </div>
     </PageTransition>
   );
 }
 
-function DesktopCtas() {
-  const [enabled, setEnabled] = useState(false);
+function StickyCtas() {
+  const [isDesktop, setIsDesktop] = useState(false);
   const [show, setShow] = useState(false);
   const [showFab, setShowFab] = useState(false);
+  const [showMobileBar, setShowMobileBar] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-    setEnabled(mq.matches);
-    const onChange = () => setEnabled(mq.matches);
+    setIsDesktop(mq.matches);
+    const onChange = () => setIsDesktop(mq.matches);
     mq.addEventListener?.("change", onChange);
     return () => mq.removeEventListener?.("change", onChange);
   }, []);
 
   useEffect(() => {
-    if (!enabled) return;
     const handleScroll = () => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
@@ -1215,31 +1226,63 @@ function DesktopCtas() {
       const pastHalf = progress >= 0.5;
       setShow(pastHalf && !scrollingDown);
       setShowFab(pastHalf);
+      // Mobile: appear once the visitor has scrolled past the hero, hide near the footer CTA
+      const pastHero = window.scrollY > window.innerHeight * 0.7;
+      setShowMobileBar(pastHero && progress < 0.92);
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [enabled]);
-
-  if (!enabled) return null;
+  }, []);
 
   return (
     <>
-      <div className={`hidden md:block fixed left-1/2 z-40 -translate-x-1/2 transition-all duration-200 ${show ? "bottom-28 opacity-100" : "bottom-24 opacity-0 pointer-events-none"}`}>
-        <div className="rounded-sm border border-white/10 bg-black/80 px-4 py-3 backdrop-blur-md shadow-xl dark">
-          <CreativeCTA source="creative_sticky" className="items-center" size="sm" />
+      {/* Mobile sticky CTA — sits above the bottom nav */}
+      <div
+        className={`md:hidden fixed left-4 right-4 z-40 transition-all duration-300 ${
+          showMobileBar ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
+        }`}
+        style={{ bottom: "calc(4.25rem + env(safe-area-inset-bottom, 0px))" }}
+      >
+        <div className="dark flex items-center gap-2 rounded-sm border border-white/10 bg-black/85 p-2 backdrop-blur-md shadow-xl">
+          <Link
+            href="/contact?src=creative_sticky_mobile#calendly"
+            className="flex-1 inline-flex items-center justify-center rounded-sm bg-accent px-4 py-3 text-sm font-semibold text-accent-foreground transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+            data-cta="creative_sticky_mobile_calendly"
+            onClick={(e) => trackCta("creative_sticky_mobile_calendly", { href: e.currentTarget.href })}
+          >
+            Book a free call
+          </Link>
+          <Link
+            href="/contact?src=creative_sticky_mobile#whatsapp"
+            className="inline-flex items-center justify-center rounded-sm border border-white/15 px-4 py-3 text-sm font-medium text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+            data-cta="creative_sticky_mobile_whatsapp"
+            onClick={(e) => trackCta("creative_sticky_mobile_whatsapp", { href: e.currentTarget.href })}
+          >
+            WhatsApp
+          </Link>
         </div>
       </div>
-      <div className={`hidden md:block fixed right-6 z-40 transition-all duration-200 ${showFab ? "bottom-24 opacity-100" : "bottom-20 opacity-0 pointer-events-none"}`}>
-        <Link
-          href="/contact?src=creative_fab#calendly"
-          className="rounded-sm bg-accent text-accent-foreground px-5 py-3 font-medium text-sm shadow-lg hover:opacity-90 transition-opacity focus-visible:outline-none"
-          data-cta="creative_fab_calendly"
-          onClick={(e) => trackCta("creative_fab_calendly", { href: e.currentTarget.href })}
-        >
-          Book Free Call
-        </Link>
-      </div>
+
+      {isDesktop && (
+        <>
+          <div className={`hidden md:block fixed left-1/2 z-40 -translate-x-1/2 transition-all duration-200 ${show ? "bottom-28 opacity-100" : "bottom-24 opacity-0 pointer-events-none"}`}>
+            <div className="rounded-sm border border-white/10 bg-black/80 px-4 py-3 backdrop-blur-md shadow-xl dark">
+              <CreativeCTA source="creative_sticky" className="items-center" size="sm" />
+            </div>
+          </div>
+          <div className={`hidden md:block fixed right-6 z-40 transition-all duration-200 ${showFab ? "bottom-24 opacity-100" : "bottom-20 opacity-0 pointer-events-none"}`}>
+            <Link
+              href="/contact?src=creative_fab#calendly"
+              className="rounded-sm bg-accent text-accent-foreground px-5 py-3 font-medium text-sm shadow-lg hover:opacity-90 transition-opacity focus-visible:outline-none"
+              data-cta="creative_fab_calendly"
+              onClick={(e) => trackCta("creative_fab_calendly", { href: e.currentTarget.href })}
+            >
+              Book Free Call
+            </Link>
+          </div>
+        </>
+      )}
     </>
   );
 }

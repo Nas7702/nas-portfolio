@@ -11,7 +11,7 @@ type RelatedWork = {
   openItemId?: string;
 };
 
-type Testimonial = {
+export type Testimonial = {
   name: string;
   role: string;
   headline: string;
@@ -21,7 +21,7 @@ type Testimonial = {
   relatedWork?: RelatedWork[];
 };
 
-const testimonials: Testimonial[] = [
+export const testimonials: Testimonial[] = [
   {
     name: "Walshe's Property",
     role: "Estate Agent",
