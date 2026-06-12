@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 import { usePerformanceMode } from "@/hooks/usePerformanceMode";
 
@@ -15,6 +15,9 @@ export default function CustomCursor() {
   const cursorY = useMotionValue(-100);
   const trailX = useMotionValue(-100);
   const trailY = useMotionValue(-100);
+  // Liquid lag — the ring chases the dot on a spring
+  const trailXSpring = useSpring(trailX, { stiffness: 260, damping: 22, mass: 0.55 });
+  const trailYSpring = useSpring(trailY, { stiffness: 260, damping: 22, mass: 0.55 });
 
   useEffect(() => {
     setMounted(true);
@@ -65,13 +68,15 @@ export default function CustomCursor() {
         animate={{ scale: isHovering ? 2.5 : 1 }}
         transition={{ scale: { type: "spring", stiffness: 150, damping: 15 } }}
       />
-      {/* Trail Cursor */}
+      {/* Trail Cursor — spring-lagged ring, champagne on hover */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-primary rounded-full pointer-events-none z-[100] hidden md:block"
-        style={{ x: trailX, y: trailY }}
+        className={`fixed top-0 left-0 w-8 h-8 border rounded-full pointer-events-none z-[100] hidden md:block transition-colors duration-300 ${
+          isHovering ? "border-accent" : "border-primary"
+        }`}
+        style={{ x: trailXSpring, y: trailYSpring }}
         animate={{
-          scale: isHovering ? 1.5 : 1,
-          opacity: isHovering ? 0 : 0.5,
+          scale: isHovering ? 1.8 : 1,
+          opacity: isHovering ? 0.9 : 0.5,
         }}
         transition={{
           scale: { type: "spring", stiffness: 150, damping: 15 },

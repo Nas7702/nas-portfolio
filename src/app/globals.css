@@ -212,6 +212,17 @@ html:not(.dark) {
     );
   }
 
+  /* Outlined display text — champagne stroke for kinetic marquee */
+  .text-stroke-accent {
+    color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+  @supports (-webkit-text-stroke: 1px black) {
+    .text-stroke-accent {
+      -webkit-text-stroke: 1px color-mix(in srgb, var(--color-accent) 55%, transparent);
+      color: transparent;
+    }
+  }
+
   /* Oversized cinematic display heading */
   .text-cine {
     font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;

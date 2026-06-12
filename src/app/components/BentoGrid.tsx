@@ -2,6 +2,20 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import TiltCard from "./TiltCard";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const gridVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 44 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: EASE } },
+};
 
 // Spotlight wrapper — neutral white shimmer, no brand colour bleed
 function SpotlightWrapper({
@@ -86,12 +100,20 @@ export default function BentoGrid() {
         <span className="text-xs text-muted-foreground hidden md:block pb-1 flex-shrink-0">Yorkshire, UK</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[270px] gap-3">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={gridVariants}
+        className="grid grid-cols-1 md:grid-cols-3 md:auto-rows-[270px] gap-3"
+      >
 
         {/* Creative Portfolio — dominant cinematic panel */}
+        <motion.div variants={cardVariants} className="col-span-1 md:col-span-2 md:row-span-2 min-h-[320px] md:min-h-0">
+        <TiltCard maxTilt={3}>
         <Link
           href="/create"
-          className="group relative col-span-1 md:col-span-2 md:row-span-2 overflow-hidden rounded-sm min-h-[320px] md:min-h-0"
+          className="group relative block h-full w-full overflow-hidden rounded-sm min-h-[320px] md:min-h-0"
         >
           {/* Full-bleed cinematic backdrop */}
           <div className="absolute inset-0 bg-[url('/images/bokeh-lights-dark-background.jpg')] bg-cover bg-center grayscale brightness-[0.45] group-hover:brightness-[0.55] group-hover:scale-[1.03] transition-all duration-700 ease-out" />
@@ -119,12 +141,16 @@ export default function BentoGrid() {
             </div>
           </div>
         </Link>
+        </TiltCard>
+        </motion.div>
 
         {/* About */}
+        <motion.div variants={cardVariants} className="col-span-1 min-h-[200px] md:min-h-0">
+        <TiltCard maxTilt={6}>
         <SpotlightWrapper
           as="link"
           href="/about"
-          className="group relative col-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 min-h-[200px] md:min-h-0 transition-all duration-300 hover:border-foreground/20"
+          className="group relative block h-full w-full overflow-hidden rounded-sm bg-card border border-border p-8 min-h-[200px] md:min-h-0 transition-all duration-300 hover:border-foreground/20"
         >
           <span
             aria-hidden="true"
@@ -143,12 +169,16 @@ export default function BentoGrid() {
             </span>
           </div>
         </SpotlightWrapper>
+        </TiltCard>
+        </motion.div>
 
         {/* Contact */}
+        <motion.div variants={cardVariants} className="col-span-1 min-h-[200px] md:min-h-0">
+        <TiltCard maxTilt={6}>
         <SpotlightWrapper
           as="link"
           href="/contact#calendly"
-          className="group relative col-span-1 overflow-hidden rounded-sm bg-card border border-border p-8 min-h-[200px] md:min-h-0 transition-all duration-300 hover:border-foreground/20"
+          className="group relative block h-full w-full overflow-hidden rounded-sm bg-card border border-border p-8 min-h-[200px] md:min-h-0 transition-all duration-300 hover:border-foreground/20"
         >
           <span
             aria-hidden="true"
@@ -167,12 +197,15 @@ export default function BentoGrid() {
             </span>
           </div>
         </SpotlightWrapper>
+        </TiltCard>
+        </motion.div>
 
         {/* Services — full-width editorial strip */}
+        <motion.div variants={cardVariants} className="col-span-1 md:col-span-3">
         <SpotlightWrapper
           as="link"
           href="/services"
-          className="group relative col-span-1 md:col-span-3 overflow-hidden rounded-sm bg-card border border-border px-8 py-7 transition-all duration-300 hover:border-foreground/20"
+          className="group relative block h-full w-full overflow-hidden rounded-sm bg-card border border-border px-8 py-7 transition-all duration-300 hover:border-foreground/20"
         >
           <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-5 h-full">
             <div className="flex items-center gap-5">
@@ -194,8 +227,9 @@ export default function BentoGrid() {
             </span>
           </div>
         </SpotlightWrapper>
+        </motion.div>
 
-      </div>
+      </motion.div>
 
       {/* Discreet social link — moved out of grid */}
       <div aria-hidden="true" className="hairline mt-10" />

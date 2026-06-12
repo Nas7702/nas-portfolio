@@ -7,6 +7,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { Camera, Instagram, ExternalLink, X } from "lucide-react";
 import CreativeCTA from "../components/CreativeCTA";
+import CineSectionTitle from "../components/CineSectionTitle";
+import VelocitySkew from "../components/VelocitySkew";
 import TestimonialMarquee from "../components/TestimonialMarquee";
 import type { MediaItem } from "../components/LightboxGallery";
 import ScrollReveal from "../components/ScrollReveal";
@@ -916,11 +918,13 @@ export default function CreativePage() {
         <section id="featured-work" className="scroll-mt-16 pt-12 sm:pt-20 pb-10 px-6 sm:px-8 bg-[var(--color-creative-band)] transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
-              <div className="text-center mb-10">
-                <p className="eyebrow mb-3 text-accent">Featured</p>
-                <h2 className="text-cine text-4xl md:text-5xl text-foreground mb-3">Featured Work</h2>
-                <p className="text-muted-foreground">A quick look at recent creative work.</p>
-              </div>
+              <CineSectionTitle
+                eyebrow="Featured"
+                title="Featured Work"
+                sub="A quick look at recent creative work."
+                ghost="Featured"
+                className="mb-10"
+              />
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.2}>
               <LightboxGallery
@@ -956,11 +960,13 @@ export default function CreativePage() {
         <section id="creative-portfolio" className="scroll-mt-16 py-16 sm:py-20 px-6 sm:px-8 bg-background transition-colors duration-300">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal direction="up" delay={0.1}>
-              <div className="text-center mb-12">
-                <p className="eyebrow mb-3 text-accent">The Work</p>
-                <h2 className="text-cine text-4xl md:text-5xl text-foreground mb-3">Creative Portfolio</h2>
-                <p className="text-muted-foreground">Selected videography and photography projects.</p>
-              </div>
+              <CineSectionTitle
+                eyebrow="The Work"
+                title="Creative Portfolio"
+                sub="Selected videography and photography projects."
+                ghost="Portfolio"
+                className="mb-12"
+              />
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.2}>
@@ -990,21 +996,23 @@ export default function CreativePage() {
               <div className="flex flex-col gap-6">
                 {/* All media items in one LightboxGallery — enables prev/next arrow navigation */}
                 {mediaItems.length > 0 && (
-                  <LightboxGallery
-                    key={activeFilter}
-                    items={mediaItems}
-                    className="gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                    showTitles={true}
-                    enableDownload={false}
-                    enableZoom={false}
-                    useResponsiveGrid={true}
-                    onItemClick={(item) => {
-                      window.history.replaceState(null, "", "#" + toSlug(item.id));
-                    }}
-                    onLightboxClose={() => {
-                      window.history.replaceState(null, "", window.location.pathname);
-                    }}
-                  />
+                  <VelocitySkew>
+                    <LightboxGallery
+                      key={activeFilter}
+                      items={mediaItems}
+                      className="gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                      showTitles={true}
+                      enableDownload={false}
+                      enableZoom={false}
+                      useResponsiveGrid={true}
+                      onItemClick={(item) => {
+                        window.history.replaceState(null, "", "#" + toSlug(item.id));
+                      }}
+                      onLightboxClose={() => {
+                        window.history.replaceState(null, "", window.location.pathname);
+                      }}
+                    />
+                  </VelocitySkew>
                 )}
 
                 {/* Album items */}
@@ -1044,7 +1052,7 @@ export default function CreativePage() {
                           )}
                         </div>
                         <div className="mt-3 space-y-2">
-                          {item.title && <h4 className="font-display font-light text-base text-foreground group-hover:text-accent transition-colors">{item.title}</h4>}
+                          {item.title && <h4 className="font-sans font-medium text-[0.95rem] text-foreground group-hover:text-accent transition-colors">{item.title}</h4>}
                           {item.tags && item.tags.length > 0 && (
                             <div className="flex flex-wrap gap-1.5">
                               {item.tags.slice(0, 4).map((tag) => (

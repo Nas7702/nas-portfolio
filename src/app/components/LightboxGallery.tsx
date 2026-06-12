@@ -916,7 +916,7 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
       {(showTitle && (item.title || (item.tags && item.tags.length > 0))) && (
         <div className="mt-3 space-y-2">
           {item.title && (
-            <h4 className="font-display font-light text-base text-foreground group-hover:text-accent transition-colors">
+            <h4 className="font-sans font-medium text-[0.95rem] text-foreground group-hover:text-accent transition-colors">
               {item.title}
             </h4>
           )}

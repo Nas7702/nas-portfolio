@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import PageTransition from "./components/PageTransition";
 import LoadingSkeleton from "./components/LoadingSkeleton";
+import KineticMarquee from "./components/KineticMarquee";
 
 // Dynamic imports for heavy components
 const Hero = dynamic(() => import("./components/Hero"), {
@@ -22,6 +23,7 @@ export default function Home() {
         <Suspense fallback={<LoadingSkeleton variant="hero" />}>
           <Hero />
         </Suspense>
+        <KineticMarquee />
         <Suspense fallback={<LoadingSkeleton variant="bento" />}>
           <BentoGrid />
         </Suspense>

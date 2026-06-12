@@ -7,28 +7,27 @@ interface PageTransitionProps {
   children: ReactNode;
 }
 
+// Kept subtle — the RouteReveal letterbox wipe carries the drama,
+// this just settles the incoming page beneath it.
 const pageVariants = {
   initial: {
     opacity: 0,
-    y: 20,
-    scale: 0.95,
+    y: 12,
   },
   in: {
     opacity: 1,
     y: 0,
-    scale: 1,
   },
   out: {
     opacity: 0,
-    y: -20,
-    scale: 1.05,
+    y: -12,
   },
 };
 
 const pageTransition = {
   type: "tween" as const,
-  ease: "anticipate" as const,
-  duration: 0.5,
+  ease: [0.22, 1, 0.36, 1] as const,
+  duration: 0.55,
 };
 
 export default function PageTransition({ children }: PageTransitionProps) {

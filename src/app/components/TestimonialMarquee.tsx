@@ -45,7 +45,7 @@ export default function TestimonialMarquee() {
                   tabIndex={copy === 1 ? -1 : 0}
                   className="mr-3 sm:mr-4 w-[260px] sm:w-[300px] shrink-0 rounded-sm border border-border/60 bg-card/40 px-4 py-3.5 backdrop-blur-sm transition-colors duration-300 hover:border-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
                 >
-                  <p className="font-display italic text-sm text-foreground/90 leading-snug line-clamp-2 mb-2.5">
+                  <p className="font-sans text-sm text-foreground/90 leading-snug line-clamp-2 mb-2.5">
                     &ldquo;{t.headline}&rdquo;
                   </p>
                   <p className="text-[0.6rem] font-medium tracking-[0.18em] uppercase text-muted-foreground">

@@ -6,6 +6,8 @@ import MobileBottomNav from "./MobileBottomNav";
 import CustomCursor from "./CustomCursor";
 import DebugFpsCounter from "./DebugFpsCounter";
 import AnimationWrapper from "./AnimationWrapper";
+import RouteReveal from "./RouteReveal";
+import ScrollProgress from "./ScrollProgress";
 
 const STANDALONE_ROUTES = ["/property"];
 
@@ -26,6 +28,8 @@ export default function SiteChrome({ children }: SiteChromeProps) {
   return (
     <>
       <Navbar />
+      <ScrollProgress />
+      <RouteReveal />
       <CustomCursor />
       <DebugFpsCounter />
       <AnimationWrapper>{children}</AnimationWrapper>
