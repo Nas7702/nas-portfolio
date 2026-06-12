@@ -125,7 +125,7 @@ export default function ServicesPage() {
         {/* Hero */}
         <ScrollReveal className="max-w-4xl mx-auto px-6 mb-24 text-center" direction="up" delay={0} threshold={0.1}>
           <p className="eyebrow mb-4">What We Offer</p>
-          <h1 className="font-display font-light text-5xl md:text-7xl tracking-tight mb-6 text-foreground">
+          <h1 className="text-cine text-[clamp(3rem,8vw,6rem)] mb-6 text-foreground">
             Services
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -191,7 +191,7 @@ export default function ServicesPage() {
         <div className="max-w-6xl mx-auto px-6 mb-32">
           <ScrollReveal direction="up" delay={0} threshold={0.1}>
             <p className="eyebrow text-center mb-3">The Process</p>
-            <h2 className="font-display font-light text-3xl md:text-4xl text-center tracking-tight mb-4">How It Works</h2>
+            <h2 className="text-cine text-4xl md:text-5xl text-center mb-4">How It Works</h2>
             <p className="text-muted-foreground text-center max-w-xl mx-auto mb-16">
               Four clear steps from first conversation to final delivery.
             </p>
@@ -230,7 +230,7 @@ export default function ServicesPage() {
         <ScrollReveal className="max-w-4xl mx-auto px-6" direction="up" delay={0} threshold={0.1}>
           <div className="rounded-sm bg-card border border-border p-12 text-center">
             <p className="eyebrow mb-4">Get Started</p>
-            <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight mb-4">Ready to start?</h2>
+            <h2 className="text-cine text-4xl md:text-5xl mb-4">Ready to start?</h2>
             <p className="text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed">
               Book a free 30-minute call and we&apos;ll talk through exactly what you need before we plan anything else.
             </p>

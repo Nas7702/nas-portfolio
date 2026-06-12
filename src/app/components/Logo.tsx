@@ -236,7 +236,7 @@ export function Logo({ className, size = "md", variant = "default", "data-testid
         href="/"
         aria-label="Nas - Home"
         title="Nas - Home"
-        className="inline-flex items-center relative group select-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-300 dark:focus-visible:outline-emerald-400 rounded-lg px-2 py-1 transition-colors duration-200"
+        className="inline-flex items-center relative group select-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring rounded-lg px-2 py-1 transition-colors duration-200"
         data-testid={dataTestId}
       >
         <motion.div

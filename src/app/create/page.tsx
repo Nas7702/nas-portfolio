@@ -860,7 +860,7 @@ export default function CreativePage() {
                     </div>
                   </div>
                 </div>
-                <h1 className="font-display font-light text-4xl sm:text-5xl md:text-7xl tracking-tight text-foreground mb-3 sm:mb-4">Premium Visuals</h1>
+                <h1 className="text-cine text-[clamp(2.75rem,7.5vw,6rem)] text-foreground mb-3 sm:mb-4">Premium Visuals</h1>
                 <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-0 italic">Every piece of content has a job to do.</p>
               </div>
             </ScrollReveal>
@@ -893,7 +893,7 @@ export default function CreativePage() {
                 </a>
                 <div className="flex items-center gap-2 text-accent">
                   <div className="w-2 h-2 rounded-full animate-pulse bg-accent"></div>
-                  <span className="text-sm font-medium text-emerald-800 dark:text-accent">Available for Projects</span>
+                  <span className="text-sm font-medium text-accent">Available for Projects</span>
                 </div>
               </div>
             </ScrollReveal>
@@ -918,7 +918,7 @@ export default function CreativePage() {
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-10">
                 <p className="eyebrow mb-3 text-accent">Featured</p>
-                <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-foreground mb-3">Featured Work</h2>
+                <h2 className="text-cine text-4xl md:text-5xl text-foreground mb-3">Featured Work</h2>
                 <p className="text-muted-foreground">A quick look at recent creative work.</p>
               </div>
             </ScrollReveal>
@@ -958,7 +958,7 @@ export default function CreativePage() {
             <ScrollReveal direction="up" delay={0.1}>
               <div className="text-center mb-12">
                 <p className="eyebrow mb-3 text-accent">The Work</p>
-                <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-foreground mb-3">Creative Portfolio</h2>
+                <h2 className="text-cine text-4xl md:text-5xl text-foreground mb-3">Creative Portfolio</h2>
                 <p className="text-muted-foreground">Selected videography and photography projects.</p>
               </div>
             </ScrollReveal>
@@ -1189,7 +1189,7 @@ export default function CreativePage() {
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal direction="up" delay={0.1}>
               <p className="eyebrow mb-3" style={{ color: "var(--color-accent)" }}>Get In Touch</p>
-              <h2 className="font-display font-light text-3xl md:text-4xl tracking-tight text-text mb-6 transition-colors duration-300">Got a project? Let&apos;s talk.</h2>
+              <h2 className="text-cine text-4xl md:text-5xl text-text mb-6 transition-colors duration-300">Got a project? Let&apos;s talk.</h2>
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.5}>
               <CreativeCTA source="creative_footer" className="justify-center" />

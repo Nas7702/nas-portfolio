@@ -82,7 +82,7 @@ function ContactPageInner() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-14"
           >
-            <h1 className="font-display font-light text-6xl md:text-8xl tracking-tight text-foreground mb-5">
+            <h1 className="text-cine text-[clamp(3.5rem,9vw,7rem)] text-foreground mb-5">
               Let&apos;s Talk
             </h1>
             <p className="text-lg text-muted-foreground">

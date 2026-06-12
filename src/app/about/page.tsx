@@ -139,7 +139,7 @@ export default function AboutPage() {
               className="flex flex-col justify-center text-center md:text-left"
             >
               <p className="eyebrow mb-4">The Person</p>
-              <h1 className="font-display font-light text-5xl md:text-6xl lg:text-7xl tracking-tight mb-6 text-foreground">
+              <h1 className="text-cine text-[clamp(3rem,7vw,5.5rem)] mb-6 text-foreground">
                 About Me
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
@@ -169,7 +169,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-6 mt-32">
           <ScrollReveal direction="up" delay={0} threshold={0.15}>
             <p className="eyebrow text-center mb-3">The Approach</p>
-            <h2 className="font-display font-light text-3xl md:text-4xl text-center tracking-tight mb-16">How I Work</h2>
+            <h2 className="text-cine text-4xl md:text-5xl text-center mb-16">How I Work</h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <ScrollReveal direction="up" delay={0.05}>

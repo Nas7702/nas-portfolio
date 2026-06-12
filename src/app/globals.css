@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap");
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   /* Typography */
-  --font-display: "Cormorant Garant", Georgia, serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
 
   /* Colours — using standard variable names to match tailwind.config.js */
@@ -26,7 +26,7 @@
   --color-muted: #1c1c1c;
   --color-muted-foreground: #888888;
 
-  --color-accent: #00C896;
+  --color-accent: #C7A565;
   --color-accent-foreground: #0a0a0a;
 
   --color-destructive: #ef4444;
@@ -34,7 +34,7 @@
 
   --color-border: #2a2a2a;
   --color-input: #1c1c1c;
-  --color-ring: #00C896;
+  --color-ring: #C7A565;
 
   /* Creative page colour tokens - mapped to standard vars where possible */
   --color-bg: #0a0a0a;
@@ -42,7 +42,7 @@
   --color-text: #F0EBE3;
   --color-dim: #888888;
   --color-subtle: #2a2a2a;
-  --color-accent-ghost: rgba(0, 200, 150, 0.1);
+  --color-accent-ghost: rgba(199, 165, 101, 0.1);
 
   --radius: 0.25rem;
 }
@@ -54,10 +54,10 @@
   --color-creative-band: #111314;
   --color-text: #ffffff;
   --color-dim: rgba(255, 255, 255, 0.55);
-  --color-accent: #00C896;
-  --color-ring: #00C896;
+  --color-accent: #C7A565;
+  --color-ring: #C7A565;
   --color-subtle: rgba(255, 255, 255, 0.12);
-  --color-accent-ghost: rgba(0, 200, 150, 0.12);
+  --color-accent-ghost: rgba(199, 165, 101, 0.12);
 
   /* Overwrite standard tokens for components inside creative page */
   --color-background: #0B0C0E;
@@ -80,9 +80,9 @@ html:not(.dark) .theme-creative {
   --color-dim: #7A736B;
   --color-subtle: rgba(26, 23, 20, 0.08);
 
-  --color-accent: #00875A;
-  --color-ring: #00875A;
-  --color-accent-ghost: rgba(0, 135, 90, 0.1);
+  --color-accent: #7E6230;
+  --color-ring: #7E6230;
+  --color-accent-ghost: rgba(126, 98, 48, 0.1);
 
   /* Standard Tailwind tokens */
   --color-background: #F5F0EB;
@@ -120,7 +120,7 @@ html:not(.dark) {
   --color-muted: #EDE8E3;
   --color-muted-foreground: #7A736B;
 
-  --color-accent: #00875A;
+  --color-accent: #7E6230;
   --color-accent-foreground: #ffffff;
 
   --color-destructive: #dc2626;
@@ -128,7 +128,7 @@ html:not(.dark) {
 
   --color-border: #DDD8D2;
   --color-input: #EDE8E3;
-  --color-ring: #00875A;
+  --color-ring: #7E6230;
 }
 
 @layer base {
@@ -193,12 +193,32 @@ html:not(.dark) {
 
   /* Eyebrow label — editorial section label above headings */
   .eyebrow {
-    font-family: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+    font-family: var(--font-sans), "DM Sans", system-ui, sans-serif;
     font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: 0.35em;
     text-transform: uppercase;
     color: var(--color-muted-foreground);
+  }
+
+  /* Hairline divider with champagne fade — cinematic section separator */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--color-accent) 35%, var(--color-border)),
+      transparent
+    );
+  }
+
+  /* Oversized cinematic display heading */
+  .text-cine {
+    font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    text-wrap: balance;
   }
 
   /* Restored Creative Page Utilities */
