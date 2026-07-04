@@ -199,15 +199,30 @@ const featuredMedia: MediaItem[] = [
   {
     id: "featured-1",
     type: "video",
-    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/ADJ_Aintree.mp4",
-    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_aintree_thumbnail.webp",
-    title: "Commercial Resurfacing, Aintree Shopping Park",
-    alt: "ADJ Surfacing Aintree Shopping Park completion film",
-    description: "Completion film for ADJ Surfacing at Aintree Shopping Park, a premium Liverpool retail destination anchored by M&S, Next and B&Q. Cinematic drone framing and motion-graphic overlays turn the scope of works into a sales-ready asset."
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/ADJ_Meadowhead.mp4",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_meadowhead_thumbnail.webp",
+    title: "Commercial Resurfacing, Morrisons Meadowhead",
+    alt: "ADJ Surfacing Morrisons Meadowhead completion film",
+    description: "Start-to-finish completion film for ADJ Surfacing's Morrisons Meadowhead car park resurfacing in Sheffield, tracking the job from golden-hour prep through an overnight graft to the finished reveal. Drone, camera and GoPro BTS coverage combine with a same-waypoint drone timelapse device for the widest range of any ADJ film to date, already the best-performing industrial piece and generating inbound enquiries."
   }
 ];
 
 const portfolioItems: PortfolioItem[] = [
+  {
+    id: "ADJ Meadowhead",
+    type: "video",
+    kind: "video",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/ADJ_Meadowhead.mp4",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_meadowhead_thumbnail.webp",
+    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_meadowhead_thumbnail.webp",
+    title: "ADJ: Meadowhead",
+    alt: "ADJ Surfacing Morrisons Meadowhead completion film thumbnail",
+    tags: ["Commercial", "Drone", "Corporate Film", "Night Works", "Cinematic"],
+    client: "ADJ Surfacing & Consultancy Ltd",
+    role: "Director, DP & Editor",
+    date: "2026",
+    description: "Completion film for ADJ Surfacing's Morrisons Meadowhead car park resurfacing project in Sheffield, covering the full start-to-finish arc: golden-hour daytime prep, an overnight graft, and the finished reveal. Drone, camera and GoPro BTS footage combine with a same-waypoint drone timelapse device, giving the widest range of any ADJ piece to date. ADJ's best-performing industrial film so far, already generating inbound enquiries.",
+  },
   {
     id: "ADJ Aintree",
     type: "video",
