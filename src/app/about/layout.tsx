@@ -1,29 +1,23 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About - Nas",
-  description: "Computer Science graduate from the University of Sheffield with expertise in software engineering, data science, and creative media. Freelance videographer since 2020.",
+  title: "About",
+  description:
+    "Meet Nas, the commercial videographer and photographer behind Nas Create. Brand films, Meta ads and event coverage for businesses across the UK.",
   openGraph: {
-    title: "About - Nas",
-    description: "Computer Science graduate specialising in software engineering, data science, and creative videography. Sheffield powerlifting photographer and filmmaker.",
+    title: "About | Nas Create",
+    description:
+      "Meet Nas, the commercial videographer and photographer behind Nas Create. Brand films, Meta ads and event coverage for businesses across the UK.",
     url: "/about",
-    siteName: "Nas Portfolio",
-    images: [
-      {
-        url: "/images/bokeh-lights-dark-background.jpg",
-        width: 1200,
-        height: 630,
-        alt: "About Nas - Developer & Creative",
-      },
-    ],
+    siteName: "Nas Create",
     locale: "en_GB",
     type: "profile",
   },
   twitter: {
     card: "summary_large_image",
-    title: "About - Nas",
-    description: "Computer Science graduate specialising in software engineering, data science, and creative videography.",
-    images: ["/images/bokeh-lights-dark-background.jpg"],
+    title: "About | Nas Create",
+    description:
+      "Meet Nas, the commercial videographer and photographer behind Nas Create.",
   },
 };
 

@@ -61,7 +61,7 @@ export default function KineticMarquee({ baseVelocity = -1.4 }: { baseVelocity?:
               <span
                 key={`${copy}-${phrase}`}
                 className={`text-cine leading-none text-[clamp(2.75rem,8vw,6.5rem)] mr-10 md:mr-16 ${
-                  i % 2 === 1 ? "text-stroke-accent italic" : "text-foreground/[0.08]"
+                  i % 2 === 1 ? "text-stroke-accent italic" : "text-foreground/[0.14] dark:text-foreground/[0.08]"
                 }`}
               >
                 {phrase}

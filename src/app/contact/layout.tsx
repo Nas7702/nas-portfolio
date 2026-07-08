@@ -1,29 +1,23 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact - Nas",
-  description: "Get in touch for videography, photography, software development, or data science projects. Available for freelance work and collaborations.",
+  title: "Contact",
+  description:
+    "Book a free discovery call for commercial videography and photography. Based in Yorkshire, working with businesses across the UK.",
   openGraph: {
-    title: "Contact - Nas",
-    description: "Get in touch for videography, photography, software development, or data science projects. Available for freelance work and collaborations.",
+    title: "Contact | Nas Create",
+    description:
+      "Book a free discovery call for commercial videography and photography. Based in Yorkshire, working with businesses across the UK.",
     url: "/contact",
-    siteName: "Nas Portfolio",
-    images: [
-      {
-        url: "/images/bokeh-lights-dark-background.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Contact Nas",
-      },
-    ],
+    siteName: "Nas Create",
     locale: "en_GB",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact - Nas",
-    description: "Get in touch for videography, photography, software development, or data science projects.",
-    images: ["/images/bokeh-lights-dark-background.jpg"],
+    title: "Contact | Nas Create",
+    description:
+      "Book a free discovery call for commercial videography and photography. Based in Yorkshire, working across the UK.",
   },
 };
 

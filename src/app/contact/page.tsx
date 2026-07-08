@@ -6,6 +6,7 @@ import PageTransition from "../components/PageTransition";
 import { motion } from "framer-motion";
 import { Calendar, Check, Instagram, Mail, MapPin, MessageCircle, ArrowRight } from "lucide-react";
 import { trackCta } from "../../lib/analytics";
+import { useTheme } from "../components/ThemeProvider";
 
 const WHATSAPP_BASE = "https://wa.me/447475437833";
 const CALENDLY_URL = "https://calendly.com/hello-nascreate/30min";
@@ -25,6 +26,7 @@ const SERVICE_LABELS: Record<Service, string> = {
 
 function ContactPageInner() {
   const searchParams = useSearchParams();
+  const { theme, mounted } = useTheme();
   const [copied, setCopied] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
@@ -57,14 +59,33 @@ function ContactPageInner() {
   }, [selectedService]);
 
   const calendlyEmbedHref = useMemo(() => {
+    // Brand colours (hex without #) so the embed matches the site theme
+    // instead of Calendly's default blue. Calendly only honours these (and
+    // hide_gdpr_banner) when embed_domain/embed_type identify an embed.
+    const isDark = theme === "dark";
     const params = new URLSearchParams({
       "hide_event_type_details": "1",
       "hide_gdpr_banner": "1",
+      "embed_type": "Inline",
+      "embed_domain": "nascreate.com",
+      "primary_color": isDark ? "C7A565" : "7E6230",
+      "background_color": isDark ? "111111" : "FAF7F4",
+      "text_color": isDark ? "F0EBE3" : "1A1714",
     });
     if (selectedService) {
       params.set("utm_content", selectedService);
     }
     return `${CALENDLY_URL}?${params.toString()}`;
+  }, [selectedService, theme]);
+
+  // Clean URL for opening Calendly as a full page (no embed params)
+  const calendlyPageHref = useMemo(() => {
+    const params = new URLSearchParams();
+    if (selectedService) {
+      params.set("utm_content", selectedService);
+    }
+    const query = params.toString();
+    return query ? `${CALENDLY_URL}?${query}` : CALENDLY_URL;
   }, [selectedService]);
 
   const selectedServiceHint = selectedService
@@ -73,7 +94,7 @@ function ContactPageInner() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background pb-32 pt-24 px-6">
+      <div className="min-h-screen bg-background pb-24 pt-24 px-6">
         <div className="max-w-2xl mx-auto">
 
           {/* Header */}
@@ -145,7 +166,7 @@ function ContactPageInner() {
                   </div>
                 </div>
                 <a
-                  href={calendlyEmbedHref}
+                  href={calendlyPageHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-sm bg-accent text-accent-foreground px-4 py-2.5 text-sm font-medium hover:opacity-90 transition-opacity"
@@ -162,11 +183,21 @@ function ContactPageInner() {
               </div>
 
               <div className="rounded-sm border border-border overflow-hidden bg-background">
-                <iframe
-                  title="Book a free call with Nas Create"
-                  src={calendlyEmbedHref}
-                  className="w-full h-[760px] md:h-[720px]"
-                />
+                {/* Rendered after mount only: the src carries theme-dependent
+                    colours the server cannot know, so SSR-ing it would cause a
+                    hydration mismatch for light-theme visitors. */}
+                {mounted ? (
+                  <iframe
+                    title="Book a free call with Nas Create"
+                    src={calendlyEmbedHref}
+                    className="w-full h-[760px] md:h-[720px]"
+                  />
+                ) : (
+                  <div
+                    aria-hidden="true"
+                    className="w-full h-[760px] md:h-[720px]"
+                  />
+                )}
               </div>
 
               <p className="text-xs text-muted-foreground mt-3">

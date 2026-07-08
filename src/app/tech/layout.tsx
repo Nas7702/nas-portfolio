@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  // Legacy portfolio section — kept reachable by direct link but out of search
+  // results so it doesn't compete with the commercial videography positioning.
+  robots: { index: false },
   title: "Technical Projects - Nas",
   description: "A collection of data science projects and software applications demonstrating analytical skills and technical expertise. From machine learning models to interactive dashboards and web applications.",
   openGraph: {

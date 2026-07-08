@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 import MobileBottomNav from "./MobileBottomNav";
 import CustomCursor from "./CustomCursor";
 import DebugFpsCounter from "./DebugFpsCounter";
@@ -33,6 +34,7 @@ export default function SiteChrome({ children }: SiteChromeProps) {
       <CustomCursor />
       <DebugFpsCounter />
       <AnimationWrapper>{children}</AnimationWrapper>
+      <Footer />
       <MobileBottomNav />
     </>
   );

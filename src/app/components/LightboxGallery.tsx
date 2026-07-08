@@ -30,6 +30,10 @@ export interface MediaItem {
   kind?: "video" | "photo" | "case" | "album";
   cover?: string;
   isVertical?: boolean;
+  /** Who the piece was made for — shown above the title on card faces. */
+  client?: string;
+  /** One-line result the piece achieved — shown under the title on card faces. */
+  outcome?: string;
 }
 
 // per-card CTA removed
@@ -916,9 +920,21 @@ const ThumbnailCard = React.memo(function ThumbnailCard({
       {(showTitle && (item.title || (item.tags && item.tags.length > 0))) && (
         <div className="mt-3 space-y-2">
           {item.title && (
-            <h4 className="font-sans font-medium text-[0.95rem] text-foreground group-hover:text-accent transition-colors">
-              {item.title}
-            </h4>
+            <div>
+              {item.client && (
+                <p className="mb-1 text-[0.6rem] font-medium tracking-[0.18em] uppercase text-muted-foreground">
+                  {item.client}
+                </p>
+              )}
+              <h4 className="font-sans font-medium text-[0.95rem] text-foreground group-hover:text-accent transition-colors">
+                {item.title}
+              </h4>
+              {item.outcome && (
+                <p className="mt-1 text-xs text-muted-foreground leading-snug">
+                  {item.outcome}
+                </p>
+              )}
+            </div>
           )}
           {item.tags && item.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5">

@@ -87,6 +87,7 @@ export default function Navbar() {
                 width={1366}
                 height={772}
                 className="block dark:hidden h-[38px] w-auto"
+                priority
               />
             </Link>
 

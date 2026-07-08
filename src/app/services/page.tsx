@@ -120,7 +120,7 @@ const steps = [
 export default function ServicesPage() {
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background pb-32 pt-24">
+      <div className="min-h-screen bg-background pb-24 pt-24">
 
         {/* Hero */}
         <ScrollReveal className="max-w-4xl mx-auto px-6 mb-24 text-center" direction="up" delay={0} threshold={0.1}>

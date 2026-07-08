@@ -225,16 +225,16 @@ export default function Hero() {
         style={prefersReduced ? undefined : { y: contentY, opacity: contentOpacity }}
         className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left px-6 sm:px-8 md:px-4 max-w-5xl mx-auto w-full"
       >
-        {/* Film-slate metadata strip */}
+        {/* Film-slate metadata strip — items wrap as whole units on narrow screens */}
         <motion.div
           variants={itemVariants}
-          className="flex items-center gap-3 mb-8 text-[0.6rem] font-medium tracking-[0.3em] uppercase text-muted-foreground/70"
+          className="flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1.5 mb-8 text-[0.6rem] font-medium tracking-[0.3em] uppercase text-muted-foreground/70"
         >
-          <span>Yorkshire, UK</span>
+          <span className="whitespace-nowrap">Yorkshire, UK</span>
           <span aria-hidden="true" className="w-1 h-1 rounded-full bg-accent/60" />
-          <span>Est. 2020</span>
+          <span className="whitespace-nowrap">Est. 2020</span>
           <span aria-hidden="true" className="w-1 h-1 rounded-full bg-accent/60" />
-          <span className="text-accent/90">Accepting Commissions</span>
+          <span className="whitespace-nowrap text-accent/90">Available for Projects</span>
         </motion.div>
 
         <h1

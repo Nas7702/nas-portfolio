@@ -52,19 +52,20 @@ interface ThemeProviderProps {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [mounted, setMounted] = useState(false);
-  const [userTheme, setUserTheme] = useState<Theme>("dark");
+  // Initialise from the class the pre-hydration <head> script already set,
+  // so the first client render agrees with the DOM and nothing flashes.
+  const [userTheme, setUserTheme] = useState<Theme>(() => {
+    if (typeof document === "undefined") return "dark";
+    return document.documentElement.classList.contains("light") ? "light" : "dark";
+  });
   const activeTheme: Theme = userTheme;
 
-  // Read stored preference on mount; fall back to OS preference
+  // Read stored preference on mount; fall back to the dark brand default
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    let initial: Theme;
     if (stored === "light" || stored === "dark") {
-      initial = stored;
-    } else {
-      initial = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      setUserTheme(stored);
     }
-    setUserTheme(initial);
     setMounted(true);
   }, []);
 

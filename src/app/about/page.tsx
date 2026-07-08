@@ -6,6 +6,7 @@ import { useRef, ReactNode } from "react";
 import Image from "next/image";
 import ScrollReveal from "../components/ScrollReveal";
 import PageTransition from "../components/PageTransition";
+import CreativeCTA from "../components/CreativeCTA";
 import { Camera, Clapperboard, Sparkles, Trophy, LucideIcon } from "lucide-react";
 
 const PortraitSmoke = dynamic(
@@ -80,7 +81,7 @@ export default function AboutPage() {
 
   return (
     <PageTransition>
-      <div ref={containerRef} className="min-h-screen bg-background pb-32 pt-8 md:pt-24">
+      <div ref={containerRef} className="min-h-screen bg-background pb-24 pt-8 md:pt-24">
         {/* Hero — editorial split */}
         {/*
           Glow sits on a full-viewport-width wrapper so it is never clipped by
@@ -194,6 +195,21 @@ export default function AboutPage() {
               />
             </ScrollReveal>
           </div>
+        </div>
+
+        {/* Closing CTA */}
+        <div className="max-w-4xl mx-auto px-6 mt-28 text-center">
+          <ScrollReveal direction="up" delay={0} threshold={0.15}>
+            <p className="eyebrow mb-3">Get in Touch</p>
+            <h2 className="text-cine text-4xl md:text-5xl text-foreground mb-5">
+              Got a project? Let&apos;s talk.
+            </h2>
+            <p className="text-muted-foreground max-w-md mx-auto mb-10 leading-relaxed">
+              Book a free 30-minute call and we&apos;ll talk through exactly what
+              you need.
+            </p>
+            <CreativeCTA source="about_footer" className="justify-center" />
+          </ScrollReveal>
         </div>
       </div>
     </PageTransition>

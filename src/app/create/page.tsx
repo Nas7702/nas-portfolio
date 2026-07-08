@@ -44,7 +44,6 @@ type PortfolioKind = "video" | "photo" | "case" | "album";
 interface PortfolioItem extends MediaItem {
   kind?: PortfolioKind;
   tags?: string[];
-  client?: string;
   role?: string;
   date?: string;
   slug?: string;
@@ -203,6 +202,8 @@ const featuredMedia: MediaItem[] = [
     thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_meadowhead_thumbnail.webp",
     title: "Commercial Resurfacing, Morrisons Meadowhead",
     alt: "ADJ Surfacing Morrisons Meadowhead completion film",
+    client: "ADJ Surfacing & Consultancy Ltd",
+    outcome: "ADJ's best-performing industrial film to date, already generating inbound enquiries.",
     description: "Start-to-finish completion film for ADJ Surfacing's Morrisons Meadowhead car park resurfacing in Sheffield, tracking the job from golden-hour prep through an overnight graft to the finished reveal. Drone, camera and GoPro BTS coverage combine with a same-waypoint drone timelapse device for the widest range of any ADJ film to date, already the best-performing industrial piece and generating inbound enquiries."
   }
 ];
@@ -219,6 +220,7 @@ const portfolioItems: PortfolioItem[] = [
     alt: "ADJ Surfacing Morrisons Meadowhead completion film thumbnail",
     tags: ["Commercial", "Drone", "Corporate Film", "Night Works", "Cinematic"],
     client: "ADJ Surfacing & Consultancy Ltd",
+    outcome: "ADJ's best-performing industrial film to date, already generating inbound enquiries.",
     role: "Director, DP & Editor",
     date: "2026",
     description: "Completion film for ADJ Surfacing's Morrisons Meadowhead car park resurfacing project in Sheffield, covering the full start-to-finish arc: golden-hour daytime prep, an overnight graft, and the finished reveal. Drone, camera and GoPro BTS footage combine with a same-waypoint drone timelapse device, giving the widest range of any ADJ piece to date. ADJ's best-performing industrial film so far, already generating inbound enquiries.",
@@ -265,6 +267,7 @@ const portfolioItems: PortfolioItem[] = [
     alt: "Sheffield Food Festival 2026 event recap reel thumbnail",
     tags: ["Events", "Social", "Vertical", "Food"],
     client: "Sheffield Food Festival",
+    outcome: "Delivered within 12 hours; 87.5% of reach came from beyond existing followers.",
     role: "Director, DP & Editor",
     date: "2026",
     description: "Event recap reel for the 15th Sheffield Food Festival. Filmed on day one and delivered within 12 hours to drive footfall across the rest of the bank holiday weekend. 87.5% of accounts reached and 83.5% of engagement came from outside the existing follower base, putting the festival in front of new audiences.",
@@ -356,6 +359,7 @@ const portfolioItems: PortfolioItem[] = [
     alt: "ADJ Surfacing St Helens completion film thumbnail",
     tags: ["Commercial", "Drone", "Corporate Film", "Cinematic"],
     client: "ADJ Surfacing & Consultancy Ltd",
+    outcome: "Reached senior industry figures within days of posting.",
     role: "Director, DP & Editor",
     date: "2025",
     description: "Completion film for ADJ Surfacing's St Helens Retail Park project. 5,000m² of commercial resurfacing documented at sunrise before the site opened. Cinematic drone footage, motion graphics overlaying scope of works, and golden-hour framing turned a technical deliverable into a LinkedIn asset that reached senior industry figures within days of posting.",
@@ -370,6 +374,7 @@ const portfolioItems: PortfolioItem[] = [
     alt: "Kyle Allen coaching promo reel thumbnail",
     tags: ["Fitness", "Promo", "Story Reel"],
     client: "Kyle Allen Coaching",
+    outcome: "Became the client's most viewed post.",
     role: "Director, DP & Editor",
     date: "2025",
     cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_K1_thumbnail.webp",
@@ -386,6 +391,7 @@ const portfolioItems: PortfolioItem[] = [
     alt: "Sheffield Varsity Basketball thumbnail",
     tags: ["Sport", "Cinematic", "Highlight"],
     client: "University of Sheffield",
+    outcome: "Shot, edited and delivered the next day.",
     role: "DP & Editor",
     date: "2025",
     cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_varsity_bb_thumbnail.webp",
@@ -1208,7 +1214,7 @@ export default function CreativePage() {
         </AnimatePresence>
 
         {/* Contact and Footer */}
-        <section className="py-20 pb-36 md:pb-32 px-8 bg-panel transition-colors duration-300">
+        <section className="py-20 md:pb-24 px-8 bg-panel transition-colors duration-300">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal direction="up" delay={0.1}>
               <p className="eyebrow mb-3" style={{ color: "var(--color-accent)" }}>Get In Touch</p>
