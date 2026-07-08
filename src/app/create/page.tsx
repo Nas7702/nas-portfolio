@@ -191,8 +191,6 @@ function useHeroParallax(
   }, [prefersReduced, sectionRef, bgRef]);
 }
 
-const disciplines = ["Videography", "Photography", "Colour Grading", "Post-Production"];
-
 // Starter media for Featured Work
 const featuredMedia: MediaItem[] = [
   {
@@ -861,7 +859,7 @@ export default function CreativePage() {
                       className="absolute -inset-8 -z-20 rounded-[40px] opacity-70 blur-3xl transition-transform duration-500 ease-out group-hover:opacity-100 group-hover:scale-110"
                       style={{ background: "radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0) 80%)" }}
                     />
-                    <div className="relative flex items-center justify-center w-40 h-20 sm:w-64 sm:h-32 md:w-80 md:h-40 lg:w-96 lg:h-48 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
+                    <div className="relative flex items-center justify-center w-40 h-20 sm:w-56 sm:h-28 md:w-64 md:h-32 lg:w-72 lg:h-36 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
                       {/* Light Mode Logo */}
                       <Image
                         src="/logos/lightmode-workmark.png"
@@ -883,26 +881,13 @@ export default function CreativePage() {
                     </div>
                   </div>
                 </div>
-                <h1 className="text-cine text-[clamp(2.75rem,7.5vw,6rem)] text-foreground mb-3 sm:mb-4">Premium Visuals</h1>
-                <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-0 italic">Every piece of content has a job to do.</p>
+                <h1 className="text-cine text-[clamp(2.25rem,5.5vw,4.5rem)] text-foreground max-w-4xl mx-auto">
+                  Every piece of content has a <em className="text-accent">job</em> to do.
+                </h1>
               </div>
             </ScrollReveal>
 
-            {/* Disciplines — single editorial line in place of icon chips */}
             <ScrollReveal direction="up" delay={0.3}>
-              <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-4 gap-y-2 mb-7 sm:mb-9">
-                {disciplines.map((label, i) => (
-                  <span key={label} className="flex items-center gap-x-3 sm:gap-x-4">
-                    {i > 0 && <span aria-hidden className="w-3 sm:w-5 h-px bg-foreground/20" />}
-                    <span className="text-[0.65rem] sm:text-xs font-medium tracking-[0.22em] uppercase text-muted-foreground">
-                      {label}
-                    </span>
-                  </span>
-                ))}
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.5}>
               <div className="flex flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 mb-0 sm:mb-6">
                 <a
                   href="https://www.instagram.com/nas.create/"
