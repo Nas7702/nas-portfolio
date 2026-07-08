@@ -51,6 +51,9 @@ AGENTS.md
 ENHANCEMENT_LOG.md
 REPOSITORY_OVERVIEW.md
 
+# Internal strategy briefs — not for the public repo
+docs/
+
 # IDE workspace files
 nas-portfolio.code-workspace
 
