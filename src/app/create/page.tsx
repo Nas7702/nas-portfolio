@@ -255,6 +255,22 @@ const portfolioItems: PortfolioItem[] = [
     isVertical: true,
   },
   {
+    id: "Talking Property Showcase",
+    type: "video",
+    kind: "video",
+    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/Talking%20Property%20Showcase.mp4",
+    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_talking_property_thumbnail.webp",
+    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_talking_property_thumbnail.webp",
+    title: "Talking Property Showcase",
+    alt: "Presenter-led property showcase video thumbnail",
+    tags: ["Real Estate", "Presenter-Led", "Vertical", "Property"],
+    client: "Link Agency",
+    role: "Director, DP & Editor",
+    date: "2026",
+    description: "Presenter-led property showcase for Link Agency, pairing the agent talking to camera with drone aerials and interior coverage of a detached home in Barmby. The talking format puts the agent front and centre, building trust with vendors while giving buyers a proper feel for the property before they ever book a viewing.",
+    isVertical: true,
+  },
+  {
     id: "Sheffield Food Festival 2026",
     type: "video",
     kind: "video",
@@ -658,8 +674,11 @@ const portfolioItems: PortfolioItem[] = [
   },
 ];
 
+type VideoSubFilter = "all" | "short-form";
+
 export default function CreativePage() {
   const [activeFilter, setActiveFilter] = useState<PortfolioKind | "all">("all");
+  const [videoSubFilter, setVideoSubFilter] = useState<VideoSubFilter>("all");
   // const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
   // const [activeCaseStudy, setActiveCaseStudy] = useState<PortfolioItem | null>(null);
   const [isAlbumModalOpen, setIsAlbumModalOpen] = useState(false);
@@ -675,6 +694,11 @@ export default function CreativePage() {
     { label: "All", value: "all" },
     { label: "Video", value: "video" },
     { label: "Photo", value: "photo" },
+  ];
+
+  const videoSubFilters: { label: string; value: VideoSubFilter }[] = [
+    { label: "All", value: "all" },
+    { label: "Short Form", value: "short-form" },
   ];
 
   const counts = useMemo(() => {
@@ -694,6 +718,16 @@ export default function CreativePage() {
     return base;
   }, []);
 
+  const videoSubCounts = useMemo(() => {
+    const videos = portfolioItems.filter(
+      (item) => (item.kind || (item.type === "image" ? "photo" : "video")) === "video"
+    );
+    return {
+      all: videos.length,
+      "short-form": videos.filter((item) => item.isVertical).length,
+    } as Record<VideoSubFilter, number>;
+  }, []);
+
   const filteredItems = useMemo(() => {
     if (activeFilter === "all") {
       return portfolioItems;
@@ -704,9 +738,15 @@ export default function CreativePage() {
       if (activeFilter === "photo" && kind === "album") {
         return true;
       }
-      return kind === activeFilter;
+      if (kind !== activeFilter) {
+        return false;
+      }
+      if (activeFilter === "video" && videoSubFilter === "short-form") {
+        return Boolean(item.isVertical);
+      }
+      return true;
     });
-  }, [activeFilter]);
+  }, [activeFilter, videoSubFilter]);
 
   const mediaItems = useMemo(() => {
     return filteredItems.filter((item) => {
@@ -734,12 +774,36 @@ export default function CreativePage() {
 
   const handleFilterClick = useCallback((value: PortfolioKind | "all") => {
     setActiveFilter(value);
+    setVideoSubFilter("all");
+    if (window.location.hash === "#short-form") {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }, []);
+
+  // Shareable URL: /create#short-form deep-links to the short form video subsection
+  const handleVideoSubFilterClick = useCallback((value: VideoSubFilter) => {
+    setVideoSubFilter(value);
+    window.history.replaceState(
+      null,
+      "",
+      value === "short-form" ? "#short-form" : window.location.pathname
+    );
   }, []);
 
   // Hash-based deep-linking: /create#the-jmc opens that item's lightbox or album modal
   useEffect(() => {
     const hash = window.location.hash.slice(1);
     if (!hash) return;
+
+    // Short form subsection deep-link
+    if (hash === "short-form") {
+      setActiveFilter("video");
+      setVideoSubFilter("short-form");
+      const timer = setTimeout(() => {
+        document.getElementById("creative-portfolio")?.scrollIntoView({ behavior: "smooth" });
+      }, 400);
+      return () => clearTimeout(timer);
+    }
 
     // Check albums first
     const albumMatch = portfolioItems.find(
@@ -766,7 +830,7 @@ export default function CreativePage() {
       window.dispatchEvent(new CustomEvent("open-lightbox-item", { detail: { itemId: match.id } }));
     }, 400);
     return () => clearTimeout(timer);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   // const handleCaseStudyOpen = useCallback((item: PortfolioItem) => {
   //   setActiveCaseStudy(item);
@@ -996,6 +1060,30 @@ export default function CreativePage() {
                   );
                 })}
               </div>
+
+              {/* Video subsection tabs */}
+              {activeFilter === "video" && (
+                <div className="flex flex-wrap justify-center gap-2 -mt-6 mb-12" role="group" aria-label="Video subsections">
+                  {videoSubFilters.map((subFilter) => {
+                    const isActive = videoSubFilter === subFilter.value;
+                    return (
+                      <button
+                        key={subFilter.value}
+                        type="button"
+                        onClick={() => handleVideoSubFilterClick(subFilter.value)}
+                        className={`px-4 py-1.5 text-xs font-medium uppercase tracking-wider rounded-sm border transition-all duration-200 focus:outline-none focus-visible:ring-2 ring-accent ${
+                          isActive
+                            ? "border-accent/40 bg-accent/10 text-accent"
+                            : "border-border text-muted-foreground hover:text-foreground hover:border-accent/30"
+                        }`}
+                        aria-pressed={isActive}
+                      >
+                        {`${subFilter.label} (${videoSubCounts[subFilter.value]})`}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.3}>
@@ -1004,7 +1092,7 @@ export default function CreativePage() {
                 {mediaItems.length > 0 && (
                   <VelocitySkew>
                     <LightboxGallery
-                      key={activeFilter}
+                      key={`${activeFilter}-${videoSubFilter}`}
                       items={mediaItems}
                       className="gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                       showTitles={true}
@@ -1015,7 +1103,12 @@ export default function CreativePage() {
                         window.history.replaceState(null, "", "#" + toSlug(item.id));
                       }}
                       onLightboxClose={() => {
-                        window.history.replaceState(null, "", window.location.pathname);
+                        // Restore the subsection hash so the URL stays shareable
+                        const baseHash =
+                          activeFilter === "video" && videoSubFilter === "short-form"
+                            ? "#short-form"
+                            : "";
+                        window.history.replaceState(null, "", window.location.pathname + baseHash);
                       }}
                     />
                   </VelocitySkew>
