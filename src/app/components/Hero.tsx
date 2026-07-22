@@ -29,7 +29,7 @@ function CinematicIntro({ onReveal, onDone }: { onReveal: () => void; onDone: ()
 
   useEffect(() => {
     if (!exiting) {
-      const t = window.setTimeout(startExit, 2000);
+      const t = window.setTimeout(startExit, 1000);
       return () => window.clearTimeout(t);
     }
     const t = window.setTimeout(onDone, 1000);
@@ -65,7 +65,7 @@ function CinematicIntro({ onReveal, onDone }: { onReveal: () => void; onDone: ()
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
+          transition={{ duration: 0.5, delay: 0.05 }}
           className="eyebrow text-accent"
         >
           Est. 2020 &middot; Yorkshire
@@ -78,7 +78,7 @@ function CinematicIntro({ onReveal, onDone }: { onReveal: () => void; onDone: ()
               aria-hidden="true"
               initial={{ opacity: 0, y: 26, filter: "blur(10px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.7, delay: 0.25 + i * 0.05, ease: EASE }}
+              transition={{ duration: 0.55, delay: 0.12 + i * 0.03, ease: EASE }}
             >
               {ch === " " ? " " : ch}
             </motion.span>
@@ -88,14 +88,14 @@ function CinematicIntro({ onReveal, onDone }: { onReveal: () => void; onDone: ()
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1.1, delay: 0.7, ease: EASE }}
+          transition={{ duration: 0.65, delay: 0.3, ease: EASE }}
           className="h-px w-44 md:w-72 bg-gradient-to-r from-transparent via-accent/80 to-transparent"
         />
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
           className="text-[0.6rem] font-medium tracking-[0.35em] uppercase text-muted-foreground/80"
         >
           Commercial Video &amp; Photography
