@@ -115,12 +115,12 @@ export default function BentoGrid() {
           href="/create"
           className="group relative block h-full w-full overflow-hidden rounded-sm min-h-[320px] md:min-h-0"
         >
-          {/* Full-bleed cinematic backdrop — real project still (ADJ St Helens sunrise drone) */}
+          {/* Full-bleed cinematic backdrop — real project still (ADJ Meadowhead) */}
           <div
             className="absolute inset-0 bg-cover bg-center grayscale brightness-[0.45] group-hover:brightness-[0.55] group-hover:scale-[1.03] transition-all duration-700 ease-out"
             style={{
               backgroundImage:
-                "url('https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_st_helens.webp')",
+                "url('https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_meadowhead_thumbnail.webp')",
             }}
           />
           {/* Bottom-weighted gradient so text is legible */}

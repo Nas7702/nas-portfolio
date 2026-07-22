@@ -44,6 +44,7 @@ type PortfolioKind = "video" | "photo" | "case" | "album";
 interface PortfolioItem extends MediaItem {
   kind?: PortfolioKind;
   tags?: string[];
+  industrial?: boolean;
   role?: string;
   date?: string;
   slug?: string;
@@ -217,6 +218,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "ADJ: Meadowhead",
     alt: "ADJ Surfacing Morrisons Meadowhead completion film thumbnail",
     tags: ["Commercial", "Drone", "Corporate Film", "Night Works", "Cinematic"],
+    industrial: true,
     client: "ADJ Surfacing & Consultancy Ltd",
     outcome: "ADJ's best-performing industrial film to date, already generating inbound enquiries.",
     role: "Director, DP & Editor",
@@ -233,6 +235,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "ADJ: Aintree",
     alt: "ADJ Surfacing Aintree completion film thumbnail",
     tags: ["Commercial", "Drone", "Corporate Film", "Cinematic"],
+    industrial: true,
     client: "ADJ Surfacing & Consultancy Ltd",
     role: "Director, DP & Editor",
     date: "2025",
@@ -297,6 +300,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "ADJ: Enfield Night Works",
     alt: "ADJ Surfacing Enfield night works reel thumbnail",
     tags: ["Commercial", "Corporate Film", "Night Works", "Cinematic"],
+    industrial: true,
     client: "ADJ Surfacing & Consultancy Ltd",
     role: "Director, DP & Editor",
     date: "2026",
@@ -361,22 +365,6 @@ const portfolioItems: PortfolioItem[] = [
     role: "Director, DP & Editor",
     date: "2025",
     description: "Brand film for JMC, a creative director working with leading YouTubers. Produced to capture his creative identity and attract high-profile creator clients.",
-  },
-  {
-    id: "ADJ St Helens Retail Park",
-    type: "video",
-    kind: "video",
-    src: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/ADJ_St_Helens.mp4",
-    thumbnail: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_st_helens.webp",
-    cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_adj_st_helens.webp",
-    title: "ADJ: St Helens",
-    alt: "ADJ Surfacing St Helens completion film thumbnail",
-    tags: ["Commercial", "Drone", "Corporate Film", "Cinematic"],
-    client: "ADJ Surfacing & Consultancy Ltd",
-    outcome: "Reached senior industry figures within days of posting.",
-    role: "Director, DP & Editor",
-    date: "2025",
-    description: "Completion film for ADJ Surfacing's St Helens Retail Park project. 5,000m² of commercial resurfacing documented at sunrise before the site opened. Cinematic drone footage, motion graphics overlaying scope of works, and golden-hour framing turned a technical deliverable into a LinkedIn asset that reached senior industry figures within days of posting.",
   },
   {
     id: "Kyle Allen Physique Coaching",
@@ -674,7 +662,19 @@ const portfolioItems: PortfolioItem[] = [
   },
 ];
 
-type VideoSubFilter = "all" | "short-form";
+type VideoSubFilter = "all" | "short-form" | "industrial";
+
+// Video subsection definitions — each non-"all" value doubles as a shareable
+// URL hash (/create#short-form, /create#industrial)
+const videoSubFilterDefs: {
+  label: string;
+  value: VideoSubFilter;
+  matches: (item: PortfolioItem) => boolean;
+}[] = [
+  { label: "All", value: "all", matches: () => true },
+  { label: "Short Form", value: "short-form", matches: (item) => Boolean(item.isVertical) },
+  { label: "Industrial", value: "industrial", matches: (item) => Boolean(item.industrial) },
+];
 
 export default function CreativePage() {
   const [activeFilter, setActiveFilter] = useState<PortfolioKind | "all">("all");
@@ -696,10 +696,6 @@ export default function CreativePage() {
     { label: "Photo", value: "photo" },
   ];
 
-  const videoSubFilters: { label: string; value: VideoSubFilter }[] = [
-    { label: "All", value: "all" },
-    { label: "Short Form", value: "short-form" },
-  ];
 
   const counts = useMemo(() => {
     const base = portfolioItems.reduce(
@@ -722,10 +718,9 @@ export default function CreativePage() {
     const videos = portfolioItems.filter(
       (item) => (item.kind || (item.type === "image" ? "photo" : "video")) === "video"
     );
-    return {
-      all: videos.length,
-      "short-form": videos.filter((item) => item.isVertical).length,
-    } as Record<VideoSubFilter, number>;
+    return Object.fromEntries(
+      videoSubFilterDefs.map((def) => [def.value, videos.filter(def.matches).length])
+    ) as Record<VideoSubFilter, number>;
   }, []);
 
   const filteredItems = useMemo(() => {
@@ -741,8 +736,9 @@ export default function CreativePage() {
       if (kind !== activeFilter) {
         return false;
       }
-      if (activeFilter === "video" && videoSubFilter === "short-form") {
-        return Boolean(item.isVertical);
+      if (activeFilter === "video" && videoSubFilter !== "all") {
+        const def = videoSubFilterDefs.find((d) => d.value === videoSubFilter);
+        return def ? def.matches(item) : true;
       }
       return true;
     });
@@ -775,18 +771,19 @@ export default function CreativePage() {
   const handleFilterClick = useCallback((value: PortfolioKind | "all") => {
     setActiveFilter(value);
     setVideoSubFilter("all");
-    if (window.location.hash === "#short-form") {
+    const hash = window.location.hash.slice(1);
+    if (videoSubFilterDefs.some((def) => def.value === hash)) {
       window.history.replaceState(null, "", window.location.pathname);
     }
   }, []);
 
-  // Shareable URL: /create#short-form deep-links to the short form video subsection
+  // Shareable URL: the subsection value becomes the hash (/create#short-form, /create#industrial)
   const handleVideoSubFilterClick = useCallback((value: VideoSubFilter) => {
     setVideoSubFilter(value);
     window.history.replaceState(
       null,
       "",
-      value === "short-form" ? "#short-form" : window.location.pathname
+      value === "all" ? window.location.pathname : "#" + value
     );
   }, []);
 
@@ -795,14 +792,24 @@ export default function CreativePage() {
     const hash = window.location.hash.slice(1);
     if (!hash) return;
 
-    // Short form subsection deep-link
-    if (hash === "short-form") {
+    // Video subsection deep-link (#short-form, #industrial)
+    const subFilterDef = videoSubFilterDefs.find(
+      (def) => def.value !== "all" && def.value === hash
+    );
+    if (subFilterDef) {
       setActiveFilter("video");
-      setVideoSubFilter("short-form");
-      const timer = setTimeout(() => {
+      setVideoSubFilter(subFilterDef.value);
+      const scrollToPortfolio = () =>
         document.getElementById("creative-portfolio")?.scrollIntoView({ behavior: "smooth" });
-      }, 400);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(scrollToPortfolio, 400);
+      // Late-loading dynamic sections can cancel the first smooth scroll — retry once
+      const retryTimer = setTimeout(() => {
+        if (window.scrollY < 200) scrollToPortfolio();
+      }, 1500);
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(retryTimer);
+      };
     }
 
     // Check albums first
@@ -1064,7 +1071,7 @@ export default function CreativePage() {
               {/* Video subsection tabs */}
               {activeFilter === "video" && (
                 <div className="flex flex-wrap justify-center gap-2 -mt-6 mb-12" role="group" aria-label="Video subsections">
-                  {videoSubFilters.map((subFilter) => {
+                  {videoSubFilterDefs.map((subFilter) => {
                     const isActive = videoSubFilter === subFilter.value;
                     return (
                       <button
@@ -1105,8 +1112,8 @@ export default function CreativePage() {
                       onLightboxClose={() => {
                         // Restore the subsection hash so the URL stays shareable
                         const baseHash =
-                          activeFilter === "video" && videoSubFilter === "short-form"
-                            ? "#short-form"
+                          activeFilter === "video" && videoSubFilter !== "all"
+                            ? "#" + videoSubFilter
                             : "";
                         window.history.replaceState(null, "", window.location.pathname + baseHash);
                       }}
