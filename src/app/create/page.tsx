@@ -234,12 +234,13 @@ const portfolioItems: PortfolioItem[] = [
     cover: "https://pub-92e1443c56394daeb0a2b18a08feffdc.r2.dev/thumbnail/sq_jcb_digger_dance_thumbnail.webp",
     title: "JCB Digger Dance",
     alt: "JCB telehandler balancing on its bucket during a machine display thumbnail",
-    tags: ["Construction", "Social", "Vertical", "Cinematic"],
+    tags: ["JCB", "Social", "Vertical", "Cinematic"],
     industrial: true,
-    client: "Personal",
+    client: "JCB",
+    outcome: "Produced for JCB's social channels and delivered the same day.",
     role: "Director, DP & Editor",
     date: "2026",
-    description: "High-energy vertical reel capturing a JCB machine-handling display, with backhoes and telehandlers balancing and manoeuvring on their buckets and arms. Fast cutting, ground-level angles and in-cab coverage turn a live show into a punchy social piece that shows off heavy plant with real personality.",
+    description: "A vertical social reel of JCB's digger dance display at FixFest, Delapré Abbey. I filmed and produced the piece for JCB's social channels and delivered it the same day. Ground-level angles, in-cab coverage and fast cutting turn the live machine-handling show into a punchy vertical edit.",
     isVertical: true,
   },
   {
@@ -705,8 +706,8 @@ const videoSubFilterDefs: {
   matches: (item: PortfolioItem) => boolean;
 }[] = [
   { label: "All", value: "all", matches: () => true },
-  { label: "Short Form", value: "short-form", matches: (item) => Boolean(item.isVertical) },
   { label: "Industrial", value: "industrial", matches: (item) => Boolean(item.industrial) },
+  { label: "Short Form", value: "short-form", matches: (item) => Boolean(item.isVertical) },
 ];
 
 export default function CreativePage() {
