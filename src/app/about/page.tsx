@@ -1,18 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
 import { useRef, ReactNode } from "react";
-import Image from "next/image";
 import ScrollReveal from "../components/ScrollReveal";
 import PageTransition from "../components/PageTransition";
 import CreativeCTA from "../components/CreativeCTA";
 import { Camera, Clapperboard, Sparkles, Trophy, LucideIcon } from "lucide-react";
-
-const PortraitSmoke = dynamic(
-  () => import("../components/PortraitSmoke").then((m) => ({ default: m.PortraitSmoke })),
-  { ssr: false }
-);
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -82,74 +75,22 @@ export default function AboutPage() {
   return (
     <PageTransition>
       <div ref={containerRef} className="min-h-screen bg-background pb-24 pt-8 md:pt-24">
-        {/* Hero — editorial split */}
-        {/*
-          Glow sits on a full-viewport-width wrapper so it is never clipped by
-          max-w constraints. Separate desktop / mobile variants keep the centre
-          point behind the figure in both layouts.
-        */}
-        <div className="relative w-full mb-24">
-          {/* Desktop glow: figure lives in the left column (~25-30 % from viewport left) */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none hidden md:block"
-            style={{
-              background: "radial-gradient(ellipse 52% 70% at 27% 50%, rgba(212, 199, 179, 0.13) 0%, transparent 65%)"
-            }}
-          />
-          {/* Mobile glow: figure is centred, upper portion of the stacked layout */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none md:hidden"
-            style={{
-              background: "radial-gradient(ellipse 85% 42% at 50% 30%, rgba(212, 199, 179, 0.13) 0%, transparent 65%)"
-            }}
-          />
-
-          <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-            {/* Photo */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="flex justify-center md:justify-end"
-            >
-              <div className="relative w-[280px] sm:w-[320px] md:w-full md:max-w-[420px] aspect-square">
-                {/* Atmospheric smoke sits behind the portrait */}
-                <PortraitSmoke />
-                <div className="absolute inset-0 rounded-lg border border-border overflow-hidden shadow-2xl shadow-black/60 z-10">
-                  <Image
-                    src="/images/nas-portrait-2026.jpg"
-                    alt="Nas Hoque, commercial videographer and photographer"
-                    fill
-                    sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, 420px"
-                    className="object-cover rounded-[inherit]"
-                    priority
-                  />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Text */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col justify-center text-center md:text-left"
-            >
-              <p className="eyebrow mb-4">The Person</p>
-              <h1 className="text-cine text-[clamp(3rem,7vw,5.5rem)] mb-6 text-foreground">
-                About Me
-              </h1>
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto md:mx-0">
-                I&apos;m Nas. I make commercial video for businesses that need content with a purpose. Brand films, Meta ads, event coverage.
-              </p>
-            </motion.div>
-
-          </div>
-          </div>
+        {/* Hero */}
+        <div className="max-w-6xl mx-auto px-6 mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col items-center text-center"
+          >
+            <p className="eyebrow mb-4">The Person</p>
+            <h1 className="text-cine text-[clamp(3rem,7vw,5.5rem)] mb-6 text-foreground">
+              About Me
+            </h1>
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto">
+              I&apos;m Nas. I make commercial video for businesses that need content with a purpose. Brand films, Meta ads, event coverage.
+            </p>
+          </motion.div>
         </div>
 
         {/* Scrollytelling Timeline */}
